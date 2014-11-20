@@ -1,7 +1,7 @@
 # language: ca
 
 #noinspection SpellCheckingInspection
-Característica: Create new product
+Característica: Donar d'alta un producte al catàl·leg
 
   Escenari: Crear un nou producte
     Donat un producte "Prod1"

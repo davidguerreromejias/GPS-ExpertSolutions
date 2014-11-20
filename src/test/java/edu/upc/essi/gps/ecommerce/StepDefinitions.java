@@ -19,11 +19,6 @@ public class StepDefinitions {
     private List<Product> resultProducts;
     private Exception exception;
 
-    @Given("^a product \"([^\"]*)\"$")
-    public void a_product(String productName) throws Throwable {
-        productsService.newProduct(productName);
-    }
-
     @When("^un producte \"([^\"]*)\"$")
     public void I_create_a_product(String productName) throws Throwable {
         productsService.newProduct(productName);
