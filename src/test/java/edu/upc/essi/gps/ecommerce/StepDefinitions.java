@@ -1,6 +1,5 @@
 package edu.upc.essi.gps.ecommerce;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -19,7 +18,7 @@ public class StepDefinitions {
     private List<Product> resultProducts;
     private Exception exception;
 
-    @When("^un producte \"([^\"]*)\"$")
+    @Given("^un producte \"([^\"]*)\"$")
     public void I_create_a_product(String productName) throws Throwable {
         productsService.newProduct(productName);
     }
