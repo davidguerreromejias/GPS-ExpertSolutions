@@ -12,9 +12,9 @@ public class ProductsService {
         this.productsRepository = productsRepository;
     }
 
-    public void newProduct(String name){
+    public void newProduct(String name, int price, int vatPct, int barCode){
         long id = productsRepository.newId();
-        Product result = new Product(id,name);
+        Product result = new Product(id,name, price, vatPct, barCode);
         productsRepository.insert(result);
     }
 
@@ -28,5 +28,9 @@ public class ProductsService {
 
     public Product findByName(String productName) {
         return productsRepository.findByName(productName);
+    }
+
+    public Product findByBarCode(int barCode) {
+        return productsRepository.findByBarCode(barCode);
     }
 }

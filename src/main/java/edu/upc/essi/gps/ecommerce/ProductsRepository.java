@@ -19,8 +19,12 @@ public class ProductsRepository extends Repository<Product> {
         return find(Matchers.nameMatcher(name));
     }
 
+    public Product findByBarCode(final int barCode){
+        return find((p) -> p.getBarCode() == barCode);
+    }
+
     @Override
-    protected void checkInsert(Product entity) throws RuntimeException {
+    protected void checkInsert(final Product entity) throws RuntimeException {
         if(findByName(entity.getName())!=null)
             throw new IllegalArgumentException("Ja existeix un producte amb aquest nom");
     }
