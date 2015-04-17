@@ -15,7 +15,7 @@ Projecte de partida per al laboratori de GPS de la FIB, curs de primavera de 201
 4. Marqueu l'opció "Wiki"
 5. Premeu acceptar
 6. Compartiu el repositori amb els vostres companys de grup
-	- Des de https://bitbucket.org/\<username\>/\<nomRepo\>
+	- Des de https://bitbucket.org/$username/$nomRepo
 	- Seleccioneu Settings (icona d'engranatge de l'esquerra)
 	- Seleccioneu Access Management
 	- Afegiu "jordipradel" amb drets d'escriptura (no d'administració)
@@ -23,14 +23,14 @@ Projecte de partida per al laboratori de GPS de la FIB, curs de primavera de 201
 
 ## Crear el backlog
 
-1. Des de https://bitbucket.org/\<username\>/\<nomRepo\>
+1. Des de https://bitbucket.org/$username/$nomRepo
 2. Aneu a la wiki del projecte (icona d'un full a l'esquerra)
 3. Creeu una nova pàgina anomenada "Backlog"
 4. Ompliu-la seguint l'exemple de backlog d'[aquí](https://bitbucket.org/jordipradel/gps-jj/wiki/Backlog)
 
 ## Preparar el vostre fitxer README.md
 
-1. Des de https://bitbucket.org/\<username\>/\<nomRepo\> o des del vostre clon del repositori
+1. Des de https://bitbucket.org/$username/$nomRepo o des del vostre clon del repositori
 2. Editeu aquest fitxer README.md i esborreu els apartats d'instruccions:
 	- "Crear el repositori del vostre grup"
 	- "Crear el backlog"
