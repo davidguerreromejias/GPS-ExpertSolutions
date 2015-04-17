@@ -36,7 +36,7 @@ public class PosController {
         return currentSale;
     }
 
-    public void scanBarCode(int barCode) {
+    public void addProductByBarCode(int barCode) {
         if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
         Product p = productsService.findByBarCode(barCode);
         currentSale.addProduct(p);
@@ -56,5 +56,9 @@ public class PosController {
         }
         sb.append("---\n").append("Total: ").append(currentSale.getTotal()).append("€");
         return sb.toString();
+    }
+
+    public int cashPayment(int delivered) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

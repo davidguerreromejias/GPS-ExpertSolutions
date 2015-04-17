@@ -18,5 +18,5 @@ Característica: Iniciar una venta
 
   Escenari: No es pot iniciar una venta si ja hi ha una venta iniciada
     Donat que hi ha una venta iniciada
-    Quan intento iniciar una venta
+    Quan inicio una nova venta
     Aleshores obtinc un error que diu: "Aquest tpv ja té una venta iniciada"

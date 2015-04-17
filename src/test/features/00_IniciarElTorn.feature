@@ -12,5 +12,5 @@ Característica: Iniciar el torn al tpv
 
   Escenari: Un venedor no pot inicar el torn si ja hi ha un altre venedor al tpv
     Donat que en "Martí" ha iniciat el torn al tpv
-    Quan intento iniciar el torn al tpv com a "Joan"
-    Aleshores el sistema retorna el missatge d'error "Aquest tpv està en ús per Martí"
+    Quan inicio el torn al tpv com a "Joan"
+    Aleshores obtinc un error que diu: "Aquest tpv està en ús per Martí"
