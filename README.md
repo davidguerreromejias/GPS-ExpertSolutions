@@ -15,4 +15,4 @@ Projecte de partida per al laboratori de GPS de la FIB, curs de primavera de 201
 
 ## Enllaços
 
-- [Backlog](https://bitbucket.org/jordipradel/gps-jj/wiki/Backlog)
+- [Backlog](https://bitbucket.org/gerardduch/gps-jj-expertsolutions/wiki/Backlog)
