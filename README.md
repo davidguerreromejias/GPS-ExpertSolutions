@@ -27,7 +27,7 @@ Projecte de partida per al laboratori de GPS de la FIB, curs de primavera de 201
 1. Des de https://bitbucket.org/$username/$nomRepo
 2. Aneu a la wiki del projecte (icona d'un full a l'esquerra)
 3. Creeu una nova pàgina anomenada "Backlog"
-4. Ompliu-la seguint l'exemple de backlog d'[aquí](https://bitbucket.org/jordipradel/gps-jj/wiki/Backlog)
+4. Ompliu-la seguint l'exemple de backlog d'[aquí](https://dl.dropboxusercontent.com/u/60774636/BacklogExample.md)
 
 ## Preparar el vostre fitxer README.md
 
