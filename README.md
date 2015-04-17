@@ -2,10 +2,6 @@
 
 Projecte de partida per al laboratori de GPS de la FIB, curs de primavera de 2015
 
-3. Ompliu l'apartat "Components del grup" seguint els exemples (i esborrant-los)
-4. Actualitzeu l'enllaç al backlog per a que apunti a la vostra pàgina de backlog
-
-
 ## Components del grup
 
 - David Guerrero Mejias (41527347L) - david.guerrero@est.fib.upc.edu
