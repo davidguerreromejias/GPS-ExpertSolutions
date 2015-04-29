@@ -5,11 +5,12 @@ Projecte de partida per al laboratori de GPS de la FIB, curs de primavera de 201
 ## Crear el repositori del vostre grup
 
 1. Seleccioneu l'opció Fork del menú de l'esquerra (de vegades "amagada" dins la icona dels punts suspensius).
-2. Poseu el vostre nom de grup com a nom del repositori
+2. Poseu com a nom del repositori: "gps-jj-$nomGrup"
 
-    - Tal com el vau enviar per correu
-    - Sense espais en blanc
-    - Fent servir camelCase i no altres_maneres-de-separar_les_parts
+    - $nomGrup és el nom del vostre grup tal com el vau enviar per correu
+    - $nomGrup no ha de tenir espais en blanc
+    - Dins $nomGrup feu servir camelCase i no altres_maneres-de-separar_les_parts
+    - Exemple: `gps-jj-agileRocksOhYeah`
 
 3. Marqueu el repositori com a privat
 4. Marqueu l'opció "Wiki"
@@ -26,7 +27,7 @@ Projecte de partida per al laboratori de GPS de la FIB, curs de primavera de 201
 1. Des de https://bitbucket.org/$username/$nomRepo
 2. Aneu a la wiki del projecte (icona d'un full a l'esquerra)
 3. Creeu una nova pàgina anomenada "Backlog"
-4. Ompliu-la seguint l'exemple de backlog d'[aquí](https://bitbucket.org/jordipradel/gps-jj/wiki/Backlog)
+4. Ompliu-la seguint l'exemple de backlog d'[aquí](https://dl.dropboxusercontent.com/u/60774636/BacklogExample.md)
 
 ## Preparar el vostre fitxer README.md
 
