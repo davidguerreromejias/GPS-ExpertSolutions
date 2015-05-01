@@ -26,6 +26,7 @@ public class StepDefinitions {
     @Aleshores("^obtinc un error que diu: \"([^\"]*)\"$")
     public void checkErrorMessage(String msg) throws Throwable {
         assertNotNull(this.exception);
+        //this.exception = new RuntimeException("No es pot cobrar una venta sense cap producte");
         assertEquals(msg, this.exception.getMessage());
     }
 
@@ -114,6 +115,6 @@ public class StepDefinitions {
 
     @Aleshores("^el tpv m'indica que el canvi a retornar és de (\\d+)€$")
     public void checkChange(int expectedChange) throws Throwable {
-        assertEquals(expectedChange,change);
+        assertEquals(expectedChange, change);
     }
 }
