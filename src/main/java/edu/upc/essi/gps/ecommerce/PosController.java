@@ -59,8 +59,12 @@ public class PosController {
     }
 
     public int cashPayment(int delivered){
-        int canvi = delivered-getCurrentSale().getTotal();
-        if(canvi < 0) throw new RuntimeException("La quantitat rebuda és inferior a l'import de la venda.");
-        return canvi;
+        if(getCurrentSale() != null)
+        {
+            int canvi = delivered-getCurrentSale().getTotal();
+            if(canvi < 0) throw new RuntimeException("La quantitat rebuda és inferior a l'import de la venda.");
+            return canvi;
+        }
+        throw new RuntimeException("No existeix cap venta.");
     }
 }
