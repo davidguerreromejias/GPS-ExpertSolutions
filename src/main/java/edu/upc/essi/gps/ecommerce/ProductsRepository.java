@@ -19,6 +19,11 @@ public class ProductsRepository extends Repository<Product> {
         return find(Matchers.nameMatcher(name));
     }
 
+    public Product findById(final long id) {
+        return find((p) -> p.getId() == id);
+    }
+    }
+
     public Product findByBarCode(final int barCode){
         return find((p) -> p.getBarCode() == barCode);
     }

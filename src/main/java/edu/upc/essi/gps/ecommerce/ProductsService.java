@@ -30,6 +30,10 @@ public class ProductsService {
         return productsRepository.findByName(productName);
     }
 
+    public Product findById(long id) {
+        return productsRepository.findById(id);
+    }
+
     public Product findByBarCode(int barCode) {
         return productsRepository.findByBarCode(barCode);
     }
