@@ -46,6 +46,10 @@ class SaleLine{
     public void setDiscount(Discount d){
         discount = d;
     }
+
+    public Discount getDiscount(){
+        return discount;
+    }
 }
 
 public class Sale {
