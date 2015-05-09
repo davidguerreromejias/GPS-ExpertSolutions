@@ -9,12 +9,14 @@ class SaleLine{
     private String productName;
     private int unitPrice;
     private int amount;
+    private Discount discount;
 
     public SaleLine(Product product, int amount) {
         this.productId = product.getId();
         this.productName = product.getName();
         this.unitPrice = product.getPrice();
         this.amount = amount;
+        this.discount = new Discount("None",100);
     }
 
     public long getProductId() {
@@ -33,8 +35,16 @@ class SaleLine{
         return amount;
     }
 
-    public int getTotalPrice() {
+    public int getTotalPriceRaw() {
         return unitPrice * amount;
+    }
+
+    public int getTotalPrice() {
+        return unitPrice * amount * discount.getAmountDiscount();
+    }
+
+    public void setDiscount(Discount d){
+        discount = d;
     }
 }
 
@@ -42,16 +52,21 @@ public class Sale {
     private final String shop;
     private final int posNumber;
     private final String saleAssistantName;
-    private final List<SaleLine> lines = new LinkedList<>();
+    private final LinkedList<SaleLine> lines = new LinkedList<>();
+    private Discount activeDiscount;
 
     public void addProduct(Product p) {
         lines.add(new SaleLine(p,1));
+        if(activeDiscount.getTypeOfDiscount().equals("percentatge")) {
+            lines.getLast().setDiscount(activeDiscount);
+        }
     }
 
     public Sale(String shop, int posNumber, String saleAssistantName) {
         this.shop = shop;
         this.posNumber = posNumber;
         this.saleAssistantName = saleAssistantName;
+        activeDiscount = new Discount("None", 0);
     }
 
     public String getShop() {
@@ -80,5 +95,9 @@ public class Sale {
 
     public boolean isEmpty() {
         return lines.isEmpty();
+    }
+
+    public void setActiveDiscount(String type, int amount){
+        activeDiscount = new Discount(type,amount);
     }
 }

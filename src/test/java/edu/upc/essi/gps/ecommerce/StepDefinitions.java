@@ -86,7 +86,7 @@ public class StepDefinitions {
 
     @Aleshores("^la venta té (\\d+) (?:línia|línies)$")
     public void la_venta_té_n_linies(int expectedNumberOfLines) throws Throwable {
-        assertEquals(expectedNumberOfLines,this.posController.getCurrentSale().getLines().size());
+        assertEquals(expectedNumberOfLines, this.posController.getCurrentSale().getLines().size());
     }
 
     @Aleshores("^línia de venta (\\d+) és de (\\d+) unitats de \"([^\"]*)\" a (\\d+)€ cada una per un total de (\\d+)€$")
@@ -94,7 +94,7 @@ public class StepDefinitions {
         SaleLine sl = this.posController.getCurrentSale().getLines().get(lineNumber - 1);
         assertEquals(units,sl.getAmount());
         assertEquals(unitPrice,sl.getUnitPrice());
-        assertEquals(totalPrice,sl.getTotalPrice());
+        assertEquals(totalPrice,sl.getTotalPriceRaw());
         assertEquals(productName, sl.getProductName());
     }
 
@@ -116,5 +116,15 @@ public class StepDefinitions {
     @Aleshores("^el tpv m'indica que el canvi a retornar és de (\\d+)€$")
     public void checkChange(int expectedChange) throws Throwable {
         assertEquals(expectedChange, change);
+    }
+
+    @Donat("^que hi ha un descompte definit en el sistema de tipus (.*) d'un (\\d+)%$")
+    public void createPercDiscount(String type, int amountDisc) throws Throwable {
+        this.posController.createPercDiscount(type, amountDisc);
+    }
+
+    @Quan("^apreto sobre el descompte 50% existent$")
+    public void applyDiscount() throws Throwable{
+        this.posController.applyDiscount();
     }
 }

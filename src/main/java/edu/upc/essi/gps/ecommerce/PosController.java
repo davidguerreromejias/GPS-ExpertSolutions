@@ -9,6 +9,7 @@ public class PosController {
     private final int posNumber;
     private String currentSaleAssistantName;
     private Sale currentSale;
+    private Discount discPerc;
 
     public PosController(String shop, int posNumber, ProductsService productsService) {
         this.shop = shop;
@@ -66,5 +67,13 @@ public class PosController {
             if (canvi < 0) throw new RuntimeException("La quantitat rebuda és inferior a l'import de la venda.");
             return canvi;
         }
+    }
+
+    public void createPercDiscount(String type, int quant) {
+        discPerc = new Discount(type,quant);
+    }
+    public void applyDiscount(){
+        if(getCurrentSale() == null) throw new IllegalStateException("No hi ha cap venta iniciada");
+        currentSale.setActiveDiscount(discPerc.getTypeOfDiscount(),discPerc.getAmountDiscount());
     }
 }
