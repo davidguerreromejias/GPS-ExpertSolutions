@@ -63,13 +63,19 @@ public class PosController {
         return sb.toString();
     }
 
-    public int cashPayment(int delivered){
-        if(getCurrentSale() == null) throw new IllegalStateException("No es pot cobrar una venta si no està iniciada");
-        else if (getCurrentSale().isEmpty()) throw new IllegalStateException("No es pot cobrar una venta sense cap producte");
+    public String cashPayment(int delivered, String paymentForm) {
+        String endMessage = "La venta ha estat finalitzada i enrigistrada correctament.";
+        if (getCurrentSale() == null) throw new IllegalStateException("No es pot cobrar una venta si no està iniciada");
+        else if (getCurrentSale().isEmpty())
+            throw new IllegalStateException("No es pot cobrar una venta sense cap producte");
         else {
-            int canvi = delivered - getCurrentSale().getTotal();
-            if (canvi < 0) throw new RuntimeException("La quantitat rebuda és inferior a l'import de la venda.");
-            return canvi;
+            if (paymentForm == "efectiu") {
+                int canvi = delivered - getCurrentSale().getTotal();
+                if (canvi < 0) throw new RuntimeException("La quantitat rebuda és inferior a l'import de la venda.");
+                else {
+                    return "El canvi és: " + canvi + endMessage;
+                }
+            }
         }
     }
 
