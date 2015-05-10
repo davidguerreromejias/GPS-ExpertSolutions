@@ -12,7 +12,7 @@ public class StepDefinitions {
     private ProductsService productsService = new ProductsService(new ProductsRepository());
     private Exception exception;
     private PosController posController;
-    private int change;
+    private String change;
 
     public void tryCatch(Runnable r){
         try {
