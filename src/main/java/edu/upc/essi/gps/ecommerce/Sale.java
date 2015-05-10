@@ -58,6 +58,7 @@ public class Sale {
     private final String saleAssistantName;
     private final LinkedList<SaleLine> lines = new LinkedList<>();
     private Discount activeDiscount;
+    private final String paymentForm;
 
     public void addProduct(Product p) {
         lines.add(new SaleLine(p,1));
@@ -71,6 +72,7 @@ public class Sale {
         this.posNumber = posNumber;
         this.saleAssistantName = saleAssistantName;
         activeDiscount = new Discount("None", 0);
+        this.paymentForm = "efectiu";
     }
 
     public String getShop() {
