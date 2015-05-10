@@ -72,10 +72,8 @@ public class PosController {
             if (paymentForm == "efectiu") {
                 int canvi = delivered - getCurrentSale().getTotal();
                 if (canvi < 0) throw new RuntimeException("La quantitat rebuda és inferior a l'import de la venda.");
-                else {
-                    return "El canvi és: " + canvi + endMessage;
-                }
             }
+            return "El canvi és: " + canvi + endMessage;
         }
     }
 
