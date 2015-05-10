@@ -19,7 +19,9 @@ Característica: Aplicar descomptes del % a conjunts de productes
     I el total de la venta actual és de 10€
     I la pantalla del client del tpv mostra
     """
-    Optimus Prime - 23€/u x 1u = 23€
+    Optimus Prime - 20€/u x 1u = 20€
+    -50% 10€
+    10€
     ---
-    Total: 23€
+    Total: 10€
     """

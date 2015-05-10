@@ -53,7 +53,11 @@ public class PosController {
         for (SaleLine sl : currentSale.getLines()) {
             sb.append(sl.getProductName()).append(" - ")
                     .append(sl.getUnitPrice()).append("€/u x ").append(sl.getAmount()).append("u = ")
-                    .append(sl.getTotalPrice()).append("€\n");
+                    .append(sl.getTotalPriceRaw()).append("€\n");
+            if(discPerc.getTypeOfDiscount().equals("percentatge")){
+                sb.append("-").append(sl.getDiscount().getAmountDiscount()).append("% ").append(sl.getTotalPriceRaw()-sl.getTotalPrice()).append("€\n");
+                sb.append(sl.getTotalPrice());
+            }
         }
         sb.append("---\n").append("Total: ").append(currentSale.getTotal()).append("€");
         return sb.toString();
