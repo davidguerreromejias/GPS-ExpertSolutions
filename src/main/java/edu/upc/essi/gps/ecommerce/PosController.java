@@ -69,8 +69,8 @@ public class PosController {
         else if (getCurrentSale().isEmpty())
             throw new IllegalStateException("No es pot cobrar una venta sense cap producte");
         else {
+            int canvi = delivered - getCurrentSale().getTotal();
             if (paymentForm == "efectiu") {
-                int canvi = delivered - getCurrentSale().getTotal();
                 if (canvi < 0) throw new RuntimeException("La quantitat rebuda és inferior a l'import de la venda.");
             }
             return "El canvi és: " + canvi + endMessage;
