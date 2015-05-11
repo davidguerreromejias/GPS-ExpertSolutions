@@ -6,30 +6,31 @@ import java.util.*;
  * Created by laperlablancaIV on 11/5/15.
  */
 
-class saleOf{
-    String saleAssistant;
-    Sale sale;
-}
-
 public class historicSales {
-    private Map<Date, ArrayList> historic = new TreeMap<Date, ArrayList>();
 
-    public Map<Date, ArrayList> getHistoric() {
+    private Map<Date, TreeMap> historic = new TreeMap<Date, TreeMap>();
+
+    public Map<Date, TreeMap> getHistoric() {
         return historic;
     }
 
-    public void setHistoric(Map<Date, ArrayList> historic) {
+    public void setHistoric(Map<Date, TreeMap> historic) {
         this.historic = historic;
     }
 
     public void setSale(Sale sale, Date dateSale){
-        ArrayList<saleOf> sales = new ArrayList<saleOf>();
+        TreeMap<String, Sale> sales = new TreeMap<String, Sale>();
         String saleA = sale.getSaleAssistantName();
-        saleOf sOf = new saleOf();
-        sOf.saleAssistant = saleA;
-        sOf.sale = sale;
-        sales.add(sOf);
+        sales.put(saleA, sale);
         historic.put(dateSale, sales);
+    }
+
+    public Map<Date, TreeMap> getSalesByDate(Date data){
+        return historic.get(data);
+    }
+
+    public Map<Date, TreeMap> getSaleByDateAndAssistant(String assistant, Date data){
+        return (Map<Date, TreeMap>) historic.get(data).get(assistant);
     }
 
 }
