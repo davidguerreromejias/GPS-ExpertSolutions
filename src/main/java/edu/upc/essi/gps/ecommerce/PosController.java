@@ -46,6 +46,12 @@ public class PosController {
     public void addProductByBarCode(int barCode, int amount) {
         if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
         Product p = productsService.findByBarCode(barCode);
+        currentSale.addNProducts(p, amount);
+    }
+
+    public void addProductByName(String nom, int amount) {
+        if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
+        Product p = productsService.findByName(nom);
         currentSale.addNProducts(p,amount);
     }
 

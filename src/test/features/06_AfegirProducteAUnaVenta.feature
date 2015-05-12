@@ -13,3 +13,6 @@ Característica: Afegir un producte a una venta
     Quan afegeixo el producte de codi de barres 1234567 a la venta amb quantitat 2
     Aleshores la última línia de la venta és de 2 unitats de "Optimus Prime" a 23€ cada una per un total de 46€
 
+  Escenari: Afegir un producte per nom a la venta
+    Quan afegeixo el producte de nom "Optimus Prime" a la venta amb quantitat 3
+    Aleshores la última línia de la venta és de 3 unitats de "Optimus Prime" a 23€ cada una per un total de 69€

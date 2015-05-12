@@ -86,6 +86,11 @@ public class StepDefinitions {
         this.posController.addProductByBarCode(barCode,amount);
     }
 
+    @Quan("^afegeixo el producte de nom \"([^\"]*)\" a la venta amb quantitat (\\d+)$")
+    public void addProductByName(String nom, int amount) throws Throwable {
+        this.posController.addProductByName(nom,amount);
+    }
+
     @Donat("^que he afegit el producte de codi de barres (\\d+) a la venta$")
     public void productByBarCodeAdded(int barCode) throws Throwable {
         this.posController.addProductByBarCode(barCode);
