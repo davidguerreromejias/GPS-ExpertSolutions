@@ -4,6 +4,8 @@ import cucumber.api.java.ca.Aleshores;
 import cucumber.api.java.ca.Donat;
 import cucumber.api.java.ca.Quan;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -79,6 +81,11 @@ public class StepDefinitions {
         this.posController.addProductByBarCode(barCode);
     }
 
+    @Quan("^afegeixo el producte de codi de barres (\\d+) a la venta amb quantitat (\\d+)$")
+    public void addProductByBarCode(int barCode, int amount) throws Throwable {
+        this.posController.addProductByBarCode(barCode,amount);
+    }
+
     @Donat("^que he afegit el producte de codi de barres (\\d+) a la venta$")
     public void productByBarCodeAdded(int barCode) throws Throwable {
         this.posController.addProductByBarCode(barCode);
@@ -98,9 +105,20 @@ public class StepDefinitions {
         assertEquals(productName, sl.getProductName());
     }
 
+    @Aleshores("^la última línia de la venta és de (\\d+) unitats de \"([^\"]*)\" a (\\d+)€ cada una per un total de (\\d+)€")
+    public void línia_de_venta_és_de_unitats_de_a_€_cada_una_per_un_total_de_€(int units, String productName, int unitPrice, int totalPrice) throws Throwable {
+        List<SaleLine> lines = this.posController.getCurrentSale().getLines();
+        int n = lines.size()-1;
+        SaleLine sl = lines.get(n);
+        assertEquals(units,sl.getAmount());
+        assertEquals(unitPrice,sl.getUnitPrice());
+        assertEquals(totalPrice,sl.getTotalPriceRaw());
+        assertEquals(productName, sl.getProductName());
+    }
+
     @Aleshores("^el total de la venta actual és de (\\d+)€$")
     public void el_total_de_la_venta_actual_és_de_€(int saleTotal) throws Throwable {
-        assertEquals(saleTotal,this.posController.getCurrentSale().getTotal());
+        assertEquals(saleTotal, this.posController.getCurrentSale().getTotal());
     }
 
     @Aleshores("^la pantalla del client del tpv mostra$")

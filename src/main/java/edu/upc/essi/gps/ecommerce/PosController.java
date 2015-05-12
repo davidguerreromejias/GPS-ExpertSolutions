@@ -43,6 +43,12 @@ public class PosController {
         currentSale.addProduct(p);
     }
 
+    public void addProductByBarCode(int barCode, int amount) {
+        if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
+        Product p = productsService.findByBarCode(barCode);
+        currentSale.addNProducts(p,amount);
+    }
+
     public String getCustomerScreenMessage() {
         String welcomeMessage = "Li donem la benvinguda a Joguets i Joguines!";
         if (currentSale == null) return welcomeMessage;

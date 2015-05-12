@@ -67,6 +67,13 @@ public class Sale {
         }
     }
 
+    public void addNProducts(Product p, int amount) {
+        lines.add(new SaleLine(p, amount));
+        if(activeDiscount.getTypeOfDiscount().equals("percentatge")) {
+            lines.getLast().setDiscount(activeDiscount);
+        }
+    }
+
     public Sale(String shop, int posNumber, String saleAssistantName) {
         this.shop = shop;
         this.posNumber = posNumber;
