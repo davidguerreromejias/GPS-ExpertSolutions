@@ -131,7 +131,7 @@ public class StepDefinitions {
         assertEquals(msg, this.posController.getCustomerScreenMessage());
     }
 
-    @Quan("^indico que el client ha entregat (\\d+)€ per a pagar en metàlic$")
+    @Quan("^indico que el client ha entregat (\\d+)€ per a pagar en (.*)metàlic$")
     public void cashPayment(int delivered, final String paymentForm) throws Throwable {
         tryCatch(() -> this.change = this.posController.cashPayment(delivered, paymentForm));
     }
