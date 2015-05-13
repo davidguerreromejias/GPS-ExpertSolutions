@@ -169,4 +169,9 @@ public class StepDefinitions {
     public void createHistorial(String shop){
         this.posController.createHistorial(shop);
     }
+
+    @Quan("^la venta ha estat pagada i finalitzada")
+    public void saveSale(){
+        this.posController.saveSale();
+    }
 }
