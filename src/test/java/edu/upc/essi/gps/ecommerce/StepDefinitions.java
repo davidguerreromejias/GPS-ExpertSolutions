@@ -136,8 +136,8 @@ public class StepDefinitions {
         tryCatch(() -> this.change = this.posController.cashPayment(delivered, paymentForm));
     }
 
-    @Aleshores("^el tpv m'indica que (.*)el canvi és: 7€La venta ha estat finalitzada i enrigistrada correctament.$")
-    public void checkChange(int expectedChange) throws Throwable {
+    @Aleshores("^el tpv mostra el següent: (.*)$")
+    public void checkChange(String expectedChange) throws Throwable {
         assertEquals(expectedChange, change);
     }
 
