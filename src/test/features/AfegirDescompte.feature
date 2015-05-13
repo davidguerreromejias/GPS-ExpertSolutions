@@ -5,17 +5,17 @@ Característica: Afegir un nou descompte al sistema
 
   Rerefons:
     Donat que estem a la botiga "Girona 1"
-    I i ens agradaria afegir un descompte del 10%
-    I un producte amb nom "Optimus Prime", preu 23€, iva 21% i codi de barres 1234567
-    I que en "Joan" ha iniciat sessio coma  gestor
+    I i ens agradaria afegir un descompte del 10% als productes de tipo platja
+    I que en "Joan" ha iniciat sessio com a gestor
 
-  Escenari: No es pot iniciar una venta si ja hi ha una venta iniciada
-    Donat que hi ha una venta iniciada
-    Quan inicio una nova venta
-    Aleshores obtinc un error que diu: "Aquest tpv ja té una venta iniciada"
+  Escenari: Afegir un descompte mitjançant el teclat
+    Quan un gestor ha iniciat la sessio
+    Aleshores pot afegir un descompte nou 
+    I selecciona el tipo de productes els qual vol afegir el descompte i escriu el descompte en %
+    I la pantalla mostra el nou descompte afegit al sistema
 
     """
-    Optimus Prime - 23€/u x 1u = 23€
+    Pilota Platja - 23€/u x 1u = 23€
     10% descompte - 23€/u * 0.1 = 2.3€
     ---
     Total: 20.7€
