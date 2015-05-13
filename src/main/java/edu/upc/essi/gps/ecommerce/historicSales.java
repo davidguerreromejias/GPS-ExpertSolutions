@@ -9,6 +9,15 @@ import java.util.*;
 public class historicSales {
 
     private Map<Date, TreeMap> historic = new TreeMap<Date, TreeMap>();
+    private String shop;
+
+    public String getShop() {
+        return shop;
+    }
+
+    public void setShop(String shop) {
+        this.shop = shop;
+    }
 
     public Map<Date, TreeMap> getHistoric() {
         return historic;
