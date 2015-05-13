@@ -40,7 +40,7 @@ class SaleLine{
     }
 
     public double getTotalPrice() {
-        return unitPrice * amount * discount.getAmountDiscount();
+        return unitPrice * amount * discount.getAmountDiscount()/100;
     }
 
     public void setDiscount(Discount d){

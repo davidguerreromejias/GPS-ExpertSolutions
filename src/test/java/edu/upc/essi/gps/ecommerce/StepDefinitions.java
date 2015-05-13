@@ -152,7 +152,7 @@ public class StepDefinitions {
     }
 
     @Aleshores("^línia de venta (\\d+) és de (\\d+) unitats de \"([^\"]*)\" a (\\d+)€ cada una amb un descompte de tipus " +
-            "(.*) del (\\d+)% per un total de (\\d+)€$")
+            "\"([^\"]*)\" del (\\d+)% per un total de (\\d+)€$")
     public void línia_de_venta_és_de_unitats_de_a_€_cada_una_per_un_total_de_€_amb_descompte(int lineNumber, int units, String productName,
                                                                                              int unitPrice, String typeDesc, double amountDesc,
                                                                                              double totalPrice) throws Throwable {
@@ -162,7 +162,7 @@ public class StepDefinitions {
         assertEquals(totalPrice,sl.getTotalPrice(),0);
         assertEquals(productName,sl.getProductName());
         assertEquals(typeDesc,sl.getDiscount().getTypeOfDiscount());
-        assertEquals(amountDesc,sl.getDiscount().getAmountDiscount(),0);
+        assertEquals(amountDesc, sl.getDiscount().getAmountDiscount(),0);
     }
 
     @Donat("^la botiga \"([^\"]*)\"")

@@ -10,7 +10,7 @@ public class Discount implements Entity{
     private String typeOfDiscount;
 
     public Discount(String typeOfDiscount, double amountDiscount){
-        this.amountDiscount = amountDiscount/100;
+        this.amountDiscount = amountDiscount;
         this.typeOfDiscount = typeOfDiscount;
     }
 
