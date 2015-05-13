@@ -10,7 +10,7 @@ Característica: Afegir un nou descompte al sistema
 
   Escenari: Afegir un descompte mitjançant el teclat
     Quan un gestor ha iniciat la sessio
-    Aleshores pot afegir un descompte nou 
+    Aleshores pot afegir un descompte nou
     I selecciona el tipo de productes els qual vol afegir el descompte i escriu el descompte en %
     I la pantalla mostra el nou descompte afegit al sistema
 
