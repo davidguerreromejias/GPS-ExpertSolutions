@@ -89,7 +89,7 @@ public class PosController {
                     .append(sl.getTotalPriceRaw()).append("€\n");
             if(discPerc.getTypeOfDiscount().equals("percentatge")){
                 sb.append("-").append(sl.getDiscount().getAmountDiscount()).append("% ").append(sl.getTotalPriceRaw()-sl.getTotalPrice()).append("€\n");
-                sb.append(sl.getTotalPrice());
+                sb.append(sl.getTotalPrice()).append("€\n");
             }
         }
         sb.append("---\n").append("Total: ").append(currentSale.getTotal()).append("€");

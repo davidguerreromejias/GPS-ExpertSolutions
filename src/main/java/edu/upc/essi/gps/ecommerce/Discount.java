@@ -6,10 +6,10 @@ import edu.upc.essi.gps.domain.Entity;
  * Created by Miquel on 09/05/2015.
  */
 public class Discount implements Entity{
-    private double amountDiscount;
+    private int amountDiscount;
     private String typeOfDiscount;
 
-    public Discount(String typeOfDiscount, double amountDiscount){
+    public Discount(String typeOfDiscount, int amountDiscount){
         this.amountDiscount = amountDiscount;
         this.typeOfDiscount = typeOfDiscount;
     }
@@ -22,7 +22,7 @@ public class Discount implements Entity{
         typeOfDiscount = type;
     }
 
-    public double getAmountDiscount(){
+    public int getAmountDiscount(){
         return amountDiscount;
     }
 

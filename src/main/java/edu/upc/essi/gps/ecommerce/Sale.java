@@ -39,8 +39,11 @@ class SaleLine{
         return unitPrice * amount;
     }
 
-    public double getTotalPrice() {
-        return unitPrice * amount * discount.getAmountDiscount()/100;
+    public int getTotalPrice() {
+        double discdouble = discount.getAmountDiscount();
+        discdouble = discdouble/100;
+        double totalPrice = unitPrice * amount * discdouble;
+        return (int)totalPrice;
     }
 
     public void setDiscount(Discount d){
@@ -110,7 +113,7 @@ public class Sale {
         return lines.isEmpty();
     }
 
-    public void setActiveDiscount(String type, double amount){
+    public void setActiveDiscount(String type, int amount){
         activeDiscount = new Discount(type,amount);
     }
 }
