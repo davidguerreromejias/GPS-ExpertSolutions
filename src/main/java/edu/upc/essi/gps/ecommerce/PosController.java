@@ -2,7 +2,6 @@ package edu.upc.essi.gps.ecommerce;
 
 import static edu.upc.essi.gps.utils.Validations.*;
 import java.util.LinkedList;
-import java.util.List;
 
 public class PosController {
 
