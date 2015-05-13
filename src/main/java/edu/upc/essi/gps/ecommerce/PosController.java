@@ -27,10 +27,12 @@ public class PosController {
 
     public void login(String saleAssistantName) {
         checkNotNull(saleAssistantName, "saleAssistantName");
+        Date data = new Date(2015,05,13);
         if (this.currentSaleAssistantName != null)
             throw new IllegalStateException("Aquest tpv està en ús per " + this.currentSaleAssistantName);
         this.currentSaleAssistantName = saleAssistantName;
-        ventesRealitzades = new LinkedList();
+        this.currentDate = data;
+        this.ventesRealitzades = new LinkedList();
         this.initialCash = 0;
     }
 
