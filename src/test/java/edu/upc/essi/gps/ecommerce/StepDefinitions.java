@@ -83,12 +83,12 @@ public class StepDefinitions {
 
     @Quan("^afegeixo el producte de codi de barres (\\d+) a la venta amb quantitat (\\d+)$")
     public void addProductByBarCode(int barCode, int amount) throws Throwable {
-        this.posController.addProductByBarCode(barCode,amount);
+        this.posController.addProductByBarCode(barCode, amount);
     }
 
     @Quan("^afegeixo el producte de nom \"([^\"]*)\" a la venta amb quantitat (\\d+)$")
     public void addProductByName(String nom, int amount) throws Throwable {
-        this.posController.addProductByName(nom,amount);
+        this.posController.addProductByName(nom, amount);
     }
 
     @Donat("^que he afegit el producte de codi de barres (\\d+) a la venta$")
@@ -131,12 +131,12 @@ public class StepDefinitions {
         assertEquals(msg, this.posController.getCustomerScreenMessage());
     }
 
-    @Quan("^indico que el client ha entregat (\\d+)€ per a pagar en metàlic$")
+    @Quan("^indico que el client ha entregat (\\d+)€ per a pagar en (.*)metàlic$")
     public void cashPayment(int delivered, final String paymentForm) throws Throwable {
         tryCatch(() -> this.change = this.posController.cashPayment(delivered, paymentForm));
     }
 
-    @Aleshores("^el tpv m'indica que el canvi a retornar és de (\\d+)€$")
+    @Aleshores("^el tpv m'indica que (.*)el canvi és: 7€La venta ha estat finalitzada i enrigistrada correctament.$")
     public void checkChange(int expectedChange) throws Throwable {
         assertEquals(expectedChange, change);
     }
