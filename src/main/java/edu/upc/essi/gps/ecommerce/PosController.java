@@ -18,7 +18,6 @@ public class PosController {
     private final LinkedList<QuadramentInvalid> quadramentsInvalids = new LinkedList<>();
     private int initialCash;
     private historicSales historic;
-    private final LinkedList<Sale> ventesRealitzades = new LinkedList();
 
     public PosController(String shop, int posNumber, ProductsService productsService) {
         this.shop = shop;
@@ -31,7 +30,7 @@ public class PosController {
         if (this.currentSaleAssistantName != null)
             throw new IllegalStateException("Aquest tpv està en ús per " + this.currentSaleAssistantName);
         this.currentSaleAssistantName = saleAssistantName;
-        this.ventesRealitzades = new LinkedList();
+        ventesRealitzades = new LinkedList();
         this.initialCash = 0;
     }
 

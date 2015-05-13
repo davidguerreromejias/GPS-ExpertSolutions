@@ -16,19 +16,19 @@ public class QuadramentInvalid {
         this.diferencia = diferencia;
     }
 
-    public getShop(){
+    public String getShop(){
         return this.shop;
     }
 
-    public getPosNum(){
+    public int getPosNum(){
         return this.posNum;
     }
 
-    public getSaleAssistantName(){
+    public String getSaleAssistantName(){
         return this.saleAssistantName;
     }
 
-    public getDiferencia(){
+    public int getDiferencia(){
         return this.diferencia;
     }
 }

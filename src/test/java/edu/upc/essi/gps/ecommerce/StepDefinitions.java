@@ -159,10 +159,10 @@ public class StepDefinitions {
         SaleLine sl = this.posController.getCurrentSale().getLines().get(lineNumber - 1);
         assertEquals(units,sl.getAmount());
         assertEquals(unitPrice,sl.getUnitPrice());
-        assertEquals(totalPrice,sl.getTotalPrice(),);
+        assertEquals(totalPrice,sl.getTotalPrice(),0);
         assertEquals(productName,sl.getProductName());
         assertEquals(typeDesc,sl.getDiscount().getTypeOfDiscount());
-        assertEquals(amountDesc,sl.getDiscount().getAmountDiscount());
+        assertEquals(amountDesc,sl.getDiscount().getAmountDiscount(),0);
     }
 
     @Donat("^la botiga \"([^\"]*)\"")
