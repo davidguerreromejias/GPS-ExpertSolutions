@@ -174,4 +174,9 @@ public class StepDefinitions {
     public void saveSale(){
         this.posController.saveSale();
     }
+
+    @Quan("^apreto sobre el descompte 50% existent una altra vegada$")
+    public void StopApplyingDiscount() throws Throwable{
+        this.posController.StopApplyingDiscount();
+    }
 }

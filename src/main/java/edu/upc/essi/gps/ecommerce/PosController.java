@@ -23,6 +23,7 @@ public class PosController {
         this.shop = shop;
         this.posNumber = posNumber;
         this.productsService = productsService;
+        this.discPerc = new Discount("none",100);
     }
 
     public void login(String saleAssistantName) {
@@ -87,7 +88,7 @@ public class PosController {
             sb.append(sl.getProductName()).append(" - ")
                     .append(sl.getUnitPrice()).append("€/u x ").append(sl.getAmount()).append("u = ")
                     .append(sl.getTotalPriceRaw()).append("€\n");
-            if(discPerc.getTypeOfDiscount().equals("percentatge")){
+            if(sl.getDiscount().getTypeOfDiscount().equals("percentatge")){
                 sb.append("-").append(sl.getDiscount().getAmountDiscount()).append("% ").append(sl.getTotalPriceRaw()-sl.getTotalPrice()).append("€\n");
                 sb.append(sl.getTotalPrice()).append("€\n");
             }
@@ -137,5 +138,10 @@ public class PosController {
 
     public void saveSale(){
         historic.setSale(currentSale, currentDate);
+    }
+
+    public void StopApplyingDiscount(){
+        if(getCurrentSale() == null) throw new IllegalStateException("No hi ha cap venta iniciada");
+        currentSale.setActiveDiscount("none", 100);
     }
 }
