@@ -1,6 +1,8 @@
 package edu.upc.essi.gps.ecommerce;
 
 import static edu.upc.essi.gps.utils.Validations.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class PosController {
 
@@ -10,6 +12,7 @@ public class PosController {
     private String currentSaleAssistantName;
     private Sale currentSale;
     private Discount discPerc;
+    private final LinkedList<Sale> ventesRealitzades = new LinkedList();
 
     public PosController(String shop, int posNumber, ProductsService productsService) {
         this.shop = shop;
