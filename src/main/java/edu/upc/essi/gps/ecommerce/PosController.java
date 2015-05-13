@@ -79,7 +79,7 @@ public class PosController {
     }
 
     public String cashPayment(int delivered, String paymentForm) {
-        String endMessage = "La venta ha estat finalitzada i enrigistrada correctament.";
+        String endMessage = "€ i la venta ha estat finalitzada i enrigistrada correctament.";
         if (getCurrentSale() == null) throw new IllegalStateException("No es pot cobrar una venta si no està iniciada");
         else if (getCurrentSale().isEmpty())
             throw new IllegalStateException("No es pot cobrar una venta sense cap producte");
