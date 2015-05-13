@@ -13,6 +13,7 @@ Característica: Aplicar descomptes del % a conjunts de productes
 
   Escenari: Aplicar un descompte de tipus percentatge a un producte
     Quan apreto sobre el descompte 50% existent
+    I afegeixo el producte de codi de barres 1234567 a la venta
     Aleshores la venta té 1 línia
     I línia de venta 1 és de 1 unitats de "Optimus Prime" a 20€ cada una per un total de 20€
     I línia de venta 1 és de 1 unitats de "Optimus Prime" a 20€ cada una amb un descompte de tipus "percentatge" del 50% per un total de 10€
