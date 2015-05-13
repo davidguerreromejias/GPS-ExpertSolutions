@@ -1,6 +1,8 @@
 package edu.upc.essi.gps.ecommerce;
 
 import static edu.upc.essi.gps.utils.Validations.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class PosController {
 
@@ -10,6 +12,7 @@ public class PosController {
     private String currentSaleAssistantName;
     private Sale currentSale;
     private Discount discPerc;
+    private final LinkedList<Sale> ventesRealitzades = new LinkedList();
 
     public PosController(String shop, int posNumber, ProductsService productsService) {
         this.shop = shop;
@@ -76,7 +79,7 @@ public class PosController {
     }
 
     public String cashPayment(int delivered, String paymentForm) {
-        String endMessage = "La venta ha estat finalitzada i enrigistrada correctament.";
+        String endMessage = "€ i la venta ha estat finalitzada i enrigistrada correctament.";
         if (getCurrentSale() == null) throw new IllegalStateException("No es pot cobrar una venta si no està iniciada");
         else if (getCurrentSale().isEmpty())
             throw new IllegalStateException("No es pot cobrar una venta sense cap producte");
