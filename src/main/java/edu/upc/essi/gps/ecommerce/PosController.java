@@ -15,6 +15,8 @@ public class PosController {
     private LinkedList<Sale> ventesRealitzades;
     private final LinkedList<QuadramentInvalid> quadramentsInvalids = new LinkedList<>();
     private int initialCash;
+    private historicSales historic;
+    private final LinkedList<Sale> ventesRealitzades = new LinkedList();
 
     public PosController(String shop, int posNumber, ProductsService productsService) {
         this.shop = shop;
@@ -123,5 +125,10 @@ public class PosController {
     public void applyDiscount(){
         if(getCurrentSale() == null) throw new IllegalStateException("No hi ha cap venta iniciada");
         currentSale.setActiveDiscount(discPerc.getTypeOfDiscount(),discPerc.getAmountDiscount());
+    }
+
+    public void createHistorial(String shop){
+        historic = new historicSales();
+        historic.setShop(shop);
     }
 }
