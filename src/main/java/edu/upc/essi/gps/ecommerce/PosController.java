@@ -1,6 +1,8 @@
 package edu.upc.essi.gps.ecommerce;
 
 import static edu.upc.essi.gps.utils.Validations.*;
+
+import java.util.Date;
 import java.util.LinkedList;
 
 public class PosController {
@@ -10,6 +12,7 @@ public class PosController {
     private final int posNumber;
     private String currentSaleAssistantName;
     private Sale currentSale;
+    private Date currentDate;
     private Discount discPerc;
     private LinkedList<Sale> ventesRealitzades;
     private final LinkedList<QuadramentInvalid> quadramentsInvalids = new LinkedList<>();
@@ -129,5 +132,9 @@ public class PosController {
     public void createHistorial(String shop){
         historic = new historicSales();
         historic.setShop(shop);
+    }
+
+    public void saveSale(){
+        historic.setSale(currentSale, currentDate);
     }
 }
