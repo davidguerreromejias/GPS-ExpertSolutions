@@ -164,4 +164,14 @@ public class StepDefinitions {
         assertEquals(typeDesc,sl.getDiscount().getTypeOfDiscount());
         assertEquals(amountDesc,sl.getDiscount().getAmountDiscount());
     }
+
+    @Donat("^la botiga \"([^\"]*)\"")
+    public void createHistorial(String shop){
+        this.posController.createHistorial(shop);
+    }
+
+    @Quan("^la venta ha estat pagada i finalitzada")
+    public void saveSale(){
+        this.posController.saveSale();
+    }
 }

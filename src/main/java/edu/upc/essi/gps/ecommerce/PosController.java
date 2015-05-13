@@ -2,6 +2,9 @@ package edu.upc.essi.gps.ecommerce;
 
 import static edu.upc.essi.gps.utils.Validations.*;
 
+import java.util.Date;
+import java.util.LinkedList;
+
 public class PosController {
 
     private final ProductsService productsService;
@@ -9,7 +12,13 @@ public class PosController {
     private final int posNumber;
     private String currentSaleAssistantName;
     private Sale currentSale;
+    private Date currentDate;
     private Discount discPerc;
+    private LinkedList<Sale> ventesRealitzades;
+    private final LinkedList<QuadramentInvalid> quadramentsInvalids = new LinkedList<>();
+    private int initialCash;
+    private historicSales historic;
+    private final LinkedList<Sale> ventesRealitzades = new LinkedList();
 
     public PosController(String shop, int posNumber, ProductsService productsService) {
         this.shop = shop;
@@ -22,6 +31,17 @@ public class PosController {
         if (this.currentSaleAssistantName != null)
             throw new IllegalStateException("Aquest tpv està en ús per " + this.currentSaleAssistantName);
         this.currentSaleAssistantName = saleAssistantName;
+        this.ventesRealitzades = new LinkedList();
+        this.initialCash = 0;
+    }
+
+    public void login(String saleAssistantName, int initCash) {
+        checkNotNull(saleAssistantName, "saleAssistantName");
+        if (this.currentSaleAssistantName != null)
+            throw new IllegalStateException("Aquest tpv està en ús per " + this.currentSaleAssistantName);
+        this.currentSaleAssistantName = saleAssistantName;
+        this.ventesRealitzades = new LinkedList();
+        this.initialCash = initCash;
     }
 
     public void startSale() {
@@ -52,7 +72,7 @@ public class PosController {
     public void addProductByName(String nom, int amount) {
         if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
         Product p = productsService.findByName(nom);
-        currentSale.addNProducts(p,amount);
+        currentSale.addNProducts(p, amount);
     }
 
     public String getCustomerScreenMessage() {
@@ -82,11 +102,23 @@ public class PosController {
             throw new IllegalStateException("No es pot cobrar una venta sense cap producte");
         else {
             int canvi = delivered - getCurrentSale().getTotal();
-            if (paymentForm == "efectiu") {
-                if (canvi < 0) throw new RuntimeException("La quantitat rebuda és inferior a l'import de la venda.");
-            }
+            if (canvi < 0) throw new RuntimeException("La quantitat rebuda és inferior a l'import de la venda.");
+            ventesRealitzades.add(currentSale);
             return "El canvi és: " + canvi + endMessage;
         }
+    }
+
+    public int getTotalTorn(){
+        int total = 0;
+        for(Sale l : ventesRealitzades) {
+            total += l.getTotal();
+        }
+        return total+initialCash;
+    }
+
+    public void afegirQuadramentInvalid(int cashRegister){
+        int x = cashRegister-getTotalTorn();
+        quadramentsInvalids.add(new QuadramentInvalid(this.shop, this.posNumber, this.currentSaleAssistantName, x));
     }
 
     public void createPercDiscount(String type, int quant) {
@@ -95,5 +127,14 @@ public class PosController {
     public void applyDiscount(){
         if(getCurrentSale() == null) throw new IllegalStateException("No hi ha cap venta iniciada");
         currentSale.setActiveDiscount(discPerc.getTypeOfDiscount(),discPerc.getAmountDiscount());
+    }
+
+    public void createHistorial(String shop){
+        historic = new historicSales();
+        historic.setShop(shop);
+    }
+
+    public void saveSale(){
+        historic.setSale(currentSale, currentDate);
     }
 }
