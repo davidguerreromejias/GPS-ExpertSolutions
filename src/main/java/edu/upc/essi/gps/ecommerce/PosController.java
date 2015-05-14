@@ -133,6 +133,16 @@ public class PosController {
         }
     }
 
+    public void tancarTorn(int n){
+        int t = getTotalTorn();
+        if(n!=t){
+
+        }
+        else{
+
+        }
+    }
+
     public int getTotalTorn(){
         int total = 0;
         for(Sale l : ventesRealitzades) {

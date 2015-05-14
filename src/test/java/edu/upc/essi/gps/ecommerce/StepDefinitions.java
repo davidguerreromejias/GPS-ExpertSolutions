@@ -8,6 +8,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class StepDefinitions {
 
@@ -39,8 +40,13 @@ public class StepDefinitions {
     }
 
     @Donat("^que estem al tpv número (\\d+) de la botiga \"([^\"]*)\"$")
-    public void setupPos(int posNumber, String shop) throws Throwable {
+     public void setupPos(int posNumber, String shop) throws Throwable {
         this.posController = new PosController(shop,posNumber, productsService);
+    }
+
+    @Quan("^vull tancar el torn$")
+    public void tancarTorn(int n) throws Throwable {
+
     }
 
     @Aleshores("^el tpv està en ús per en \"([^\"]*)\"$")
@@ -58,8 +64,13 @@ public class StepDefinitions {
     }
 
     @Quan("^inicio el torn al tpv com a \"([^\"]*)\"$")
-    public void login(String saleAssistantName) throws Throwable {
+     public void login(String saleAssistantName) throws Throwable {
         tryCatch(() -> this.posController.login(saleAssistantName));
+    }
+
+    @Donat("^que no hi ha un torn iniciat$")
+    public void checkNoHiHaTorn() throws Throwable {
+        assertNull(this.posController.getCurrentSaleAssistantName());
     }
 
     @Quan("inicio la sessio com a (.*)$")
@@ -174,7 +185,7 @@ public class StepDefinitions {
         SaleLine sl = this.posController.getCurrentSale().getLines().get(lineNumber - 1);
         assertEquals(units,sl.getAmount());
         assertEquals(unitPrice,sl.getUnitPrice());
-        assertEquals(totalPrice,sl.getTotalPrice());
+        assertEquals(totalPrice, sl.getTotalPrice());
         assertEquals(productName,sl.getProductName());
         assertEquals(typeDesc,sl.getDiscount().getTypeOfDiscount());
         assertEquals(amountDesc, sl.getDiscount().getAmountDiscount());
@@ -212,7 +223,7 @@ public class StepDefinitions {
                                                                                              int totalPrice) throws Throwable {
         SaleLine sl = this.posController.getCurrentSale().getLines().get(lineNumber - 1);
         assertEquals(units,sl.getAmount());
-        assertEquals(unitPrice,sl.getUnitPrice());
+        assertEquals(unitPrice, sl.getUnitPrice());
         assertEquals(totalPrice,sl.getTotalPrice());
         assertEquals(productName,sl.getProductName());
         assertEquals(typeDesc,sl.getDiscount().getTypeOfDiscount());
