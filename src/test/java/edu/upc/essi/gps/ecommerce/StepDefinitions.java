@@ -204,4 +204,9 @@ public class StepDefinitions {
         assertEquals(m, sl.getDiscount().getM());
         assertEquals(n,sl.getDiscount().getN());
     }
+
+    @Donat("^que estem a la botiga \"([^\"]*)\" i ens agradaria afegir un descompte del (\\d+)% als productes de tipo (.*)$")
+    public void addTypeDiscount(String shop, int discount, String tipoProd) throws Throwable {
+        this.posController.addTypeDiscount(shop, discount, tipoProd);
+    }
 }

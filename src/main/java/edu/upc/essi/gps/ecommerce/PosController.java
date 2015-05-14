@@ -155,4 +155,7 @@ public class PosController {
     public void createMxNDisc(String type, int m, int n) {
         discMxN = new Discount(type, m, n);
     }
+
+    public void addTypeDiscount(String shop, int discount, String tipoProd) {
+    }
 }
