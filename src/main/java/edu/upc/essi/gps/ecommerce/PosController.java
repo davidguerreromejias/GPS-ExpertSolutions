@@ -20,12 +20,14 @@ public class PosController {
     private int initialCash;
     private historicSales historic;
     private Discount discMxN;
+    private setDiscountCollection setDiscountCollection;
 
     public PosController(String shop, int posNumber, ProductsService productsService) {
         this.shop = shop;
         this.posNumber = posNumber;
         this.productsService = productsService;
         this.discPerc = new Discount("none",100);
+        this.setDiscountCollection = new setDiscountCollection();
     }
 
     public void login(String saleAssistantName) {
@@ -157,5 +159,7 @@ public class PosController {
     }
 
     public void addTypeDiscount(String shop, int discount, String tipoProd) {
+        setDiscount sd = new setDiscount(tipoProd, discount, shop);
+        this.setDiscountCollection.addSetDiscount(sd);
     }
 }

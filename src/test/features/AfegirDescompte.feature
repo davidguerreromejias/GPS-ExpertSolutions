@@ -4,8 +4,7 @@
 Característica: Afegir un nou descompte al sistema
 
   Rerefons:
-    Donat que estem a la botiga "Girona 1"
-    I i ens agradaria afegir un descompte del 10% als productes de tipo platja
+    Donat que estem a la botiga "Girona 1" i ens agradaria afegir un descompte del 10% als productes de tipo platja
     I que en "Joan" ha iniciat sessio com a gestor
 
   Escenari: Afegir un descompte mitjançant el teclat

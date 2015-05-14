@@ -12,33 +12,33 @@ public class setDiscountCollection {
         this.setDiscountController = new ArrayList<setDiscount>();
     }
 
-    private boolean existsSetDiscount (String set) {
+    private boolean existsSetDiscount (String set, String shop) {
         for (setDiscount sd : setDiscountController) {
-            if (sd.getSetObj().equals(set)) return true;
+            if (sd.getSetObj().equals(set) && sd.getShop().equals(shop)) return true;
         }
         return false;
     }
 
-    private setDiscount getSetDiscountFromSet (String set) {
+    private setDiscount getSetDiscountFromSet (String set, String shop) {
         setDiscount result = new setDiscount();
         for (setDiscount sd : setDiscountController) {
-            if (sd.getSetObj().equals(set)) result = sd;
+            if (sd.getSetObj().equals(set) && sd.getShop().equals(shop)) result = sd;
         }
         return result;
     }
 
     public void addSetDiscount(setDiscount sd) throws RuntimeException {
-        if (existsSetDiscount(sd.getSetObj()))
+        if (existsSetDiscount(sd.getSetObj(), sd.getShop()))
             throw new IllegalArgumentException("Ja existeix un descompte per aquest conjunt de productes");
         if (sd.getDiscount() <= 0 || sd.getDiscount() > 100)
             throw new IllegalArgumentException("El descompte ha de ser més gran que 0 i més petit o igual que 100");
-        
+
         setDiscountController.add(sd);
     }
 
-    public float getSetDiscount (String set) {
-        if (!existsSetDiscount(set))
+    public float getSetDiscount (String set, String shop) {
+        if (!existsSetDiscount(set, shop))
             throw new IllegalArgumentException("No existeix cap descompte de pels productes de tipus" + set);
-        return getSetDiscountFromSet(set).getDiscount();
+        return getSetDiscountFromSet(set, shop).getDiscount();
     }
 }

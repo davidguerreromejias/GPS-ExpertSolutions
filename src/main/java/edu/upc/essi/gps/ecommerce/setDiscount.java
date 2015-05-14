@@ -6,12 +6,22 @@ package edu.upc.essi.gps.ecommerce;
 public class setDiscount {
     private String setObj;
     private float discount;
+    private String shop;
 
     public setDiscount() {}
 
-    public setDiscount(String setObj, float discount) {
+    public setDiscount(String setObj, float discount, String shop) {
         this.setObj = setObj;
         this.discount = discount;
+        this.shop = shop;
+    }
+
+    public String getShop() {
+        return shop;
+    }
+
+    public void setShop(String shop) {
+        this.shop = shop;
     }
 
     public float getDiscount() {
