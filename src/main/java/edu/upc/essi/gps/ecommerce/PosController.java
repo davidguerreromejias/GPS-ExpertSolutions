@@ -107,6 +107,13 @@ public class PosController {
                 sb.append("-").append(sl.getDiscount().getAmountDiscount()).append("% ").append(sl.getTotalPriceRaw()-sl.getTotalPrice()).append("€\n");
                 sb.append(sl.getTotalPrice()).append("€\n");
             }
+            else if(sl.getDiscount().getTypeOfDiscount().equals("m x n")){
+                int n = sl.getDiscount().getN();
+                int m = sl.getDiscount().getM();
+                int difference = (m - n) * sl.getUnitPrice();
+                sb.append(sl.getDiscount().getM()).append("x").append(n).append(" -").append(difference).append("€\n");
+                sb.append(sl.getTotalPrice()).append("€\n");
+            }
         }
         sb.append("---\n").append("Total: ").append(currentSale.getTotal()).append("€");
         return sb.toString();
