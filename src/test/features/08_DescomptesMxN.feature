@@ -12,7 +12,7 @@ Característica: Aplicar descomptes del % a conjunts de productes
 
   Escenari: Aplicar un descompte de tipus m x n a un producte
     Quan apreto sobre el descompte m x n existent
-    I afegeixo el producte de codi de barres 1234567 a la venta //falta afegir la quantitat
+    I afegeixo el producte de codi de barres 1234567 a la venta amb quantitat 3
     Aleshores la venta té 1 línia
     I línia de venta 1 és de 3 unitats de "Optimus Prime" a 20€ cada una per un total de 60€
     I línia de venta 1 és de 3 unitats de "Optimus Prime" a 20€ cada una amb un descompte de tipus "m x n" de 3 x 2 per un total de 40€

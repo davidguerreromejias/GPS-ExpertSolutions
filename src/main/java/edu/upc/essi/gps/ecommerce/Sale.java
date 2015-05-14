@@ -40,10 +40,16 @@ class SaleLine{
     }
 
     public int getTotalPrice() {
-        double discdouble = discount.getAmountDiscount();
-        discdouble = discdouble/100;
-        double totalPrice = unitPrice * amount * discdouble;
-        return (int)totalPrice;
+        if(discount.getTypeOfDiscount().equals("percentatge")) {
+            double discdouble = discount.getAmountDiscount();
+            discdouble = discdouble / 100;
+            double totalPrice = unitPrice * amount * discdouble;
+            return (int) totalPrice;
+        }
+        else if(discount.getTypeOfDiscount().equals("m x n")){
+            return unitPrice * discount.getN();
+        }
+        else return unitPrice * amount;
     }
 
     public void setDiscount(Discount d){
@@ -73,6 +79,9 @@ public class Sale {
     public void addNProducts(Product p, int amount) {
         lines.add(new SaleLine(p, amount));
         if(activeDiscount.getTypeOfDiscount().equals("percentatge")) {
+            lines.getLast().setDiscount(activeDiscount);
+        }
+        else if(activeDiscount.getTypeOfDiscount().equals("m x n")) {
             lines.getLast().setDiscount(activeDiscount);
         }
     }
