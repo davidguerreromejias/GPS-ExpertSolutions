@@ -33,12 +33,12 @@ public class PosController {
         this.setDiscountCollection = new setDiscountCollection();
     }
 
-    public void gestorLogin(String gestorLogin) {
-        checkNotNull(gestorLogin, "gestorLogin");
+    public void gestorLogin(String gestorName) {
+        checkNotNull(gestorName, "gestorName");
         Date data = new Date(2015,05,13);
         if (this.currentGestorName != null)
-            throw new IllegalStateException("Hi ha una sessió iniciada pel gestor " + currentGestorName);
-        this.currentGestorName = gestorLogin;
+            throw new IllegalStateException("Hi ha una sessió iniciada pel gestor " + this.currentGestorName);
+        this.currentGestorName = gestorName;
         this.dateLoginGestor = data;
     }
 
@@ -69,6 +69,10 @@ public class PosController {
 
     public String getCurrentSaleAssistantName() {
         return currentSaleAssistantName;
+    }
+
+    public String getCurrentGestorName() {
+        return this.currentGestorName;
     }
 
     public Sale getCurrentSale() {

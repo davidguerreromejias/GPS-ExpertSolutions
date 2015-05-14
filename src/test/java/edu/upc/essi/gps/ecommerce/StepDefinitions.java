@@ -33,10 +33,9 @@ public class StepDefinitions {
         assertEquals(msg, this.exception.getMessage());
     }
 
-    @Aleshores("^obtinc un error de inici de sessio que diu: \"([^\"]*)\"$")
-    public void checkGestorErrorMessage(String msg) throws Throwable {
-        assertNotNull(this.exception);
-        assertEquals(msg, this.exception.getMessage());
+    @Aleshores("^hi ha una sessió iniciada pel gestor (.*)$")
+    public void checkGestorName(String gestorName) throws Throwable {
+        assertEquals(gestorName, this.posController.getCurrentGestorName());
     }
 
     @Donat("^que estem al tpv número (\\d+) de la botiga \"([^\"]*)\"$")
