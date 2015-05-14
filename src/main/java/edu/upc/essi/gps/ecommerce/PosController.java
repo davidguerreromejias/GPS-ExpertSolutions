@@ -4,6 +4,7 @@ import static edu.upc.essi.gps.utils.Validations.*;
 
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class PosController {
 
@@ -18,6 +19,7 @@ public class PosController {
     private final LinkedList<QuadramentInvalid> quadramentsInvalids = new LinkedList<>();
     private int initialCash;
     private historicSales historic;
+    private Discount discMxN;
 
     public PosController(String shop, int posNumber, ProductsService productsService) {
         this.shop = shop;
@@ -126,9 +128,14 @@ public class PosController {
     public void createPercDiscount(String type, int quant) {
         discPerc = new Discount(type,quant);
     }
-    public void applyDiscount(){
+    public void applyDiscount(String typeOfDisc){
         if(getCurrentSale() == null) throw new IllegalStateException("No hi ha cap venta iniciada");
-        currentSale.setActiveDiscount(discPerc.getTypeOfDiscount(),discPerc.getAmountDiscount());
+        if(Objects.equals(typeOfDisc, "percentatge")) {
+            currentSale.setPercActiveDiscount(discPerc.getTypeOfDiscount(), discPerc.getAmountDiscount());
+        }
+        else if (Objects.equals(typeOfDisc, "m x n")) {
+            currentSale.setMxNActiveDiscount(discMxN.getTypeOfDiscount(),discMxN.getM(), discMxN.getN());
+        }
     }
 
     public void createHistorial(String shop){
@@ -142,6 +149,10 @@ public class PosController {
 
     public void StopApplyingDiscount(){
         if(getCurrentSale() == null) throw new IllegalStateException("No hi ha cap venta iniciada");
-        currentSale.setActiveDiscount("none", 100);
+        currentSale.noActiveDiscount();
+    }
+
+    public void createMxNDisc(String type, int m, int n) {
+        discMxN = new Discount(type, m, n);
     }
 }

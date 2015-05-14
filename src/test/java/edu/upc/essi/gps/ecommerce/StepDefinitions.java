@@ -147,8 +147,8 @@ public class StepDefinitions {
     }
 
     @Quan("^apreto sobre el descompte 50% existent$")
-    public void applyDiscount() throws Throwable{
-        this.posController.applyDiscount();
+    public void applyDiscountPerc() throws Throwable{
+        this.posController.applyDiscount("percentatge");
     }
 
     @Aleshores("^línia de venta (\\d+) és de (\\d+) unitats de \"([^\"]*)\" a (\\d+)€ cada una amb un descompte de tipus " +
@@ -178,5 +178,30 @@ public class StepDefinitions {
     @Quan("^apreto sobre el descompte 50% existent una altra vegada$")
     public void StopApplyingDiscount() throws Throwable{
         this.posController.StopApplyingDiscount();
+    }
+
+    @Donat("^que hi ha un descompte definit en el sistema de tipus (.*) on m és (\\d+) i n és (\\d+)$")
+    public void createMxNDiscount(String type,int mvalue,int nvalue) throws Throwable {
+        this.posController.createMxNDisc(type, mvalue, nvalue);
+    }
+
+    @Quan("^apreto sobre el descompte m x n existent$")
+    public void applyDiscountMxN() throws Throwable{
+        this.posController.applyDiscount("m x n");
+    }
+
+    @Aleshores("^línia de venta (\\d+) és de (\\d+) unitats de \"([^\"]*)\" a (\\d+)€ cada una amb un descompte de tipus " +
+            "\"([^\"]*)\" de (\\d+) x (\\d+) per un total de (\\d+)€$")
+    public void línia_de_venta_és_de_unitats_de_a_€_cada_una_per_un_total_de_€_amb_descompte_de_m_x_n(int lineNumber, int units, String productName,
+                                                                                             int unitPrice, String typeDesc, int m, int n,
+                                                                                             int totalPrice) throws Throwable {
+        SaleLine sl = this.posController.getCurrentSale().getLines().get(lineNumber - 1);
+        assertEquals(units,sl.getAmount());
+        assertEquals(unitPrice,sl.getUnitPrice());
+        assertEquals(totalPrice,sl.getTotalPrice());
+        assertEquals(productName,sl.getProductName());
+        assertEquals(typeDesc,sl.getDiscount().getTypeOfDiscount());
+        assertEquals(m, sl.getDiscount().getM());
+        assertEquals(n,sl.getDiscount().getN());
     }
 }

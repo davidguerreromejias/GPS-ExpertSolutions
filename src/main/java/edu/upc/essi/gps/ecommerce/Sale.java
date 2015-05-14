@@ -113,7 +113,15 @@ public class Sale {
         return lines.isEmpty();
     }
 
-    public void setActiveDiscount(String type, int amount){
+    public void setPercActiveDiscount(String type, int amount){
         activeDiscount = new Discount(type,amount);
+    }
+
+    public void setMxNActiveDiscount(String type, int m, int n){
+        activeDiscount = new Discount(type,m,n);
+    }
+
+    public void noActiveDiscount(){
+        activeDiscount = new Discount("none");
     }
 }
