@@ -32,6 +32,12 @@ public class StepDefinitions {
         assertEquals(msg, this.exception.getMessage());
     }
 
+    @Aleshores("^obtinc un error de inici de sessio que diu: \"([^\"]*)\"$")
+    public void checkGestorErrorMessage(String msg) throws Throwable {
+        assertNotNull(this.exception);
+        assertEquals(msg, this.exception.getMessage());
+    }
+
     @Donat("^que estem al tpv número (\\d+) de la botiga \"([^\"]*)\"$")
     public void setupPos(int posNumber, String shop) throws Throwable {
         this.posController = new PosController(shop,posNumber, productsService);
@@ -56,9 +62,18 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.login(saleAssistantName));
     }
 
+    @Quan("inicio la sessio com a (.*)$")
+    public void loginGestor(String gestorName) throws Throwable {
+        tryCatch(() -> this.posController.gestorLogin(gestorName));
+    }
+
     @Donat("^que en \"([^\"]*)\" ha iniciat el torn al tpv$")
     public void hasLoggedIn(String saleAssistantName) throws Throwable {
         this.posController.login(saleAssistantName);
+    }
+    @Donat("que en (.*) ha iniciat sessio$")
+    public void hasLoggedInSession(String gestorName) throws Throwable {
+        tryCatch(() -> this.posController.gestorLogin(gestorName));
     }
 
     @Quan("^inicio una nova venta$")
@@ -207,7 +222,7 @@ public class StepDefinitions {
 
     @Donat("^que estem a la botiga \"([^\"]*)\" i ens agradaria afegir un descompte del (\\d+)% als productes de tipo (.*)$")
     public void addTypeDiscount(String shop, int discount, String tipoProd) throws Throwable {
-        tryCatch(()->this.posController.addTypeDiscount(shop, discount, tipoProd));
+        tryCatch(() -> this.posController.addTypeDiscount(shop, discount, tipoProd));
     }
 
     @Quan("que en (.*) ha iniciat sessio com a gestor$")
