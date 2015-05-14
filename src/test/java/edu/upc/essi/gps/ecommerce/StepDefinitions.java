@@ -202,11 +202,16 @@ public class StepDefinitions {
         assertEquals(productName,sl.getProductName());
         assertEquals(typeDesc,sl.getDiscount().getTypeOfDiscount());
         assertEquals(m, sl.getDiscount().getM());
-        assertEquals(n,sl.getDiscount().getN());
+        assertEquals(n, sl.getDiscount().getN());
     }
 
     @Donat("^que estem a la botiga \"([^\"]*)\" i ens agradaria afegir un descompte del (\\d+)% als productes de tipo (.*)$")
     public void addTypeDiscount(String shop, int discount, String tipoProd) throws Throwable {
-        this.posController.addTypeDiscount(shop, discount, tipoProd);
+        tryCatch(()->this.posController.addTypeDiscount(shop, discount, tipoProd));
+    }
+
+    @Quan("que en (.*) ha iniciat sessio com a gestor$")
+    public void  gestorLogin(String gestorName) throws Throwable {
+        tryCatch(() -> this.posController.gestorLogin(gestorName));
     }
 }

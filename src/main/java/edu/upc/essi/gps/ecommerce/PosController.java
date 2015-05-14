@@ -21,6 +21,9 @@ public class PosController {
     private historicSales historic;
     private Discount discMxN;
     private setDiscountCollection setDiscountCollection;
+    //coses pel gestor
+    private String currentGestorName;
+    private Date dateLoginGestor;
 
     public PosController(String shop, int posNumber, ProductsService productsService) {
         this.shop = shop;
@@ -28,6 +31,15 @@ public class PosController {
         this.productsService = productsService;
         this.discPerc = new Discount("none",100);
         this.setDiscountCollection = new setDiscountCollection();
+    }
+
+    public void gestorLogin(String gestorLogin) {
+        checkNotNull(gestorLogin, "gestorLogin");
+        Date data = new Date(2015,05,13);
+        if (this.currentGestorName != null)
+            throw new IllegalStateException("Hi ha una sessió iniciada pel gestor " + currentGestorName);
+        this.currentGestorName = gestorLogin;
+        this.dateLoginGestor = data;
     }
 
     public void login(String saleAssistantName) {
@@ -159,6 +171,7 @@ public class PosController {
     }
 
     public void addTypeDiscount(String shop, int discount, String tipoProd) {
+        if (currentGestorName == null) throw new IllegalStateException("No hi ha cap sessio de gestor iniciada");
         setDiscount sd = new setDiscount(tipoProd, discount, shop);
         this.setDiscountCollection.addSetDiscount(sd);
     }
