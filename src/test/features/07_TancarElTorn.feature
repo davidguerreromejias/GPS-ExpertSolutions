@@ -11,15 +11,17 @@ Característica: Tancar el torn al tpv
     Quan vull tancar el torn i a la caixa hi ha 25€
     Aleshores obtinc un error que diu: "No hi ha cap torn iniciat"
 
-  Escenari: Un venedor no pot inicar el torn si ja hi ha un altre venedor al tpv
+  Escenari: Un venedor vol tancar el torn i es produeix un quadrament invàlid
     Donat que en "Martí" ha iniciat el torn al tpv
-    //ventes que s'han fet
+    I al iniciar el torn hi havia 5€ a la caixa
+    I s'ha fet una venta en efectiu per valor de 15€
     Quan vull tancar el torn i a la caixa hi ha 15€
     Aleshores el sistema m'informa que el quadrament de la caixa és invàlid
 
-  Escenari: Un venedor no pot inicar el torn si ja hi ha un altre venedor al tpv
+  Escenari: Un venedor vol tancar el torn i no es produeix cap problema
     Donat que en "Martí" ha iniciat el torn al tpv
-    //ventes que s'han fet
-    Quan vull tancar el torn i a la caixa hi ha 15€
+    I al iniciar el torn hi havia 10€ a la caixa
+    I s'ha fet una venta en efectiu per valor de 10€
+    Quan vull tancar el torn i a la caixa hi ha 20€
     Aleshores el sistema confirma el quadrament i tanca el torn
 
