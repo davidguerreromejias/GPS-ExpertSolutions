@@ -32,12 +32,13 @@ public class PosController {
     public int getVentesRealitzadesId(int posNumber) {
         boolean trobat = false;
         int i = 0;
+        int aux = 0;
         while(trobat == false){
-            int aux = this.ventesRealitzades.get(i).getPosNumber();
+            aux = this.ventesRealitzades.get(i).getPosNumber();
             if(aux == posNumber) trobat = true;
             ++i;
-
         }
+        return aux;
     }
 
     public PosController(String shop, int posNumber, ProductsService productsService) {
