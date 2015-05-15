@@ -11,6 +11,10 @@ public class historicSales {
     private Map<Date, TreeMap> historic = new TreeMap<Date, TreeMap>();
     private String shop;
 
+    public historicSales(Map<Date, TreeMap> historic) {
+        this.historic = historic;
+    }
+
     public String getShop() {
         return shop;
     }
