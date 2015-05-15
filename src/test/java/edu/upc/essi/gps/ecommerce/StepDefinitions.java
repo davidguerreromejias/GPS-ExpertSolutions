@@ -214,7 +214,7 @@ public class StepDefinitions {
 
     @Quan("^apreto sobre el descompte m x n (\\d+) x (\\d+) existent$")
     public void applyDiscountMxN(int m, int n) throws Throwable{
-        this.posController.applyMxNDiscount(m,n);
+        this.posController.applyMxNDiscount(m, n);
     }
 
     @Aleshores("^línia de venta (\\d+) és de (\\d+) unitats de \"([^\"]*)\" a (\\d+)€ cada una amb un descompte de tipus " +
@@ -235,6 +235,11 @@ public class StepDefinitions {
     @Donat("^que estem a la botiga \"([^\"]*)\"$")
     public void loginShopAsGestor(String shop) throws Throwable {
         this.posController = new PosController(shop);
+    }
+
+    @Quan("^afageix un descompte del (\\d+)% als productes de (.*)$")
+    public void addSetDiscount(int discount, String setProducts) throws Throwable {
+        this.posController.addTypeDiscount(discount, setProducts);
     }
 
     @Quan("que en (.*) ha iniciat sessio com a gestor$")

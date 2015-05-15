@@ -5,12 +5,8 @@ Característica: Afegir un nou descompte al sistema
 
   Rerefons:
     Donat que estem a la botiga "Girona 1"
+    I que en "Joan" ha iniciat sessio
 
-  Escenari: Iniciar sessio
-    Quan inicio la sessio com a "Joan"
-    Aleshores hi ha una sessió iniciada pel gestor "Joan"
-
-  Escenari: Un venedor no pot inicar sessio ja que hi ha un altre sessio oberta d'un altre gestor
-    Donat que en "Martí" ha iniciat sessio
-    Quan inicio la sessio com a "Joan"
-    Aleshores obtinc un error que diu: "hi ha una sessió iniciada pel gestor Martí"
+  Escenari: Afegir un descompte als objectes de tipos platja
+    Quan afageix un descompte del 10% als productes de platja
+    Aleshores s'ha afegit el descompte del 10% als productes de platja
