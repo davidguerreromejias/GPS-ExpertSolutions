@@ -191,14 +191,14 @@ public class StepDefinitions {
     }
 
     @Donat("^la botiga \"([^\"]*)\"")
-    public void createHistorial(String shop){
+    public void createHistorial(String shop) throws Throwable{
         this.posController = new PosController(shop);
         this.posController.createHistorial(shop);
     }
 
-    @Quan("^la venta ha estat pagada i finalitzada")
-    public void saveSale(){
-        this.posController.saveSale();
+    @Quan("^la venta (\\d+) ha estat pagada i finalitzada")
+    public void saveSale(int postNumber){
+        assertEquals(postNumber, this.posController.getVentesReaalitzadesId(postNumber));
     }
 
     @Quan("^apreto sobre el descompte (\\d+)% existent una altra vegada$")
