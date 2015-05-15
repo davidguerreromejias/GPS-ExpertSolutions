@@ -46,8 +46,9 @@ public class PosController {
     public void gestorLogin(String gestorName) {
         checkNotNull(gestorName, "gestorName");
         Date data = new Date(2015,05,13);
-        if (this.currentGestorName != null)
+        if (this.currentGestorName != null) {
             throw new IllegalStateException("hi ha una sessió iniciada pel gestor " + this.currentGestorName);
+        }
         this.currentGestorName = gestorName;
         this.dateLoginGestor = data;
     }
