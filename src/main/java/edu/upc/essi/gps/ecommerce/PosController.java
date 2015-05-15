@@ -2,6 +2,8 @@ package edu.upc.essi.gps.ecommerce;
 
 import javafx.geometry.Pos;
 
+import javax.xml.crypto.Data;
+
 import static edu.upc.essi.gps.utils.Validations.*;
 
 import java.util.*;
@@ -13,7 +15,12 @@ public class PosController {
     private final int posNumber;
     private String currentSaleAssistantName;
     private Sale currentSale;
-    private Date currentDate;
+
+    public String getCurrentDate() {
+        return currentDate;
+    }
+
+    private String currentDate;
 
 
 
@@ -27,7 +34,7 @@ public class PosController {
     private Date dateLoginGestor;
     private LinkedList<Discount> discMxNCollection = new LinkedList<>();
     private LinkedList<Discount> discPercCollection = new LinkedList<>();
-    private Map<Date, TreeMap> historicMap = new TreeMap<Date, TreeMap>();
+    private Map<String, TreeMap> historicMap = new TreeMap<String, TreeMap>();
 
     public int getVentesRealitzadesId(int posNumber) {
         boolean trobat = false;
@@ -39,6 +46,18 @@ public class PosController {
             ++i;
         }
         return aux;
+    }
+
+    public  Sale getVentesRealitzadesSale(int posNumber) {
+        boolean trobat = false;
+        int i = 0;
+        int aux = 0;
+        while(trobat == false){
+            aux = this.ventesRealitzades.get(i).getPosNumber();
+            if(aux == posNumber) trobat = true;
+            ++i;
+        }
+        return this.ventesRealitzades.get(i);
     }
 
     public PosController(String shop, int posNumber, ProductsService productsService) {
@@ -60,7 +79,8 @@ public class PosController {
 
     public void gestorLogin(String gestorName) {
         checkNotNull(gestorName, "gestorName");
-        Date data = new Date(2015,05,13);
+        String data1 = new String("2015,05,13");
+        Date data = new Date("2015,05,13");
         if (this.currentGestorName != null) {
             throw new IllegalStateException("hi ha una sessió iniciada pel gestor " + this.currentGestorName);
         }
@@ -71,10 +91,11 @@ public class PosController {
     public void login(String saleAssistantName) {
         checkNotNull(saleAssistantName, "saleAssistantName");
         Date data = new Date(2015,05,13);
+        String data1 = new String("2015,05,13");
         if (this.currentSaleAssistantName != null)
             throw new IllegalStateException("Aquest tpv està en ús per " + this.currentSaleAssistantName);
         this.currentSaleAssistantName = saleAssistantName;
-        this.currentDate = data;
+        this.currentDate = data1;
         this.ventesRealitzades = new LinkedList();
         this.initialCash = 0;
     }
@@ -220,7 +241,7 @@ public class PosController {
         historic = new historicSales(historicMap);
         historic.setShop(shop);
     }
-    public void saveSale(){
+    public void setSaleHistorial(){
         historic.setSale(currentSale, currentDate);
     }
 
