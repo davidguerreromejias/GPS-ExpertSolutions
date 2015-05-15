@@ -14,4 +14,4 @@ Característica: Afegir un nou descompte al sistema
   Escenari: Un venedor no pot inicar sessio ja que hi ha un altre sessio oberta d'un altre gestor
     Donat que en "Martí" ha iniciat sessio
     Quan inicio la sessio com a "Joan"
-    Aleshores obtinc un error que diu: "hi ha una sessió iniciada pel gestor Marti"
+    Aleshores obtinc un error que diu: "hi ha una sessió iniciada pel gestor Martí"

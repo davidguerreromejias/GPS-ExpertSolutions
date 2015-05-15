@@ -76,7 +76,6 @@ public class StepDefinitions {
 
     @Quan("inicio la sessio com a (.*)$")
     public void loginGestor(String gestorName) throws Throwable {
-        System.out.println("------------->" + gestorName);
         tryCatch(() -> this.posController.gestorLogin(gestorName));
     }
 
@@ -84,7 +83,7 @@ public class StepDefinitions {
     public void hasLoggedIn(String saleAssistantName) throws Throwable {
         this.posController.login(saleAssistantName);
     }
-    @Donat("que en (.*) ha iniciat sessio$")
+    @Donat("que en \"([^\"]*)\" ha iniciat sessio$")
     public void hasLoggedInSession(String gestorName) throws Throwable {
         tryCatch(() -> this.posController.gestorLogin(gestorName));
     }
