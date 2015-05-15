@@ -32,6 +32,7 @@ public class PosController {
         this.productsService = productsService;
         //this.discPerc = new Discount("none",100);
         this.setDiscountCollection = new setDiscountCollection();
+        this.currentSaleAssistantName = null;
     }
 
     public PosController(String shop) {
@@ -39,6 +40,7 @@ public class PosController {
         this.setDiscountCollection = new setDiscountCollection();
         this.posNumber = -1; //es un gestor el que està dins, els canvis seràn per tots els tpv
         this.productsService = null; //nomes serà per fer gestions, no per vendre res, per tant tampoc necessitem el productService
+        this.currentSaleAssistantName = null;
     }
 
     public void gestorLogin(String gestorName) {
@@ -147,12 +149,13 @@ public class PosController {
     }
 
     public void tancarTorn(int n){
+        if(this.currentSaleAssistantName == null){ throw new RuntimeException("No hi ha cap torn iniciat"); }
         int t = getTotalTorn();
         if(n!=t){
-
+            //donar la opcio de tornar a fer quadrament o registrar quadrament invalid
         }
         else{
-
+            this.currentSaleAssistantName = null;
         }
     }
 
