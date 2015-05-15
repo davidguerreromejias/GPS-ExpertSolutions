@@ -35,8 +35,6 @@ public class StepDefinitions {
 
     @Aleshores("^hi ha una sessió iniciada pel gestor (.*)$")
     public void checkGestorName(String gestorName) throws Throwable {
-        System.out.print(gestorName);
-        System.out.print(this.posController.getCurrentGestorName());
         assertEquals(gestorName, this.posController.getCurrentGestorName());
     }
 
@@ -240,6 +238,11 @@ public class StepDefinitions {
     @Quan("^afageix un descompte del (\\d+)% als productes de (.*)$")
     public void addSetDiscount(int discount, String setProducts) throws Throwable {
         this.posController.addTypeDiscount(discount, setProducts);
+    }
+
+    @Aleshores("^s'ha afegit el descompte del (\\d+)% als productes de (.*)$")
+    public void checkSetDiscountAdded(int discount, String setProduct) throws Throwable {
+        assertEquals(discount, (int) this.posController.getDiscountBySetProduct(setProduct));
     }
 
     @Quan("que en (.*) ha iniciat sessio com a gestor$")

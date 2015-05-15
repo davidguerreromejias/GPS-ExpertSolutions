@@ -196,7 +196,7 @@ public class PosController {
             discMxN = it.next();
             if(discMxN.getM() == m && discMxN.getN() == n) found = true;
         }
-        if (found) currentSale.setMxNActiveDiscount(discMxN.getTypeOfDiscount(),discMxN.getM(), discMxN.getN());
+        if (found) currentSale.setMxNActiveDiscount(discMxN.getTypeOfDiscount(), discMxN.getM(), discMxN.getN());
 
     }
 
@@ -222,5 +222,11 @@ public class PosController {
         if (currentGestorName == null) throw new IllegalStateException("No hi ha cap sessio de gestor iniciada");
         setDiscount sd = new setDiscount(tipoProd, discount, this.shop);
         this.setDiscountCollection.addSetDiscount(sd);
+        float aux = setDiscountCollection.getSetDiscount(tipoProd, this.shop);
+        if (aux != discount) throw new IllegalStateException("No 'ha afegit el descompte");
+    }
+
+    public float getDiscountBySetProduct(String setProduct) {
+        return setDiscountCollection.getSetDiscount(setProduct, this.shop);
     }
 }
