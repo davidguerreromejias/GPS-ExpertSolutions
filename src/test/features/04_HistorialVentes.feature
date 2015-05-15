@@ -9,7 +9,7 @@ Característica: Historial de ventes
     I que tenim ventes fetes
 
   Escenari: Afegir una venta al historial
-    Quan la venta ha estat pagada i finalitzada
+    Quan la venta 1 ha estat pagada i finalitzada
     Aleshores la venta es guarda al historial
     I la venta te una data
     I la venta te un venedor
