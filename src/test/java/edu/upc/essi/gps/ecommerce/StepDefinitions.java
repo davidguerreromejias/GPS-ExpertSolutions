@@ -6,9 +6,7 @@ import cucumber.api.java.ca.Quan;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class StepDefinitions {
 
@@ -43,9 +41,31 @@ public class StepDefinitions {
         this.posController = new PosController(shop,posNumber, productsService);
     }
 
+    @Donat("^s'ha fet una venta en efectiu per valor de (\\d+)€$")
+    public void ferVenta(int v) throws Throwable {
+        this.posController.startSale();
+        this.posController.getCurrentSale().setTotalPrice(v);
+        this.posController.afegirVenta();
+    }
+
+    @Donat("^al iniciar el torn hi havia (\\d+)€ a la caixa$")
+    public void setInitCash(int x){
+        this.posController.setInitialCash(x);
+    }
+
     @Quan("^vull tancar el torn i a la caixa hi ha (\\d+)€$")
     public void tancarTorn(int n) throws Throwable {
-        this.posController.tancarTorn(n);
+        tryCatch(() -> this.posController.tancarTorn(n));
+    }
+
+    @Aleshores("^el sistema m'informa que el quadrament de la caixa és invàlid$")
+     public void checkQuadramentInvalid() throws Throwable {
+        assertFalse(this.posController.getTancamentUltimTorn());
+    }
+
+    @Aleshores("^el sistema confirma el quadrament i tanca el torn$")
+    public void checkQuadramentValid() throws Throwable {
+        assertTrue(this.posController.getTancamentUltimTorn());
     }
 
     @Aleshores("^el tpv està en ús per en \"([^\"]*)\"$")
