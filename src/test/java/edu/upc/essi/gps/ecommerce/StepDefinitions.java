@@ -43,9 +43,9 @@ public class StepDefinitions {
         this.posController = new PosController(shop,posNumber, productsService);
     }
 
-    @Quan("^vull tancar el torn$")
+    @Quan("^vull tancar el torn i a la caixa hi ha (\\d+)€$")
     public void tancarTorn(int n) throws Throwable {
-
+        this.posController.tancarTorn(n);
     }
 
     @Aleshores("^el tpv està en ús per en \"([^\"]*)\"$")
