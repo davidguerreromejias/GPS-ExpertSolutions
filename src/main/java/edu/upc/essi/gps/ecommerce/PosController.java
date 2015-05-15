@@ -17,7 +17,6 @@ public class PosController {
     private String currentSaleAssistantName;
     private Sale currentSale;
     private Date currentDate;
-    private Discount discPerc;
     private LinkedList<Sale> ventesRealitzades;
     private final LinkedList<QuadramentInvalid> quadramentsInvalids = new LinkedList<>();
     private int initialCash;
@@ -27,12 +26,13 @@ public class PosController {
     private String currentGestorName;
     private Date dateLoginGestor;
     private LinkedList<Discount> discMxNCollection = new LinkedList<>();
+    private LinkedList<Discount> discPercCollection = new LinkedList<>();
 
     public PosController(String shop, int posNumber, ProductsService productsService) {
         this.shop = shop;
         this.posNumber = posNumber;
         this.productsService = productsService;
-        this.discPerc = new Discount("none",100);
+        //this.discPerc = new Discount("none",100);
         this.setDiscountCollection = new setDiscountCollection();
     }
 
@@ -171,12 +171,20 @@ public class PosController {
         quadramentsInvalids.add(new QuadramentInvalid(this.shop, this.posNumber, this.currentSaleAssistantName, x));
     }
 
-    public void createPercDiscount(String type, int quant) {
-        discPerc = new Discount(type,quant);
+    public void createPercDiscount(String type, int amount) {
+        Discount discPerc = new Discount(type, amount);
+        discPercCollection.add(discPerc);
     }
-    public void applyPercDiscount(String typeOfDisc){
+    public void applyPercDiscount(int amount){
         if(getCurrentSale() == null) throw new IllegalStateException("No hi ha cap venta iniciada");
-        currentSale.setPercActiveDiscount(discPerc.getTypeOfDiscount(), discPerc.getAmountDiscount());
+        Iterator<Discount> it = discPercCollection.iterator();
+        boolean found = false;
+        Discount discPerc = new Discount("percentatge");
+        while (it.hasNext() && !found){
+            discPerc = it.next();
+            if(discPerc.getAmountDiscount() == amount) found = true;
+        }
+        if (found) currentSale.setPercActiveDiscount(discPerc.getTypeOfDiscount(), discPerc.getAmountDiscount());
     }
 
     public void applyMxNDiscount(int m, int n){

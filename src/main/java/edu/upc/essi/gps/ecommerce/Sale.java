@@ -43,7 +43,8 @@ class SaleLine{
         if(discount.getTypeOfDiscount().equals("percentatge")) {
             double discdouble = discount.getAmountDiscount();
             discdouble = discdouble / 100;
-            double totalPrice = unitPrice * amount * discdouble;
+            double totalPrice = (unitPrice * amount) - (unitPrice * amount * discdouble);
+            System.out.println(totalPrice);
             return (int) totalPrice;
         }
         else if(discount.getTypeOfDiscount().equals("m x n")){

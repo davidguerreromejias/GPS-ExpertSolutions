@@ -173,9 +173,9 @@ public class StepDefinitions {
         this.posController.createPercDiscount(type, amountDisc);
     }
 
-    @Quan("^apreto sobre el descompte 50% existent$")
-    public void applyDiscountPerc() throws Throwable{
-        this.posController.applyPercDiscount("percentatge");
+    @Quan("^apreto sobre el descompte (\\d+)% existent$")
+    public void applyDiscountPerc(int amount) throws Throwable{
+        this.posController.applyPercDiscount(amount);
     }
 
     @Aleshores("^línia de venta (\\d+) és de (\\d+) unitats de \"([^\"]*)\" a (\\d+)€ cada una amb un descompte de tipus " +
@@ -202,8 +202,8 @@ public class StepDefinitions {
         this.posController.saveSale();
     }
 
-    @Quan("^apreto sobre el descompte 50% existent una altra vegada$")
-    public void StopApplyingDiscount() throws Throwable{
+    @Quan("^apreto sobre el descompte (\\d+)% existent una altra vegada$")
+    public void StopApplyingDiscount(int amount) throws Throwable{
         this.posController.StopApplyingDiscount();
     }
 
