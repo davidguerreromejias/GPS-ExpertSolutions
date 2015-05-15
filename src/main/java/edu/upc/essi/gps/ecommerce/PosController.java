@@ -4,10 +4,7 @@ import javafx.geometry.Pos;
 
 import static edu.upc.essi.gps.utils.Validations.*;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Objects;
+import java.util.*;
 
 public class PosController {
 
@@ -27,6 +24,7 @@ public class PosController {
     private Date dateLoginGestor;
     private LinkedList<Discount> discMxNCollection = new LinkedList<>();
     private LinkedList<Discount> discPercCollection = new LinkedList<>();
+    private Map<Date, TreeMap> historicMap = new TreeMap<Date, TreeMap>();
 
     public PosController(String shop, int posNumber, ProductsService productsService) {
         this.shop = shop;
@@ -201,7 +199,7 @@ public class PosController {
     }
 
     public void createHistorial(String shop){
-        historic = new historicSales();
+        historic = new historicSales(historicMap);
         historic.setShop(shop);
     }
     public void saveSale(){
