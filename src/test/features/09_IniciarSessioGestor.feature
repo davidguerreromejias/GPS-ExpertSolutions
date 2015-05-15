@@ -5,7 +5,6 @@ Característica: Afegir un nou descompte al sistema
 
   Rerefons:
     Donat que estem a la botiga "Girona 1"
-  #i ens agradaria afegir un descompte del 10% als productes de tipo platj09_AfegirDescomptex.featurea
 
   Escenari: Iniciar sessio
     Quan inicio la sessio com a "Joan"
