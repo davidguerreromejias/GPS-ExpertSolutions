@@ -173,7 +173,7 @@ public class StepDefinitions {
 
     @Quan("^apreto sobre el descompte 50% existent$")
     public void applyDiscountPerc() throws Throwable{
-        this.posController.applyDiscount("percentatge");
+        this.posController.applyPercDiscount("percentatge");
     }
 
     @Aleshores("^línia de venta (\\d+) és de (\\d+) unitats de \"([^\"]*)\" a (\\d+)€ cada una amb un descompte de tipus " +
@@ -210,9 +210,9 @@ public class StepDefinitions {
         this.posController.createMxNDisc(type, mvalue, nvalue);
     }
 
-    @Quan("^apreto sobre el descompte m x n existent$")
-    public void applyDiscountMxN() throws Throwable{
-        this.posController.applyDiscount("m x n");
+    @Quan("^apreto sobre el descompte m x n (\\d+) x (\\d+) existent$")
+    public void applyDiscountMxN(int m, int n) throws Throwable{
+        this.posController.applyMxNDiscount(m,n);
     }
 
     @Aleshores("^línia de venta (\\d+) és de (\\d+) unitats de \"([^\"]*)\" a (\\d+)€ cada una amb un descompte de tipus " +

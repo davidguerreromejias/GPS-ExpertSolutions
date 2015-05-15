@@ -3,6 +3,7 @@ package edu.upc.essi.gps.ecommerce;
 import static edu.upc.essi.gps.utils.Validations.*;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Objects;
 
@@ -19,11 +20,11 @@ public class PosController {
     private final LinkedList<QuadramentInvalid> quadramentsInvalids = new LinkedList<>();
     private int initialCash;
     private historicSales historic;
-    private Discount discMxN;
     private setDiscountCollection setDiscountCollection;
     //coses pel gestor
     private String currentGestorName;
     private Date dateLoginGestor;
+    private LinkedList<Discount> discMxNCollection = new LinkedList<>();
 
     public PosController(String shop, int posNumber, ProductsService productsService) {
         this.shop = shop;
@@ -163,21 +164,28 @@ public class PosController {
     public void createPercDiscount(String type, int quant) {
         discPerc = new Discount(type,quant);
     }
-    public void applyDiscount(String typeOfDisc){
+    public void applyPercDiscount(String typeOfDisc){
         if(getCurrentSale() == null) throw new IllegalStateException("No hi ha cap venta iniciada");
-        if(Objects.equals(typeOfDisc, "percentatge")) {
-            currentSale.setPercActiveDiscount(discPerc.getTypeOfDiscount(), discPerc.getAmountDiscount());
+        currentSale.setPercActiveDiscount(discPerc.getTypeOfDiscount(), discPerc.getAmountDiscount());
+    }
+
+    public void applyMxNDiscount(int m, int n){
+        if(getCurrentSale() == null) throw new IllegalStateException("No hi ha cap venta iniciada");
+        Iterator<Discount> it = discMxNCollection.iterator();
+        boolean found = false;
+        Discount discMxN = new Discount("m x n");
+        while (it.hasNext() && !found){
+            discMxN = it.next();
+            if(discMxN.getM() == m && discMxN.getN() == n) found = true;
         }
-        else if (Objects.equals(typeOfDisc, "m x n")) {
-            currentSale.setMxNActiveDiscount(discMxN.getTypeOfDiscount(),discMxN.getM(), discMxN.getN());
-        }
+        if (found) currentSale.setMxNActiveDiscount(discMxN.getTypeOfDiscount(),discMxN.getM(), discMxN.getN());
+
     }
 
     public void createHistorial(String shop){
         historic = new historicSales();
         historic.setShop(shop);
     }
-
     public void saveSale(){
         historic.setSale(currentSale, currentDate);
     }
@@ -188,7 +196,8 @@ public class PosController {
     }
 
     public void createMxNDisc(String type, int m, int n) {
-        discMxN = new Discount(type, m, n);
+        Discount discMxN = new Discount(type, m, n);
+        discMxNCollection.add(discMxN);
     }
 
     public void addTypeDiscount(String shop, int discount, String tipoProd) {
