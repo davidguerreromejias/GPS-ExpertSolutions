@@ -1,5 +1,7 @@
 package edu.upc.essi.gps.ecommerce;
 
+import javafx.geometry.Pos;
+
 import static edu.upc.essi.gps.utils.Validations.*;
 
 import java.util.Date;
@@ -31,6 +33,13 @@ public class PosController {
         this.productsService = productsService;
         this.discPerc = new Discount("none",100);
         this.setDiscountCollection = new setDiscountCollection();
+    }
+
+    public PosController(String shop) {
+        this.shop = shop;
+        this.setDiscountCollection = new setDiscountCollection();
+        this.posNumber = -1; //es un gestor el que està dins, els canvis seràn per tots els tpv
+        this.productsService = null; //nomes serà per fer gestions, no per vendre res, per tant tampoc necessitem el productService
     }
 
     public void gestorLogin(String gestorName) {
