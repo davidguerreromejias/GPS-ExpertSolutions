@@ -241,7 +241,7 @@ public class PosController {
         historic = new historicSales(historicMap);
         historic.setShop(shop);
     }
-    public void setSaleHistorial(){
+    public void setSaleHistorial(Sale currentSale, String currentDate){
         historic.setSale(currentSale, currentDate);
     }
 

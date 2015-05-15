@@ -198,13 +198,13 @@ public class StepDefinitions {
 
     @Quan("^la venta (\\d+) ha estat pagada i finalitzada")
     public void saveSale(int postNumber){
-        assertEquals(postNumber, (int) this.posController.getVentesReaalitzadesId(postNumber));
+        assertEquals(postNumber, (int) this.posController.getVentesRealitzadesId(postNumber));
     }
 
     @Aleshores("^la venta (\\d+) es guarda al historial amb data \"([^\"]*)\"")
     public void saveInHistorial(int postNumber, String data){
         this.posController.setSaleHistorial(this.posController.getVentesRealitzadesSale(postNumber), data);
-        assertEquals(postNumber, this.posController.getCurrentSale.getPostNumber());
+        assertEquals(postNumber, this.posController.getCurrentSale().getPosNumber());
         assertEquals(data, this.posController.getCurrentDate());
     }
 
