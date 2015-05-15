@@ -8,10 +8,10 @@ import java.util.*;
 
 public class historicSales {
 
-    private Map<Date, TreeMap> historic = new TreeMap<Date, TreeMap>();
+    private Map<String, TreeMap> historic = new TreeMap<String, TreeMap>();
     private String shop;
 
-    public historicSales(Map<Date, TreeMap> historic) {
+    public historicSales(Map<String, TreeMap> historic) {
         this.historic = historic;
     }
 
@@ -23,15 +23,15 @@ public class historicSales {
         this.shop = shop;
     }
 
-    public Map<Date, TreeMap> getHistoric() {
+    public Map<String, TreeMap> getHistoric() {
         return historic;
     }
 
-    public void setHistoric(Map<Date, TreeMap> historic) {
+    public void setHistoric(Map<String, TreeMap> historic) {
         this.historic = historic;
     }
 
-    public void setSale(Sale sale, Date dateSale){
+    public void setSale(Sale sale, String dateSale){
         TreeMap<String, Sale> sales = new TreeMap<String, Sale>();
         String saleA = sale.getSaleAssistantName();
         sales.put(saleA, sale);

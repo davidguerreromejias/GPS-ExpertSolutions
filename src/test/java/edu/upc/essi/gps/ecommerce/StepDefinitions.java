@@ -211,14 +211,26 @@ public class StepDefinitions {
     }
 
     @Donat("^la botiga \"([^\"]*)\"")
-    public void createHistorial(String shop){
+    public void createHistorial(String shop) throws Throwable{
         this.posController = new PosController(shop);
         this.posController.createHistorial(shop);
     }
 
-    @Quan("^la venta ha estat pagada i finalitzada")
-    public void saveSale(){
-        this.posController.saveSale();
+    @Quan("^la venta (\\d+) ha estat pagada i finalitzada")
+    public void saveSale(int postNumber){
+        assertEquals(postNumber, (int) this.posController.getVentesReaalitzadesId(postNumber));
+    }
+
+    @Aleshores("^la venta (\\d+) es guarda al historial amb data \"([^\"]*)\"")
+    public void saveInHistorial(int postNumber, String data){
+        this.posController.setSaleHistorial(this.posController.getVentesRealitzadesSale(postNumber), data);
+        assertEquals(postNumber, this.posController.getCurrentSale.getPostNumber());
+        assertEquals(data, this.posController.getCurrentDate());
+    }
+
+    @Aleshores("^la venta te un vendor \"([^\"]*)\"")
+    public void checkSaleAssistant(String saleAssistant){
+        assertEquals(saleAssistant, this.posController.getCurrentSaleAssistantName());
     }
 
     @Quan("^apreto sobre el descompte (\\d+)% existent una altra vegada$")
