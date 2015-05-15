@@ -192,6 +192,7 @@ public class StepDefinitions {
 
     @Donat("^la botiga \"([^\"]*)\"")
     public void createHistorial(String shop){
+        this.posController = new PosController(shop);
         this.posController.createHistorial(shop);
     }
 
@@ -206,7 +207,7 @@ public class StepDefinitions {
     }
 
     @Donat("^que hi ha un descompte definit en el sistema de tipus (.*) on m és (\\d+) i n és (\\d+)$")
-    public void createMxNDiscount(String type,int mvalue,int nvalue) throws Throwable {
+    public void createMxNDiscount(String type,int mvalue, int nvalue) throws Throwable {
         this.posController.createMxNDisc(type, mvalue, nvalue);
     }
 
@@ -246,7 +247,7 @@ public class StepDefinitions {
     }
 
     @Quan("que en (.*) ha iniciat sessio com a gestor$")
-    public void  gestorLogin(String gestorName) throws Throwable {
+    public void gestorLogin(String gestorName) throws Throwable {
         tryCatch(() -> this.posController.gestorLogin(gestorName));
     }
 }
