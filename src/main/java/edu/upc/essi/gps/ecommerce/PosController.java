@@ -14,6 +14,9 @@ public class PosController {
     private String currentSaleAssistantName;
     private Sale currentSale;
     private Date currentDate;
+
+
+
     private LinkedList<Sale> ventesRealitzades;
     private final LinkedList<QuadramentInvalid> quadramentsInvalids = new LinkedList<>();
     private int initialCash;
@@ -25,6 +28,17 @@ public class PosController {
     private LinkedList<Discount> discMxNCollection = new LinkedList<>();
     private LinkedList<Discount> discPercCollection = new LinkedList<>();
     private Map<Date, TreeMap> historicMap = new TreeMap<Date, TreeMap>();
+
+    public int getVentesRealitzadesId(int posNumber) {
+        boolean trobat = false;
+        int i = 0;
+        while(trobat == false){
+            int aux = this.ventesRealitzades.get(i).getPosNumber();
+            if(aux == posNumber) trobat = true;
+            ++i;
+
+        }
+    }
 
     public PosController(String shop, int posNumber, ProductsService productsService) {
         this.shop = shop;
