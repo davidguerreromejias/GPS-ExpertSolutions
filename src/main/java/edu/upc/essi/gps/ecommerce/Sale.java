@@ -69,7 +69,7 @@ public class Sale {
     private final LinkedList<SaleLine> lines = new LinkedList<>();
     private Discount activeDiscount;
     private final String paymentForm;
-    private int totalPrice; //variable per a realitzar proves, no és coherent amb el mètode getTotal()
+    private int totalPrice; //variable per a realitzar proves, no ï¿½s coherent amb el mï¿½tode getTotal()
     private boolean esProva;
 
     public void addProduct(Product p) {
@@ -144,5 +144,13 @@ public class Sale {
 
     public void noActiveDiscount(){
         activeDiscount = new Discount("none");
+    }
+
+    public void deleteLine(String nomProd){
+        for(SaleLine l : lines) if (nomProd == l.getProductName()) lines.remove(l);
+    }
+
+    public void assignaDescompte(Discount d, String nomP){
+        for(SaleLine l : lines) if (nomP == l.getProductName()) l.setDiscount(d);
     }
 }

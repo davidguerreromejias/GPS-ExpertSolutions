@@ -292,4 +292,32 @@ public class StepDefinitions {
     public void gestorLogin(String gestorName) throws Throwable {
         tryCatch(() -> this.posController.gestorLogin(gestorName));
     }
+
+
+    @Donat("que hi ha un descompte definit de tipus (.*) d'un (\\d+)%$")
+    public void set_discPerc(String tipus, int amount){
+        this.posController.setDiscPerc(tipus, amount);
+    }
+
+    @Quan("elimino el producte (.*) de la venta$")
+    public void eliminarLinia(String nomProd)throws Throwable{
+        tryCatch(() -> this.posController.deleteLine(nomProd));
+    }
+    @Aleshores("la venta només li queden (\\d+) productes$")
+    public void línia_de_venta_es_unitats(int numProd) throws Throwable{
+        int size = this.posController.getCurrentSale().getLines().size();
+        assertEquals(numProd, size);
+    }
+    @Quan("apreto sobre el descompte 50% existent pel producte (.*) de la venta$")
+    public void assignarDescompte(String nomP) throws Throwable{
+        tryCatch(() -> this.posController.assignaDescompte(nomP));
+    }
+
+    @Aleshores("el producte (.*) val (\\d+)€$")
+    public void comprova_preu(String nomP, int preuP){
+        List<SaleLine> lines = this.posController.getCurrentSale().getLines();
+        for(SaleLine l : lines) {
+            if(l.getProductName()==nomP) assertEquals(preuP, l.getTotalPrice());
+        }
+    }
 }
