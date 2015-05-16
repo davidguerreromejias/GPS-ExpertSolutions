@@ -273,9 +273,19 @@ public class StepDefinitions {
         this.posController.addTypeDiscount(discount, setProducts);
     }
 
+    @Quan("^borrar el descompte dels productes de (.*)$")
+    public void deleteSetDiscount(String setProducts) throws Throwable {
+        this.posController.deletedTypeDiscount(setProducts);
+    }
+
     @Aleshores("^existeix un descompte al sistema del (\\d+)% pels productes de (.*)$")
     public void checkSetDiscountAdded(int discount, String setProduct) throws Throwable {
         assertEquals(discount, (int) this.posController.getDiscountBySetProduct(setProduct));
+    }
+
+    @Aleshores("^no existeix un descompte al sistema pels productes de (.*)$")
+    public void checkSetDiscountDeleted(String setProduct) throws Throwable {
+        assertEquals(false, this.posController.existSetProduct(setProduct));
     }
 
     @Quan("que en (.*) ha iniciat sessio com a gestor$")

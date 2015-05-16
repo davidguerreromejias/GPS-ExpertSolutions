@@ -274,4 +274,14 @@ public class PosController {
     public float getDiscountBySetProduct(String setProduct) {
         return setDiscountCollection.getSetDiscount(setProduct, this.shop);
     }
+
+
+
+    public void deletedTypeDiscount(String setProducts) {
+        setDiscountCollection.deleteSetDiscount(setProducts);
+    }
+
+    public boolean existSetProduct(String setProduct) {
+        return setDiscountCollection.existsSetDiscount(setProduct);
+    }
 }

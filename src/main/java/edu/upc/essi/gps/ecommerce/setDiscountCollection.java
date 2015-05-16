@@ -48,9 +48,29 @@ public class setDiscountCollection {
         }
     }
 
+    public void deleteSetDiscount(String set) {
+        Iterator<setDiscount> it = setDiscountController.iterator();
+        setDiscount aux;
+        Boolean trobat=false;
+        while( it.hasNext() && !trobat){
+            aux = it.next();
+            if ( aux.getSetObj().equals(set) && !trobat ) {
+                trobat=true;
+                it.remove();
+            }
+        }
+    }
+
     public float getSetDiscount (String set, String shop) {
         if (!existsSetDiscount(set, shop))
             throw new IllegalArgumentException("No existeix cap descompte de pels productes de tipus" + set);
         return getSetDiscountFromSet(set, shop).getDiscount();
+    }
+
+    public boolean existsSetDiscount(String set) {
+        for (setDiscount sd : setDiscountController) {
+            if (sd.getSetObj().equals(set)) return true;
+        }
+        return false;
     }
 }
