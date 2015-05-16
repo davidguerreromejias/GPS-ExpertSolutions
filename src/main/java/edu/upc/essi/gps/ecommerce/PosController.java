@@ -30,6 +30,7 @@ public class PosController {
     private historicSales historic;
     private setDiscountCollection setDiscountCollection;
     private boolean ultimTornTancatCorrectament;
+    private Discount discPerc;
     //coses pel gestor
     private String currentGestorName;
     private Date dateLoginGestor;
@@ -283,5 +284,20 @@ public class PosController {
 
     public boolean existSetProduct(String setProduct) {
         return setDiscountCollection.existsSetDiscount(setProduct);
+    }
+
+
+    public void deleteLine(String nomProd){
+        currentSale.deleteLine(nomProd);
+    }
+
+    public void assignaDescompte(String nomP){
+        currentSale.assignaDescompte(getDiscPerc(), nomP);
+    }
+
+    private Discount getDiscPerc(){return discPerc;}
+    public void setDiscPerc(String tipus, int amount){
+        discPerc.setAmountDiscount(amount);
+        discPerc.setTypeOfDiscount(tipus);
     }
 }
