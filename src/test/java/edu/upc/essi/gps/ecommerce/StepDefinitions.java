@@ -273,7 +273,7 @@ public class StepDefinitions {
         this.posController.addTypeDiscount(discount, setProducts);
     }
 
-    @Aleshores("^s'ha afegit el descompte del (\\d+)% als productes de (.*)$")
+    @Aleshores("^existeix un descompte al sistema del (\\d+)% pels productes de (.*)$")
     public void checkSetDiscountAdded(int discount, String setProduct) throws Throwable {
         assertEquals(discount, (int) this.posController.getDiscountBySetProduct(setProduct));
     }

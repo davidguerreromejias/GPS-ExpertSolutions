@@ -83,7 +83,7 @@ public class PosController {
     public void gestorLogin(String gestorName) {
         checkNotNull(gestorName, "gestorName");
         String data1 = new String("2015,05,13");
-        Date data = new Date("2015,05,13");
+        Date data = new Date(2015,05,13);
         if (this.currentGestorName != null) {
             throw new IllegalStateException("hi ha una sessió iniciada pel gestor " + this.currentGestorName);
         }

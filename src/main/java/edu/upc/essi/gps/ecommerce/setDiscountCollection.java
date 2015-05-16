@@ -1,6 +1,7 @@
 package edu.upc.essi.gps.ecommerce;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by GerardDuch on 14/05/15.
@@ -28,12 +29,23 @@ public class setDiscountCollection {
     }
 
     public void addSetDiscount(setDiscount sd) throws RuntimeException {
-        if (existsSetDiscount(sd.getSetObj(), sd.getShop()))
-            throw new IllegalArgumentException("Ja existeix un descompte per aquest conjunt de productes");
         if (sd.getDiscount() <= 0 || sd.getDiscount() > 100)
             throw new IllegalArgumentException("El descompte ha de ser més gran que 0 i més petit o igual que 100");
-
+        eliminaSetDiscount(sd); //si ja existia un descompte d'aquest tipo, l'elimina
         setDiscountController.add(sd);
+    }
+
+    private void eliminaSetDiscount(setDiscount sd) {
+        Iterator<setDiscount> it = setDiscountController.iterator();
+        setDiscount aux;
+        Boolean trobat=false;
+        while( it.hasNext() && !trobat){
+            aux = it.next();
+            if ( aux.getSetObj().equals(sd.getSetObj()) && aux.getShop().equals(sd.getShop()) && !trobat) {
+                trobat=true;
+                it.remove();
+            }
+        }
     }
 
     public float getSetDiscount (String set, String shop) {
