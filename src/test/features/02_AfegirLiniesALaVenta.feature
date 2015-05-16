@@ -31,13 +31,13 @@ Característica: Afegir línies a la venta
     I afegeixo el 1 element dels resultats a la venta amb quantitat 1
     I afegeixo el 2 element dels resultats a la venta amb quantitat 2
     Aleshores la venta té 2 línia
-    I línia de venta 1 és de 1 unitats de "Pilota vermella" a 10€ cada una per un total de 10€
-    I línia de venta 2 és de 2 unitats de "Pilota groga" a 12€ cada una per un total de 24€
-    I el total de la venta actual és de 34€
+    I línia de venta 1 és de 1 unitats de "Pilota groga" a 12€ cada una per un total de 12€
+    I línia de venta 2 és de 2 unitats de "Pilota vermella" a 10€ cada una per un total de 20€
+    I el total de la venta actual és de 32€
     I la pantalla del client del tpv mostra
     """
-    Pilota vermella - 10€/u x 1u = 10€
-    Pilota groga - 12€/u x 2u = 24€
+    Pilota groga - 12€/u x 1u = 12€
+    Pilota vermella - 10€/u x 2u = 20€
     ---
-    Total: 34€
+    Total: 32€
     """

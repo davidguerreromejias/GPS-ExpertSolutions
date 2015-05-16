@@ -108,7 +108,7 @@ public class PosController {
     public void buscarProductes(String s){
         StringBuffer stb = new StringBuffer(s);
         buscaProductes.clear();
-        List<Product> all = productsService.listProducts();
+        List<Product> all = productsService.listProductsByName();
         for(Product p : all){
             if(p.getName().contains(stb)){
                 buscaProductes.add(p);
