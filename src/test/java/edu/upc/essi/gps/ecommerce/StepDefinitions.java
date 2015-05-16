@@ -131,6 +131,17 @@ public class StepDefinitions {
         this.posController.addProductByBarCode(barCode, amount);
     }
 
+    @Quan("^busco un producte que es digui \"([^\"]*)\"$")
+    public void buscarProductes(String s) throws Throwable {
+        this.posController.buscarProductes(s);
+    }
+
+    @Quan("^afegeixo el (\\d+) element dels resultats a la venta amb quantitat (\\d+)$")
+    public void afegirIessimProducteDeCercaAVenta(int i, int q) throws Throwable {
+        long p = this.posController.getIndexIessimDeCerca(i);
+        this.posController.addProductById(p,q);
+    }
+
     @Quan("^afegeixo el producte de nom \"([^\"]*)\" a la venta amb quantitat (\\d+)$")
     public void addProductByName(String nom, int amount) throws Throwable {
         this.posController.addProductByName(nom, amount);

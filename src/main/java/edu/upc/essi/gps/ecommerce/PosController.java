@@ -31,6 +31,7 @@ public class PosController {
     private setDiscountCollection setDiscountCollection;
     private boolean ultimTornTancatCorrectament;
     private Discount discPerc;
+    private LinkedList<Product> buscaProductes = new LinkedList<>();
     //coses pel gestor
     private String currentGestorName;
     private Date dateLoginGestor;
@@ -104,6 +105,23 @@ public class PosController {
         this.initialCash = 0;
     }
 
+    public void buscarProductes(String s){
+        StringBuffer stb = new StringBuffer(s);
+        buscaProductes.clear();
+        List<Product> all = productsService.listProducts();
+        for(Product p : all){
+            if(p.getName().contains(stb)){
+                buscaProductes.add(p);
+            }
+        }
+    }
+
+    public long getIndexIessimDeCerca(int i){
+        if(buscaProductes.isEmpty()) throw new RuntimeException("No s'ha realitzat cap cerca o aquesta no ha produït cap resultat");
+        if(i > buscaProductes.size()) throw new RuntimeException("L'índex demanat excedeix el nombre de resultats de la cerca");
+        return buscaProductes.get(i-1).getId();
+    }
+
     public void setInitialCash(int s){ this.initialCash = s;}
 
     public void startSale() {
@@ -127,6 +145,12 @@ public class PosController {
         if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
         Product p = productsService.findByBarCode(barCode);
         currentSale.addProduct(p);
+    }
+
+    public void addProductById(long id, int amount){
+        if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
+        Product p = productsService.findById(id);
+        currentSale.addNProducts(p,amount);
     }
 
     public void addProductByBarCode(int barCode, int amount) {
