@@ -16,8 +16,3 @@ Característica: Afegir un nou descompte al sistema
   Escenari: Afegir un descompte als objectes de tipus piscina havent-hi ja un
     Quan afegeixo un descompte del 25% als productes de piscina
     Aleshores existeix un descompte al sistema del 25% pels productes de piscina
-
-  Escenari: Afegir un descompte als objectes de tipus platja
-    Quan afegeixo un descompte del 10% als productes de platja
-    I esborro el descompte dels productes de platja
-    Aleshores no existeix un descompte al sistema pels productes de  platja
