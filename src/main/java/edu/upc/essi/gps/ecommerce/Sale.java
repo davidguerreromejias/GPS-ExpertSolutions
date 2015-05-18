@@ -72,6 +72,16 @@ public class Sale {
     private int totalPrice; //variable per a realitzar proves, no �s coherent amb el m�tode getTotal()
     private boolean esProva;
 
+    public boolean isEstaPagada() {
+        return estaPagada;
+    }
+
+    public void setEstaPagada(boolean estaPagada) {
+        this.estaPagada = estaPagada;
+    }
+
+    private boolean estaPagada;
+
     public void addProduct(Product p) {
         lines.add(new SaleLine(p,1));
         if(activeDiscount.getTypeOfDiscount().equals("percentatge")) {
@@ -101,6 +111,7 @@ public class Sale {
         activeDiscount = new Discount("None", 0);
         this.paymentForm = "efectiu";
         this.esProva = false;
+        this.estaPagada = false;
     }
 
     public String getShop() {

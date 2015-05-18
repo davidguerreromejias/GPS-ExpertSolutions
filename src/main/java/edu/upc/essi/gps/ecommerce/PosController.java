@@ -116,6 +116,10 @@ public class PosController {
         }
     }
 
+    public void salePayed(){
+        this.getCurrentSale().setEstaPagada(true);
+    }
+
     public long getIndexIessimDeCerca(int i){
         if(buscaProductes.isEmpty()) throw new RuntimeException("No s'ha realitzat cap cerca o aquesta no ha produït cap resultat");
         if(i > buscaProductes.size()) throw new RuntimeException("L'índex demanat excedeix el nombre de resultats de la cerca");
