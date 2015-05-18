@@ -213,6 +213,7 @@ public class PosController {
             int canvi = delivered - getCurrentSale().getTotal();
             if (canvi < 0) throw new RuntimeException("La quantitat rebuda és inferior a l'import de la venda.");
             ventesRealitzades.add(currentSale);
+            historic.setSale(currentSale, currentDate);
             return "El canvi és: " + canvi + endMessage;
         }
     }
