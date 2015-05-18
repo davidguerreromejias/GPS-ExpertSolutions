@@ -205,7 +205,7 @@ public class PosController {
     }
 
     public String cashPayment(int delivered, String paymentForm) {
-        String endMessage = "€ i la venta ha estat finalitzada i enrigistrada correctament.";
+        String endMessage = "€ i la venta ha estat finalitzada i guardada al historial.";
         if (getCurrentSale() == null) throw new IllegalStateException("No es pot cobrar una venta si no està iniciada");
         else if (getCurrentSale().isEmpty())
             throw new IllegalStateException("No es pot cobrar una venta sense cap producte");
@@ -213,6 +213,7 @@ public class PosController {
             int canvi = delivered - getCurrentSale().getTotal();
             if (canvi < 0) throw new RuntimeException("La quantitat rebuda és inferior a l'import de la venda.");
             ventesRealitzades.add(currentSale);
+            historic.setSale(currentSale, currentDate);
             return "El canvi és: " + canvi + endMessage;
         }
     }
