@@ -232,8 +232,10 @@ public class StepDefinitions {
         this.posController.createHistorial(shop);
     }
 
-    @Quan("^la venta (\\d+) ha estat pagada i finalitzada")
-    public void saveSale(int postNumber){
+    @Quan("^a la botiga \"([^\"]*)\" la venta (\\d+) amb data \"([^\"]*)\" ha estat pagada i finalitzada")
+    public void saveSale(int postNumber, String shop, String data){
+        Sale x = new Sale(shop, postNumber, data);
+        this.posController.setSaleHistorial(x, data);
         assertEquals(postNumber, (int) this.posController.getVentesRealitzadesId(postNumber));
     }
 

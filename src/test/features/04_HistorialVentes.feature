@@ -4,8 +4,13 @@
 Característica: Historial de ventes
 
   Rerefons:
-    Donat la botiga "Girona 1"
+    Donat un producte amb nom "Optimus Prime", preu 23€, iva 21% i codi de barres 1234567
+    I que estem al tpv número 1 de la botiga "Girona 1"
+    I que en "Joan" ha iniciat el torn al tpv
 
-  Escenari: Afegir una venta al historial
-    Quan la venta 1 ha estat pagada i finalitzada
-    Aleshores la venta 1 es guarda al historial amb data "2015,05,13"
+  Escenari: Cobrar una venta en metàlic
+    Donat que hi ha una venta iniciada
+    I que he afegit el producte de codi de barres 1234567 a la venta
+    Quan indico que el client ha entregat 30€ per a pagar en metàlic
+    Aleshores el tpv mostra el següent: El canvi és: 7€ i la venta ha estat finalitzada i guardada al historial.
+
