@@ -129,6 +129,18 @@ public class PosController {
         this.currentSale = new Sale(shop, posNumber, currentSaleAssistantName);
     }
 
+    public String getResultatCercaProductes(){
+        if(buscaProductes.isEmpty()) throw new RuntimeException("No s'ha realitzat cap cerca o aquesta no ha produït cap resultat");
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        for(Product p : buscaProductes){
+            i++;
+            sb.append(i).append(" : ").append(p.getName()).append(" - ").append(p.getPrice()).append("€/u\n");
+        }
+        sb.append("---\n").append(i).append(" productes trobats");
+        return sb.toString();
+    }
+
     public String getCurrentSaleAssistantName() {
         return currentSaleAssistantName;
     }

@@ -139,7 +139,7 @@ public class StepDefinitions {
     @Quan("^afegeixo el (\\d+) element dels resultats a la venta amb quantitat (\\d+)$")
     public void afegirIessimProducteDeCercaAVenta(int i, int q) throws Throwable {
         long p = this.posController.getIndexIessimDeCerca(i);
-        this.posController.addProductById(p,q);
+        this.posController.addProductById(p, q);
     }
 
     @Quan("^afegeixo el producte de nom \"([^\"]*)\" a la venta amb quantitat (\\d+)$")
@@ -155,6 +155,11 @@ public class StepDefinitions {
     @Aleshores("^la venta té (\\d+) (?:línia|línies)$")
     public void la_venta_té_n_linies(int expectedNumberOfLines) throws Throwable {
         assertEquals(expectedNumberOfLines, this.posController.getCurrentSale().getLines().size());
+    }
+
+    @Aleshores("^el resultat de la cerca és$")
+    public void checkResultatCercaProductes(String msg) throws Throwable {
+        assertEquals(this.posController.getResultatCercaProductes(), msg);
     }
 
     @Aleshores("^línia de venta (\\d+) és de (\\d+) unitats de \"([^\"]*)\" a (\\d+)€ cada una per un total de (\\d+)€$")

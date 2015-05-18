@@ -31,6 +31,13 @@ Característica: Afegir línies a la venta
     I afegeixo el 1 element dels resultats a la venta amb quantitat 1
     I afegeixo el 2 element dels resultats a la venta amb quantitat 2
     Aleshores la venta té 2 línia
+    I el resultat de la cerca és
+    """
+    1 : Pilota groga - 12€/u
+    2 : Pilota vermella - 10€/u
+    ---
+    2 productes trobats
+    """
     I línia de venta 1 és de 1 unitats de "Pilota groga" a 12€ cada una per un total de 12€
     I línia de venta 2 és de 2 unitats de "Pilota vermella" a 10€ cada una per un total de 20€
     I el total de la venta actual és de 32€
