@@ -1,7 +1,7 @@
 # language: ca
 
 #noinspection SpellCheckingInspection
-Característica: Eliminar una línia
+Característica: Aplicar un descompte de tipus % a un producte
 
   Rerefons:
     Donat que estem al tpv número 1 de la botiga "Girona 1"
