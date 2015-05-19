@@ -38,6 +38,7 @@ public class PosController {
     private LinkedList<Discount> discMxNCollection = new LinkedList<>();
     private LinkedList<Discount> discPercCollection = new LinkedList<>();
     private Map<String, TreeMap> historicMap = new TreeMap<String, TreeMap>();
+    String change;
 
     public int getVentesRealitzadesId(int posNumber) {
         boolean trobat = false;
@@ -166,7 +167,7 @@ public class PosController {
     public void addProductById(long id, int amount){
         if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
         Product p = productsService.findById(id);
-        currentSale.addNProducts(p,amount);
+        currentSale.addNProducts(p, amount);
     }
 
     public void addProductByBarCode(int barCode, int amount) {
@@ -208,7 +209,7 @@ public class PosController {
         return sb.toString();
     }
 
-    public String cashPayment(int delivered, String paymentForm) {
+    public void cashPayment(int delivered, String paymentForm) {
         String endMessage = "€ i la venta ha estat finalitzada i guardada al historial.";
         if (getCurrentSale() == null) throw new IllegalStateException("No es pot cobrar una venta si no està iniciada");
         else if (getCurrentSale().isEmpty())
@@ -217,8 +218,8 @@ public class PosController {
             int canvi = delivered - getCurrentSale().getTotal();
             if (canvi < 0) throw new RuntimeException("La quantitat rebuda és inferior a l'import de la venda.");
             ventesRealitzades.add(currentSale);
-            historic.setSale(currentSale, currentDate);
-            return "El canvi és: " + canvi + endMessage;
+            historic.setSale(currentSale, currentDate); // fa que falli 03_CobramentMetalic
+            change = "El canvi és: " + canvi + endMessage;
         }
     }
 
@@ -340,4 +341,6 @@ public class PosController {
         discPerc.setAmountDiscount(amount);
         discPerc.setTypeOfDiscount(tipus);
     }
+
+    public String getChange(){ return change;}
 }

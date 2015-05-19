@@ -13,7 +13,6 @@ public class StepDefinitions {
     private ProductsService productsService = new ProductsService(new ProductsRepository());
     private Exception exception;
     private PosController posController;
-    private String change;
 
     public void tryCatch(Runnable r){
         try {
@@ -193,12 +192,12 @@ public class StepDefinitions {
 
     @Quan("^indico que el client ha entregat (\\d+)€ per a pagar en (.*)metàlic$")
     public void cashPayment(int delivered, final String paymentForm) throws Throwable {
-        tryCatch(() -> this.change = this.posController.cashPayment(delivered, paymentForm));
+        tryCatch(() -> this.posController.cashPayment(delivered, paymentForm));
     }
 
     @Aleshores("^el tpv mostra el següent: (.*)$")
     public void checkChange(String expectedChange) throws Throwable {
-        assertEquals(expectedChange, change);
+        assertEquals(expectedChange, this.posController.getChange());
     }
 
     @Donat("^que hi ha un descompte definit en el sistema de tipus (.*) d'un (\\d+)%$")
