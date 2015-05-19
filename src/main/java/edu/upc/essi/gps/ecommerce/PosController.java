@@ -283,8 +283,7 @@ public class PosController {
             discMxN = it.next();
             if(discMxN.getM() == m && discMxN.getN() == n) found = true;
         }
-        if (found) currentSale.setMxNActiveDiscount(discMxN.getTypeOfDiscount(), discMxN.getM(), discMxN.getN());
-
+        if (found) currentSale.applyDiscountAtLastLine(discMxN);
     }
 
     public void createHistorial(String shop){

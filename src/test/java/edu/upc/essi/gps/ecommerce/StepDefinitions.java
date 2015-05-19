@@ -27,7 +27,6 @@ public class StepDefinitions {
     @Aleshores("^obtinc un error que diu: \"([^\"]*)\"$")
     public void checkErrorMessage(String msg) throws Throwable {
         assertNotNull(this.exception);
-        //this.exception = new RuntimeException("No es pot cobrar una venta sense cap producte");
         assertEquals(msg, this.exception.getMessage());
     }
 
@@ -263,7 +262,7 @@ public class StepDefinitions {
 
     @Quan("^apreto sobre el descompte m x n (\\d+) x (\\d+) existent$")
     public void applyDiscountMxN(int m, int n) throws Throwable{
-        this.posController.applyMxNDiscount(m, n);
+        tryCatch(() -> this.posController.applyMxNDiscount(m, n));
     }
 
     @Aleshores("^línia de venta (\\d+) és de (\\d+) unitats de \"([^\"]*)\" a (\\d+)€ cada una amb un descompte de tipus " +
@@ -343,4 +342,9 @@ public class StepDefinitions {
             if(l.getProductName()==nomP) assertEquals(preuP, l.getTotalPrice());
         }
     }
+
+    @Donat("que el producte amb codi de barres (.*) ha estat afegit a la venta actual amb la quantitat (\\d+)")
+        public void producte_afegit_a_la_venta_actual(int barCode,int amount) throws Throwable{
+            this.posController.addProductByBarCode(barCode, amount);
+        }
 }

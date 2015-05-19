@@ -54,6 +54,7 @@ class SaleLine{
     }
 
     public void setDiscount(Discount d){
+        if(d.getM() != amount) throw new IllegalStateException("El descompte m x n no es correspon amb les unitats del producte");
         discount = d;
     }
 
@@ -149,10 +150,6 @@ public class Sale {
         activeDiscount = new Discount(type,amount);
     }
 
-    public void setMxNActiveDiscount(String type, int m, int n){
-        activeDiscount = new Discount(type,m,n);
-    }
-
     public void noActiveDiscount(){
         activeDiscount = new Discount("none");
     }
@@ -163,5 +160,9 @@ public class Sale {
 
     public void assignaDescompte(Discount d, String nomP){
         for(SaleLine l : lines) if (nomP == l.getProductName()) l.setDiscount(d);
+    }
+
+    public void applyDiscountAtLastLine(Discount d){
+        lines.getLast().setDiscount(d);
     }
 }
