@@ -54,7 +54,7 @@ class SaleLine{
     }
 
     public void setDiscount(Discount d){
-        if(d.getM() != amount) throw new IllegalStateException("El descompte m x n no es correspon amb les unitats del producte");
+        if(d.getTypeOfDiscount().equals("m x n") && d.getM() != amount) throw new IllegalStateException("El descompte m x n no es correspon amb les unitats del producte");
         discount = d;
     }
 
