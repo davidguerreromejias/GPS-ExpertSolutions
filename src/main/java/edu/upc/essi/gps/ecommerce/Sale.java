@@ -1,6 +1,7 @@
 package edu.upc.essi.gps.ecommerce;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -72,6 +73,7 @@ public class Sale {
     private final String paymentForm;
     private int totalPrice; //variable per a realitzar proves, no �s coherent amb el m�tode getTotal()
     private boolean esProva;
+    private final Date data;
 
     public boolean isEstaPagada() {
         return estaPagada;
@@ -113,6 +115,7 @@ public class Sale {
         this.paymentForm = "efectiu";
         this.esProva = false;
         this.estaPagada = false;
+        data = new Date();
     }
 
     public String getShop() {
