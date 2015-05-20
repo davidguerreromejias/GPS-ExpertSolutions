@@ -16,7 +16,7 @@ Característica: Tancar el torn al tpv
     I al iniciar el torn hi havia 5€ a la caixa
     I s'ha fet una venta en efectiu per valor de 15€
     Quan vull tancar el torn i a la caixa hi ha 15€
-    Aleshores el sistema m'informa que el quadrament de la caixa és invàlid
+    Aleshores el sistema m'informa que el quadrament de la caixa és invàlid i
 
   Escenari: Un venedor vol tancar el torn i no es produeix cap problema
     Donat que en "Martí" ha iniciat el torn al tpv
@@ -24,4 +24,7 @@ Característica: Tancar el torn al tpv
     I s'ha fet una venta en efectiu per valor de 10€
     Quan vull tancar el torn i a la caixa hi ha 20€
     Aleshores el sistema confirma el quadrament i tanca el torn
+
+  Escenari: Un gestor vol consultar el llistat de quadraments invàlids
+    Donat que en "Josep" ha iniciat el
 
