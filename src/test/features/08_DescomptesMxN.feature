@@ -4,7 +4,7 @@
 Característica: Aplicar descomptes del % a conjunts de productes
 
   Rerefons:
-    Donat un producte amb nom "Optimus Prime", preu 20€, iva 21% i codi de barres 1234567
+    Donat un producte amb nom "Optimus Prime", preu 20€, iva 21% i codi de barres 1234567 i que pertany als tipus "figura d'acció,transformer"
     I que estem al tpv número 1 de la botiga "Girona 1"
     I que en "Joan" ha iniciat el torn al tpv
     I que hi ha una venta iniciada
