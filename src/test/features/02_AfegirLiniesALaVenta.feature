@@ -4,9 +4,9 @@
 Característica: Afegir línies a la venta
 
   Rerefons:
-    Donat un producte amb nom "Optimus Prime", preu 23€, iva 21% i codi de barres 1234567
-    I un producte amb nom "Pilota vermella", preu 10€, iva 21% i codi de barres 1111111
-    I un producte amb nom "Pilota groga", preu 12€, iva 21% i codi de barres 2222222
+    Donat un producte amb nom "Optimus Prime", preu 23€, iva 21% i codi de barres 1234567 i que pertany als tipus "figura d'acció,transformer"
+    I un producte amb nom "Pilota vermella", preu 10€, iva 21% i codi de barres 1111111 i que pertany als tipus "esports"
+    I un producte amb nom "Pilota groga", preu 12€, iva 21% i codi de barres 2222222 i que pertany als tipus "esports"
     I que estem al tpv número 1 de la botiga "Girona 1"
     I que en "Joan" ha iniciat el torn al tpv
     I que hi ha una venta iniciada

@@ -4,19 +4,16 @@
 Característica: Aplicar descomptes del % a conjunts de productes
 
   Rerefons:
-    Donat un producte amb nom "Optimus Prime", preu 20€, iva 21% i codi de barres 1234567
-    I un producte amb nom "Bumblebee", preu 30€, iva 21% i codi de barres 1234568
-    I un producte amb nom "Gimli", preu 40€, iva 21% i codi de barres 1234569
+    Donat un producte amb nom "Optimus Prime", preu 20€, iva 21% i codi de barres 1234567 i que pertany als tipus "figura d'acció,transformer"
+    I un producte amb nom "Bumblebee", preu 30€, iva 21% i codi de barres 1234568 i que pertany als tipus "figura d'acció,transformer"
+    I un producte amb nom "Gimli", preu 40€, iva 21% i codi de barres 1234569 i que pertany als tipus "figura d'acció, transformer"
     I que estem al tpv número 1 de la botiga "Girona 1"
     I que en "Joan" ha iniciat el torn al tpv
     I que hi ha una venta iniciada
-    I que hi ha un descompte definit en el sistema de tipus percentatge d'un 20%
-    I que hi ha un descompte definit en el sistema de tipus percentatge d'un 50%
-
+    I que hi ha un descompte definit en el sistema pels productes de tipus transformer d'un 50%
 
   Escenari: Aplicar un descompte de tipus percentatge a un producte
-    Quan apreto sobre el descompte 50% existent
-    I afegeixo el producte de codi de barres 1234567 a la venta
+    Quan afegeixo el producte de codi de barres 1234567 a la venta
     Aleshores la venta té 1 línia
     I línia de venta 1 és de 1 unitats de "Optimus Prime" a 20€ cada una per un total de 20€
     I línia de venta 1 és de 1 unitats de "Optimus Prime" a 20€ cada una amb un descompte de tipus "percentatge" del 50% per un total de 10€
