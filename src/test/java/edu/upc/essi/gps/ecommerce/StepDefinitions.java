@@ -366,24 +366,4 @@ public class StepDefinitions {
             this.posController.endSale();
     }
 
-    @Quan("^el gestor (.*) visualitza les ventes en una data (.*)$")
-    public void visualitzarPerData(String gestor, String data) throws Throwable {
-        tryCatch(() -> this.posController.visualitzarPerData(gestor, data));
-    }
-
-    @Aleshores("^el sistema mostra la venta de (\\d+)€ feta per en (.*)$")
-    public void comprovaVentaPerDia(int totalPrice, String assistant){
-        Map<String, TreeMap> salesPerData = new TreeMap<String, TreeMap>();
-        String data = this.posController.getCurrentDate();
-        salesPerData = this.posController.visualitzarPerData(assistant, data);
-        //assistant = this.posController.getCurrentSaleAssistantName();
-        TreeMap<String, Sale> sales = new TreeMap<String, Sale>();
-        sales = salesPerData.get(data);
-        Sale x = sales.get(assistant);
-        System.out.println ("as "+this.posController.getCurrentSaleAssistantName());
-        int total = sales.get(assistant).getTotal();
-        String as = sales.get(assistant).getSaleAssistantName();
-        assertEquals(totalPrice, total);
-        assertEquals(assistant, as);
-    }
 }
