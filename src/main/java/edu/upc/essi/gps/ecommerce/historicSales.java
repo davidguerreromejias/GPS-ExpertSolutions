@@ -10,6 +10,7 @@ public class historicSales {
 
     private Map<String, TreeMap> historic = new TreeMap<String, TreeMap>();
     private String shop;
+    private ArrayList<Sale> listSales = new ArrayList<>();
 
     public historicSales(Map<String, TreeMap> historic) {
         this.historic = historic;

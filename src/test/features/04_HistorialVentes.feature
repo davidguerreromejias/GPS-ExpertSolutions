@@ -13,6 +13,6 @@ Característica: Historial de ventes
     I que en "Pere" ha iniciat sessió com a gestor
 
   Escenari: Visualitzar l'historial per data
-    Quan el gestor "Pere" visualitza les ventes en una data "2015,05,18"
+    Quan el gestor "Per" visualitza les ventes en una data "2015,05,18"
     Aleshores el sistema mostra la venta de 20€ feta per en "Joan"
 
