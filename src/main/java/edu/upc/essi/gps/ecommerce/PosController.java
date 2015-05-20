@@ -41,7 +41,7 @@ public class PosController {
     private Date dateLoginGestor;
     private LinkedList<Discount> discMxNCollection = new LinkedList<>();
     private LinkedList<Discount> discPercCollection = new LinkedList<>();
-    private Map<String, TreeMap> historicMap = new TreeMap<String, TreeMap>();
+    private LinkedList<Sale> historial = new LinkedList<>();
     String change;
 
     public int getVentesRealitzadesId(int posNumber) {
@@ -137,6 +137,10 @@ public class PosController {
     public void startSale() {
         if (this.currentSale != null) throw new IllegalStateException("Aquest tpv ja té una venta iniciada");
         this.currentSale = new Sale(shop, posNumber, currentSaleAssistantName);
+    }
+
+    public void newSale(){
+        Sale s = new Sale(shop, posNumber, currentSaleAssistantName);
     }
 
     public void endSale(){
@@ -295,12 +299,11 @@ public class PosController {
         if (found) currentSale.applyDiscountAtLastLine(discMxN);
     }
 
-    public void createHistorial(String shop){
-        historic = new historicSales(historicMap);
-        historic.setShop(shop);
+    public void createHistorial(){
+        this.historic = new historicSales();
     }
-    public void setSaleHistorial(Sale currentSale, String currentDate){
-        historic.setSale(currentSale, currentDate);
+    public void setSaleHistorial(HistorialLine hl){
+        historic.addSale(hl);
     }
 
     public void StopApplyingDiscount(){
@@ -352,9 +355,14 @@ public class PosController {
 
     public String getChange(){ return change;}
 
-    public Map<String, TreeMap> visualitzarPerData(String gestor, String data){
-        Map<String, TreeMap> salesPerData = new TreeMap<String, TreeMap>();
-        salesPerData = historic.getSalesByDate(data);
-        return salesPerData;
+    public String visualitzaVentesPerData(String data){
+        ArrayList<HistorialLine> aux = new ArrayList();
+        aux = historic.visualitzarPerData(data);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < aux.size(); i++) {
+            sb.append(i+1).append(" : ").append(aux.get(i).getSale().getTotal()).append(" - Realitzada per ").append(aux.get(i).getAssistantShop()).append(".\n");
+            sb.append("---\n");
+        }
+        return sb.toString();
     }
 }

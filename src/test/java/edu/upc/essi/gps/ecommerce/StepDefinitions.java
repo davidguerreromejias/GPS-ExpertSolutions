@@ -4,10 +4,8 @@ import cucumber.api.java.ca.Aleshores;
 import cucumber.api.java.ca.Donat;
 import cucumber.api.java.ca.Quan;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.lang.reflect.Array;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -40,6 +38,7 @@ public class StepDefinitions {
     @Donat("^que estem al tpv número (\\d+) de la botiga \"([^\"]*)\"$")
      public void setupPos(int posNumber, String shop) throws Throwable {
         this.posController = new PosController(shop,posNumber, productsService);
+        this.posController.createHistorial();
     }
 
     @Donat("^s'ha fet una venta en efectiu per valor de (\\d+)€$")
@@ -169,6 +168,12 @@ public class StepDefinitions {
         assertEquals(this.posController.getResultatCercaProductes(), msg);
     }
 
+    @Aleshores("^el resultat de la cerca per data \"([^\"]*)\" és$")
+    public void checkResultatCercaPerData(String data, String msg) throws Throwable {
+        assertEquals(this.posController.getCurrentDate(), data);
+        assertEquals(this.posController.visualitzaVentesPerData(data), msg);
+    }
+
     @Aleshores("^línia de venta (\\d+) és de (\\d+) unitats de \"([^\"]*)\" a (\\d+)€ cada una per un total de (\\d+)€$")
     public void línia_de_venta_és_de_unitats_de_a_€_cada_una_per_un_total_de_€(int lineNumber, int units, String productName, int unitPrice, int totalPrice) throws Throwable {
         SaleLine sl = this.posController.getCurrentSale().getLines().get(lineNumber - 1);
@@ -233,25 +238,6 @@ public class StepDefinitions {
         assertEquals(amountDesc, sl.getDiscount().getAmountDiscount());
     }
 
-    @Donat("^la botiga \"([^\"]*)\"")
-    public void createHistorial(String shop) throws Throwable{
-        this.posController = new PosController(shop);
-        this.posController.createHistorial(shop);
-    }
-
-    @Quan("^a la botiga \"([^\"]*)\" la venta (\\d+) amb data \"([^\"]*)\" ha estat pagada i finalitzada")
-    public void saveSale(int postNumber, String shop, String data){
-        Sale x = new Sale(shop, postNumber, data);
-        this.posController.setSaleHistorial(x, data);
-        assertEquals(postNumber, (int) this.posController.getVentesRealitzadesId(postNumber));
-    }
-
-    @Aleshores("^la venta (\\d+) es guarda al historial amb data \"([^\"]*)\"")
-    public void saveInHistorial(int postNumber, String data){
-        this.posController.setSaleHistorial(this.posController.getVentesRealitzadesSale(postNumber), data);
-        assertEquals(postNumber, this.posController.getCurrentSale().getPosNumber());
-        assertEquals(data, this.posController.getCurrentDate());
-    }
 
     @Aleshores("^la venta te un vendor \"([^\"]*)\"")
     public void checkSaleAssistant(String saleAssistant){
@@ -358,32 +344,19 @@ public class StepDefinitions {
 
     @Donat("que s'ha fet una venta de (.*)€")
         public void saleOfX(int total) throws Throwable{
+            this.posController.newSale();
             this.posController.startSale();
-            this.posController.createHistorial(this.posController.getCurrentSale().getShop());
             this.posController.salePayed();
             this.posController.getCurrentSale().setTotalPrice(total);
-            this.posController.setSaleHistorial(this.posController.getCurrentSale(), this.posController.getCurrentDate());
+            HistorialLine hl = new HistorialLine(this.posController.getCurrentSale(), this.posController.getCurrentDate(),
+                    this.posController.getCurrentSaleAssistantName());
+            this.posController.setSaleHistorial(hl);
             this.posController.endSale();
     }
 
-    @Quan("^el gestor (.*) visualitza les ventes en una data (.*)$")
-    public void visualitzarPerData(String gestor, String data) throws Throwable {
-        tryCatch(() -> this.posController.visualitzarPerData(gestor, data));
+    @Quan("el gestor (.*) visualitza les ventes en una data (.*)$")
+    public void visualitzaVentesPerData(String gestor, String data) throws Throwable{
+        tryCatch(() -> this.posController.visualitzaVentesPerData(data));
     }
 
-    @Aleshores("^el sistema mostra la venta de (\\d+)€ feta per en (.*)$")
-    public void comprovaVentaPerDia(int totalPrice, String assistant){
-        Map<String, TreeMap> salesPerData = new TreeMap<String, TreeMap>();
-        String data = this.posController.getCurrentDate();
-        salesPerData = this.posController.visualitzarPerData(assistant, data);
-        //assistant = this.posController.getCurrentSaleAssistantName();
-        TreeMap<String, Sale> sales = new TreeMap<String, Sale>();
-        sales = salesPerData.get(data);
-        Sale x = sales.get(assistant);
-        System.out.println ("as "+this.posController.getCurrentSaleAssistantName());
-        int total = sales.get(assistant).getTotal();
-        String as = sales.get(assistant).getSaleAssistantName();
-        assertEquals(totalPrice, total);
-        assertEquals(assistant, as);
-    }
 }
