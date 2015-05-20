@@ -386,4 +386,9 @@ public class StepDefinitions {
         assertEquals(totalPrice, total);
         assertEquals(assistant, as);
     }
+
+    @Donat("^que hi ha un descompte definit en el sistema pels productes de tipus (.*) d'un (\\d+)%$")
+    public void createCjtDiscount(String type, int amountDisc) throws Throwable {
+        this.posController.createCjtDiscount(type, amountDisc);
+    }
 }

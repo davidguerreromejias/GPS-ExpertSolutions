@@ -171,6 +171,8 @@ public class PosController {
         if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
         Product p = productsService.findByBarCode(barCode);
         currentSale.addProduct(p);
+        //falta buscar si existeix un descompte amb el nom d'un dels tipus del producte i després cridar a aplicar el descompte si és el cas
+        //semblant a applydiscountMxN
     }
 
     public void addProductById(long id, int amount){
@@ -356,5 +358,10 @@ public class PosController {
         Map<String, TreeMap> salesPerData = new TreeMap<String, TreeMap>();
         salesPerData = historic.getSalesByDate(data);
         return salesPerData;
+    }
+
+    public void createCjtDiscount(String type, int amount) {
+        Discount discPerc = new Discount(type, amount);
+        discPercCollection.add(discPerc);
     }
 }
