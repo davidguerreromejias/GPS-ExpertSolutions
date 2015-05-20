@@ -239,19 +239,38 @@ public class PosController {
         if(this.currentSaleAssistantName == null){ throw new RuntimeException("No hi ha cap torn iniciat"); }
         int t = getTotalTorn();
         if(n!=t){
-            afegirQuadramentInvalid(n);
+            afegirQuadramentInvalid(this.currentSaleAssistantName,n-t);
             //donar la opcio de tornar a fer quadrament o registrar quadrament invalid
 
             this.ultimTornTancatCorrectament = false;
         }
         else{
-            this.currentSaleAssistantName = null;
             this.ultimTornTancatCorrectament = true;
         }
     }
 
+    public void tornTancat(){
+        this.currentSaleAssistantName = null;
+    }
+
+    public int getDiffUltimQuadramentInvalid(){
+        return this.quadramentsInvalids.getLast().getDiferencia();
+    }
+
     public boolean getTancamentUltimTorn(){
         return this.ultimTornTancatCorrectament;
+    }
+
+    public String getQuadramentsInvalids(){
+        if(quadramentsInvalids.isEmpty()) throw new RuntimeException("No hi ha quadraments invàlids registrats al sistema");
+        StringBuilder sb = new StringBuilder();
+        sb.append("--Botiga--  --Caixa--  --Venedor--  --Quantitat--\n");
+        String espai = " , ";
+        for(QuadramentInvalid q : quadramentsInvalids){
+            sb.append(q.getShop()).append(espai).append(q.getPosNum()).append(espai).append(q.getSaleAssistantName()).append(espai).append(q.getDiferencia()).append("€\n");
+        }
+        sb.append("---\n").append(quadramentsInvalids.size()).append(" quadraments invàlids registrats");
+        return sb.toString();
     }
 
     public int getTotalTorn(){
@@ -262,9 +281,8 @@ public class PosController {
         return total+initialCash;
     }
 
-    public void afegirQuadramentInvalid(int cashRegister){
-        int x = cashRegister-getTotalTorn();
-        quadramentsInvalids.add(new QuadramentInvalid(this.shop, this.posNumber, this.currentSaleAssistantName, x));
+    public void afegirQuadramentInvalid(String name, int diff){
+        quadramentsInvalids.add(new QuadramentInvalid(this.shop, this.posNumber, name, diff));
     }
 
     public void createPercDiscount(String type, int amount) {
@@ -336,7 +354,7 @@ public class PosController {
     }
 
 
-    public void deleteLine(String nomProd){
+    public void deleteLine(String nomProd) {
         currentSale.deleteLine(nomProd);
     }
 

@@ -59,14 +59,33 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.tancarTorn(n));
     }
 
-    @Aleshores("^el sistema m'informa que el quadrament de la caixa és invàlid$")
-     public void checkQuadramentInvalid() throws Throwable {
+    @Quan("^vull obtenir un llistat dels quadraments invàlids$")
+    public void getLlistatQuadramentsInvalids() throws Throwable {
+        assertNotNull(this.posController.getCurrentGestorName());
+    }
+
+    @Aleshores("^el sistema em mostra un llistat de quadraments invàlids que és$")
+    public void checkLlistatQuadramentsInvalids(String msg) throws Throwable {
+        assertEquals(msg, this.posController.getQuadramentsInvalids(), msg);
+    }
+
+    @Aleshores("^el sistema m'informa que el quadrament de la caixa és invàlid i la diferència és de (\\d+)€$")
+     public void checkQuadramentInvalid(int dif) throws Throwable {
         assertFalse(this.posController.getTancamentUltimTorn());
+        assertEquals(this.posController.getDiffUltimQuadramentInvalid(), dif);
+    }
+
+    @Aleshores("^el sistema m'informa que el quadrament de la caixa és invàlid i la diferència és de (\\d+)€ negatius$")
+    public void checkQuadramentInvalidNegatiu(int dif) throws Throwable {
+        assertFalse(this.posController.getTancamentUltimTorn());
+        assertEquals(this.posController.getDiffUltimQuadramentInvalid(), -dif);
     }
 
     @Aleshores("^el sistema confirma el quadrament i tanca el torn$")
     public void checkQuadramentValid() throws Throwable {
         assertTrue(this.posController.getTancamentUltimTorn());
+        this.posController.tornTancat();
+        assertNull(this.posController.getCurrentSaleAssistantName());
     }
 
     @Aleshores("^el tpv està en ús per en \"([^\"]*)\"$")
@@ -116,6 +135,17 @@ public class StepDefinitions {
     public void saleStarted() throws Throwable {
         this.posController.startSale();
     }
+
+    @Donat("^en \"([^\"]*)\" ha tancat el seu torn amb un quadrament invàlid de (\\d+)€$")
+     public void tornTancatAmbQuadramentInvalid(String name, int diff) throws Throwable {
+        this.posController.afegirQuadramentInvalid(name, diff);
+    }
+
+    @Donat("^en \"([^\"]*)\" ha tancat el seu torn amb un quadrament invàlid de (\\d+)€ negatius$")
+    public void tornTancatAmbQuadramentInvalidNegatiu(String name, int diff) throws Throwable {
+        this.posController.afegirQuadramentInvalid(name, -diff);
+    }
+
 
     @Donat("^que hi ha una venta pagada$")
     public void salePayed() throws Throwable {
@@ -354,7 +384,7 @@ public class StepDefinitions {
     @Donat("que el producte amb codi de barres (.*) ha estat afegit a la venta actual amb la quantitat (\\d+)")
         public void producte_afegit_a_la_venta_actual(int barCode,int amount) throws Throwable{
             this.posController.addProductByBarCode(barCode, amount);
-        }
+    }
 
     @Donat("que s'ha fet una venta de (.*)€")
         public void saleOfX(int total) throws Throwable{
