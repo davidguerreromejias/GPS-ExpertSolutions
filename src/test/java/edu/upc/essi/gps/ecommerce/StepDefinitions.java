@@ -4,6 +4,7 @@ import cucumber.api.java.ca.Aleshores;
 import cucumber.api.java.ca.Donat;
 import cucumber.api.java.ca.Quan;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -112,6 +113,12 @@ public class StepDefinitions {
     @Donat("^que hi ha una venta iniciada$")
     public void saleStarted() throws Throwable {
         this.posController.startSale();
+    }
+
+    @Donat("^que hi ha una venta pagada$")
+    public void salePayed() throws Throwable {
+        this.posController.startSale();
+        this.posController.salePayed();
     }
 
     @Donat("^un producte amb nom \"([^\"]*)\", preu (\\d+)€, iva (\\d+)% i codi de barres (\\d+)$")
@@ -346,4 +353,12 @@ public class StepDefinitions {
         public void producte_afegit_a_la_venta_actual(int barCode,int amount) throws Throwable{
             this.posController.addProductByBarCode(barCode, amount);
         }
+
+    @Donat("que s'ha fet una venta de (.*)")
+        public void saleOfX(int total) throws Throwable{
+            this.posController.startSale();
+            this.posController.salePayed();
+            this.posController.getCurrentSale().setTotalPrice(total);
+            this.posController.setSaleHistorial(this.posController.getCurrentSale(), this.posController.getCurrentDate());
+    }
 }

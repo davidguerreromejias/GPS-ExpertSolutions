@@ -16,7 +16,7 @@ Característica: Historial de ventes
     I que en "Josep" ha iniciat el torn al tpv
     I que s'ha fet una venta de 70€
     I que s'ha fet una venta de 80€
-    I que en "Pere" ha iniciat com a gestor
+    I que en "Pere" ha iniciat sessió com a gestor
 
   Escenari: Visualitzar l'historial per data
     Quan el gestor "Pere" visualitza les ventes en una data "2015-05-18"
