@@ -25,15 +25,15 @@ public class ProductsService {
         typesList = new ArrayList<String>();
         String newType = "";
         int i = 0;
-        while ( i < setTypes.length()) {
+        while ( i < setTypes.length() ) {
             int j = i;
-            while (setTypes.charAt(j) != ',' && j < setTypes.length()) {
+            while (j < setTypes.length() && setTypes.charAt(j) != ',')  {
                 newType += setTypes.charAt(j) ;
                 ++j;
             }
+            i=j+1;
             typesList.add(newType);
             newType= "";
-            ++i;
         }
     }
 
