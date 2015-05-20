@@ -355,7 +355,7 @@ public class StepDefinitions {
 
 
     @Donat("que hi ha un descompte definit de tipus (.*) d'un (\\d+)%$")
-    public void set_discPerc(String tipus, int amount){
+    public void set_discPerc(String tipus, int amount) throws Throwable{
         this.posController.setDiscPerc(tipus, amount);
     }
 

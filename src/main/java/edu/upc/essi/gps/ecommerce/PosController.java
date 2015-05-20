@@ -365,9 +365,9 @@ public class PosController {
     }
 
     private Discount getDiscPerc(){return discPerc;}
+
     public void setDiscPerc(String tipus, int amount){
-        discPerc.setAmountDiscount(amount);
-        discPerc.setTypeOfDiscount(tipus);
+        discPerc = new Discount(tipus, amount);
     }
 
     public String getChange(){ return change;}
