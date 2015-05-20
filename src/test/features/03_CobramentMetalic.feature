@@ -4,7 +4,7 @@
 Característica: Cobrar una venta en metàlic
 
   Rerefons:
-    Donat un producte amb nom "Optimus Prime", preu 23€, iva 21% i codi de barres 1234567
+    Donat un producte amb nom "Optimus Prime", preu 23€, iva 21% i codi de barres 1234567 i que pertany als tipus "figura d'acció,transformer"
     I que estem al tpv número 1 de la botiga "Girona 1"
     I que en "Joan" ha iniciat el torn al tpv
 

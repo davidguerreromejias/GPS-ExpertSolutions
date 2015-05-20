@@ -153,9 +153,9 @@ public class StepDefinitions {
         this.posController.salePayed();
     }
 
-    @Donat("^un producte amb nom \"([^\"]*)\", preu (\\d+)€, iva (\\d+)% i codi de barres (\\d+)$")
-    public void productCreated(String productName, int price, int vatPct, int barCode) throws Throwable {
-        this.productsService.newProduct(productName, price, vatPct, barCode);
+    @Donat("^un producte amb nom \"([^\"]*)\", preu (\\d+)€, iva (\\d+)% i codi de barres (\\d+) i que pertany als tipus (.*)$")
+    public void productCreated(String productName, int price, int vatPct, int barCode, String tipus) throws Throwable {
+        this.productsService.newProduct(productName, price, vatPct, barCode, tipus);
     }
 
     @Quan("^afegeixo el producte de codi de barres (\\d+) a la venta$")
