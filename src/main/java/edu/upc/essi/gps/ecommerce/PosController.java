@@ -20,6 +20,10 @@ public class PosController {
         return currentDate;
     }
 
+    public void setCurrentDate(String currentDate) {
+        this.currentDate = currentDate;
+    }
+
     private String currentDate;
 
 
@@ -85,19 +89,20 @@ public class PosController {
 
     public void gestorLogin(String gestorName) {
         checkNotNull(gestorName, "gestorName");
-        String data1 = new String("2015,05,13");
+        String data1 = new String("2015,05,18");
         Date data = new Date(2015,05,13);
         if (this.currentGestorName != null) {
             throw new IllegalStateException("hi ha una sessió iniciada pel gestor " + this.currentGestorName);
         }
         this.currentGestorName = gestorName;
+        this.setCurrentDate(data1);
         this.dateLoginGestor = data;
     }
 
     public void login(String saleAssistantName) {
         checkNotNull(saleAssistantName, "saleAssistantName");
         Date data = new Date(2015,05,13);
-        String data1 = new String("2015,05,13");
+        String data1 = new String("2015,05,18");
         if (this.currentSaleAssistantName != null)
             throw new IllegalStateException("Aquest tpv està en ús per " + this.currentSaleAssistantName);
         this.currentSaleAssistantName = saleAssistantName;
@@ -132,6 +137,10 @@ public class PosController {
     public void startSale() {
         if (this.currentSale != null) throw new IllegalStateException("Aquest tpv ja té una venta iniciada");
         this.currentSale = new Sale(shop, posNumber, currentSaleAssistantName);
+    }
+
+    public void endSale(){
+        this.currentSale = null;
     }
 
     public String getResultatCercaProductes(){
@@ -342,4 +351,10 @@ public class PosController {
     }
 
     public String getChange(){ return change;}
+
+    public Map<String, TreeMap> visualitzarPerData(String gestor, String data){
+        Map<String, TreeMap> salesPerData = new TreeMap<String, TreeMap>();
+        salesPerData = historic.getSalesByDate(data);
+        return salesPerData;
+    }
 }

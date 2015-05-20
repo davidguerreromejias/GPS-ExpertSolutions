@@ -75,6 +75,8 @@ public class Sale {
     private boolean esProva;
     private final Date data;
 
+
+
     public boolean isEstaPagada() {
         return estaPagada;
     }

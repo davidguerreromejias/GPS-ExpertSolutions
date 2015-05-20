@@ -38,11 +38,11 @@ public class historicSales {
         historic.put(dateSale, sales);
     }
 
-    public Map<Date, TreeMap> getSalesByDate(Date data){
+    public Map<String, TreeMap> getSalesByDate(String data){
         return historic.get(data);
     }
 
-    public Map<Date, TreeMap> getSaleByDateAndAssistant(String assistant, Date data){
+    public Map<Date, TreeMap> getSaleByDateAndAssistant(String assistant, String data){
         return (Map<Date, TreeMap>) historic.get(data).get(assistant);
     }
 

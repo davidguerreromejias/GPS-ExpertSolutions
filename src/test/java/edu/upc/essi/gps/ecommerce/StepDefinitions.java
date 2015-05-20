@@ -6,6 +6,8 @@ import cucumber.api.java.ca.Quan;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static org.junit.Assert.*;
 
@@ -354,11 +356,32 @@ public class StepDefinitions {
             this.posController.addProductByBarCode(barCode, amount);
         }
 
-    @Donat("que s'ha fet una venta de (.*)")
+    @Donat("que s'ha fet una venta de (.*)€")
         public void saleOfX(int total) throws Throwable{
             this.posController.startSale();
+            this.posController.createHistorial(this.posController.getCurrentSale().getShop());
             this.posController.salePayed();
             this.posController.getCurrentSale().setTotalPrice(total);
             this.posController.setSaleHistorial(this.posController.getCurrentSale(), this.posController.getCurrentDate());
+            this.posController.endSale();
+    }
+
+    @Quan("^el gestor (.*) visualitza les ventes en una data (.*)$")
+    public void visualitzarPerData(String gestor, String data) throws Throwable {
+        tryCatch(() -> this.posController.visualitzarPerData(gestor, data));
+    }
+
+    @Aleshores("^el sistema mostra la venta de (\\d+)€ feta per en \"([^\"]*)\"$")
+    public void comprovaVentaPerDia(int totalPrice, String assistant){
+        Map<String, TreeMap> salesPerData = new TreeMap<String, TreeMap>();
+        String data = this.posController.getCurrentDate();
+        salesPerData = this.posController.visualitzarPerData(assistant, data);
+        assistant = this.posController.getCurrentSaleAssistantName();
+        TreeMap<String, Sale> sales = new TreeMap<String, Sale>();
+        sales = salesPerData.get(data);
+        int total = sales.get(assistant).getTotal();
+        String as = sales.get(assistant).getSaleAssistantName();
+        assertEquals(totalPrice, total);
+        assertEquals(assistant, as);
     }
 }
