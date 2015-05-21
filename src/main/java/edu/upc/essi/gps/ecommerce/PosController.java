@@ -415,7 +415,9 @@ public class PosController {
     }
 
     public void afegirRegal(String nomP){
-        discPerc = new Discount("%", 100);
+        discPerc = new Discount("percentatge", 100);
+        List<SaleLine> lines = currentSale.getLines();
+        //lines.getLa
         currentSale.addProduct(productsService.findByName(nomP));
         currentSale.assignaDescompte(discPerc, nomP);
     }
