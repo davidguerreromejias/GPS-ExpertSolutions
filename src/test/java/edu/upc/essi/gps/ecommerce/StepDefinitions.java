@@ -404,4 +404,8 @@ public class StepDefinitions {
         this.posController.createCjtDiscount(type, subType, amountDisc);
     }
 
+    @Quan("apreto sobre el afegir regal y selecciono el producte (.*)$")
+    public void afegirRegal (String nomP) throws Throwable{
+        this.posController.afegirRegal(nomP);
+    }
 }

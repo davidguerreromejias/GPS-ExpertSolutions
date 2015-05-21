@@ -413,4 +413,11 @@ public class PosController {
         Discount discPerc = new Discount(type, subType, amount);
         discPercCollection.add(discPerc);
     }
+
+    public void afegirRegal(String nomP){
+        discPerc = new Discount("%", 100);
+        currentSale.addProduct(productsService.findByName(nomP));
+        currentSale.assignaDescompte(discPerc, nomP);
+    }
 }
+
