@@ -10,6 +10,7 @@ public class Discount implements Entity{
     private String typeOfDiscount;
     private int m;
     private int n;
+    private String subType;
 
     public Discount(String typeOfDiscount, int amountDiscount){
         this.amountDiscount = amountDiscount;
@@ -20,6 +21,12 @@ public class Discount implements Entity{
         this.typeOfDiscount = typeOfDiscount;
         this.m = m;
         this.n = n;
+    }
+
+    public Discount(String typeOfDiscount, String subType, int amountDiscount){
+        this.amountDiscount = amountDiscount;
+        this.typeOfDiscount = typeOfDiscount;
+        this.subType = subType;
     }
 
     public Discount(String type){
@@ -40,6 +47,10 @@ public class Discount implements Entity{
 
     public void setAmountDiscount(int disc){
         amountDiscount = disc;
+    }
+
+    public String getSubType(){
+        return subType;
     }
 
     @Override

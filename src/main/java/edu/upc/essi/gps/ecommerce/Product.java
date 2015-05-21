@@ -47,4 +47,6 @@ public class Product implements Entity, HasName {
     public int getBarCode() {
         return barCode;
     }
+
+    public ArrayList<String> getTypesList() {return typesList;}
 }

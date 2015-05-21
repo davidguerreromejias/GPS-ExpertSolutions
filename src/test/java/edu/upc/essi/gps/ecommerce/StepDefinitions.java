@@ -214,11 +214,6 @@ public class StepDefinitions {
         this.posController.createPercDiscount(type, amountDisc);
     }
 
-    @Quan("^apreto sobre el descompte (\\d+)% existent$")
-    public void applyDiscountPerc(int amount) throws Throwable{
-        this.posController.applyPercDiscount(amount);
-    }
-
     @Aleshores("^línia de venta (\\d+) és de (\\d+) unitats de \"([^\"]*)\" a (\\d+)€ cada una amb un descompte de tipus " +
             "\"([^\"]*)\" del (\\d+)% per un total de (\\d+)€$")
     public void línia_de_venta_és_de_unitats_de_a_€_cada_una_per_un_total_de_€_amb_descompte(int lineNumber, int units, String productName,
@@ -258,10 +253,6 @@ public class StepDefinitions {
         assertEquals(saleAssistant, this.posController.getCurrentSaleAssistantName());
     }
 
-    @Quan("^apreto sobre el descompte (\\d+)% existent una altra vegada$")
-    public void StopApplyingDiscount(int amount) throws Throwable{
-        this.posController.StopApplyingDiscount();
-    }
 
     @Donat("^que hi ha un descompte definit en el sistema de tipus (.*) on m és (\\d+) i n és (\\d+)$")
     public void createMxNDiscount(String type,int mvalue, int nvalue) throws Throwable {
@@ -366,9 +357,9 @@ public class StepDefinitions {
             this.posController.endSale();
     }
 
-    @Donat("^que hi ha un descompte definit en el sistema pels productes de tipus (.*) d'un (\\d+)%$")
-    public void createCjtDiscount(String type, int amountDisc) throws Throwable {
-        this.posController.createCjtDiscount(type, amountDisc);
+    @Donat("^que hi ha un descompte de tipus (.*) definit en el sistema pels productes de tipus (.*) d'un (\\d+)%$")
+    public void createCjtDiscount(String type, String subType, int amountDisc) throws Throwable {
+        this.posController.createCjtDiscount(type, subType, amountDisc);
     }
 
 }

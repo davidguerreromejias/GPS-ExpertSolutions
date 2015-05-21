@@ -175,9 +175,24 @@ public class PosController {
         if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
         Product p = productsService.findByBarCode(barCode);
         currentSale.addProduct(p);
-
-        //falta buscar si existeix un descompte amb el nom d'un dels tipus del producte i després cridar a aplicar el descompte si és el cas
-        //semblant a applydiscountMxN
+        ArrayList<String> types = p.getTypesList();
+        Iterator<Discount> it = discPercCollection.iterator();
+        boolean found = false;
+        Discount discCjt = new Discount("");
+        while (it.hasNext() && !found){
+            discCjt = it.next();
+            String SubTypeOfDisc = discCjt.getSubType();
+            for(int i = 0; i < types.size() && !found; ++i) {
+                System.out.println(types.get(i)+"---------------");
+                System.out.println(SubTypeOfDisc);
+                if (SubTypeOfDisc.equals(types.get(i))){
+                    found = true;
+                }
+            }
+        }
+        if (found){
+            currentSale.applyDiscountAtLastLine(discCjt);
+        }
     }
 
     public void addProductById(long id, int amount){
@@ -296,17 +311,6 @@ public class PosController {
         Discount discPerc = new Discount(type, amount);
         discPercCollection.add(discPerc);
     }
-    public void applyPercDiscount(int amount){
-        if(getCurrentSale() == null) throw new IllegalStateException("No hi ha cap venta iniciada");
-        Iterator<Discount> it = discPercCollection.iterator();
-        boolean found = false;
-        Discount discPerc = new Discount("percentatge");
-        while (it.hasNext() && !found){
-            discPerc = it.next();
-            if(discPerc.getAmountDiscount() == amount) found = true;
-        }
-        if (found) currentSale.setPercActiveDiscount(discPerc.getTypeOfDiscount(), discPerc.getAmountDiscount());
-    }
 
     public void applyMxNDiscount(int m, int n){
         if(getCurrentSale() == null) throw new IllegalStateException("No hi ha cap venta iniciada");
@@ -325,11 +329,6 @@ public class PosController {
     }
     public void setSaleHistorial(HistorialLine hl){
         historic.addSale(hl);
-    }
-
-    public void StopApplyingDiscount(){
-        if(getCurrentSale() == null) throw new IllegalStateException("No hi ha cap venta iniciada");
-        currentSale.noActiveDiscount();
     }
 
     public void createMxNDisc(String type, int m, int n) {
@@ -387,8 +386,8 @@ public class PosController {
         return sb.toString();
     }
 
-    public void createCjtDiscount(String type, int amount) {
-        Discount discPerc = new Discount(type, amount);
+    public void createCjtDiscount(String type, String subType, int amount) {
+        Discount discPerc = new Discount(type, subType, amount);
         discPercCollection.add(discPerc);
     }
 }

@@ -69,13 +69,10 @@ public class Sale {
     private final int posNumber;
     private final String saleAssistantName;
     private final LinkedList<SaleLine> lines = new LinkedList<>();
-    private Discount activeDiscount;
     private final String paymentForm;
     private int totalPrice; //variable per a realitzar proves, no �s coherent amb el m�tode getTotal()
     private boolean esProva;
     private final Date data;
-
-
 
     public boolean isEstaPagada() {
         return estaPagada;
@@ -89,19 +86,10 @@ public class Sale {
 
     public void addProduct(Product p) {
         lines.add(new SaleLine(p,1));
-        if(activeDiscount.getTypeOfDiscount().equals("percentatge")) {
-            lines.getLast().setDiscount(activeDiscount);
-        }
     }
 
     public void addNProducts(Product p, int amount) {
         lines.add(new SaleLine(p, amount));
-        if(activeDiscount.getTypeOfDiscount().equals("percentatge")) {
-            lines.getLast().setDiscount(activeDiscount);
-        }
-        else if(activeDiscount.getTypeOfDiscount().equals("m x n")) {
-            lines.getLast().setDiscount(activeDiscount);
-        }
     }
 
     public void setTotalPrice(int x){
@@ -113,7 +101,6 @@ public class Sale {
         this.shop = shop;
         this.posNumber = posNumber;
         this.saleAssistantName = saleAssistantName;
-        activeDiscount = new Discount("None", 0);
         this.paymentForm = "efectiu";
         this.esProva = false;
         this.estaPagada = false;
@@ -149,14 +136,6 @@ public class Sale {
 
     public boolean isEmpty() {
         return lines.isEmpty();
-    }
-
-    public void setPercActiveDiscount(String type, int amount){
-        activeDiscount = new Discount(type,amount);
-    }
-
-    public void noActiveDiscount(){
-        activeDiscount = new Discount("none");
     }
 
     public void deleteLine(String nomProd){
