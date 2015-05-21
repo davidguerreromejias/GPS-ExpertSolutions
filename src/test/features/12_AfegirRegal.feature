@@ -12,13 +12,14 @@ Característica: Afegir un regal a un producte
     I que el producte amb codi de barres 1234567 ha estat afegit a la venta actual amb la quantitat 1
 
   Escenari: Afegir regal a la venta
-    Quan apreto sobre el afegir regal y selecciono el producte "Optimus Prime 2"
+    Quan apreto sobre el afegir regal y selecciono el producte Optimus Prime 2
     Aleshores el total de la venta actual és de 20€
     I la pantalla del client del tpv mostra
     """
     Optimus Prime - 20€/u x 1u = 20€
-    -50% 10€
-    10€
+    Optimus Prime 2 - 2€/u x 1u = 2€
+    -100% 2€
+    0€
     ---
-    Total: 10€
+    Total: 20€
     """

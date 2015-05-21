@@ -147,7 +147,7 @@ public class Sale {
     public void assignaDescompte(Discount d, String nomP){
         for(SaleLine l : lines)if (nomP == l.getProductName()) l.setDiscount(d);
         }
-    
+
     public void applyDiscountAtLastLine(Discount d){
         lines.getLast().setDiscount(d);
     }
