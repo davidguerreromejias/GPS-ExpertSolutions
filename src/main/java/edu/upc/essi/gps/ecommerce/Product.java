@@ -3,6 +3,8 @@ package edu.upc.essi.gps.ecommerce;
 import edu.upc.essi.gps.domain.Entity;
 import edu.upc.essi.gps.domain.HasName;
 
+import java.util.ArrayList;
+
 public class Product implements Entity, HasName {
 
     private long id;
@@ -10,15 +12,16 @@ public class Product implements Entity, HasName {
     private final int price;
     private final int vatPct;
     private final int barCode;
-
+    private ArrayList<String> typesList;
     private float popularity;
 
-    public Product(long id, String name, int price, int vatPct, int barCode) {
+    public Product(long id, String name, int price, int vatPct, int barCode, ArrayList<String> typesList) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.vatPct = vatPct;
         this.barCode = barCode;
+        this.typesList = typesList;
     }
 
     public long getId() {

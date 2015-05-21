@@ -8,7 +8,6 @@ import java.util.List;
 public class ProductsService {
 
     private ProductsRepository productsRepository;
-    private ArrayList<String> typesList;
 
     public ProductsService(ProductsRepository productsRepository) {
         this.productsRepository = productsRepository;
@@ -16,13 +15,13 @@ public class ProductsService {
 
     public void newProduct(String name, int price, int vatPct, int barCode, String setTypes){
         long id = productsRepository.newId();
-        Product result = new Product(id,name, price, vatPct, barCode);
+        ArrayList<String> typesList = emplenaTypeList(setTypes);
+        Product result = new Product(id,name, price, vatPct, barCode, typesList);
         productsRepository.insert(result);
-        emplenaTypeList(setTypes);
     }
 
-    private void emplenaTypeList(String setTypes) {
-        typesList = new ArrayList<String>();
+    private ArrayList<String> emplenaTypeList(String setTypes) {
+        ArrayList<String> typesList = new ArrayList<String>();
         String newType = "";
         int i = 0;
         while ( i < setTypes.length() ) {
@@ -35,6 +34,7 @@ public class ProductsService {
             typesList.add(newType);
             newType= "";
         }
+        return typesList;
     }
 
     public List<Product> listProducts(){

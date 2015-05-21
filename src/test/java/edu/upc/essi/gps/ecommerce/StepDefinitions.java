@@ -123,9 +123,9 @@ public class StepDefinitions {
         this.posController.salePayed();
     }
 
-    @Donat("^un producte amb nom \"([^\"]*)\", preu (\\d+)€, iva (\\d+)% i codi de barres (\\d+)$")
-    public void productCreated(String productName, int price, int vatPct, int barCode) throws Throwable {
-        this.productsService.newProduct(productName, price, vatPct, barCode);
+    @Donat("^un producte amb nom \"([^\"]*)\", preu (\\d+)€, iva (\\d+)% i codi de barres (\\d+) i que pertany als tipus (.*)$")
+    public void productCreated(String productName, int price, int vatPct, int barCode, String tipus) throws Throwable {
+        this.productsService.newProduct(productName, price, vatPct, barCode, tipus);
     }
 
     @Quan("^afegeixo el producte de codi de barres (\\d+) a la venta$")
@@ -236,19 +236,19 @@ public class StepDefinitions {
     @Donat("^la botiga \"([^\"]*)\"")
     public void createHistorial(String shop) throws Throwable{
         this.posController = new PosController(shop);
-        this.posController.createHistorial(shop);
+        //this.posController.createHistorial(shop);
     }
 
     @Quan("^a la botiga \"([^\"]*)\" la venta (\\d+) amb data \"([^\"]*)\" ha estat pagada i finalitzada")
     public void saveSale(int postNumber, String shop, String data){
         Sale x = new Sale(shop, postNumber, data);
-        this.posController.setSaleHistorial(x, data);
+        //this.posController.setSaleHistorial(x, data);
         assertEquals(postNumber, (int) this.posController.getVentesRealitzadesId(postNumber));
     }
 
     @Aleshores("^la venta (\\d+) es guarda al historial amb data \"([^\"]*)\"")
     public void saveInHistorial(int postNumber, String data){
-        this.posController.setSaleHistorial(this.posController.getVentesRealitzadesSale(postNumber), data);
+        //this.posController.setSaleHistorial(this.posController.getVentesRealitzadesSale(postNumber), data);
         assertEquals(postNumber, this.posController.getCurrentSale().getPosNumber());
         assertEquals(data, this.posController.getCurrentDate());
     }
@@ -359,11 +359,16 @@ public class StepDefinitions {
     @Donat("que s'ha fet una venta de (.*)€")
         public void saleOfX(int total) throws Throwable{
             this.posController.startSale();
-            this.posController.createHistorial(this.posController.getCurrentSale().getShop());
+            //this.posController.createHistorial(this.posController.getCurrentSale().getShop());
             this.posController.salePayed();
             this.posController.getCurrentSale().setTotalPrice(total);
-            this.posController.setSaleHistorial(this.posController.getCurrentSale(), this.posController.getCurrentDate());
+            //this.posController.setSaleHistorial(this.posController.getCurrentSale(), this.posController.getCurrentDate());
             this.posController.endSale();
+    }
+
+    @Donat("^que hi ha un descompte definit en el sistema pels productes de tipus (.*) d'un (\\d+)%$")
+    public void createCjtDiscount(String type, int amountDisc) throws Throwable {
+        this.posController.createCjtDiscount(type, amountDisc);
     }
 
 }
