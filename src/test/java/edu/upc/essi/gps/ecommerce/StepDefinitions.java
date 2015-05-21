@@ -334,6 +334,16 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.assignaDescompte(nomP));
     }
 
+    @Quan("vull obtenir un llistat dels quadraments invàlids$")
+    public void obtenirLlistatQuadraments() throws Throwable{
+        tryCatch(() -> this.posController.getQuadramentsInvalids());
+    }
+
+    @Aleshores("el sistema em mostra un llistat de quadraments invàlids que és$")
+    public void checkQuadraments(String msg){
+        assertEquals(msg,this.posController.getQuadramentsInvalids());
+    }
+
     @Aleshores("el producte (.*) val (\\d+)€$")
     public void comprova_preu(String nomP, int preuP){
         List<SaleLine> lines = this.posController.getCurrentSale().getLines();
@@ -342,10 +352,32 @@ public class StepDefinitions {
         }
     }
 
+    @Aleshores("el sistema m'informa que el quadrament de la caixa és invàlid i la diferència és de (\\d+)€ negatius$")
+    public void checkQuadramentInvalidNeg(int dif){
+        assertFalse(this.posController.getTancamentUltimTorn());
+        assertEquals(-dif, this.posController.getDiffUltimQuadramentInvalid());
+    }
+
+    @Aleshores("el sistema m'informa que el quadrament de la caixa és invàlid i la diferència és de (\\d+)€$")
+    public void checkQuadramentInvalid(int dif){
+        assertFalse(this.posController.getTancamentUltimTorn());
+        assertEquals(dif, this.posController.getDiffUltimQuadramentInvalid());
+    }
+
     @Donat("que el producte amb codi de barres (.*) ha estat afegit a la venta actual amb la quantitat (\\d+)")
         public void producte_afegit_a_la_venta_actual(int barCode,int amount) throws Throwable{
             this.posController.addProductByBarCode(barCode, amount);
         }
+
+    @Donat("^en (.*) ha tancat el seu torn amb un quadrament invàlid de (\\d+)€ negatius$")
+    public void afegirTornAmbQuadramentInvalidNeg(String assistant, int dif) throws Throwable{
+        this.posController.afegirQuadramentInvalid(assistant, -dif);
+    }
+
+    @Donat("^en (.*) ha tancat el seu torn amb un quadrament invàlid de (\\d+)€$")
+    public void afegirTornAmbQuadramentInvalid(String assistant, int dif) throws Throwable{
+        this.posController.afegirQuadramentInvalid(assistant, dif);
+    }
 
     @Donat("que s'ha fet una venta de (.*)€")
         public void saleOfX(int total) throws Throwable{
