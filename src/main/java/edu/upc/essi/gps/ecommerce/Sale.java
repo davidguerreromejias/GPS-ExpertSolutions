@@ -69,7 +69,7 @@ public class Sale {
     private final int posNumber;
     private final String saleAssistantName;
     private final LinkedList<SaleLine> lines = new LinkedList<>();
-    private final String paymentForm;
+    private String paymentForm;
     private int totalPrice; //variable per a realitzar proves, no �s coherent amb el m�tode getTotal()
     private boolean esProva;
     private final Date data;
@@ -83,6 +83,8 @@ public class Sale {
     }
 
     private boolean estaPagada;
+
+    public void setPaymentForm(String paymentForm){this.paymentForm = paymentForm;};
 
     public void addProduct(Product p) {
         lines.add(new SaleLine(p,1));

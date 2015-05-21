@@ -44,6 +44,12 @@ public class PosController {
     private LinkedList<Sale> historial = new LinkedList<>();
     String change;
 
+    public String getChangeCard() {
+        return changeCard;
+    }
+
+    String changeCard;
+
     public int getVentesRealitzadesId(int posNumber) {
         boolean trobat = false;
         int i = 0;
@@ -124,6 +130,11 @@ public class PosController {
 
     public void salePayed(){
         this.getCurrentSale().setEstaPagada(true);
+    }
+
+    public void salePayedWithCard(){
+        this.getCurrentSale().setEstaPagada(true);
+        this.getCurrentSale().setPaymentForm("targeta");
     }
 
     public long getIndexIessimDeCerca(int i){
@@ -250,6 +261,18 @@ public class PosController {
             if (canvi < 0) throw new RuntimeException("La quantitat rebuda és inferior a l'import de la venda.");
             ventesRealitzades.add(currentSale);
             change = "El canvi és: " + canvi + endMessage;
+        }
+    }
+
+    public void cardPayment(String paymentForm) {
+        String endMessage = "i la venta ha estat finalitzada.";
+        if (getCurrentSale() == null) throw new IllegalStateException("No es pot cobrar una venta si no està iniciada");
+        else if (getCurrentSale().isEmpty())
+            throw new IllegalStateException("No es pot cobrar una venta sense cap producte");
+        else {
+            salePayedWithCard();
+            ventesRealitzades.add(currentSale);
+            changeCard = "Targeta acceptada " + endMessage;
         }
     }
 

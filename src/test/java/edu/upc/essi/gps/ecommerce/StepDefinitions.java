@@ -204,9 +204,19 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.cashPayment(delivered, paymentForm));
     }
 
+    @Quan("^indico que el client ha entregat la targeta per a pagar en (.*)targeta$")
+    public void cardPayment(final String paymentForm) throws Throwable {
+        tryCatch(() -> this.posController.cardPayment(paymentForm));
+    }
+
     @Aleshores("^el tpv mostra el següent: (.*)$")
     public void checkChange(String expectedChange) throws Throwable {
         assertEquals(expectedChange, this.posController.getChange());
+    }
+
+    @Aleshores("^el tpv ens mostra el següent: (.*)$")
+    public void checkCardPayment(String expectedChange) throws Throwable {
+        assertEquals(expectedChange, this.posController.getChangeCard());
     }
 
     @Donat("^que hi ha un descompte definit en el sistema de tipus (.*) d'un (\\d+)%$")
