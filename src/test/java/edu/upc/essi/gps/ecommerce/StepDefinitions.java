@@ -123,7 +123,7 @@ public class StepDefinitions {
         this.posController.salePayed();
     }
 
-    @Donat("^un producte amb nom \"([^\"]*)\", preu (\\d+)€, iva (\\d+)% i codi de barres (\\d+) i que pertany als tipus (.*)$")
+    @Donat("^un producte amb nom \"([^\"]*)\", preu (\\d+)€, iva (\\d+)% i codi de barres (\\d+) i que pertany als tipus \"([^\"]*)\"$")
     public void productCreated(String productName, int price, int vatPct, int barCode, String tipus) throws Throwable {
         this.productsService.newProduct(productName, price, vatPct, barCode, tipus);
     }
@@ -351,7 +351,7 @@ public class StepDefinitions {
 
     @Aleshores("el sistema em mostra un llistat de quadraments invàlids que és$")
     public void checkQuadraments(String msg){
-        assertEquals(msg,this.posController.getQuadramentsInvalids());
+        assertEquals(msg, this.posController.getQuadramentsInvalids());
     }
 
     @Aleshores("el producte (.*) val (\\d+)€$")
@@ -379,12 +379,12 @@ public class StepDefinitions {
             this.posController.addProductByBarCode(barCode, amount);
         }
 
-    @Donat("^en (.*) ha tancat el seu torn amb un quadrament invàlid de (\\d+)€ negatius$")
+    @Donat("^en \"([^\"]*)\" ha tancat el seu torn amb un quadrament invàlid de (\\d+)€ negatius$")
     public void afegirTornAmbQuadramentInvalidNeg(String assistant, int dif) throws Throwable{
         this.posController.afegirQuadramentInvalid(assistant, -dif);
     }
 
-    @Donat("^en (.*) ha tancat el seu torn amb un quadrament invàlid de (\\d+)€$")
+    @Donat("^en \"([^\"]*)\" ha tancat el seu torn amb un quadrament invàlid de (\\d+)€$")
     public void afegirTornAmbQuadramentInvalid(String assistant, int dif) throws Throwable{
         this.posController.afegirQuadramentInvalid(assistant, dif);
     }

@@ -4,11 +4,11 @@
 Característica: Aplicar descomptes de tipus % a conjunts de productes
 
   Rerefons:
-    Donat un producte amb nom "Optimus Prime", preu 20€, iva 21% i codi de barres 1234567 i que pertany als tipus figura d'acció,transformer
-    I un producte amb nom "Bumblebee", preu 30€, iva 21% i codi de barres 1234568 i que pertany als tipus figura d'acció,transformer
-    I un producte amb nom "Gimli", preu 40€, iva 21% i codi de barres 1234569 i que pertany als tipus figura d'acció,senyor dels anells
-    I un producte amb nom "Pilota verda", preu 10€, iva 21% i codi de barres 2234568 i que pertany als tipus esports
-    I un producte amb nom "Pilota blava", preu 15€, iva 21% i codi de barres 2234569 i que pertany als tipus esports
+    Donat un producte amb nom "Optimus Prime", preu 20€, iva 21% i codi de barres 1234567 i que pertany als tipus "figura d'acció,transformer"
+    I un producte amb nom "Bumblebee", preu 30€, iva 21% i codi de barres 1234568 i que pertany als tipus "figura d'acció,transformer"
+    I un producte amb nom "Gimli", preu 40€, iva 21% i codi de barres 1234569 i que pertany als tipus "figura d'acció,senyor dels anells"
+    I un producte amb nom "Pilota verda", preu 10€, iva 21% i codi de barres 2234568 i que pertany als tipus "esports"
+    I un producte amb nom "Pilota blava", preu 15€, iva 21% i codi de barres 2234569 i que pertany als tipus "esports"
     I que estem al tpv número 1 de la botiga "Girona 1"
     I que en "Joan" ha iniciat el torn al tpv
     I que hi ha una venta iniciada
