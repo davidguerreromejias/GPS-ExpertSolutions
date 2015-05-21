@@ -351,7 +351,7 @@ public class StepDefinitions {
 
     @Aleshores("el sistema em mostra un llistat de quadraments invàlids que és$")
     public void checkQuadraments(String msg){
-        assertEquals(msg,this.posController.getQuadramentsInvalids());
+        assertEquals(msg, this.posController.getQuadramentsInvalids());
     }
 
     @Aleshores("el producte (.*) val (\\d+)€$")
@@ -404,4 +404,8 @@ public class StepDefinitions {
         this.posController.createCjtDiscount(type, subType, amountDisc);
     }
 
+    @Quan("apreto sobre el afegir regal y selecciono el producte (.*)$")
+    public void afegirRegal (String nomP) throws Throwable{
+        this.posController.afegirRegal(nomP);
+    }
 }
