@@ -19,7 +19,7 @@ Característica: Aplicar descomptes de tipus % a conjunts de productes
     Quan afegeixo el producte de codi de barres 1234567 a la venta
     Aleshores la venta té 1 línia
     I línia de venta 1 és de 1 unitats de "Optimus Prime" a 20€ cada una per un total de 20€
-    I línia de venta 1 és de 1 unitats de "Optimus Prime" a 20€ cada una amb un descompte de tipus "percentatge" del 50% per un total de 10€
+    I línia de venta 1 és de 1 unitats de "Optimus Prime" a 20€ cada una amb un descompte de tipus "percentatge" del 50% per pertànyer a "transformer" per un total de 10€
     I el total de la venta actual és de 10€
     I la pantalla del client del tpv mostra
     """
@@ -34,9 +34,9 @@ Característica: Aplicar descomptes de tipus % a conjunts de productes
     I afegeixo el producte de codi de barres 2234569 a la venta
     Aleshores la venta té 2 línies
     I línia de venta 1 és de 1 unitats de "Pilota verda" a 10€ cada una per un total de 10€
-    I línia de venta 1 és de 1 unitats de "Pilota verda" a 10€ cada una amb un descompte de tipus "percentatge" del 20% per un total de 8€
+    I línia de venta 1 és de 1 unitats de "Pilota verda" a 10€ cada una amb un descompte de tipus "percentatge" del 20% per pertànyer a "esports" per un total de 8€
     I línia de venta 2 és de 1 unitats de "Pilota blava" a 15€ cada una per un total de 15€
-    I línia de venta 2 és de 1 unitats de "Pilota blava" a 15€ cada una amb un descompte de tipus "percentatge" del 20% per un total de 12€
+    I línia de venta 2 és de 1 unitats de "Pilota blava" a 15€ cada una amb un descompte de tipus "percentatge" del 20% per pertànyer a "esports" per un total de 12€
     I el total de la venta actual és de 20€
     I la pantalla del client del tpv mostra
     """
@@ -55,9 +55,9 @@ Característica: Aplicar descomptes de tipus % a conjunts de productes
     I afegeixo el producte de codi de barres 1234569 a la venta
     Aleshores la venta té 3 línies
     I línia de venta 1 és de 1 unitats de "Optimus Prime" a 20€ cada una per un total de 20€
-    I línia de venta 1 és de 1 unitats de "Optimus Prime" a 20€ cada una amb un descompte de tipus "percentatge" del 50% per un total de 10€
+    I línia de venta 1 és de 1 unitats de "Optimus Prime" a 20€ cada una amb un descompte de tipus "percentatge" del 50% per pertànyer a "transformer" per un total de 10€
     I línia de venta 2 és de 1 unitats de "Bumblebee" a 30€ cada una per un total de 30€
-    I línia de venta 2 és de 1 unitats de "Bumblebee" a 30€ cada una amb un descompte de tipus "percentatge" del 50% per un total de 15€
+    I línia de venta 2 és de 1 unitats de "Bumblebee" a 30€ cada una amb un descompte de tipus "percentatge" del 50% per pertànyer a "transformer" per un total de 15€
     I línia de venta 3 és de 1 unitats de "Gimli" a 40€ cada una per un total de 40€
     I el total de la venta actual és de 65€
     I la pantalla del client del tpv mostra
