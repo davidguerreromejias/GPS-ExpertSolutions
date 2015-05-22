@@ -236,7 +236,14 @@ public class PosController {
                     .append(sl.getUnitPrice()).append("€/u x ").append(sl.getAmount()).append("u = ")
                     .append(sl.getTotalPriceRaw()).append("€\n");
             if(sl.getDiscount().getTypeOfDiscount().equals("percentatge")){
-                sb.append("-").append(sl.getDiscount().getAmountDiscount()).append("% ").append(sl.getTotalPriceRaw()-sl.getTotalPrice()).append("€\n");
+                int amountDisc = sl.getDiscount().getAmountDiscount();
+                if (amountDisc == 100){
+                    sb.append("REGAL ");
+                }
+                else {
+                    sb.append("-").append(amountDisc).append("% ");
+                }
+                sb.append(sl.getTotalPriceRaw() - sl.getTotalPrice()).append("€\n");
                 sb.append(sl.getTotalPrice()).append("€\n");
             }
             else if(sl.getDiscount().getTypeOfDiscount().equals("m x n")){

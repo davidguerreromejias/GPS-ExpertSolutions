@@ -18,7 +18,7 @@ Característica: Afegir un regal a un producte
     """
     Optimus Prime - 20€/u x 1u = 20€
     Optimus Prime 2 - 2€/u x 1u = 2€
-    -100% 2€
+    REGAL 2€
     0€
     ---
     Total: 20€
