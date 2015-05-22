@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.lang.Math;
 
 import static org.junit.Assert.*;
 
@@ -83,9 +84,10 @@ public class StepDefinitions {
         assertEquals(saleAssistant, s.getSaleAssistantName());
     }
 
-    @Quan("^inicio el torn al tpv com a \"([^\"]*)\"$")
-     public void login(String saleAssistantName) throws Throwable {
+    @Quan("^inicio el torn al tpv com a \"([^\"]*)\" i hi ha (\\d+)€ a la caixa$")
+     public void login(String saleAssistantName, int d) throws Throwable {
         tryCatch(() -> this.posController.login(saleAssistantName));
+        this.posController.setInitialCash(d);
     }
 
     @Donat("^que no hi ha un torn iniciat$")
@@ -363,16 +365,12 @@ public class StepDefinitions {
         }
     }
 
-    @Aleshores("el sistema m'informa que el quadrament de la caixa és invàlid i la diferència és de (\\d+)€ negatius$")
-    public void checkQuadramentInvalidNeg(int dif){
-        assertFalse(this.posController.getTancamentUltimTorn());
-        assertEquals(-dif, this.posController.getDiffUltimQuadramentInvalid());
-    }
-
     @Aleshores("el sistema m'informa que el quadrament de la caixa és invàlid i la diferència és de (\\d+)€$")
     public void checkQuadramentInvalid(int dif){
         assertFalse(this.posController.getTancamentUltimTorn());
-        assertEquals(dif, this.posController.getDiffUltimQuadramentInvalid());
+        int i = this.posController.getDiffUltimQuadramentInvalid();
+        if(i < 0) i = i*-1;
+        assertEquals(dif,i);
     }
 
     @Donat("que el producte amb codi de barres (.*) ha estat afegit a la venta actual amb la quantitat (\\d+)")

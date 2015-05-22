@@ -287,17 +287,22 @@ public class PosController {
         ventesRealitzades.add(currentSale);
     }
 
-    public void tancarTorn(int n){
+    public String tancarTorn(int n){
         if(this.currentSaleAssistantName == null){ throw new RuntimeException("No hi ha cap torn iniciat"); }
         int t = getTotalTorn();
-        if(n!=t){
+        int x = n-t;
+        if(x<0) x = x*-1;
+        if(x!=0){
             afegirQuadramentInvalid(this.currentSaleAssistantName,n-t);
             //donar la opcio de tornar a fer quadrament o registrar quadrament invalid
 
             this.ultimTornTancatCorrectament = false;
+            if(x<10) return "Hi ha una diferència de menys de 10€ en el quadrament del torn";
+            else return "Hi ha una diferència de 10€ o més en el quadrament del torn";
         }
         else{
             this.ultimTornTancatCorrectament = true;
+            return "Torn tancat correctament";
         }
     }
 
@@ -328,7 +333,7 @@ public class PosController {
     public int getTotalTorn(){
         int total = 0;
         for(Sale l : ventesRealitzades) {
-            total += l.getTotal();
+            if(l.getPaymentForm().equals("efectiu")) total += l.getTotal();
         }
         return total+initialCash;
     }

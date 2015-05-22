@@ -84,6 +84,10 @@ public class Sale {
 
     private boolean estaPagada;
 
+    public String getPaymentForm(){
+        return paymentForm;
+    }
+
     public void setPaymentForm(String paymentForm){this.paymentForm = paymentForm;};
 
     public void addProduct(Product p) {
