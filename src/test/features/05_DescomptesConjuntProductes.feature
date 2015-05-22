@@ -33,9 +33,7 @@ Característica: Aplicar descomptes de tipus % a conjunts de productes
     Quan afegeixo el producte de codi de barres 2234568 a la venta
     I afegeixo el producte de codi de barres 2234569 a la venta
     Aleshores la venta té 2 línies
-    I línia de venta 1 és de 1 unitats de "Pilota verda" a 10€ cada una per un total de 10€
     I línia de venta 1 és de 1 unitats de "Pilota verda" a 10€ cada una amb un descompte de tipus "percentatge" del 20% per pertànyer a "esports" per un total de 8€
-    I línia de venta 2 és de 1 unitats de "Pilota blava" a 15€ cada una per un total de 15€
     I línia de venta 2 és de 1 unitats de "Pilota blava" a 15€ cada una amb un descompte de tipus "percentatge" del 20% per pertànyer a "esports" per un total de 12€
     I el total de la venta actual és de 20€
     I la pantalla del client del tpv mostra
