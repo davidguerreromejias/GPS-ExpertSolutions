@@ -236,7 +236,7 @@ public class StepDefinitions {
         assertEquals(productName,sl.getProductName());
         assertEquals(typeDesc,sl.getDiscount().getTypeOfDiscount());
         assertEquals(amountDesc, sl.getDiscount().getAmountDiscount());
-        assertEquals(cjt,sl.getDiscount().getSubType());
+        assertEquals(cjt, sl.getDiscount().getSubType());
     }
 
     @Donat("^la botiga \"([^\"]*)\"")

@@ -22,3 +22,10 @@ Característica: Cobrar una venta en metàlic
   Escenari: Error si intentem cobrar una venta no iniciada
     Quan indico que el client ha entregat 30€ per a pagar en metàlic
     Aleshores obtinc un error que diu: "No es pot cobrar una venta si no està iniciada"
+
+  Escenari: Error si intentem cobrar una venta amb menys diners de l'import total de la venda
+    Donat que hi ha una venta iniciada
+    I que he afegit el producte de codi de barres 1234567 a la venta
+    Quan indico que el client ha entregat 20€ per a pagar en metàlic
+    Aleshores obtinc un error que diu: "La quantitat rebuda és inferior a l'import de la venda."
+
