@@ -415,6 +415,6 @@ public class StepDefinitions {
 
     @Aleshores("el resultat de la cerca per data és$")
     public void checkSalesXData(String msg){
-        assertEquals(msg, this.posController.visualitzaVentesPerData(this.posController.getCurrentDate()));
+        assertEquals(msg, this.posController.getMessage());
     }
 }

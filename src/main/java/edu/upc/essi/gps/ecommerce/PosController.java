@@ -16,6 +16,12 @@ public class PosController {
     private String currentSaleAssistantName;
     private Sale currentSale;
 
+    public String getMessage() {
+        return message;
+    }
+
+    private String message;
+
     public String getCurrentDate() {
         return currentDate;
     }
@@ -407,7 +413,7 @@ public class PosController {
 
     public String getChange(){ return change;}
 
-    public String visualitzaVentesPerData(String data){
+    public void visualitzaVentesPerData(String data){
         ArrayList<HistorialLine> aux = new ArrayList();
         aux = historicSales.visualitzarPerData(data);
         StringBuilder sb = new StringBuilder();
@@ -416,7 +422,7 @@ public class PosController {
             sb.append("\n").append(i + 1).append(" : ").append(aux.get(i).getSale().getTotal()).append("€ - Realitzada per ").append(aux.get(i).getAssistantShop()).append(".\n");
             sb.append("---");
         }
-        return sb.toString();
+        this.message = sb.toString();
     }
 
     public void createCjtDiscount(String type, String subType, int amount) {
