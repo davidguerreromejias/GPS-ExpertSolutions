@@ -402,4 +402,14 @@ public class StepDefinitions {
     public void afegirRegal (String nomP) throws Throwable{
         this.posController.afegirRegal(nomP);
     }
+
+    @Quan("el gestor \"([^\"]*)\" visualitza les ventes en una data \"([^\"]*)\"")
+    public void visualitzaXData (String gestor, String data) throws Throwable{
+        this.posController.visualitzaVentesPerData(data);
+    }
+
+    @Aleshores("el resultat de la cerca per data és$")
+    public void checkSalesXData(String msg){
+        assertEquals(msg, this.posController.visualitzaVentesPerData(this.posController.getCurrentDate()));
+    }
 }

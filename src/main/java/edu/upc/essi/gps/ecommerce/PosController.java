@@ -407,7 +407,7 @@ public class PosController {
 
     public String visualitzaVentesPerData(String data){
         ArrayList<HistorialLine> aux = new ArrayList();
-        aux = historic.visualitzarPerData(data);
+        aux = historicSales.visualitzarPerData(data);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < aux.size(); i++) {
             sb.append(i+1).append(" : ").append(aux.get(i).getSale().getTotal()).append(" - Realitzada per ").append(aux.get(i).getAssistantShop()).append(".\n");
