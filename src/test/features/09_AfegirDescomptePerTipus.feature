@@ -16,3 +16,11 @@ Característica: Afegir un nou descompte al sistema
   Escenari: Afegir un descompte de tipus percentatge als objectes de tipus piscina quan ja n'hi ha un
     Quan afegeixo un descompte del tipus percentatge del 25% als productes de piscina
     Aleshores existeix un descompte del tipus percentatge al sistema del 25% pels productes de piscina
+
+  Escenari: Consultar els descomptes per tipus de productes i de tipus de descompte percentatge que hi ha actius al sistema
+    Quan afegeixo un descompte del tipus percentatge del 10% als productes de platja
+    I afegeixo un descompte del tipus percentatge del 15% als productes de esports
+    I afegeixo un descompte del tipus percentatge del 20% als productes de jocsTaula
+    I afegeixo un descompte del tipus percentatge del 30% als productes de electronica
+    Quan vull obtenir un llistat dels descomptes per tipus de productes i de tipus de descompte percentatge que hi ha actius al sistema
+    Aleshores el sistema em mostra un llistat descomptes per tipus de productes i de tipus de descompte percentatge que hi ha actius al sistema
