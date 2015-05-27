@@ -22,6 +22,19 @@ Característica: Historial de ventes
     I que la venta ha sigut pagada i guardada al historial.
     I que en "Pere" ha iniciat sessió com a gestor
 
+  Escenari: Visualitzar tot l'historial
+    Quan el gestor "Pere" visualitza tot l'historial
+    Aleshores el resultat de tot l'historial és
+    """
+    Historial de ventes
+    1 : 23€ - Realitzada per Joan en data 2015,05,18.
+    ---
+    2 : 50€ - Realitzada per Joan en data 2015,05,18.
+    ---
+    3 : 10€ - Realitzada per Jordi en data 2015,05,18.
+    ---
+    """
+
   Escenari: Visualitzar l'historial per data
     Quan el gestor "Pere" introdueix la data "2015,05,18"
     Aleshores el resultat de la cerca per data és

@@ -455,4 +455,14 @@ public class StepDefinitions {
     public void checkSalesXData(String msg){
         assertEquals(msg, this.posController.getMessage());
     }
+
+    @Quan("el gestor \"([^\"]*)\" visualitza tot l'historial")
+    public void visualitzaXTot (String gestor) throws Throwable{
+        this.posController.visualitzaTotHistorial();
+    }
+
+    @Aleshores("el resultat de tot l'historial és$")
+    public void checkSalesHistorial(String msg){
+        assertEquals(msg, this.posController.getMessage());
+    }
 }

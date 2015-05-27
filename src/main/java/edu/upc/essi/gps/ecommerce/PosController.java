@@ -457,6 +457,19 @@ public class PosController {
         this.message = sb.toString();
     }
 
+    public void visualitzaTotHistorial(){
+        ArrayList<HistorialLine> aux = new ArrayList();
+        aux = historicSales.visualitzarTotHistorial();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Historial de ventes");
+        for (int i = 0; i < aux.size(); i++) {
+            sb.append("\n").append(i + 1).append(" : ").append(aux.get(i).getSale().getTotal()).append("€ - Realitzada per ").append(aux.get(i).getAssistantShop()).append(" en data "
+            ).append(aux.get(i).getData()).append(".\n");
+            sb.append("---");
+        }
+        this.message = sb.toString();
+    }
+
     public void createCjtDiscount(String type, String subType, int amount) {
         Discount discPerc = new Discount(type, subType, amount);
         discPercCollection.add(discPerc);

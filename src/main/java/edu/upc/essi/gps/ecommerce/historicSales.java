@@ -39,4 +39,12 @@ public class historicSales {
         return totes;
     }
 
+    public ArrayList<HistorialLine> visualitzarTotHistorial(){
+        ArrayList<HistorialLine> totes = new ArrayList();
+        for (int i = 0; i < this.historial.size(); i++) {
+                totes.add(historial.get(i));
+        }
+        return totes;
+    }
+
 }
