@@ -297,14 +297,14 @@ public class StepDefinitions {
         this.posController = new PosController(shop);
     }
 
-    @Donat("^que s'ha afegit un descompte del (\\d+)% als productes de (.*)$")
-    public void addSetDiscountRerefons(int discount, String setProducts) throws Throwable {
-        this.posController.addTypeDiscount(discount, setProducts);
+    @Donat("^que s'ha afegit un descompte del tipus (.*) del (\\d+)% als productes de (.*)$")
+    public void addSetDiscountRerefons(String tipoDescompte, int discount, String setProducts) throws Throwable {
+        this.posController.addTypeDiscount(tipoDescompte, discount, setProducts);
     }
 
-    @Quan("^afegeixo un descompte del (\\d+)% als productes de (.*)$")
-    public void addSetDiscount(int discount, String setProducts) throws Throwable {
-        this.posController.addTypeDiscount(discount, setProducts);
+    @Quan("^afegeixo un descompte del tipus (.*) del (\\d+)% als productes de (.*)$")
+    public void addSetDiscount(String tipoDescompte, int discount, String setProducts) throws Throwable {
+        this.posController.addTypeDiscount(tipoDescompte, discount, setProducts);
     }
 
     @Quan("^esborro el descompte dels productes de (.*)$")
