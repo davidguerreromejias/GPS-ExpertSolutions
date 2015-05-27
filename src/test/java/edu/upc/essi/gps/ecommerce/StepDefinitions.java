@@ -403,7 +403,7 @@ public class StepDefinitions {
         this.posController.afegirRegal(nomP);
     }
 
-    @Quan("el gestor \"([^\"]*)\" visualitza les ventes en una data \"([^\"]*)\"")
+    @Quan("el gestor \"([^\"]*)\" introdueix la data \"([^\"]*)\"")
     public void visualitzaXData (String gestor, String data) throws Throwable{
         this.posController.visualitzaVentesPerData(data);
     }
