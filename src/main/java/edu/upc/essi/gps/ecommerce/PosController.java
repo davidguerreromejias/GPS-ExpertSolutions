@@ -331,6 +331,8 @@ public class PosController {
         return sb.toString();
     }
 
+
+
     public int getTotalTorn(){
         int total = 0;
         for(Sale l : ventesRealitzades) {
@@ -411,7 +413,7 @@ public class PosController {
         StringBuilder sb = new StringBuilder();
         sb.append("Data ").append(data);
         for (int i = 0; i < aux.size(); i++) {
-            sb.append("\n").append(i+1).append(" : ").append(aux.get(i).getSale().getTotal()).append("€ - Realitzada per ").append(aux.get(i).getAssistantShop()).append(".\n");
+            sb.append("\n").append(i + 1).append(" : ").append(aux.get(i).getSale().getTotal()).append("€ - Realitzada per ").append(aux.get(i).getAssistantShop()).append(".\n");
             sb.append("---");
         }
         return sb.toString();
@@ -433,6 +435,10 @@ public class PosController {
     public void finishSale(){
         this.historicSales.addSale(this.currentSale, this.currentSaleAssistantName, this.currentDate);
         this.currentSale = null;
+    }
+
+    public String getSetDiscountList() {
+        return setDiscountCollection.SetDiscountList();
     }
 }
 
