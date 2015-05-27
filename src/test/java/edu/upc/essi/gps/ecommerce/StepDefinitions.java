@@ -29,6 +29,7 @@ public class StepDefinitions {
 
     @Aleshores("^obtinc un error que diu: \"([^\"]*)\"$")
     public void checkErrorMessage(String msg) throws Throwable {
+        tryCatch(() -> this.posController.tancarTorn());
         assertNotNull(this.exception);
         assertEquals(msg, this.exception.getMessage());
     }
@@ -57,7 +58,7 @@ public class StepDefinitions {
 
     @Quan("^vull tancar el torn i a la caixa hi ha (\\d+)€$")
     public void tancarTorn(int n) throws Throwable {
-        tryCatch(() -> this.posController.tancarTorn(n));
+        this.posController.setInputTancarTorn(n);
     }
 
     @Aleshores("^el sistema m'informa que el quadrament de la caixa és invàlid$")
@@ -67,6 +68,7 @@ public class StepDefinitions {
 
     @Aleshores("^el sistema confirma el quadrament i tanca el torn$")
     public void checkQuadramentValid() throws Throwable {
+        tryCatch(() -> this.posController.tancarTorn());
         assertTrue(this.posController.getTancamentUltimTorn());
     }
 
@@ -88,6 +90,18 @@ public class StepDefinitions {
      public void login(String saleAssistantName, int d) throws Throwable {
         tryCatch(() -> this.posController.login(saleAssistantName));
         this.posController.setInitialCash(d);
+    }
+
+    @Quan("^indico que no vull repetir el quadrament$")
+    public void repetirQuadrament() throws Throwable {
+        this.posController.setRepetirQuadrament(false);
+    }
+
+    @Quan("^indico que vull repetir el quadrament i a la caixa hi ha (\\d+)€$")
+    public void repetirQuadrament(int x) throws Throwable {
+        this.posController.setRepetirQuadrament(true);
+        this.posController.setInputTancarTorn(x);
+        tryCatch(() -> this.posController.tancarTorn());
     }
 
     @Donat("^que no hi ha un torn iniciat$")
@@ -367,6 +381,7 @@ public class StepDefinitions {
 
     @Aleshores("el sistema m'informa que el quadrament de la caixa és invàlid i la diferència és de (\\d+)€$")
     public void checkQuadramentInvalid(int dif){
+        tryCatch(() -> this.posController.tancarTorn());
         assertFalse(this.posController.getTancamentUltimTorn());
         int i = this.posController.getDiffUltimQuadramentInvalid();
         if(i < 0) i = i*-1;

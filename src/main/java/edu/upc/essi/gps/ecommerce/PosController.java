@@ -26,8 +26,8 @@ public class PosController {
 
     private String currentDate;
 
-
-
+    private boolean repetirQuadrament = false;
+    private int inputTancarTorn;
     private LinkedList<Sale> ventesRealitzades;
     private final LinkedList<QuadramentInvalid> quadramentsInvalids = new LinkedList<>();
     private int initialCash;
@@ -49,6 +49,18 @@ public class PosController {
     }
 
     String changeCard;
+
+    public void setRepetirQuadrament(boolean b){
+        repetirQuadrament = b;
+    }
+
+    public void setInputTancarTorn(int x){
+        inputTancarTorn = x;
+    }
+
+    public int getInputTancarTorn(){
+        return inputTancarTorn;
+    }
 
     public int getVentesRealitzadesId(int posNumber) {
         boolean trobat = false;
@@ -288,18 +300,21 @@ public class PosController {
         ventesRealitzades.add(currentSale);
     }
 
-    public String tancarTorn(int n){
+    public String tancarTorn(){
         if(this.currentSaleAssistantName == null){ throw new RuntimeException("No hi ha cap torn iniciat"); }
-        int t = getTotalTorn();
-        int x = n-t;
+        int x = getInputTancarTorn() - getTotalTorn();
         if(x<0) x = x*-1;
         if(x!=0){
-            afegirQuadramentInvalid(this.currentSaleAssistantName,n-t);
-            //donar la opcio de tornar a fer quadrament o registrar quadrament invalid
-
-            this.ultimTornTancatCorrectament = false;
-            if(x<10) return "Hi ha una diferència de menys de 10€ en el quadrament del torn";
-            else return "Hi ha una diferència de 10€ o més en el quadrament del torn";
+            if(repetirQuadrament){
+                setRepetirQuadrament(false);
+                return tancarTorn();
+            }
+            else {
+                afegirQuadramentInvalid(this.currentSaleAssistantName, getInputTancarTorn() - getTotalTorn());
+                this.ultimTornTancatCorrectament = false;
+                if (x < 10) return "Hi ha una diferència de menys de 10€ en el quadrament del torn";
+                else return "Hi ha una diferència de 10€ o més en el quadrament del torn";
+            }
         }
         else{
             this.ultimTornTancatCorrectament = true;
