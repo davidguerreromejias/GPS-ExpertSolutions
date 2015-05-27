@@ -104,6 +104,11 @@ public class StepDefinitions {
     public void hasLoggedIn(String saleAssistantName) throws Throwable {
         this.posController.login(saleAssistantName);
     }
+    @Donat("^que en \"([^\"]*)\" ha iniciat un altre torn al tpv$")
+    public void newHasLoggedIn(String saleAssistantName) throws Throwable {
+        this.posController.setCurrentSaleAssistantName(null);
+        this.posController.login(saleAssistantName);
+    }
     @Donat("que en \"([^\"]*)\" ha iniciat sessio$")
     public void hasLoggedInSession(String gestorName) throws Throwable {
         tryCatch(() -> this.posController.gestorLogin(gestorName));
@@ -352,10 +357,10 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.getQuadramentsInvalids());
     }
 
-    @Quan ("vull obtenir un llistat dels descomptes per tipus de productes i de tipus de descompte percentatge que hi ha actius al sistema$")
+    /*@Quan ("vull obtenir un llistat dels descomptes per tipus de productes i de tipus de descompte percentatge que hi ha actius al sistema$")
     public void obtenirLListatDescomptesPerTipus() throws Throwable{
         tryCatch(()-> this.posController.getSetDiscountList());
-    }
+    }*/
 
     @Aleshores("el sistema em mostra un llistat de quadraments invàlids que és$")
     public void checkQuadraments(String msg){
