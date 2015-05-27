@@ -41,7 +41,7 @@ public class PosController {
     private Date dateLoginGestor;
     private LinkedList<Discount> discMxNCollection = new LinkedList<>();
     private LinkedList<Discount> discPercCollection = new LinkedList<>();
-    private LinkedList<Sale> historial = new LinkedList<>();
+    private historicSales historicSales;
     String change;
 
     public String getChangeCard() {
@@ -82,6 +82,7 @@ public class PosController {
         this.setDiscountCollection = new setDiscountCollection();
         this.currentSaleAssistantName = null;
         this.ultimTornTancatCorrectament = true;
+        this.historicSales = new historicSales();
     }
 
     public PosController(String shop) {
@@ -359,12 +360,6 @@ public class PosController {
         if (found) currentSale.applyDiscountAtLastLine(discMxN);
     }
 
-    public void createHistorial(){
-        this.historic = new historicSales();
-    }
-    public void setSaleHistorial(HistorialLine hl){
-        historic.addSale(hl);
-    }
 
     public void createMxNDisc(String type, int m, int n) {
         Discount discMxN = new Discount(type, m, n);
@@ -432,6 +427,11 @@ public class PosController {
         //lines.getLa
         currentSale.addProduct(productsService.findByName(nomP));
         currentSale.assignaDescompte(discPerc, nomP);
+    }
+
+    public void finishSale(){
+        this.historicSales.addSale(this.currentSale, this.currentSaleAssistantName, this.currentDate);
+        this.currentSale = null;
     }
 }
 

@@ -388,14 +388,9 @@ public class StepDefinitions {
         this.posController.afegirQuadramentInvalid(assistant, dif);
     }
 
-    @Donat("que s'ha fet una venta de (.*)€")
-        public void saleOfX(int total) throws Throwable{
-            this.posController.startSale();
-            //this.posController.createHistorial(this.posController.getCurrentSale().getShop());
-            this.posController.salePayed();
-            this.posController.getCurrentSale().setTotalPrice(total);
-            //this.posController.setSaleHistorial(this.posController.getCurrentSale(), this.posController.getCurrentDate());
-            this.posController.endSale();
+    @Donat("que la venta ha sigut pagada i guardada al historial.")
+        public void saleOfX() throws Throwable{
+            this.posController.finishSale();
     }
 
     @Donat("^que hi ha un descompte de tipus (.*) definit en el sistema pels productes de tipus (.*) d'un (\\d+)%$")

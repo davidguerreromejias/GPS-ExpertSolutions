@@ -6,10 +6,9 @@ Característica: Historial de ventes
   Rerefons:
     Donat que estem al tpv número 1 de la botiga "Girona 1"
     I que en "Joan" ha iniciat el torn al tpv
-    I que s'ha fet una venta de 20€
-    I que s'ha fet una venta de 15€
-    I que s'ha fet una venta de 30€
-    I que s'ha fet una venta de 40€
+    I que hi ha una venta iniciada
+    I que he afegit el producte de codi de barres 1234567 a la venta
+    I que la venta ha sigut pagada i guardada al historial.
     I que en "Pere" ha iniciat sessió com a gestor
 
   Escenari: Visualitzar l'historial per data

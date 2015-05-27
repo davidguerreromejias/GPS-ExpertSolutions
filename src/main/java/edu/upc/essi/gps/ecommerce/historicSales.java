@@ -14,7 +14,8 @@ public class historicSales {
         historial = new LinkedList<>();
     }
 
-    public void addSale(HistorialLine hl){
+    public void addSale(Sale sale, String assistant, String data){
+        HistorialLine hl = new HistorialLine(sale, data, assistant);
         historial.add(hl);
     }
 
