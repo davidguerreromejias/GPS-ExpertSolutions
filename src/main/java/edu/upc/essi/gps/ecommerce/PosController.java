@@ -443,7 +443,7 @@ public class PosController {
         this.currentSale = null;
     }
 
-    public StringBuilder getSetDiscountList() {
+    public String getSetDiscountList() {
         return setDiscountCollection.SetDiscountList();
     }
 }

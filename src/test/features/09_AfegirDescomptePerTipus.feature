@@ -24,3 +24,11 @@ Característica: Afegir un nou descompte al sistema
     I afegeixo un descompte del tipus percentatge del 30% als productes de electronica
     Quan vull obtenir un llistat dels descomptes per tipus de productes i de tipus de descompte percentatge que hi ha actius al sistema
     Aleshores el sistema em mostra un llistat descomptes per tipus de productes i de tipus de descompte percentatge que hi ha actius al sistema
+    """
+    --Tipus Descompte--  --Descompte--  --Tipus Producte--
+    percentatge , 40.0% , piscina
+    percentatge , 10.0% , platja
+    percentatge , 15.0% , esports
+    percentatge , 20.0% , jocsTaula
+    percentatge , 30.0% , electronica
+    """

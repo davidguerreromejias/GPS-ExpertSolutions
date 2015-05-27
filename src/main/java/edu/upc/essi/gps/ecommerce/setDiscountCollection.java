@@ -74,7 +74,7 @@ public class setDiscountCollection {
         return false;
     }
 
-    public StringBuilder SetDiscountList() {
+    public String SetDiscountList() {
         if (setDiscountController.isEmpty())
             throw new IllegalArgumentException("Actualment no existeix cap descompte del tipus percentatge i per tipus de producte");
 
@@ -82,8 +82,8 @@ public class setDiscountCollection {
         sb.append("--Tipus Descompte--  --Descompte--  --Tipus Producte--\n");
         String espai = " , ";
         for(setDiscount s : setDiscountController){
-            sb.append(s.getTipus()).append(espai).append(s.getDiscount()).append(espai).append(s.getSetObj()).append("€\n");
+            sb.append(s.getTipus()).append(espai).append(s.getDiscount()).append("%").append(espai).append(s.getSetObj()).append("\n");
         }
-        return sb;
+        return sb.toString();
     }
 }
