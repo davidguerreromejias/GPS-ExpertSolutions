@@ -120,8 +120,11 @@ public class StepDefinitions {
     }
     @Donat("^que en \"([^\"]*)\" ha iniciat un altre torn al tpv$")
     public void newHasLoggedIn(String saleAssistantName) throws Throwable {
-        this.posController.setCurrentSaleAssistantName(null);
         this.posController.login(saleAssistantName);
+    }
+    @Donat("^que en \"([^\"]*)\" ha tancat el torn al tpv$")
+    public void tencaTorn(String saleAssistantName) throws Throwable {
+        this.posController.setCurrentSaleAssistantName(null);
     }
     @Donat("que en \"([^\"]*)\" ha iniciat sessio$")
     public void hasLoggedInSession(String gestorName) throws Throwable {
