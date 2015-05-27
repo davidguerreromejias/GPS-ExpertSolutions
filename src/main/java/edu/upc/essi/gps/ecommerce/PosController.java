@@ -366,9 +366,9 @@ public class PosController {
         discMxNCollection.add(discMxN);
     }
 
-    public void addTypeDiscount(int discount, String tipoProd) {
+    public void addTypeDiscount(String tipoDiscount, int discount, String tipoProd) {
         if (currentGestorName == null) throw new IllegalStateException("No hi ha cap sessio de gestor iniciada");
-        setDiscount sd = new setDiscount(tipoProd, discount, this.shop);
+        setDiscount sd = new setDiscount(tipoProd, discount, this.shop, tipoDiscount);
         this.setDiscountCollection.addSetDiscount(sd);
         float aux = setDiscountCollection.getSetDiscount(tipoProd, this.shop);
         if (aux != discount) throw new IllegalStateException("No 'ha afegit el descompte");

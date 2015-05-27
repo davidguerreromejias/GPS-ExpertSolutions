@@ -297,14 +297,14 @@ public class StepDefinitions {
         this.posController = new PosController(shop);
     }
 
-    @Donat("^que s'ha afegit un descompte del (\\d+)% als productes de (.*)$")
-    public void addSetDiscountRerefons(int discount, String setProducts) throws Throwable {
-        this.posController.addTypeDiscount(discount, setProducts);
+    @Donat("^que s'ha afegit un descompte del tipus (.*) del (\\d+)% als productes de (.*)$")
+    public void addSetDiscountRerefons(String tipoDescompte, int discount, String setProducts) throws Throwable {
+        this.posController.addTypeDiscount(tipoDescompte, discount, setProducts);
     }
 
-    @Quan("^afegeixo un descompte del (\\d+)% als productes de (.*)$")
-    public void addSetDiscount(int discount, String setProducts) throws Throwable {
-        this.posController.addTypeDiscount(discount, setProducts);
+    @Quan("^afegeixo un descompte del tipus (.*) del (\\d+)% als productes de (.*)$")
+    public void addSetDiscount(String tipoDescompte, int discount, String setProducts) throws Throwable {
+        this.posController.addTypeDiscount(tipoDescompte, discount, setProducts);
     }
 
     @Quan("^esborro el descompte dels productes de (.*)$")
@@ -312,8 +312,8 @@ public class StepDefinitions {
         this.posController.deletedTypeDiscount(setProducts);
     }
 
-    @Aleshores("^existeix un descompte al sistema del (\\d+)% pels productes de (.*)$")
-    public void checkSetDiscountAdded(int discount, String setProduct) throws Throwable {
+    @Aleshores("^existeix un descompte del tipus (.*) al sistema del (\\d+)% pels productes de (.*)$")
+    public void checkSetDiscountAdded(String tipusDescompte,int discount, String setProduct) throws Throwable {
         assertEquals(discount, (int) this.posController.getDiscountBySetProduct(setProduct));
     }
 
@@ -348,7 +348,7 @@ public class StepDefinitions {
     }
 
     @Quan("vull obtenir un llistat dels quadraments invàlids$")
-    public void obtenirLlistatQuadraments() throws Throwable{
+    public void obtenirLlistatQuadraments() throws Throwable {
         tryCatch(() -> this.posController.getQuadramentsInvalids());
     }
 
