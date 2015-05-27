@@ -371,10 +371,10 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.getQuadramentsInvalids());
     }
 
-    /*@Quan ("vull obtenir un llistat dels descomptes per tipus de productes i de tipus de descompte percentatge que hi ha actius al sistema$")
+    @Quan ("vull obtenir un llistat dels descomptes per tipus de productes i de tipus de descompte percentatge que hi ha actius al sistema$")
     public void obtenirLListatDescomptesPerTipus() throws Throwable{
         tryCatch(()-> this.posController.getSetDiscountList());
-    }*/
+    }
 
     @Aleshores("el sistema em mostra un llistat descomptes per tipus de productes i de tipus de descompte percentatge que hi ha actius al sistema$")
     public void checkLListatDescomptesPerTipus(String msg){

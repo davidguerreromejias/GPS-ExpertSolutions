@@ -31,4 +31,5 @@ Característica: Afegir un nou descompte al sistema
     percentatge , 15.0% , esports
     percentatge , 20.0% , jocsTaula
     percentatge , 30.0% , electronica
+
     """
