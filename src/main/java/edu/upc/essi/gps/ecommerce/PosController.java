@@ -13,6 +13,11 @@ public class PosController {
     private final ProductsService productsService;
     private final String shop;
     private final int posNumber;
+
+    public void setCurrentSaleAssistantName(String currentSaleAssistantName) {
+        this.currentSaleAssistantName = currentSaleAssistantName;
+    }
+
     private String currentSaleAssistantName;
     private Sale currentSale;
 
@@ -446,5 +451,6 @@ public class PosController {
     public StringBuilder getSetDiscountList() {
         return setDiscountCollection.SetDiscountList();
     }
+
 }
 
