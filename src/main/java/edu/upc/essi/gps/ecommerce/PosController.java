@@ -409,9 +409,10 @@ public class PosController {
         ArrayList<HistorialLine> aux = new ArrayList();
         aux = historicSales.visualitzarPerData(data);
         StringBuilder sb = new StringBuilder();
+        sb.append("Data ").append(data);
         for (int i = 0; i < aux.size(); i++) {
-            sb.append(i+1).append(" : ").append(aux.get(i).getSale().getTotal()).append(" - Realitzada per ").append(aux.get(i).getAssistantShop()).append(".\n");
-            sb.append("---\n");
+            sb.append("\n").append(i+1).append(" : ").append(aux.get(i).getSale().getTotal()).append("€ - Realitzada per ").append(aux.get(i).getAssistantShop()).append(".\n");
+            sb.append("---");
         }
         return sb.toString();
     }
