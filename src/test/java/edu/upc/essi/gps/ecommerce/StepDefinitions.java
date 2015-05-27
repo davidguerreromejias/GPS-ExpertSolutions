@@ -118,6 +118,11 @@ public class StepDefinitions {
     public void hasLoggedIn(String saleAssistantName) throws Throwable {
         this.posController.login(saleAssistantName);
     }
+    @Donat("^que en \"([^\"]*)\" ha iniciat un altre torn al tpv$")
+    public void newHasLoggedIn(String saleAssistantName) throws Throwable {
+        this.posController.setCurrentSaleAssistantName(null);
+        this.posController.login(saleAssistantName);
+    }
     @Donat("que en \"([^\"]*)\" ha iniciat sessio$")
     public void hasLoggedInSession(String gestorName) throws Throwable {
         tryCatch(() -> this.posController.gestorLogin(gestorName));
@@ -311,14 +316,14 @@ public class StepDefinitions {
         this.posController = new PosController(shop);
     }
 
-    @Donat("^que s'ha afegit un descompte del (\\d+)% als productes de (.*)$")
-    public void addSetDiscountRerefons(int discount, String setProducts) throws Throwable {
-        this.posController.addTypeDiscount(discount, setProducts);
+    @Donat("^que s'ha afegit un descompte del tipus (.*) del (\\d+)% als productes de (.*)$")
+    public void addSetDiscountRerefons(String tipoDescompte, int discount, String setProducts) throws Throwable {
+        this.posController.addTypeDiscount(tipoDescompte, discount, setProducts);
     }
 
-    @Quan("^afegeixo un descompte del (\\d+)% als productes de (.*)$")
-    public void addSetDiscount(int discount, String setProducts) throws Throwable {
-        this.posController.addTypeDiscount(discount, setProducts);
+    @Quan("^afegeixo un descompte del tipus (.*) del (\\d+)% als productes de (.*)$")
+    public void addSetDiscount(String tipoDescompte, int discount, String setProducts) throws Throwable {
+        this.posController.addTypeDiscount(tipoDescompte, discount, setProducts);
     }
 
     @Quan("^esborro el descompte dels productes de (.*)$")
@@ -326,8 +331,8 @@ public class StepDefinitions {
         this.posController.deletedTypeDiscount(setProducts);
     }
 
-    @Aleshores("^existeix un descompte al sistema del (\\d+)% pels productes de (.*)$")
-    public void checkSetDiscountAdded(int discount, String setProduct) throws Throwable {
+    @Aleshores("^existeix un descompte del tipus (.*) al sistema del (\\d+)% pels productes de (.*)$")
+    public void checkSetDiscountAdded(String tipusDescompte,int discount, String setProduct) throws Throwable {
         assertEquals(discount, (int) this.posController.getDiscountBySetProduct(setProduct));
     }
 
@@ -362,8 +367,18 @@ public class StepDefinitions {
     }
 
     @Quan("vull obtenir un llistat dels quadraments invàlids$")
-    public void obtenirLlistatQuadraments() throws Throwable{
+    public void obtenirLlistatQuadraments() throws Throwable {
         tryCatch(() -> this.posController.getQuadramentsInvalids());
+    }
+
+    /*@Quan ("vull obtenir un llistat dels descomptes per tipus de productes i de tipus de descompte percentatge que hi ha actius al sistema$")
+    public void obtenirLListatDescomptesPerTipus() throws Throwable{
+        tryCatch(()-> this.posController.getSetDiscountList());
+    }*/
+
+    @Aleshores("el sistema em mostra un llistat descomptes per tipus de productes i de tipus de descompte percentatge que hi ha actius al sistema$")
+    public void checkLListatDescomptesPerTipus(String msg){
+        assertEquals(msg, this.posController.getSetDiscountList());
     }
 
     @Aleshores("el sistema em mostra un llistat de quadraments invàlids que és$")
@@ -418,13 +433,13 @@ public class StepDefinitions {
         this.posController.afegirRegal(nomP);
     }
 
-    @Quan("el gestor \"([^\"]*)\" visualitza les ventes en una data \"([^\"]*)\"")
+    @Quan("el gestor \"([^\"]*)\" introdueix la data \"([^\"]*)\"")
     public void visualitzaXData (String gestor, String data) throws Throwable{
         this.posController.visualitzaVentesPerData(data);
     }
 
     @Aleshores("el resultat de la cerca per data és$")
     public void checkSalesXData(String msg){
-        assertEquals(msg, this.posController.visualitzaVentesPerData(this.posController.getCurrentDate()));
+        assertEquals(msg, this.posController.getMessage());
     }
 }

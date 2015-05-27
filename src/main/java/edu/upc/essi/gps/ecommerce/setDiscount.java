@@ -7,13 +7,15 @@ public class setDiscount {
     private String setObj;
     private float discount;
     private String shop;
+    private String tipus;
 
     public setDiscount() {}
 
-    public setDiscount(String setObj, float discount, String shop) {
+    public setDiscount(String setObj, float discount, String shop, String discountTipo) {
         this.setObj = setObj;
         this.discount = discount;
         this.shop = shop;
+        this.tipus = discountTipo;
     }
 
     public String getShop() {
@@ -27,6 +29,10 @@ public class setDiscount {
     public float getDiscount() {
 
         return discount;
+    }
+
+    public String getTipus() {
+        return tipus;
     }
 
     public void setDiscount(float discount) {

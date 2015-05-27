@@ -13,8 +13,19 @@ public class PosController {
     private final ProductsService productsService;
     private final String shop;
     private final int posNumber;
+
+    public void setCurrentSaleAssistantName(String currentSaleAssistantName) {
+        this.currentSaleAssistantName = currentSaleAssistantName;
+    }
+
     private String currentSaleAssistantName;
     private Sale currentSale;
+
+    public String getMessage() {
+        return message;
+    }
+
+    private String message;
 
     public String getCurrentDate() {
         return currentDate;
@@ -346,6 +357,8 @@ public class PosController {
         return sb.toString();
     }
 
+
+
     public int getTotalTorn(){
         int total = 0;
         for(Sale l : ventesRealitzades) {
@@ -381,9 +394,9 @@ public class PosController {
         discMxNCollection.add(discMxN);
     }
 
-    public void addTypeDiscount(int discount, String tipoProd) {
+    public void addTypeDiscount(String tipoDiscount, int discount, String tipoProd) {
         if (currentGestorName == null) throw new IllegalStateException("No hi ha cap sessio de gestor iniciada");
-        setDiscount sd = new setDiscount(tipoProd, discount, this.shop);
+        setDiscount sd = new setDiscount(tipoProd, discount, this.shop, tipoDiscount);
         this.setDiscountCollection.addSetDiscount(sd);
         float aux = setDiscountCollection.getSetDiscount(tipoProd, this.shop);
         if (aux != discount) throw new IllegalStateException("No 'ha afegit el descompte");
@@ -420,15 +433,16 @@ public class PosController {
 
     public String getChange(){ return change;}
 
-    public String visualitzaVentesPerData(String data){
+    public void visualitzaVentesPerData(String data){
         ArrayList<HistorialLine> aux = new ArrayList();
         aux = historicSales.visualitzarPerData(data);
         StringBuilder sb = new StringBuilder();
+        sb.append("Data ").append(data);
         for (int i = 0; i < aux.size(); i++) {
-            sb.append(i+1).append(" : ").append(aux.get(i).getSale().getTotal()).append(" - Realitzada per ").append(aux.get(i).getAssistantShop()).append(".\n");
-            sb.append("---\n");
+            sb.append("\n").append(i + 1).append(" : ").append(aux.get(i).getSale().getTotal()).append("€ - Realitzada per ").append(aux.get(i).getAssistantShop()).append(".\n");
+            sb.append("---");
         }
-        return sb.toString();
+        this.message = sb.toString();
     }
 
     public void createCjtDiscount(String type, String subType, int amount) {
@@ -448,5 +462,10 @@ public class PosController {
         this.historicSales.addSale(this.currentSale, this.currentSaleAssistantName, this.currentDate);
         this.currentSale = null;
     }
+
+    public String getSetDiscountList() {
+        return setDiscountCollection.SetDiscountList();
+    }
+
 }
 

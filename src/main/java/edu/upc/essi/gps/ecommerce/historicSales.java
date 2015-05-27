@@ -22,7 +22,7 @@ public class historicSales {
     public ArrayList<HistorialLine> visualitzarPerData(String data){
         ArrayList<HistorialLine> totes = new ArrayList();
         for (int i = 0; i < this.historial.size(); i++) {
-            if(data == historial.get(i).getData()){
+            if(data.equals(historial.get(i).getData())){
                 totes.add(historial.get(i));
             }
         }
