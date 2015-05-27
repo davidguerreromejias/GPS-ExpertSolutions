@@ -34,3 +34,14 @@ Característica: Historial de ventes
     3 : 10€ - Realitzada per Jordi.
     ---
     """
+
+  Escenari: Visualitzar l'historial per venedor
+    Quan el gestor "Pere" introdueix el venedor "Joan"
+    Aleshores el resultat de la cerca per venedor és
+    """
+    Joan
+    1 : 23€ - Data 2015,05,18.
+    ---
+    2 : 50€ - Data 2015,05,18.
+    ---
+    """

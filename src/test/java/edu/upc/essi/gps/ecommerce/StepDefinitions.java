@@ -441,6 +441,16 @@ public class StepDefinitions {
         this.posController.visualitzaVentesPerData(data);
     }
 
+    @Quan("el gestor \"([^\"]*)\" introdueix el venedor \"([^\"]*)\"")
+    public void visualitzaXVenedor (String gestor, String venedor) throws Throwable{
+        this.posController.visualitzaVentesPerVenedor(venedor);
+    }
+
+    @Aleshores("el resultat de la cerca per venedor és$")
+    public void checkSalesXVenedor(String msg){
+        assertEquals(msg, this.posController.getMessage());
+    }
+
     @Aleshores("el resultat de la cerca per data és$")
     public void checkSalesXData(String msg){
         assertEquals(msg, this.posController.getMessage());

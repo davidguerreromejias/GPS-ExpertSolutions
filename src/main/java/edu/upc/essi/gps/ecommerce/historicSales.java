@@ -29,4 +29,14 @@ public class historicSales {
         return totes;
     }
 
+    public ArrayList<HistorialLine> visualitzarPerVenedor(String venedor){
+        ArrayList<HistorialLine> totes = new ArrayList();
+        for (int i = 0; i < this.historial.size(); i++) {
+            if(venedor.equals(historial.get(i).getAssistantShop())){
+                totes.add(historial.get(i));
+            }
+        }
+        return totes;
+    }
+
 }
