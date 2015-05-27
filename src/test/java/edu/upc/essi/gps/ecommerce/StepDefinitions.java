@@ -362,6 +362,11 @@ public class StepDefinitions {
         tryCatch(()-> this.posController.getSetDiscountList());
     }*/
 
+    @Aleshores("el sistema em mostra un llistat descomptes per tipus de productes i de tipus de descompte percentatge que hi ha actius al sistema$")
+    public void checkLListatDescomptesPerTipus(String msg){
+        assertEquals(msg, this.posController.getSetDiscountList());
+    }
+
     @Aleshores("el sistema em mostra un llistat de quadraments invàlids que és$")
     public void checkQuadraments(String msg){
         assertEquals(msg, this.posController.getQuadramentsInvalids());

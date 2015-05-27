@@ -31,6 +31,10 @@ public class setDiscount {
         return discount;
     }
 
+    public String getTipus() {
+        return tipus;
+    }
+
     public void setDiscount(float discount) {
         this.discount = discount;
     }
