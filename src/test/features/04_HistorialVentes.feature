@@ -16,9 +16,9 @@ Característica: Historial de ventes
     I que la venta ha sigut pagada i guardada al historial.
     I que en "Pere" ha iniciat sessió com a gestor
     #falta fer que hi hagi ventes d'una altre venedor
-
+#en en el qual potser només es vol capturar la data i guardar-la per fer l'aleshores
   Escenari: Visualitzar l'historial per data
-    Quan el gestor "Pere" visualitza les ventes en una data "2015,05,18"
+    Quan el gestor "Pere" introdueix la data "2015,05,18"
     Aleshores el resultat de la cerca per data és
     """
     Data 2015,05,18
