@@ -267,23 +267,21 @@ public class PosController {
             sb.append(sl.getProductName()).append(" - ")
                     .append(sl.getUnitPrice()).append("€/u x ").append(sl.getAmount()).append("u = ")
                     .append(sl.getTotalPriceRaw()).append("€\n");
-            if(sl.getDiscount().getTypeOfDiscount().equals("percentatge")){
+            if(sl.getDiscount().getTypeOfDiscount().equals("percentatge")) {
                 int amountDisc = sl.getDiscount().getAmountDiscount();
-                if (amountDisc == 100){
+                if (amountDisc == 100) {
                     sb.append("REGAL ");
-                }
-                else {
+                } else {
                     sb.append("-").append(amountDisc).append("% ");
                 }
-                sb.append(sl.getTotalPriceRaw() - sl.getTotalPrice()).append("€\n");
-                sb.append(sl.getTotalPrice()).append("€\n");
+                sb.append("-").append(sl.getTotalPriceRaw() - sl.getTotalPrice()).append("€\n");
             }
+
             else if(sl.getDiscount().getTypeOfDiscount().equals("m x n")){
                 int n = sl.getDiscount().getN();
                 int m = sl.getDiscount().getM();
                 int difference = (m - n) * sl.getUnitPrice();
                 sb.append(sl.getDiscount().getM()).append("x").append(n).append(" -").append(difference).append("€\n");
-                sb.append(sl.getTotalPrice()).append("€\n");
             }
         }
         sb.append("---\n").append("Total: ").append(currentSale.getTotal()).append("€");

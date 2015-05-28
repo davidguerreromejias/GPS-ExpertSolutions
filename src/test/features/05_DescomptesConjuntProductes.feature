@@ -18,14 +18,12 @@ Característica: Aplicar descomptes de tipus % a conjunts de productes
   Escenari: Aplicar un descompte de tipus percentatge a un producte que pertany al conjunt de productes transformer
     Quan afegeixo el producte de codi de barres 1234567 a la venta
     Aleshores la venta té 1 línia
-    I línia de venta 1 és de 1 unitats de "Optimus Prime" a 20€ cada una per un total de 20€
     I línia de venta 1 és de 1 unitats de "Optimus Prime" a 20€ cada una amb un descompte de tipus "percentatge" del 50% per pertànyer a "transformer" per un total de 10€
     I el total de la venta actual és de 10€
     I la pantalla del client del tpv mostra
     """
     Optimus Prime - 20€/u x 1u = 20€
-    -50% 10€
-    10€
+    -50% -10€
     ---
     Total: 10€
     """
@@ -39,11 +37,9 @@ Característica: Aplicar descomptes de tipus % a conjunts de productes
     I la pantalla del client del tpv mostra
     """
     Pilota verda - 10€/u x 1u = 10€
-    -20% 2€
-    8€
+    -20% -2€
     Pilota blava - 15€/u x 1u = 15€
-    -20% 3€
-    12€
+    -20% -3€
     ---
     Total: 20€
     """
@@ -52,20 +48,16 @@ Característica: Aplicar descomptes de tipus % a conjunts de productes
     I afegeixo el producte de codi de barres 1234568 a la venta
     I afegeixo el producte de codi de barres 1234569 a la venta
     Aleshores la venta té 3 línies
-    I línia de venta 1 és de 1 unitats de "Optimus Prime" a 20€ cada una per un total de 20€
     I línia de venta 1 és de 1 unitats de "Optimus Prime" a 20€ cada una amb un descompte de tipus "percentatge" del 50% per pertànyer a "transformer" per un total de 10€
-    I línia de venta 2 és de 1 unitats de "Bumblebee" a 30€ cada una per un total de 30€
     I línia de venta 2 és de 1 unitats de "Bumblebee" a 30€ cada una amb un descompte de tipus "percentatge" del 50% per pertànyer a "transformer" per un total de 15€
     I línia de venta 3 és de 1 unitats de "Gimli" a 40€ cada una per un total de 40€
     I el total de la venta actual és de 65€
     I la pantalla del client del tpv mostra
     """
     Optimus Prime - 20€/u x 1u = 20€
-    -50% 10€
-    10€
+    -50% -10€
     Bumblebee - 30€/u x 1u = 30€
-    -50% 15€
-    15€
+    -50% -15€
     Gimli - 40€/u x 1u = 40€
     ---
     Total: 65€
