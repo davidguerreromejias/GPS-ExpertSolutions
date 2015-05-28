@@ -249,9 +249,26 @@ public class StepDefinitions {
     }
 
     @Aleshores("^línia de venta (\\d+) és de (\\d+) unitats de \"([^\"]*)\" a (\\d+)€ cada una amb un descompte de tipus " +
-            "\"([^\"]*)\" del (\\d+)% per pertànyer a \"([^\"]*)\" per un total de (\\d+)€$")
+            "\"([^\"]*)\" del \"([^\"]*)\" per pertànyer a \"([^\"]*)\" per un total de (\\d+)€$")
     public void línia_de_venta_és_de_unitats_de_a_€_cada_una_per_un_total_de_€_amb_descompte(int lineNumber, int units, String productName,
-                                                                                             int unitPrice, String typeDesc, int amountDesc,
+                                                                                             int unitPrice, String typeDesc, String amountDesc,
+                                                                                             String cjt,int totalPrice) throws Throwable {
+        SaleLine sl = this.posController.getCurrentSale().getLines().get(lineNumber - 1);
+        assertEquals(units,sl.getAmount());
+        assertEquals(unitPrice,sl.getUnitPrice());
+        assertEquals(totalPrice, sl.getTotalPrice());
+        assertEquals(productName,sl.getProductName());
+        assertEquals(typeDesc,sl.getDiscount().getTypeOfDiscount());
+        String aux = Integer.toString(sl.getDiscount().getAmountDiscount());
+        if(sl.getDiscount().getTypeOfDiscount().equals("percentatge")) aux += "%";
+        assertEquals(amountDesc,aux);
+        assertEquals(cjt, sl.getDiscount().getSubType());
+    }
+
+   /* @Aleshores("^línia de venta (\\d+) és de (\\d+) unitats de \"([^\"]*)\" a (\\d+)€ cada una amb un descompte de tipus " +
+            "\"([^\"]*)\" del (.*) per pertànyer a \"([^\"]*)\" per un total de (\\d+)€$")
+    public void línia_de_venta_és_de_unitats_de_a_€_cada_una_per_un_total_de_€_amb_descompte_mxn(int lineNumber, int units, String productName,
+                                                                                             int unitPrice, String typeDesc, String amountDesc,
                                                                                              String cjt,int totalPrice) throws Throwable {
         SaleLine sl = this.posController.getCurrentSale().getLines().get(lineNumber - 1);
         assertEquals(units,sl.getAmount());
@@ -261,7 +278,7 @@ public class StepDefinitions {
         assertEquals(typeDesc,sl.getDiscount().getTypeOfDiscount());
         assertEquals(amountDesc, sl.getDiscount().getAmountDiscount());
         assertEquals(cjt, sl.getDiscount().getSubType());
-    }
+    }*/
 
     @Donat("^la botiga \"([^\"]*)\"")
     public void createHistorial(String shop) throws Throwable{
@@ -289,15 +306,11 @@ public class StepDefinitions {
     }
 
 
-    @Donat("^que hi ha un descompte definit en el sistema de tipus (.*) on m és (\\d+) i n és (\\d+)$")
-    public void createMxNDiscount(String type,int mvalue, int nvalue) throws Throwable {
-        this.posController.createMxNDisc(type, mvalue, nvalue);
+    @Donat("^que hi ha un descompte de tipus (.*) on m és (\\d+) i n és (\\d+) definit en el sistema pels productes de tipus \"([^\"]*)\"$")
+    public void createMxNDiscount(String type,int mvalue, int nvalue,String conjunt) throws Throwable {
+        this.posController.createMxNDisc(type, conjunt, mvalue, nvalue);
     }
 
-    @Quan("^apreto sobre el descompte m x n (\\d+) x (\\d+) existent$")
-    public void applyDiscountMxN(int m, int n) throws Throwable{
-        tryCatch(() -> this.posController.applyMxNDiscount(m, n));
-    }
 
     @Aleshores("^línia de venta (\\d+) és de (\\d+) unitats de \"([^\"]*)\" a (\\d+)€ cada una amb un descompte de tipus " +
             "\"([^\"]*)\" de (\\d+) x (\\d+) per un total de (\\d+)€$")
@@ -444,12 +457,12 @@ public class StepDefinitions {
 
     @Aleshores("el resultat de la cerca per venedor és$")
     public void checkSalesXVenedor(String msg){
-        assertEquals(msg, this.posController.getMessage());
+        assertEquals(msg, this.posController.getMessageHistorial());
     }
 
     @Aleshores("el resultat de la cerca per data és$")
     public void checkSalesXData(String msg){
-        assertEquals(msg, this.posController.getMessage());
+        assertEquals(msg, this.posController.getMessageHistorial());
     }
 
     @Quan("el gestor \"([^\"]*)\" visualitza tot l'historial")
@@ -459,7 +472,7 @@ public class StepDefinitions {
 
     @Aleshores("el resultat de tot l'historial és$")
     public void checkSalesHistorial(String msg){
-        assertEquals(msg, this.posController.getMessage());
+        assertEquals(msg, this.posController.getMessageHistorial());
     }
 
     @Quan("apreto aplicar descompte de tipus percentatge del (\\d+)% pel producte (.*)$")

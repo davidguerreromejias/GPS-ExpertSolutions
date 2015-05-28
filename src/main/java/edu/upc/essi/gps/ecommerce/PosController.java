@@ -25,7 +25,12 @@ public class PosController {
         return message;
     }
 
+    public String getMessageHistorial() {
+        return messageHistorial;
+    }
+
     private String message;
+    private String messageHistorial;
 
     public String getCurrentDate() {
         return currentDate;
@@ -214,10 +219,7 @@ public class PosController {
         return currentSale;
     }
 
-    public void addProductByBarCode(int barCode) {
-        if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
-        Product p = productsService.findByBarCode(barCode);
-        currentSale.addProduct(p);
+    public void applyDiscount(Product p){
         ArrayList<String> types = p.getTypesList();
         Iterator<Discount> it = discPercCollection.iterator();
         boolean found = false;
@@ -238,22 +240,26 @@ public class PosController {
         }
     }
 
-    public void addProductById(long id, int amount){
+    public void addProductByBarCode(int barCode) {
         if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
-        Product p = productsService.findById(id);
-        currentSale.addNProducts(p, amount);
+        Product p = productsService.findByBarCode(barCode);
+        currentSale.addProduct(p);
+        applyDiscount(p);
     }
+
 
     public void addProductByBarCode(int barCode, int amount) {
         if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
         Product p = productsService.findByBarCode(barCode);
         currentSale.addNProducts(p, amount);
+        applyDiscount(p);
     }
 
     public void addProductByName(String nom, int amount) {
         if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
         Product p = productsService.findByName(nom);
         currentSale.addNProducts(p, amount);
+        applyDiscount(p);
     }
 
     public String getCustomerScreenMessage() {
@@ -395,10 +401,11 @@ public class PosController {
     }
 
 
-    public void createMxNDisc(String type, int m, int n) {
-        Discount discMxN = new Discount(type, m, n);
+    public void createMxNDisc(String type,String subtype, int m, int n) {
+        Discount discMxN = new Discount(type,subtype, m, n);
         discMxNCollection.add(discMxN);
     }
+
 
     public void addTypeDiscount(String tipoDiscount, int discount, String tipoProd) {
         if (currentGestorName == null) throw new IllegalStateException("No hi ha cap sessio de gestor iniciada");
@@ -449,7 +456,7 @@ public class PosController {
             sb.append("\n").append(i + 1).append(" : ").append(aux.get(i).getSale().getTotal()).append("€ - Realitzada per ").append(aux.get(i).getAssistantShop()).append(".\n");
             sb.append("---");
         }
-        this.message = sb.toString();
+        messageHistorial = sb.toString();
     }
 
     public void visualitzaVentesPerVenedor(String venedor){
@@ -461,7 +468,7 @@ public class PosController {
             sb.append("\n").append(i + 1).append(" : ").append(aux.get(i).getSale().getTotal()).append("€ - Data ").append(aux.get(i).getData()).append(".\n");
             sb.append("---");
         }
-        this.message = sb.toString();
+        messageHistorial = sb.toString();
     }
 
     public void visualitzaTotHistorial(){
@@ -474,7 +481,7 @@ public class PosController {
             ).append(aux.get(i).getData()).append(".\n");
             sb.append("---");
         }
-        this.message = sb.toString();
+        messageHistorial = sb.toString();
     }
 
     public void createCjtDiscount(String type, String subType, int amount) {
