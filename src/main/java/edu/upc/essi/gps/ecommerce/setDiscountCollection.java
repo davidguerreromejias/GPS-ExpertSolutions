@@ -63,7 +63,7 @@ public class setDiscountCollection {
     }
 
     public float getSetDiscount (String set, String shop, String type) {
-        if (!existsSetDiscount(set, shop, type))
+        if (!existsSetDiscount(set, type))
             throw new IllegalArgumentException("No existeix cap descompte de pels productes de tipus" + set);
         return getSetDiscountFromSet(set, shop, type).getDiscount();
     }
@@ -75,7 +75,7 @@ public class setDiscountCollection {
         return false;
     }
 
-    public String SetDiscountList() {
+    public String SetDiscountList(String type) {
         if (setDiscountController.isEmpty())
             throw new IllegalArgumentException("Actualment no existeix cap descompte del tipus percentatge i per tipus de producte");
 
@@ -83,7 +83,8 @@ public class setDiscountCollection {
         sb.append("--Tipus Descompte--  --Descompte--  --Tipus Producte--\n");
         String espai = " , ";
         for(setDiscount s : setDiscountController){
-            sb.append(s.getTipus()).append(espai).append(s.getDiscount()).append("%").append(espai).append(s.getSetObj()).append("\n");
+            if (s.getTipus().equals(type))
+                sb.append(s.getTipus()).append(espai).append(s.getDiscount()).append("%").append(espai).append(s.getSetObj()).append("\n");
         }
         return sb.toString();
     }

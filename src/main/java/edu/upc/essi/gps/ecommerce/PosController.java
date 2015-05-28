@@ -419,17 +419,6 @@ public class PosController {
         return setDiscountCollection.getSetDiscount(setProduct, this.shop, type);
     }
 
-
-
-    public void deletedTypeDiscount(String setProducts, String type) {
-        setDiscountCollection.deleteSetDiscount(setProducts, type);
-    }
-
-    public boolean existSetProduct(String setProduct, String type) {
-        return setDiscountCollection.existsSetDiscount(setProduct, type);
-    }
-
-
     public void deleteLine(String nomProd) {
         currentSale.deleteLine(nomProd);
     }
@@ -504,8 +493,8 @@ public class PosController {
         this.currentSale = null;
     }
 
-    public String getSetDiscountList() {
-        return setDiscountCollection.SetDiscountList();
+    public String getSetDiscountList(String type) {
+        return setDiscountCollection.SetDiscountList(type);
     }
 
     public void addProductDiscountPerc(Product p, Discount d){
