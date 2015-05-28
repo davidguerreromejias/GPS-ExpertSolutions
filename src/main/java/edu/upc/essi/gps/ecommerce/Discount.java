@@ -2,6 +2,9 @@ package edu.upc.essi.gps.ecommerce;
 
 import edu.upc.essi.gps.domain.Entity;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * Created by Miquel on 09/05/2015.
  */
@@ -11,6 +14,9 @@ public class Discount implements Entity{
     private int m;
     private int n;
     private String subType;
+    private Product regal;
+
+    public Discount(){}
 
     public Discount(String typeOfDiscount, int amountDiscount){
         this.amountDiscount = amountDiscount;
@@ -65,4 +71,8 @@ public class Discount implements Entity{
     public int getN(){
         return n;
     }
+
+    public void setRegal(Product r){ regal = r;}
+
+    public Product getRegal(){ return regal;}
 }

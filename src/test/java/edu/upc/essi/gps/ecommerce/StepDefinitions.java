@@ -431,10 +431,6 @@ public class StepDefinitions {
         this.posController.createCjtDiscount(type, subType, amountDisc);
     }
 
-    @Quan("apreto sobre el afegir regal y selecciono el producte (.*)$")
-    public void afegirRegal (String nomP) throws Throwable{
-        this.posController.afegirRegal(nomP);
-    }
 
     @Quan("el gestor \"([^\"]*)\" introdueix la data \"([^\"]*)\"")
     public void visualitzaXData (String gestor, String data) throws Throwable{
@@ -465,4 +461,20 @@ public class StepDefinitions {
     public void checkSalesHistorial(String msg){
         assertEquals(msg, this.posController.getMessage());
     }
+
+    @Quan("apreto aplicar descompte de tipus percentatge del (\\d+)% pel producte (.*)$")
+    public void aplicarDescomptePerc(int amount, String nomP){
+        this.posController.aplicarDescomptePerc(amount, nomP);
+    }
+
+    @Donat("que hi ha un descompte definit de tipus regal que inclou (.*)$")
+    public void afegirRegalCollection(String regal){
+        this.posController.afegirRegalCollection(regal);
+    }
+
+    @Quan("apreto aplicar descompte de tipus regal que inclou (.*) pel producte (.*)$")
+    public void afegirRegal(String regal, String nomP){
+        this.posController.afegirRegal(regal, nomP);
+    }
+
 }

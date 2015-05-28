@@ -11,8 +11,8 @@ Característica: Aplicar un descompte de tipus % a un producte
     I que el producte amb codi de barres 1234567 ha estat afegit a la venta actual amb la quantitat 1
     I que hi ha un descompte definit de tipus percentatge d'un 50%
 
-  Escenari: Aplicar descompte existent a un producte
-    Quan apreto sobre el descompte 50% existent pel producte Optimus Prime de la venta
+  Escenari: Aplicar descompte percentatge existent a un producte
+    Quan apreto aplicar descompte de tipus percentatge del 50% pel producte Optimus Prime
     Aleshores el total de la venta actual és de 10€
     I la pantalla del client del tpv mostra
     """

@@ -10,9 +10,10 @@ Característica: Afegir un regal a un producte
     I un producte amb nom "Optimus Prime", preu 20€, iva 21% i codi de barres 1234567 i que pertany als tipus "figura d'acció,transformer"
     I un producte amb nom "Optimus Prime 2", preu 2€, iva 21% i codi de barres 2234567 i que pertany als tipus "figura d'acció,transformer"
     I que el producte amb codi de barres 1234567 ha estat afegit a la venta actual amb la quantitat 1
+    I que hi ha un descompte definit de tipus regal que inclou Optimus Prime 2
 
   Escenari: Afegir regal a la venta
-    Quan apreto sobre el afegir regal y selecciono el producte Optimus Prime 2
+    Quan apreto aplicar descompte de tipus regal que inclou Optimus Prime 2 pel producte Optimus Prime
     Aleshores el total de la venta actual és de 20€
     I la pantalla del client del tpv mostra
     """

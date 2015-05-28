@@ -52,8 +52,16 @@ public class PosController {
     private Date dateLoginGestor;
     private LinkedList<Discount> discMxNCollection = new LinkedList<>();
     private LinkedList<Discount> discPercCollection = new LinkedList<>();
+    private LinkedList<Discount> regalCollection = new LinkedList<>();
+
+
+    public LinkedList<Discount> getDiscPercCollection(){return discPercCollection;}
+
     private historicSales historicSales;
     String change;
+
+    private ArrayList<ProductDiscount> CollectionPerc = new ArrayList<>();
+    private ArrayList<ProductDiscount> CollectionRegal = new ArrayList<>();
 
     public String getChangeCard() {
         return changeCard;
@@ -428,7 +436,8 @@ public class PosController {
     private Discount getDiscPerc(){return discPerc;}
 
     public void setDiscPerc(String tipus, int amount){
-        discPerc = new Discount(tipus, amount);
+        Discount d = new Discount(tipus, amount);
+        discPercCollection.add(d);
     }
 
     public String getChange(){ return change;}
@@ -475,12 +484,14 @@ public class PosController {
         discPercCollection.add(discPerc);
     }
 
-    public void afegirRegal(String nomP){
-        discPerc = new Discount("percentatge", 100);
-        List<SaleLine> lines = currentSale.getLines();
-        //lines.getLa
-        currentSale.addProduct(productsService.findByName(nomP));
-        currentSale.assignaDescompte(discPerc, nomP);
+    public void afegirRegal(String regal, String nomP){
+        Discount d = new Discount();
+        int size = regalCollection.size();
+        for (int i = 0; i<size; ++i)
+            if (regalCollection.get(i).getRegal().getName() == regal) d = regalCollection.get(i);
+        Product p = productsService.findByName(nomP);
+        addProductDiscountRegal(p,d);
+
     }
 
     public void finishSale(){
@@ -492,5 +503,43 @@ public class PosController {
         return setDiscountCollection.SetDiscountList();
     }
 
+    public void addProductDiscountPerc(Product p, Discount d){
+        ProductDiscount pd = new ProductDiscount(d, p);
+        int size = CollectionPerc.size();
+        for (int i = 0; i<size; ++i){
+            if (CollectionPerc.get(i).getProduct() == p){
+                    CollectionPerc.remove(i);
+            }
+        }
+        CollectionPerc.add(pd);
+    }
+
+    public void addProductDiscountRegal(Product p, Discount d){
+        ProductDiscount pd = new ProductDiscount(d, p);
+        int size = CollectionRegal.size();
+        for (int i = 0; i<size; ++i){
+            if (CollectionRegal.get(i).getProduct() == p){
+                CollectionRegal.remove(i);
+            }
+        }
+        CollectionRegal.add(pd);
+    }
+
+    public void aplicarDescomptePerc(int amount, String nomP){
+        int size = discPercCollection.size();
+        Discount d = new Discount();
+        for (int i = 0; i < size; ++i)
+            if (discPercCollection.get(i).getAmountDiscount() == amount) d = discPercCollection.get(i);
+        Product p = productsService.findByName(nomP);
+        addProductDiscountPerc(p, d);
+    }
+
+    public void afegirRegalCollection(String regal){
+        Discount d = new Discount();
+        d.setTypeOfDiscount("regal");
+        Product p = productsService.findByName(regal);
+        d.setRegal(p);
+        regalCollection.add(d);
+    }
 }
 
