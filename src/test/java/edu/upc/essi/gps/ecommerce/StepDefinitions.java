@@ -29,9 +29,13 @@ public class StepDefinitions {
 
     @Aleshores("^obtinc un error que diu: \"([^\"]*)\"$")
     public void checkErrorMessage(String msg) throws Throwable {
-        //tryCatch(() -> this.posController.tancarTorn());
         assertNotNull(this.exception);
         assertEquals(msg, this.exception.getMessage());
+    }
+
+    @Aleshores("^el sistema intenta tancar el torn$")
+    public void tryTancarTorn() throws Throwable {
+        tryCatch(() -> this.posController.tancarTorn());
     }
 
     @Aleshores("^hi ha una sessió iniciada pel gestor (.*)$")

@@ -12,7 +12,8 @@ Característica: Tancar el torn al tpv
   Escenari: No es pot tancar un torn si no n'hi ha cap d'iniciat
     Donat que no hi ha un torn iniciat
     Quan vull tancar el torn i a la caixa hi ha 25€
-    Aleshores obtinc un error que diu: "No hi ha cap torn iniciat"
+    Aleshores el sistema intenta tancar el torn
+    I obtinc un error que diu: "No hi ha cap torn iniciat"
 
   Escenari: Un venedor vol tancar el torn i es produeix un quadrament invàlid
     Donat que en "Martí" ha iniciat el torn al tpv
