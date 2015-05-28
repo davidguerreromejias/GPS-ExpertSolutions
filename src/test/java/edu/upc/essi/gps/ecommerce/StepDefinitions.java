@@ -170,7 +170,7 @@ public class StepDefinitions {
     @Quan("^afegeixo el (\\d+) element dels resultats a la venta amb quantitat (\\d+)$")
     public void afegirIessimProducteDeCercaAVenta(int i, int q) throws Throwable {
         long p = this.posController.getIndexIessimDeCerca(i);
-        this.posController.addProductById(p, q);
+        //this.posController.addProductById(p, q);
     }
 
     @Quan("^afegeixo el producte de nom \"([^\"]*)\" a la venta amb quantitat (\\d+)$")
@@ -342,19 +342,9 @@ public class StepDefinitions {
         this.posController.addTypeDiscount(tipoDescompte, discount, setProducts);
     }
 
-    @Quan("^esborro el descompte dels productes de (.*)$")
-    public void deleteSetDiscount(String setProducts) throws Throwable {
-        this.posController.deletedTypeDiscount(setProducts);
-    }
-
     @Aleshores("^existeix un descompte del tipus (.*) al sistema del (\\d+)% pels productes de (.*)$")
     public void checkSetDiscountAdded(String tipusDescompte,int discount, String setProduct) throws Throwable {
-        assertEquals(discount, (int) this.posController.getDiscountBySetProduct(setProduct));
-    }
-
-    @Aleshores("^no existeix un descompte al sistema pels productes de (.*)$")
-    public void checkSetDiscountDeleted(String setProduct) throws Throwable {
-        assertEquals(false, this.posController.existSetProduct(setProduct));
+        assertEquals(discount, (int) this.posController.getDiscountBySetProduct(setProduct, tipusDescompte));
     }
 
     @Quan("que en (.*) ha iniciat sessió com a gestor$")

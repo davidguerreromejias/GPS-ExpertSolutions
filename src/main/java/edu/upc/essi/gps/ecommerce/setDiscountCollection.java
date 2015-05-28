@@ -13,17 +13,17 @@ public class setDiscountCollection {
         this.setDiscountController = new ArrayList<setDiscount>();
     }
 
-    private boolean existsSetDiscount (String set, String shop) {
+    private boolean existsSetDiscount (String set, String shop, String type) {
         for (setDiscount sd : setDiscountController) {
-            if (sd.getSetObj().equals(set) && sd.getShop().equals(shop)) return true;
+            if (sd.getSetObj().equals(set) && sd.getShop().equals(shop) && sd.getTipus().equals(type)) return true;
         }
         return false;
     }
 
-    private setDiscount getSetDiscountFromSet (String set, String shop) {
+    private setDiscount getSetDiscountFromSet (String set, String shop, String type) {
         setDiscount result = new setDiscount();
         for (setDiscount sd : setDiscountController) {
-            if (sd.getSetObj().equals(set) && sd.getShop().equals(shop)) result = sd;
+            if (sd.getSetObj().equals(set) && sd.getShop().equals(shop) && sd.getTipus().equals(type)) result = sd;
         }
         return result;
     }
@@ -41,35 +41,36 @@ public class setDiscountCollection {
         Boolean trobat=false;
         while( it.hasNext() && !trobat){
             aux = it.next();
-            if ( aux.getSetObj().equals(sd.getSetObj()) && aux.getShop().equals(sd.getShop()) && !trobat) {
+            if ( aux.getSetObj().equals(sd.getSetObj()) && aux.getShop().equals(sd.getShop())
+                    && aux.getTipus().equals(sd.getTipus()) && !trobat) {
                 trobat=true;
                 it.remove();
             }
         }
     }
 
-    public void deleteSetDiscount(String set) {
+    public void deleteSetDiscount(String set, String type) {
         Iterator<setDiscount> it = setDiscountController.iterator();
         setDiscount aux;
         Boolean trobat=false;
         while( it.hasNext() && !trobat){
             aux = it.next();
-            if ( aux.getSetObj().equals(set) && !trobat ) {
+            if ( aux.getSetObj().equals(set) && aux.getTipus().equals(type) && !trobat ) {
                 trobat=true;
                 it.remove();
             }
         }
     }
 
-    public float getSetDiscount (String set, String shop) {
-        if (!existsSetDiscount(set, shop))
+    public float getSetDiscount (String set, String shop, String type) {
+        if (!existsSetDiscount(set, shop, type))
             throw new IllegalArgumentException("No existeix cap descompte de pels productes de tipus" + set);
-        return getSetDiscountFromSet(set, shop).getDiscount();
+        return getSetDiscountFromSet(set, shop, type).getDiscount();
     }
 
-    public boolean existsSetDiscount(String set) {
+    public boolean existsSetDiscount(String set, String type) {
         for (setDiscount sd : setDiscountController) {
-            if (sd.getSetObj().equals(set)) return true;
+            if (sd.getSetObj().equals(set) && sd.getTipus().equals(type)) return true;
         }
         return false;
     }

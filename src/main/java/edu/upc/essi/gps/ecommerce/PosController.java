@@ -411,22 +411,22 @@ public class PosController {
         if (currentGestorName == null) throw new IllegalStateException("No hi ha cap sessio de gestor iniciada");
         setDiscount sd = new setDiscount(tipoProd, discount, this.shop, tipoDiscount);
         this.setDiscountCollection.addSetDiscount(sd);
-        float aux = setDiscountCollection.getSetDiscount(tipoProd, this.shop);
-        if (aux != discount) throw new IllegalStateException("No 'ha afegit el descompte");
+        float aux = setDiscountCollection.getSetDiscount(tipoProd, this.shop, tipoDiscount);
+        if (aux != discount) throw new IllegalStateException("No s'ha afegit el descompte");
     }
 
-    public float getDiscountBySetProduct(String setProduct) {
-        return setDiscountCollection.getSetDiscount(setProduct, this.shop);
+    public float getDiscountBySetProduct(String setProduct, String type) {
+        return setDiscountCollection.getSetDiscount(setProduct, this.shop, type);
     }
 
 
 
-    public void deletedTypeDiscount(String setProducts) {
-        setDiscountCollection.deleteSetDiscount(setProducts);
+    public void deletedTypeDiscount(String setProducts, String type) {
+        setDiscountCollection.deleteSetDiscount(setProducts, type);
     }
 
-    public boolean existSetProduct(String setProduct) {
-        return setDiscountCollection.existsSetDiscount(setProduct);
+    public boolean existSetProduct(String setProduct, String type) {
+        return setDiscountCollection.existsSetDiscount(setProduct, type);
     }
 
 

@@ -8,10 +8,9 @@ Característica: Afegir un nou descompte al sistema
     I que en "Joan" ha iniciat sessió com a gestor
     I que s'ha afegit un descompte del tipus percentatge del 40% als productes de piscina
 
-  Escenari: Afegir un descompte als objectes de tipus platja
+  Escenari: Afegir un descompte del tipus percentatge als objectes de tipus platja
     Quan afegeixo un descompte del tipus percentatge del 10% als productes de platja
     Aleshores existeix un descompte del tipus percentatge al sistema del 10% pels productes de platja
-
 
   Escenari: Afegir un descompte de tipus percentatge als objectes de tipus piscina quan ja n'hi ha un
     Quan afegeixo un descompte del tipus percentatge del 25% als productes de piscina
@@ -33,3 +32,6 @@ Característica: Afegir un nou descompte al sistema
     percentatge , 30.0% , electronica
 
     """
+
+  Escenari: Afegir un descompte del tipus m x n als objectes de tipus platja
+    Quan afegeixo un descompte del tipus m x n del 10% als productes de platja
