@@ -1,7 +1,7 @@
 # language: ca
 
 #noinspection SpellCheckingInspection
-Característica: Aplicar descomptes del % a conjunts de productes
+Característica: Aplicar descomptes m x n a conjunts de productes
 
   Rerefons:
     Donat un producte amb nom "Optimus Prime", preu 20€, iva 21% i codi de barres 1234567 i que pertany als tipus "figura d'acció,transformer"

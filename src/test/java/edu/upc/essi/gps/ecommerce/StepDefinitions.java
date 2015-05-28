@@ -29,7 +29,7 @@ public class StepDefinitions {
 
     @Aleshores("^obtinc un error que diu: \"([^\"]*)\"$")
     public void checkErrorMessage(String msg) throws Throwable {
-        tryCatch(() -> this.posController.tancarTorn());
+        //tryCatch(() -> this.posController.tancarTorn());
         assertNotNull(this.exception);
         assertEquals(msg, this.exception.getMessage());
     }
@@ -58,6 +58,7 @@ public class StepDefinitions {
 
     @Quan("^vull tancar el torn i a la caixa hi ha (\\d+)€$")
     public void tancarTorn(int n) throws Throwable {
+        // versió antiga: tryCatch(() -> this.posController.tancarTorn(n));
         this.posController.setInputTancarTorn(n);
     }
 
