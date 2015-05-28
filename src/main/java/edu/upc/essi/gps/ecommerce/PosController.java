@@ -490,7 +490,7 @@ public class PosController {
         for (int i = 0; i<size; ++i)
             if (regalCollection.get(i).getRegal().getName() == regal) d = regalCollection.get(i);
         Product p = productsService.findByName(nomP);
-        addProductDiscountRegal(p,d);
+        addProductDiscountRegal(p, d);
 
     }
 
@@ -540,6 +540,33 @@ public class PosController {
         Product p = productsService.findByName(regal);
         d.setRegal(p);
         regalCollection.add(d);
+    }
+
+    public String visualitzaDescompteProducte(){
+        int size = CollectionPerc.size();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Descomptes actuals per productes:");
+
+        for (int i = 0; i < size; ++i) {
+            sb.append("\n");
+            sb.append(CollectionPerc.get(i).getProduct().getName());
+            sb.append(": ").append(CollectionPerc.get(i).getDiscount().getAmountDiscount());
+            sb.append("%");
+        }
+        return sb.toString();
+    }
+
+    public String visualitzaRegals(){
+        int size = CollectionRegal.size();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Productes que tenen regals:");
+
+        for (int i = 0; i < size; ++i) {
+            sb.append("\nPer la compra de ");
+            sb.append(CollectionRegal.get(i).getProduct().getName());
+            sb.append(" s'obté de regal ").append(CollectionRegal.get(i).getDiscount().getRegal().getName());
+        }
+        return sb.toString();
     }
 }
 

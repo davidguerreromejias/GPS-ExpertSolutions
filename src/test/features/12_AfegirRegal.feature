@@ -14,13 +14,8 @@ Característica: Afegir un regal a un producte
 
   Escenari: Afegir regal a la venta
     Quan apreto aplicar descompte de tipus regal que inclou Optimus Prime 2 pel producte Optimus Prime
-    Aleshores el total de la venta actual és de 20€
-    I la pantalla del client del tpv mostra
+    Aleshores els productes que tenen regals son
     """
-    Optimus Prime - 20€/u x 1u = 20€
-    Optimus Prime 2 - 2€/u x 1u = 2€
-    REGAL 2€
-    0€
-    ---
-    Total: 20€
+    Productes que tenen regals:
+    Per la compra de Optimus Prime s'obté de regal Optimus Prime 2
     """

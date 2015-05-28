@@ -376,7 +376,7 @@ public class StepDefinitions {
 
     @Quan ("vull obtenir un llistat dels descomptes per tipus de productes i de tipus de descompte percentatge que hi ha actius al sistema$")
     public void obtenirLListatDescomptesPerTipus() throws Throwable{
-        tryCatch(()-> this.posController.getSetDiscountList());
+        tryCatch(() -> this.posController.getSetDiscountList());
     }
 
     @Aleshores("el sistema em mostra un llistat descomptes per tipus de productes i de tipus de descompte percentatge que hi ha actius al sistema$")
@@ -403,7 +403,7 @@ public class StepDefinitions {
         assertFalse(this.posController.getTancamentUltimTorn());
         int i = this.posController.getDiffUltimQuadramentInvalid();
         if(i < 0) i = i*-1;
-        assertEquals(dif,i);
+        assertEquals(dif, i);
     }
 
     @Donat("que el producte amb codi de barres (.*) ha estat afegit a la venta actual amb la quantitat (\\d+)")
@@ -477,4 +477,13 @@ public class StepDefinitions {
         this.posController.afegirRegal(regal, nomP);
     }
 
+    @Aleshores("els descomptes per productes son$")
+    public void checkDiscPercProduct(String msg){
+        assertEquals(msg, this.posController.visualitzaDescompteProducte());
+    }
+
+    @Aleshores("els productes que tenen regals son$")
+    public void checkRegals(String msg){
+        assertEquals(msg, this.posController.visualitzaRegals());
+    }
 }

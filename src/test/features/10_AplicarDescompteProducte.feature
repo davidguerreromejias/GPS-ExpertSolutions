@@ -13,12 +13,8 @@ Característica: Aplicar un descompte de tipus % a un producte
 
   Escenari: Aplicar descompte percentatge existent a un producte
     Quan apreto aplicar descompte de tipus percentatge del 50% pel producte Optimus Prime
-    Aleshores el total de la venta actual és de 10€
-    I la pantalla del client del tpv mostra
+    Aleshores els descomptes per productes son
     """
-    Optimus Prime - 20€/u x 1u = 20€
-    -50% 10€
-    10€
-    ---
-    Total: 10€
+    Descomptes actuals per productes:
+    Optimus Prime: 50%
     """
