@@ -171,7 +171,7 @@ public class StepDefinitions {
     @Quan("^afegeixo el (\\d+) element dels resultats a la venta amb quantitat (\\d+)$")
     public void afegirIessimProducteDeCercaAVenta(int i, int q) throws Throwable {
         long p = this.posController.getIndexIessimDeCerca(i);
-        //this.posController.addProductById(p, q);
+        this.posController.addProductById(p, q);
     }
 
     @Quan("^afegeixo el producte de nom \"([^\"]*)\" a la venta amb quantitat (\\d+)$")
@@ -448,12 +448,12 @@ public class StepDefinitions {
 
     @Aleshores("el resultat de la cerca per venedor és$")
     public void checkSalesXVenedor(String msg){
-        assertEquals(msg, this.posController.getMessageHistorial());
+        assertEquals(msg, this.posController.getMessage());
     }
 
     @Aleshores("el resultat de la cerca per data és$")
     public void checkSalesXData(String msg){
-        assertEquals(msg, this.posController.getMessageHistorial());
+        assertEquals(msg, this.posController.getMessage());
     }
 
     @Quan("el gestor \"([^\"]*)\" visualitza tot l'historial")
@@ -463,7 +463,7 @@ public class StepDefinitions {
 
     @Aleshores("el resultat de tot l'historial és$")
     public void checkSalesHistorial(String msg){
-        assertEquals(msg, this.posController.getMessageHistorial());
+        assertEquals(msg, this.posController.getMessage());
     }
 
     @Quan("apreto aplicar descompte de tipus percentatge del (\\d+)% pel producte (.*)$")

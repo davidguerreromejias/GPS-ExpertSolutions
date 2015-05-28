@@ -25,12 +25,8 @@ public class PosController {
         return message;
     }
 
-    public String getMessageHistorial() {
-        return messageHistorial;
-    }
 
     private String message;
-    private String messageHistorial;
 
     public String getCurrentDate() {
         return currentDate;
@@ -255,6 +251,13 @@ public class PosController {
         applyDiscount(p);
     }
 
+    public void addProductById(long id, int amount){
+        if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
+        Product p = productsService.findById(id);
+        currentSale.addNProducts(p, amount);
+        applyDiscount(p);
+    }
+
     public void addProductByName(String nom, int amount) {
         if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
         Product p = productsService.findByName(nom);
@@ -445,7 +448,7 @@ public class PosController {
             sb.append("\n").append(i + 1).append(" : ").append(aux.get(i).getSale().getTotal()).append("€ - Realitzada per ").append(aux.get(i).getAssistantShop()).append(".\n");
             sb.append("---");
         }
-        messageHistorial = sb.toString();
+        message = sb.toString();
     }
 
     public void visualitzaVentesPerVenedor(String venedor){
@@ -457,7 +460,7 @@ public class PosController {
             sb.append("\n").append(i + 1).append(" : ").append(aux.get(i).getSale().getTotal()).append("€ - Data ").append(aux.get(i).getData()).append(".\n");
             sb.append("---");
         }
-        messageHistorial = sb.toString();
+        message = sb.toString();
     }
 
     public void visualitzaTotHistorial(){
@@ -470,7 +473,7 @@ public class PosController {
             ).append(aux.get(i).getData()).append(".\n");
             sb.append("---");
         }
-        messageHistorial = sb.toString();
+        message = sb.toString();
     }
 
     public void createCjtDiscount(String type, String subType, int amount) {
