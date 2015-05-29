@@ -1,9 +1,6 @@
 package edu.upc.essi.gps.ecommerce;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 class SaleLine{
     private long productId;
@@ -55,7 +52,6 @@ class SaleLine{
     }
 
     public void setDiscount(Discount d){
-        if(d.getTypeOfDiscount().equals("m x n") && d.getM() != amount) throw new IllegalStateException("El descompte m x n no es correspon amb les unitats del producte");
         discount = d;
     }
 
@@ -73,6 +69,11 @@ public class Sale {
     private int totalPrice; //variable per a realitzar proves, no �s coherent amb el m�tode getTotal()
     private boolean esProva;
     private final Date data;
+    private LinkedList<SaleLine> candidatsADescompteMxN = new LinkedList<>();
+
+    public void addCandidat(){
+        candidatsADescompteMxN.add(lines.getLast());
+    }
 
     public boolean isEstaPagada() {
         return estaPagada;
@@ -155,4 +156,9 @@ public class Sale {
     public void applyDiscountAtLastLine(Discount d){
         lines.getLast().setDiscount(d);
     }
+
+    public void tryApplyDiscMxN(Discount d){
+
+    }
+
 }
