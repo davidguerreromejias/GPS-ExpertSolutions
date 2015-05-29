@@ -255,8 +255,14 @@ public class StepDefinitions {
         assertEquals(totalPrice, sl.getTotalPrice());
         assertEquals(productName,sl.getProductName());
         assertEquals(typeDesc,sl.getDiscount().getTypeOfDiscount());
-        String aux = Integer.toString(sl.getDiscount().getAmountDiscount());
-        if(sl.getDiscount().getTypeOfDiscount().equals("percentatge")) aux += "%";
+        String aux;
+        if(sl.getDiscount().getTypeOfDiscount().equals("percentatge")){
+            aux = Integer.toString(sl.getDiscount().getAmountDiscount())+ "%";
+
+        }
+        else {
+            aux = Integer.toString(sl.getDiscount().getM())+"x"+Integer.toString(sl.getDiscount().getN());
+        }
         assertEquals(amountDesc,aux);
         assertEquals(cjt, sl.getDiscount().getSubType());
     }
@@ -338,9 +344,19 @@ public class StepDefinitions {
         this.posController.addTypeDiscount(tipoDescompte, discount, setProducts);
     }
 
+    @Quan("^afegeixo un descompte del tipus (.*) pels productes de tipus (.*) tal que quan en compres (\\d+) en pagues (\\d+)$")
+    public void addSetDiscountMXN(String tipoDescompte, String setProducts, int m, int n) throws Throwable {
+        this.posController.addTypeDiscountMXN(setProducts, m, n, tipoDescompte);
+    }
+
+    @Aleshores("existeix un descompte del tipus (.*) pels productes de tipus (.*) tal que quan en compres (\\d+) en pagues (\\d+)$")
+    public void checkSetDiscountAdded(String tipusDescompte, String setProduct, int m, int n) throws Throwable {
+        assertEquals(true, this.posController.getDiscountBySetProduct(setProduct, tipusDescompte));
+    }
+
     @Aleshores("^existeix un descompte del tipus (.*) al sistema del (\\d+)% pels productes de (.*)$")
     public void checkSetDiscountAdded(String tipusDescompte, int discount, String setProduct) throws Throwable {
-        assertEquals(discount, (int) this.posController.getDiscountBySetProduct(setProduct, tipusDescompte));
+        assertEquals(true, this.posController.getDiscountBySetProduct(setProduct, tipusDescompte));
     }
 
     @Quan("que en (.*) ha iniciat sessió com a gestor$")
@@ -376,6 +392,17 @@ public class StepDefinitions {
     @Quan ("vull obtenir un llistat dels descomptes per tipus de productes i de tipus de descompte (.*) que hi ha actius al sistema$")
     public void obtenirLListatDescomptesPerTipus(String type) throws Throwable{
         tryCatch(() -> this.posController.getSetDiscountList(type));
+    }
+
+    @Quan ("vull obtenir un llistat dels descomptes per tipus de productes que hi ha actius al sistema$")
+    public void obtenirTotLListatDescomptesPerTipus() throws Throwable{
+        tryCatch(() -> this.posController.getAllSetDiscountList());
+    }
+
+    @Aleshores("el sistema em mostra un llistat descomptes per tipus de productes que hi ha actius al sistema$")
+    public void checkLListatDescomptesPerTipus(String msg){
+        assertEquals(msg, this.posController.getAllSetDiscountList());
+
     }
 
     @Aleshores("el sistema em mostra un llistat descomptes per tipus de productes i de tipus de descompte (.*) que hi ha actius al sistema$")

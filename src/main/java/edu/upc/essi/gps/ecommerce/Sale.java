@@ -1,9 +1,6 @@
 package edu.upc.essi.gps.ecommerce;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 class SaleLine{
     private long productId;
@@ -11,6 +8,7 @@ class SaleLine{
     private int unitPrice;
     private int amount;
     private Discount discount;
+    private int effectiveN;
 
     public SaleLine(Product product, int amount) {
         this.productId = product.getId();
@@ -49,15 +47,18 @@ class SaleLine{
             return (int) totalPrice;
         }
         else if(discount.getTypeOfDiscount().equals("m x n")){
-            return unitPrice * discount.getN();
+            System.out.println(effectiveN+"**************************");
+            return unitPrice * effectiveN;
         }
         else return unitPrice * amount;
     }
 
     public void setDiscount(Discount d){
-        if(d.getTypeOfDiscount().equals("m x n") && d.getM() != amount) throw new IllegalStateException("El descompte m x n no es correspon amb les unitats del producte");
         discount = d;
+        effectiveN = d.getN();
     }
+
+    public void setEffectiveN(int effectiveN){this.effectiveN = effectiveN;}
 
     public Discount getDiscount(){
         return discount;
@@ -73,6 +74,11 @@ public class Sale {
     private int totalPrice; //variable per a realitzar proves, no �s coherent amb el m�tode getTotal()
     private boolean esProva;
     private final Date data;
+    private LinkedList<SaleLine> candidatsADescompteMxN = new LinkedList<>();
+
+    public void addCandidat(){
+        candidatsADescompteMxN.add(lines.getLast());
+    }
 
     public boolean isEstaPagada() {
         return estaPagada;
@@ -148,11 +154,43 @@ public class Sale {
         for(SaleLine l : lines) if (nomProd == l.getProductName()) lines.remove(l);
     }
 
-    public void assignaDescompte(Discount d, String nomP){
-        for(SaleLine l : lines)if (nomP == l.getProductName()) l.setDiscount(d);
+    public void assignaDescompte(Discount d, String nomP, int effectiveN){
+        for(SaleLine l : lines)
+            if (nomP == l.getProductName()){
+                l.setDiscount(d);
+                l.setEffectiveN(effectiveN);
+            }
         }
 
-    public void applyDiscountAtLastLine(Discount d){
+    public void applyDiscountAtLastLine(Discount d,int effectiveN){
         lines.getLast().setDiscount(d);
+        lines.getLast().setEffectiveN(effectiveN);
     }
+
+    public void tryApplyDiscMxN(Discount d){
+        SaleLine lastLine = lines.getLast();
+        int amountProduct = lastLine.getAmount();
+        int unitPrice = lastLine.getUnitPrice();
+        int m = d.getM();
+        int n = d.getN();
+        if(candidatsADescompteMxN.size() == 0){
+            if (m == amountProduct) {
+                applyDiscountAtLastLine(d, n);
+            }
+        }
+        else {
+            for(SaleLine l : candidatsADescompteMxN){
+                int sum = amountProduct + l.getAmount();
+                if( sum >= m){
+                    if(unitPrice >= l.getUnitPrice()){
+                        assignaDescompte(d, l.getProductName(), m - l.getAmount());
+                    }
+                    else {
+                        applyDiscountAtLastLine(d,m - amountProduct);
+                    }
+                }
+            }
+        }
+    }
+
 }

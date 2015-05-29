@@ -1,9 +1,5 @@
 package edu.upc.essi.gps.ecommerce;
 
-import javafx.geometry.Pos;
-
-import javax.xml.crypto.Data;
-
 import static edu.upc.essi.gps.utils.Validations.*;
 
 import java.util.*;
@@ -51,12 +47,12 @@ public class PosController {
     //coses pel gestor
     private String currentGestorName;
     private Date dateLoginGestor;
-    private LinkedList<Discount> discMxNCollection = new LinkedList<>();
-    private LinkedList<Discount> discPercCollection = new LinkedList<>();
+    //private LinkedList<Discount> discMxNCollection = new LinkedList<>();
+    private LinkedList<Discount> discCollection = new LinkedList<>();
     private LinkedList<Discount> regalCollection = new LinkedList<>();
 
 
-    public LinkedList<Discount> getDiscPercCollection(){return discPercCollection;}
+    //public LinkedList<Discount> getDiscPercCollection(){return discPercCollection;}
 
     private historicSales historicSales;
     String change;
@@ -106,7 +102,6 @@ public class PosController {
         this.shop = shop;
         this.posNumber = posNumber;
         this.productsService = productsService;
-        //this.discPerc = new Discount("none",100);
         this.setDiscountCollection = new setDiscountCollection();
         this.currentSaleAssistantName = null;
         this.historicSales = new historicSales();
@@ -213,22 +208,26 @@ public class PosController {
 
     public void applyDiscount(Product p){
         ArrayList<String> types = p.getTypesList();
-        Iterator<Discount> it = discPercCollection.iterator();
+        Iterator<Discount> it = discCollection.iterator();
         boolean found = false;
-        Discount discCjt = new Discount("");
+        Discount disc = new Discount("");
         while (it.hasNext() && !found){
-            discCjt = it.next();
-            String SubTypeOfDisc = discCjt.getSubType();
+            disc = it.next();
+            String SubTypeOfDisc = disc.getSubType();
             for(int i = 0; i < types.size() && !found; ++i) {
-                System.out.println(types.get(i)+"---------------");
-                System.out.println(SubTypeOfDisc);
                 if (SubTypeOfDisc.equals(types.get(i))){
                     found = true;
                 }
             }
         }
         if (found){
-            currentSale.applyDiscountAtLastLine(discCjt);
+            if(disc.getTypeOfDiscount().equals("percentatge")) {
+                currentSale.applyDiscountAtLastLine(disc,0);
+            }
+            else if(disc.getTypeOfDiscount().equals("m x n")){
+                currentSale.tryApplyDiscMxN(disc);
+                currentSale.addCandidat();
+            }
         }
     }
 
@@ -380,25 +379,12 @@ public class PosController {
 
     public void createPercDiscount(String type, int amount) {
         Discount discPerc = new Discount(type, amount);
-        discPercCollection.add(discPerc);
+        discCollection.add(discPerc);
     }
-
-    public void applyMxNDiscount(int m, int n){
-        if(getCurrentSale() == null) throw new IllegalStateException("No hi ha cap venta iniciada");
-        Iterator<Discount> it = discMxNCollection.iterator();
-        boolean found = false;
-        Discount discMxN = new Discount("m x n");
-        while (it.hasNext() && !found){
-            discMxN = it.next();
-            if(discMxN.getM() == m && discMxN.getN() == n) found = true;
-        }
-        if (found) currentSale.applyDiscountAtLastLine(discMxN);
-    }
-
 
     public void createMxNDisc(String type,String subtype, int m, int n) {
         Discount discMxN = new Discount(type,subtype, m, n);
-        discMxNCollection.add(discMxN);
+        discCollection.add(discMxN);
     }
 
 
@@ -406,11 +392,19 @@ public class PosController {
         if (currentGestorName == null) throw new IllegalStateException("No hi ha cap sessio de gestor iniciada");
         setDiscount sd = new setDiscount(tipoProd, discount, this.shop, tipoDiscount);
         this.setDiscountCollection.addSetDiscount(sd);
-        float aux = setDiscountCollection.getSetDiscount(tipoProd, this.shop, tipoDiscount);
-        if (aux != discount) throw new IllegalStateException("No s'ha afegit el descompte");
+        Boolean aux = setDiscountCollection.existSetDiscount(tipoProd, tipoDiscount);
+        if (!aux) throw new IllegalStateException("No s'ha afegit el descompte");
     }
 
-    public float getDiscountBySetProduct(String setProduct, String type) {
+    public void addTypeDiscountMXN( String setProducts, int m, int n, String tipoDescompte) {
+        if (currentGestorName == null) throw new IllegalStateException("No hi ha cap sessio de gestor iniciada");
+        setDiscount sd = new setDiscount(setProducts, m, n, this.shop,  tipoDescompte);
+        this.setDiscountCollection.addSetDiscount(sd);
+        Boolean aux = setDiscountCollection.existSetDiscount(setProducts, tipoDescompte);
+        if (!aux) throw new IllegalStateException("No s'ha afegit el descompte");
+    }
+
+    public boolean getDiscountBySetProduct(String setProduct, String type) {
         return setDiscountCollection.getSetDiscount(setProduct, this.shop, type);
     }
 
@@ -419,14 +413,14 @@ public class PosController {
     }
 
     public void assignaDescompte(String nomP){
-        currentSale.assignaDescompte(getDiscPerc(), nomP);
+        currentSale.assignaDescompte(getDiscPerc(), nomP, 0);
     }
 
     private Discount getDiscPerc(){return discPerc;}
 
     public void setDiscPerc(String tipus, int amount){
         Discount d = new Discount(tipus, amount);
-        discPercCollection.add(d);
+        discCollection.add(d);
     }
 
     public String getChange(){ return change;}
@@ -470,7 +464,7 @@ public class PosController {
 
     public void createCjtDiscount(String type, String subType, int amount) {
         Discount discPerc = new Discount(type, subType, amount);
-        discPercCollection.add(discPerc);
+        discCollection.add(discPerc);
     }
 
     public void afegirRegal(String regal, String nomP){
@@ -515,10 +509,10 @@ public class PosController {
     }
 
     public void aplicarDescomptePerc(int amount, String nomP){
-        int size = discPercCollection.size();
+        int size = discCollection.size();
         Discount d = new Discount();
         for (int i = 0; i < size; ++i)
-            if (discPercCollection.get(i).getAmountDiscount() == amount) d = discPercCollection.get(i);
+            if (discCollection.get(i).getAmountDiscount() == amount) d = discCollection.get(i);
         Product p = productsService.findByName(nomP);
         addProductDiscountPerc(p, d);
     }
@@ -556,6 +550,10 @@ public class PosController {
             sb.append(" s'obté de regal ").append(CollectionRegal.get(i).getDiscount().getRegal().getName());
         }
         return sb.toString();
+    }
+
+    public String getAllSetDiscountList() {
+        return setDiscountCollection.allSetDiscountList();
     }
 }
 
