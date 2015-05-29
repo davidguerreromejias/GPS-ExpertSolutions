@@ -255,8 +255,14 @@ public class StepDefinitions {
         assertEquals(totalPrice, sl.getTotalPrice());
         assertEquals(productName,sl.getProductName());
         assertEquals(typeDesc,sl.getDiscount().getTypeOfDiscount());
-        String aux = Integer.toString(sl.getDiscount().getAmountDiscount());
-        if(sl.getDiscount().getTypeOfDiscount().equals("percentatge")) aux += "%";
+        String aux;
+        if(sl.getDiscount().getTypeOfDiscount().equals("percentatge")){
+            aux = Integer.toString(sl.getDiscount().getAmountDiscount())+ "%";
+
+        }
+        else {
+            aux = Integer.toString(sl.getDiscount().getM())+"x"+Integer.toString(sl.getDiscount().getN());
+        }
         assertEquals(amountDesc,aux);
         assertEquals(cjt, sl.getDiscount().getSubType());
     }
