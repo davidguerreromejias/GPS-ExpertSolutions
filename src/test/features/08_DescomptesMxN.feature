@@ -14,7 +14,7 @@ Característica: Aplicar descomptes m x n a conjunts de productes
   Escenari: Aplicar un descompte 3 x 2 a un producte que pertany al conjunt de productes tranformer
     Quan afegeixo el producte de codi de barres 1234567 a la venta amb quantitat 3
     Aleshores la venta té 1 línia
-    I línia de venta 1 és de 3 unitats de "Optimus Prime" a 20€ cada una amb un descompte de tipus "m x n" del "3x2" per pertànyer a "transformer" per un total de 40€
+    I línia de venta 1 és de 3 unitats de "Optimus Prime" a 20€ cada una amb un descompte de tipus "m x n" del "3x2" per pertànyer a "figura d'acció" per un total de 40€
     I el total de la venta actual és de 40€
     I la pantalla del client del tpv mostra
     """

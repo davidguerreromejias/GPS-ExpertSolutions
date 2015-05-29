@@ -220,8 +220,8 @@ public class PosController {
                 currentSale.applyDiscountAtLastLine(disc,0);
             }
             else if(disc.getTypeOfDiscount().equals("m x n")){
-                currentSale.addCandidat();
                 currentSale.tryApplyDiscMxN(disc);
+                currentSale.addCandidat();
             }
         }
     }
@@ -406,7 +406,7 @@ public class PosController {
     }
 
     public void assignaDescompte(String nomP){
-        currentSale.assignaDescompte(getDiscPerc(), nomP);
+        currentSale.assignaDescompte(getDiscPerc(), nomP,0);
     }
 
     private Discount getDiscPerc(){return discPerc;}

@@ -47,7 +47,7 @@ class SaleLine{
             return (int) totalPrice;
         }
         else if(discount.getTypeOfDiscount().equals("m x n")){
-            System.out.println(effectiveN + "****************************");
+            System.out.println(effectiveN+"**************************");
             return unitPrice * effectiveN;
         }
         else return unitPrice * amount;
@@ -154,8 +154,12 @@ public class Sale {
         for(SaleLine l : lines) if (nomProd == l.getProductName()) lines.remove(l);
     }
 
-    public void assignaDescompte(Discount d, String nomP){
-        for(SaleLine l : lines)if (nomP == l.getProductName()) l.setDiscount(d);
+    public void assignaDescompte(Discount d, String nomP, int effectiveN){
+        for(SaleLine l : lines)
+            if (nomP == l.getProductName()){
+                l.setDiscount(d);
+                l.setEffectiveN(effectiveN);
+            }
         }
 
     public void applyDiscountAtLastLine(Discount d,int effectiveN){
@@ -171,18 +175,18 @@ public class Sale {
         int n = d.getN();
         if(candidatsADescompteMxN.size() == 0){
             if (m == amountProduct) {
-                applyDiscountAtLastLine(d,n);
+                applyDiscountAtLastLine(d, n);
             }
         }
         else {
             for(SaleLine l : candidatsADescompteMxN){
                 int sum = amountProduct + l.getAmount();
-                if( sum > m){
+                if( sum >= m){
                     if(unitPrice >= l.getUnitPrice()){
-                        applyDiscountAtLastLine(d,m-amountProduct);
+                        assignaDescompte(d, l.getProductName(), m - l.getAmount());
                     }
                     else {
-                        assignaDescompte(d, l.getProductName());
+                        applyDiscountAtLastLine(d,m - amountProduct);
                     }
                 }
             }
