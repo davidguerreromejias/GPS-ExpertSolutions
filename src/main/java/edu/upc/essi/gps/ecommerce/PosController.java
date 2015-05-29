@@ -39,12 +39,13 @@ public class PosController {
     private String currentDate;
 
     private LinkedList<Integer> inputQuadraments = new LinkedList<>();
+    private int difUltimQuadrament;
+    private boolean tornTancat;
     private LinkedList<Sale> ventesRealitzades;
     private final LinkedList<QuadramentInvalid> quadramentsInvalids = new LinkedList<>();
     private int initialCash;
     private historicSales historic;
     private setDiscountCollection setDiscountCollection;
-    private boolean ultimTornTancatCorrectament;
     private Discount discPerc;
     private LinkedList<Product> buscaProductes = new LinkedList<>();
     //coses pel gestor
@@ -85,6 +86,10 @@ public class PosController {
         return aux;
     }
 
+    public int getDifTancarTorn(){
+        return difUltimQuadrament;
+    }
+
     public  Sale getVentesRealitzadesSale(int posNumber) {
         boolean trobat = false;
         int i = 0;
@@ -104,7 +109,6 @@ public class PosController {
         //this.discPerc = new Discount("none",100);
         this.setDiscountCollection = new setDiscountCollection();
         this.currentSaleAssistantName = null;
-        this.ultimTornTancatCorrectament = true;
         this.historicSales = new historicSales();
     }
 
@@ -114,7 +118,6 @@ public class PosController {
         this.posNumber = -1; //es un gestor el que està dins, els canvis seràn per tots els tpv
         this.productsService = null; //nomes serà per fer gestions, no per vendre res, per tant tampoc necessitem el productService
         this.currentSaleAssistantName = null;
-        this.ultimTornTancatCorrectament = true;
     }
 
     public void gestorLogin(String gestorName) {
@@ -127,6 +130,7 @@ public class PosController {
         this.currentGestorName = gestorName;
         this.setCurrentDate(data1);
         this.dateLoginGestor = data;
+        this.tornTancat = false;
     }
 
     public void login(String saleAssistantName) {
@@ -139,6 +143,7 @@ public class PosController {
         this.currentDate = data1;
         this.ventesRealitzades = new LinkedList();
         this.initialCash = 0;
+        this.tornTancat = false;
     }
 
     public void buscarProductes(String s){
@@ -317,28 +322,22 @@ public class PosController {
         ventesRealitzades.add(currentSale);
     }
 
-    public String tancarTorn(){
-        if(this.currentSaleAssistantName == null){ throw new RuntimeException("No hi ha cap torn iniciat"); }
-        if(!inputQuadraments.isEmpty()){
-            int q = inputQuadraments.poll();
-            int a = q - getTotalTorn();
-            if(a != 0){
-                if(inputQuadraments.isEmpty()){
-                    if(a < 0) a = -a;
-                    afegirQuadramentInvalid(a);
-                    if(a < 10) return "Hi ha 10 o menys euros de diferència en el quadrament del torn";
-                    else return "Hi ha més de 10 euros de diferència en el quadrament del torn";
-                }
-                else return tancarTorn();
+    public void tryTancarTorn(int n){
+        if(!tornTancat) {
+            if (this.currentSaleAssistantName == null) {
+                throw new RuntimeException("No hi ha cap torn iniciat");
             }
-            else{
-                inputQuadraments.clear();
-                return "El torn s'ha tancat correctament";
-            }
+            difUltimQuadrament = n - getTotalTorn();
+            if (difUltimQuadrament == 0) tancarTorn();
         }
-        else{
-            throw new RuntimeException("No s'ha introduit la quantitat de diners de la caixa");
+    }
+
+    public void tancarTorn(){
+        if(difUltimQuadrament != 0) {
+            quadramentsInvalids.add(new QuadramentInvalid(this.shop,this.posNumber,this.currentSaleAssistantName,difUltimQuadrament));
         }
+        tornTancat = true;
+        this.currentSaleAssistantName = null;
     }
 
     public int getDiffUltimQuadramentInvalid(){
@@ -346,7 +345,7 @@ public class PosController {
     }
 
     public boolean getTancamentUltimTorn(){
-        return this.ultimTornTancatCorrectament;
+        return this.tornTancat;
     }
 
     public String getQuadramentsInvalids(){

@@ -62,12 +62,12 @@ public class StepDefinitions {
 
     @Quan("^vull tancar el torn i a la caixa hi ha (\\d+)€$")
     public void tancarTorn(int n) throws Throwable {
-        this.posController.setInputTancarTorn(n);
+        tryCatch(() -> this.posController.tryTancarTorn(n));
     }
 
     @Aleshores("^el sistema confirma el quadrament i tanca el torn$")
     public void checkQuadramentValid() throws Throwable {
-        assertEquals("El torn s'ha tancat correctament",this.posController.tancarTorn());
+        assertEquals(0,this.posController.getDifTancarTorn());
     }
 
     @Aleshores("^el tpv està en ús per en \"([^\"]*)\"$")
@@ -97,7 +97,7 @@ public class StepDefinitions {
 
     @Quan("^indico que vull repetir el quadrament i a la caixa hi ha (\\d+)€$")
     public void repetirQuadrament(int x) throws Throwable {
-        this.posController.setInputTancarTorn(x);
+        tryCatch(() -> this.posController.tryTancarTorn(x));
     }
 
     @Donat("^que no hi ha un torn iniciat$")
@@ -398,10 +398,9 @@ public class StepDefinitions {
 
     @Aleshores("el sistema m'informa que el quadrament de la caixa és invàlid i la diferència és de (\\d+)€$")
     public void checkQuadramentInvalid(int dif) throws Throwable{
-        String s;
-        if(dif < 10) s = "Hi ha 10 o menys euros de diferència en el quadrament del torn";
-        else s = "Hi ha més de 10 euros de diferència en el quadrament del torn";
-        assertEquals(s,this.posController.tancarTorn());
+        int x = this.posController.getDifTancarTorn();
+        if(x < 0) x = -x;
+        assertEquals(dif,x);
     }
 
     @Donat("que el producte amb codi de barres (.*) ha estat afegit a la venta actual amb la quantitat (\\d+)")

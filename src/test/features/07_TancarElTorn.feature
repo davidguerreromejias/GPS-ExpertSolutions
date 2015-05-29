@@ -12,8 +12,7 @@ Característica: Tancar el torn al tpv
   Escenari: No es pot tancar un torn si no n'hi ha cap d'iniciat
     Donat que no hi ha un torn iniciat
     Quan vull tancar el torn i a la caixa hi ha 25€
-    Aleshores el sistema intenta tancar el torn
-    I obtinc un error que diu: "No hi ha cap torn iniciat"
+    Aleshores obtinc un error que diu: "No hi ha cap torn iniciat"
 
   Escenari: Un venedor vol tancar el torn i es produeix un quadrament invàlid
     Donat que en "Martí" ha iniciat el torn al tpv
@@ -22,7 +21,6 @@ Característica: Tancar el torn al tpv
     I que el producte amb codi de barres 1234567 ha estat afegit a la venta actual amb la quantitat 1
     I indico que el client ha entregat 23€ per a pagar en metàlic
     Quan vull tancar el torn i a la caixa hi ha 25€
-    I indico que no vull repetir el quadrament
     Aleshores el sistema m'informa que el quadrament de la caixa és invàlid i la diferència és de 3€
 
   Escenari: Un venedor vol tancar el torn i es produeix un quadrament invàlid que es soluciona repetint el quadrament
