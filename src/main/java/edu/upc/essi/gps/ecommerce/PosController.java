@@ -414,7 +414,7 @@ public class PosController {
     }
 
     public void assignaDescompte(String nomP){
-        currentSale.assignaDescompte(getDiscPerc(), nomP,0);
+        currentSale.assignaDescompte(getDiscPerc(), nomP, 0);
     }
 
     private Discount getDiscPerc(){return discPerc;}
@@ -551,6 +551,10 @@ public class PosController {
             sb.append(" s'obté de regal ").append(CollectionRegal.get(i).getDiscount().getRegal().getName());
         }
         return sb.toString();
+    }
+
+    public String getAllSetDiscountList() {
+        return setDiscountCollection.allSetDiscountList();
     }
 }
 
