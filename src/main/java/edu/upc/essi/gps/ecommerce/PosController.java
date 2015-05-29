@@ -38,8 +38,7 @@ public class PosController {
 
     private String currentDate;
 
-    private boolean repetirQuadrament = false;
-    private int inputTancarTorn;
+    private LinkedList<Integer> inputQuadraments = new LinkedList<>();
     private LinkedList<Sale> ventesRealitzades;
     private final LinkedList<QuadramentInvalid> quadramentsInvalids = new LinkedList<>();
     private int initialCash;
@@ -70,16 +69,8 @@ public class PosController {
 
     String changeCard;
 
-    public void setRepetirQuadrament(boolean b){
-        repetirQuadrament = b;
-    }
-
     public void setInputTancarTorn(int x){
-        inputTancarTorn = x;
-    }
-
-    public int getInputTancarTorn(){
-        return inputTancarTorn;
+       inputQuadraments.add(x);
     }
 
     public int getVentesRealitzadesId(int posNumber) {
@@ -328,28 +319,26 @@ public class PosController {
 
     public String tancarTorn(){
         if(this.currentSaleAssistantName == null){ throw new RuntimeException("No hi ha cap torn iniciat"); }
-        int x = getInputTancarTorn() - getTotalTorn();
-        if(x<0) x = x*-1;
-        if(x!=0){
-            if(repetirQuadrament){
-                setRepetirQuadrament(false);
-                return tancarTorn();
+        if(!inputQuadraments.isEmpty()){
+            int q = inputQuadraments.poll();
+            int a = q - getTotalTorn();
+            if(a != 0){
+                if(inputQuadraments.isEmpty()){
+                    if(a < 0) a = -a;
+                    afegirQuadramentInvalid(a);
+                    if(a < 10) return "Hi ha 10 o menys euros de diferència en el quadrament del torn";
+                    else return "Hi ha més de 10 euros de diferència en el quadrament del torn";
+                }
+                else return tancarTorn();
             }
-            else {
-                afegirQuadramentInvalid(this.currentSaleAssistantName, getInputTancarTorn() - getTotalTorn());
-                this.ultimTornTancatCorrectament = false;
-                if (x < 10) return "Hi ha una diferència de menys de 10€ en el quadrament del torn";
-                else return "Hi ha una diferència de 10€ o més en el quadrament del torn";
+            else{
+                inputQuadraments.clear();
+                return "El torn s'ha tancat correctament";
             }
         }
         else{
-            this.ultimTornTancatCorrectament = true;
-            return "Torn tancat correctament";
+            throw new RuntimeException("No s'ha introduit la quantitat de diners de la caixa");
         }
-    }
-
-    public void tornTancat(){
-        this.currentSaleAssistantName = null;
     }
 
     public int getDiffUltimQuadramentInvalid(){
@@ -380,6 +369,10 @@ public class PosController {
             if(l.getPaymentForm().equals("efectiu")) total += l.getTotal();
         }
         return total+initialCash;
+    }
+
+    public void afegirQuadramentInvalid(int diff){
+        quadramentsInvalids.add(new QuadramentInvalid(this.shop, this.posNumber, this.currentSaleAssistantName, diff));
     }
 
     public void afegirQuadramentInvalid(String name, int diff){
