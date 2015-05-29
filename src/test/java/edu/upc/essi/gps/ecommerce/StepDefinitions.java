@@ -67,7 +67,7 @@ public class StepDefinitions {
 
     @Aleshores("^el sistema confirma el quadrament i tanca el torn$")
     public void checkQuadramentValid() throws Throwable {
-        assertEquals("El torn s'ha tancat correctament",this.posController.tancarTorn());
+        assertEquals("El torn s'ha tancat correctament", this.posController.tancarTorn());
     }
 
     @Aleshores("^el tpv està en ús per en \"([^\"]*)\"$")
@@ -338,9 +338,19 @@ public class StepDefinitions {
         this.posController.addTypeDiscount(tipoDescompte, discount, setProducts);
     }
 
+    @Quan("^afegeixo un descompte del tipus (.*) pels productes de tipus (.*) tal que quan en compres (\\d+) en pagues (\\d+)$")
+    public void addSetDiscountMXN(String tipoDescompte, String setProducts, int m, int n) throws Throwable {
+        this.posController.addTypeDiscountMXN(setProducts, m, n, tipoDescompte);
+    }
+
+    @Aleshores("existeix un descompte del tipus (.*) pels productes de tipus (.*) tal que quan en compres (\\d+) en pagues (\\d+)$")
+    public void checkSetDiscountAdded(String tipusDescompte, String setProduct, int m, int n) throws Throwable {
+        assertEquals(true,  this.posController.getDiscountBySetProduct(setProduct, tipusDescompte));
+    }
+
     @Aleshores("^existeix un descompte del tipus (.*) al sistema del (\\d+)% pels productes de (.*)$")
     public void checkSetDiscountAdded(String tipusDescompte, int discount, String setProduct) throws Throwable {
-        assertEquals(discount, (int) this.posController.getDiscountBySetProduct(setProduct, tipusDescompte));
+        assertEquals(true, this.posController.getDiscountBySetProduct(setProduct, tipusDescompte));
     }
 
     @Quan("que en (.*) ha iniciat sessió com a gestor$")

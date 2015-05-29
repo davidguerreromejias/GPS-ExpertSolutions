@@ -13,13 +13,6 @@ public class setDiscountCollection {
         this.setDiscountController = new ArrayList<setDiscount>();
     }
 
-    private boolean existsSetDiscount (String set, String shop, String type) {
-        for (setDiscount sd : setDiscountController) {
-            if (sd.getSetObj().equals(set) && sd.getShop().equals(shop) && sd.getTipus().equals(type)) return true;
-        }
-        return false;
-    }
-
     private setDiscount getSetDiscountFromSet (String set, String shop, String type) {
         setDiscount result = new setDiscount();
         for (setDiscount sd : setDiscountController) {
@@ -29,7 +22,7 @@ public class setDiscountCollection {
     }
 
     public void addSetDiscount(setDiscount sd) throws RuntimeException {
-        if (sd.getDiscount() <= 0 || sd.getDiscount() > 100)
+        if (sd.getTipus().equals("percentatge") &&  sd.getDiscount() <= 0 || sd.getDiscount() > 100)
             throw new IllegalArgumentException("El descompte ha de ser més gran que 0 i més petit o igual que 100");
         eliminaSetDiscount(sd); //si ja existia un descompte d'aquest tipo, l'elimina
         setDiscountController.add(sd);
@@ -62,13 +55,13 @@ public class setDiscountCollection {
         }
     }
 
-    public float getSetDiscount (String set, String shop, String type) {
-        if (!existsSetDiscount(set, type))
-            throw new IllegalArgumentException("No existeix cap descompte de pels productes de tipus" + set);
-        return getSetDiscountFromSet(set, shop, type).getDiscount();
+    public boolean getSetDiscount (String set, String shop, String type) {
+        if (!existSetDiscount(set, type))
+            throw new IllegalArgumentException("No existeix cap descompte del tipus " + type + " pels productes de tipus " + set);
+        return true;
     }
 
-    public boolean existsSetDiscount(String set, String type) {
+    public boolean existSetDiscount(String set, String type) {
         for (setDiscount sd : setDiscountController) {
             if (sd.getSetObj().equals(set) && sd.getTipus().equals(type)) return true;
         }
