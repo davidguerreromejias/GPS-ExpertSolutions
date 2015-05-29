@@ -8,6 +8,7 @@ class SaleLine{
     private int unitPrice;
     private int amount;
     private Discount discount;
+    private int effectiveN;
 
     public SaleLine(Product product, int amount) {
         this.productId = product.getId();
@@ -46,14 +47,18 @@ class SaleLine{
             return (int) totalPrice;
         }
         else if(discount.getTypeOfDiscount().equals("m x n")){
-            return unitPrice * discount.getN();
+            System.out.println(effectiveN + "****************************");
+            return unitPrice * effectiveN;
         }
         else return unitPrice * amount;
     }
 
     public void setDiscount(Discount d){
         discount = d;
+        effectiveN = d.getN();
     }
+
+    public void setEffectiveN(int effectiveN){this.effectiveN = effectiveN;}
 
     public Discount getDiscount(){
         return discount;
@@ -153,12 +158,35 @@ public class Sale {
         for(SaleLine l : lines)if (nomP == l.getProductName()) l.setDiscount(d);
         }
 
-    public void applyDiscountAtLastLine(Discount d){
+    public void applyDiscountAtLastLine(Discount d,int effectiveN){
         lines.getLast().setDiscount(d);
+        lines.getLast().setEffectiveN(effectiveN);
     }
 
     public void tryApplyDiscMxN(Discount d){
-
+        SaleLine lastLine = lines.getLast();
+        int amountProduct = lastLine.getAmount();
+        int unitPrice = lastLine.getUnitPrice();
+        int m = d.getM();
+        int n = d.getN();
+        if(candidatsADescompteMxN.size() == 0){
+            if (m == amountProduct) {
+                applyDiscountAtLastLine(d,n);
+            }
+        }
+        else {
+            for(SaleLine l : candidatsADescompteMxN){
+                int sum = amountProduct + l.getAmount();
+                if( sum > m){
+                    if(unitPrice >= l.getUnitPrice()){
+                        applyDiscountAtLastLine(d,m-amountProduct);
+                    }
+                    else {
+                        assignaDescompte(d, l.getProductName());
+                    }
+                }
+            }
+        }
     }
 
 }

@@ -217,7 +217,7 @@ public class PosController {
         }
         if (found){
             if(disc.getTypeOfDiscount().equals("percentatge")) {
-                currentSale.applyDiscountAtLastLine(disc);
+                currentSale.applyDiscountAtLastLine(disc,0);
             }
             else if(disc.getTypeOfDiscount().equals("m x n")){
                 currentSale.addCandidat();
