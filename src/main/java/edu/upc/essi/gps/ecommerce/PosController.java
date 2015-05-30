@@ -130,6 +130,11 @@ public class PosController {
         this.tornTancat = false;
     }
 
+
+    public void gestorLogOut(String gestorName) {
+        this.currentGestorName = null;
+    }
+
     public void login(String saleAssistantName) {
         checkNotNull(saleAssistantName, "saleAssistantName");
         Date data = new Date(2015,05,13);

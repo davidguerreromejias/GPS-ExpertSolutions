@@ -88,7 +88,7 @@ public class setDiscountCollection {
             String espai = " , ";
             for (setDiscount s : setDiscountController) {
                 if (s.getTipus().equals(type))
-                    sb.append(s.getTipus()).append(espai).append(s.getCompres()).append(espai).append(s.getPagues()).append(espai).append(s.getSetObj()).append("\n");
+                    sb.append(s.getTipus()).append(espai).append(s.getCompres()).append("x").append(s.getPagues()).append(espai).append(s.getSetObj()).append("\n");
             }
         }
         return sb.toString();
@@ -110,7 +110,7 @@ public class setDiscountCollection {
         sb.append("--Tipus Descompte--  --Compres--  --En pagues--  --Tipus Producte--\n");
         for (setDiscount s : setDiscountController) {
             if (s.getTipus().equals("m x n"))
-                sb.append(s.getTipus()).append(espai).append(s.getCompres()).append(espai).append(s.getPagues()).append(espai).append(s.getSetObj()).append("\n");
+                sb.append(s.getTipus()).append(espai).append(s.getCompres()).append("x").append(s.getPagues()).append(espai).append(s.getSetObj()).append("\n");
         }
 
         return sb.toString();

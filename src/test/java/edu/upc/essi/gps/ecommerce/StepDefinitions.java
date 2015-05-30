@@ -341,7 +341,7 @@ public class StepDefinitions {
 
     @Quan("^afegeixo un descompte del tipus (.*) del (\\d+)% als productes de (.*)$")
     public void addSetDiscount(String tipoDescompte, int discount, String setProducts) throws Throwable {
-        this.posController.addTypeDiscount(tipoDescompte, discount, setProducts);
+        tryCatch(() -> this.posController.addTypeDiscount(tipoDescompte, discount, setProducts));
     }
 
     @Donat("^que existeix un descompte del tipus (.*) del (\\d+)% als productes de (.*)$")
@@ -374,6 +374,10 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.gestorLogin(gestorName));
     }
 
+    @Quan("en (.*) ha sortit de la sessió de gestor$")
+    public void gestorLogOut(String gestorName) throws Throwable {
+        tryCatch(() -> this.posController.gestorLogOut(gestorName));
+    }
 
     @Donat("que hi ha un descompte definit de tipus (.*) d'un (\\d+)%$")
     public void set_discPerc(String tipus, int amount){

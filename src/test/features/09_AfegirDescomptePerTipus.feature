@@ -51,11 +51,11 @@ Característica: Afegir un nou descompte al sistema
     Aleshores el sistema em mostra el llistat de descomptes
     """
     --Tipus Descompte--  --Compres--  --En pagues--  --Tipus Producte--
-    m x n , 3 , 2 , piscina
-    m x n , 5 , 2 , platja
-    m x n , 2 , 1 , esports
-    m x n , 4 , 3 , jocsTaula
-    m x n , 3 , 2 , electronica
+    m x n , 3x2 , piscina
+    m x n , 5x2 , platja
+    m x n , 2x1 , esports
+    m x n , 4x3 , jocsTaula
+    m x n , 3x2 , electronica
 
     """
 
@@ -79,10 +79,15 @@ Característica: Afegir un nou descompte al sistema
     percentatge , 30.0% , electronica
 
     --Tipus Descompte--  --Compres--  --En pagues--  --Tipus Producte--
-    m x n , 3 , 2 , piscina
-    m x n , 5 , 2 , platja
-    m x n , 2 , 1 , esports
-    m x n , 4 , 3 , jocsTaula
-    m x n , 3 , 2 , electronica
+    m x n , 3x2 , piscina
+    m x n , 5x2 , platja
+    m x n , 2x1 , esports
+    m x n , 4x3 , jocsTaula
+    m x n , 3x2 , electronica
 
     """
+
+  Escenari: Error perque no hi ha cap gestor que hagi iniciat sessió
+    Quan en "Joan" ha sortit de la sessió de gestor
+    I afegeixo un descompte del tipus percentatge del 10% als productes de platja
+    Aleshores obtinc un error que diu: "No hi ha cap sessio de gestor iniciada"
