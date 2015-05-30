@@ -9,6 +9,7 @@ public class PosController {
     private final ProductsService productsService;
     private final String shop;
     private final int posNumber;
+    private UsersCollection UsersCollection;
 
     public void setCurrentSaleAssistantName(String currentSaleAssistantName) {
         this.currentSaleAssistantName = currentSaleAssistantName;
@@ -115,6 +116,7 @@ public class PosController {
         this.posNumber = -1; //es un gestor el que està dins, els canvis seràn per tots els tpv
         this.productsService = null; //nomes serà per fer gestions, no per vendre res, per tant tampoc necessitem el productService
         this.currentSaleAssistantName = null;
+        this.UsersCollection = new UsersCollection();
     }
 
     public void gestorLogin(String gestorName) {
@@ -565,6 +567,16 @@ public class PosController {
 
     public void getAllSetDiscountList() {
         llista = setDiscountCollection.allSetDiscountList();
+    }
+
+    public void createLogin(String tipusLogin, String name, String password) {
+        UsersCollection.addLogin(tipusLogin, name, password);
+    }
+
+    public boolean existsLogin(String tipusLogin, String name) {
+        if  (!UsersCollection.checkLogin(tipusLogin, name))
+            throw new IllegalStateException("No existeix un " + tipusLogin + " amb el nom " + name);;
+        return true;
     }
 }
 

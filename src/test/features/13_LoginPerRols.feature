@@ -11,11 +11,11 @@ Característica: Afegir un regal a un producte
 
   Escenari: Afegir un gestor al sistema
     Quan és vol crear un nou login al sistema del tipus gestor pel treballador anomenat "Joan" amb el password "123456789"
-    Aleshores hi ha un login del tipus gestor creat pel treballador anomenat "Joan"
+    Aleshores existeix un login del tipus gestor pel treballador anomenat "Joan"
 
   Escenari: Afegir un venedor al sistema
     Quan és vol crear un nou login al sistema del tipus venedor pel treballador anomenat "Pere" amb el password "987654321"
-    Aleshores hi ha un login del tipus venedor creat pel treballador anomenat "Pere"
+    Aleshores existeix un login del tipus venedor pel treballador anomenat "Pere"
 
   Escenari: Consultar llista de gestors
     Donat que existeix un login de tipus gestor pel treballador anomenat "Joan" amb el password "123456789"
@@ -78,4 +78,3 @@ Característica: Afegir un regal a un producte
     venedor , Jordi , 987654321
 
     """
-  

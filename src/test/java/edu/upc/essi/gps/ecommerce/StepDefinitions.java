@@ -369,9 +369,14 @@ public class StepDefinitions {
         assertEquals(true, this.posController.getDiscountBySetProduct(setProduct, tipusDescompte));
     }
 
-    @Quan("que en (.*) ha iniciat sessió com a gestor$")
-    public void gestorLogin(String gestorName) throws Throwable {
-        tryCatch(() -> this.posController.gestorLogin(gestorName));
+    @Quan("és vol crear un nou login al sistema del tipus (.*) pel treballador anomenat (.*) amb el password (.*)$")
+    public void login(String tipusLogin, String name, String password) throws Throwable {
+        tryCatch(() -> this.posController.createLogin(tipusLogin, name, password));
+    }
+
+    @Aleshores("existeix un login del tipus (.*) pel treballador anomenat (.*)$")
+    public void checkLoginCreated(String tipusLogin, String name) throws Throwable {
+        assertEquals(true, this.posController.existsLogin(tipusLogin, name));
     }
 
     @Quan("en (.*) ha sortit de la sessió de gestor$")
