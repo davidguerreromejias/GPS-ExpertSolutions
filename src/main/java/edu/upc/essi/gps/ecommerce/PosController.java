@@ -51,6 +51,8 @@ public class PosController {
     private LinkedList<Discount> discCollection = new LinkedList<>();
     private LinkedList<Discount> regalCollection = new LinkedList<>();
 
+    private String llista; //servirà per no haver de repetir la lectura dels descomptes
+
 
     //public LinkedList<Discount> getDiscPercCollection(){return discPercCollection;}
 
@@ -482,8 +484,12 @@ public class PosController {
         this.currentSale = null;
     }
 
-    public String getSetDiscountList(String type) {
-        return setDiscountCollection.SetDiscountList(type);
+    public void getSetDiscountList(String type) {
+        llista = setDiscountCollection.SetDiscountList(type);
+    }
+
+    public String getLlista() {
+        return llista;
     }
 
     public void addProductDiscountPerc(Product p, Discount d){
@@ -552,8 +558,8 @@ public class PosController {
         return sb.toString();
     }
 
-    public String getAllSetDiscountList() {
-        return setDiscountCollection.allSetDiscountList();
+    public void getAllSetDiscountList() {
+        llista = setDiscountCollection.allSetDiscountList();
     }
 }
 
