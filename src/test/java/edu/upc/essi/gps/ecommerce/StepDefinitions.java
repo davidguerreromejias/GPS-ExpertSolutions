@@ -374,6 +374,11 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.createLogin(tipusLogin, name, password));
     }
 
+    @Quan("que existeix un login de tipus (.*) pel treballador anomenat (.*) amb el password (.*)$")
+    public void login2(String tipusLogin, String name, String password) throws Throwable {
+        tryCatch(() -> this.posController.createLogin(tipusLogin, name, password));
+    }
+
     @Aleshores("existeix un login del tipus (.*) pel treballador anomenat (.*)$")
     public void checkLoginCreated(String tipusLogin, String name) throws Throwable {
         assertEquals(true, this.posController.existsLogin(tipusLogin, name));
@@ -413,6 +418,16 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.getSetDiscountList(type));
     }
 
+    @Quan ("vull obtenir un llistat dels noms dels (.*)")
+    public void obtenirLListatLogins(String tipoLogin) throws Throwable{
+        tryCatch(() -> this.posController.getListLogins(tipoLogin));
+    }
+
+    @Quan ("vull obtenir un llistat dels usuaris del sistema")
+    public void obtenirAllLListatLogins() throws Throwable{
+        tryCatch(() -> this.posController.getAllListLogins());
+    }
+
     @Quan ("vull obtenir un llistat dels descomptes per tipus de productes que hi ha actius al sistema$")
     public void obtenirTotLListatDescomptesPerTipus() throws Throwable{
         tryCatch(() -> this.posController.getAllSetDiscountList());
@@ -426,6 +441,21 @@ public class StepDefinitions {
 
     @Aleshores("el sistema em mostra el llistat de descomptes$")
     public void checkLListatDescomptesPerTipus2(String msg){
+        assertEquals(msg, this.posController.getLlista());
+    }
+
+    @Aleshores("el sistema em mostra el llistat de (.*) amb els seus respectius noms$")
+    public void checkLListatLogins(String nom, String msg){
+        assertEquals(msg, this.posController.getLlista());
+    }
+
+    @Quan("que en (.*) ha iniciat sessió com a gestor$")
+    public void gestorLogin(String gestorName) throws Throwable {
+        tryCatch(() -> this.posController.gestorLogin(gestorName));
+    }
+
+    @Aleshores("el sistema em mostra el llistat usuaris del sistema$")
+    public void checkLListatLogins2(String msg){
         assertEquals(msg, this.posController.getLlista());
     }
 

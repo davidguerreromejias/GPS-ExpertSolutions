@@ -70,7 +70,7 @@ public class setDiscountCollection {
 
     public String SetDiscountList(String type) {
         if (setDiscountController.isEmpty())
-            throw new IllegalArgumentException("Actualment no existeix cap descompte del tipus percentatge i per tipus de producte");
+            throw new IllegalArgumentException("Actualment no existeix cap descompte del tipus " + type + " i per tipus de producte");
 
         StringBuilder sb = new StringBuilder();
 

@@ -1,5 +1,7 @@
 package edu.upc.essi.gps.ecommerce;
 
+import javax.jws.soap.SOAPBinding;
+
 import static edu.upc.essi.gps.utils.Validations.*;
 
 import java.util.*;
@@ -577,6 +579,14 @@ public class PosController {
         if  (!UsersCollection.checkLogin(tipusLogin, name))
             throw new IllegalStateException("No existeix un " + tipusLogin + " amb el nom " + name);;
         return true;
+    }
+
+    public void getListLogins(String tipoLogin) {
+        llista = UsersCollection.getListLogins(tipoLogin);
+    }
+
+    public void getAllListLogins() {
+        llista = UsersCollection.getAllListLogins();
     }
 }
 
