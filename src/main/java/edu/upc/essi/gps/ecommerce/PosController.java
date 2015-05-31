@@ -4,6 +4,7 @@ import javax.jws.soap.SOAPBinding;
 
 import static edu.upc.essi.gps.utils.Validations.*;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class PosController {
@@ -587,31 +588,56 @@ public class PosController {
         String nomP = p.getName();
         boolean esRegal = esRegal(nomP);
         boolean teRegals = teRegals(nomP);
-        if (!esRegal && !teRegals){
+        if (esRegal){
+            boolean acabat = false;
+            while(amount > 0 && !acabat){
+                currentSale.addRegal(p);
+                --amount;
+                if (!esRegal(nomP)) acabat = true;
+            }
+        }
+        else if (teRegals){
+            updateRegals(nomP);
+        }
+
+        if ((!esRegal && !teRegals) || amount > 0){
+
             currentSale.addNProducts(p, amount);
             applyDiscount(p);}
 
-        else if (esRegal){
-            System.out.print("ES REGAAAAAAAAL");
-            currentSale.addRegal(p);
-        }
-        else ;
     }
 
 
-    public boolean esRegal(String nomP){
-        for (int i = 0; i < CollectionRegal.size(); ++i){
-
-            for (int j = 1; j < CollectionRegal.get(i).size(); ++j){
+    public boolean esRegal(String nomP) {
+        ArrayList<String> prods = new ArrayList<>();
+        for (int i = 0; i < CollectionRegal.size(); ++i) {
+            for (int j = 1; j < CollectionRegal.get(i).size(); ++j) {
                 if (nomP.equals(CollectionRegal.get(i).get(j))) {
-                   if (currentSale.potAfegir(nomP, CollectionRegal.get(i).get(0))) return true;
-
+                    prods.add(CollectionRegal.get(i).get(0));
                 }
             }
         }
+        if (currentSale.potAfegir(prods, nomP)) return true;
+        else return false;
+    }
+
+    public boolean teRegals(String nomP){
+        for (int i = 0; i < CollectionRegal.size(); ++i)
+            if (nomP.equals(CollectionRegal.get(i).get(0))) return true;
         return false;
     }
 
-    public boolean teRegals(String nomP){return false;}
+    public void updateRegals(String nomP){
+        ArrayList<String> regalsP = new ArrayList<>();
+        for (int i = 0; i < CollectionRegal.size(); ++i) {
+            if (nomP.equals(CollectionRegal.get(i).get(0)))
+                for (int j = 1; j < CollectionRegal.get(i).size(); ++j) {
+                    regalsP.add(CollectionRegal.get(i).get(j));
+                }
+            }
+        regalsP.retainAll(currentSale.getNoRegals());
+        for (int i = 0; i < regalsP.size(); ++i)
+            currentSale.setToRegal(regalsP.get(i));
+    }
 }
 
