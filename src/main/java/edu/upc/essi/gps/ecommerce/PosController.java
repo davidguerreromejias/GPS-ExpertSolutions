@@ -303,6 +303,7 @@ public class PosController {
             ventesRealitzades.add(currentSale);
             change = "El canvi és: " + canvi + endMessage;
         }
+        finishSale();
     }
 
     public void cardPayment(String paymentForm) {
@@ -367,14 +368,6 @@ public class PosController {
             if(l.getPaymentForm().equals("efectiu")) total += l.getTotal();
         }
         return total+initialCash;
-    }
-
-    public void afegirQuadramentInvalid(int diff){
-        quadramentsInvalids.add(new QuadramentInvalid(this.shop, this.posNumber, this.currentSaleAssistantName, diff));
-    }
-
-    public void afegirQuadramentInvalid(String name, int diff){
-        quadramentsInvalids.add(new QuadramentInvalid(this.shop, this.posNumber, name, diff));
     }
 
     public void createPercDiscount(String type, int amount) {
@@ -470,7 +463,7 @@ public class PosController {
     public void afegirRegal(String regal, String nomP){
         Discount d = new Discount();
         int size = regalCollection.size();
-        for (int i = 0; i<size; ++i)
+        for(int i = 0; i<size; ++i)
             if (regalCollection.get(i).getRegal().getName() == regal) d = regalCollection.get(i);
         Product p = productsService.findByName(nomP);
         addProductDiscountRegal(p, d);

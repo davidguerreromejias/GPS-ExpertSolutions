@@ -33,11 +33,6 @@ public class StepDefinitions {
         assertEquals(msg, this.exception.getMessage());
     }
 
-    @Aleshores("^el sistema intenta tancar el torn$")
-    public void tryTancarTorn() throws Throwable {
-        tryCatch(() -> this.posController.tancarTorn());
-    }
-
     @Aleshores("^hi ha una sessió iniciada pel gestor (.*)$")
     public void checkGestorName(String gestorName) throws Throwable {
         assertEquals(gestorName, this.posController.getCurrentGestorName());
@@ -61,7 +56,7 @@ public class StepDefinitions {
     }
 
     @Quan("^vull tancar el torn i a la caixa hi ha (\\d+)€$")
-    public void tancarTorn(int n) throws Throwable {
+    public void tryTancarTorn(int n) throws Throwable {
         tryCatch(() -> this.posController.tryTancarTorn(n));
     }
 
@@ -428,6 +423,7 @@ public class StepDefinitions {
         int x = this.posController.getDifTancarTorn();
         if(x < 0) x = -x;
         assertEquals(dif,x);
+        this.posController.tancarTorn();
     }
 
     @Donat("que el producte amb codi de barres (.*) ha estat afegit a la venta actual amb la quantitat (\\d+)")
@@ -437,12 +433,22 @@ public class StepDefinitions {
 
     @Donat("^en \"([^\"]*)\" ha tancat el seu torn amb un quadrament invàlid de (\\d+)€ negatius$")
     public void afegirTornAmbQuadramentInvalidNeg(String assistant, int dif) throws Throwable{
-        this.posController.afegirQuadramentInvalid(assistant, -dif);
+        login(assistant, 0);
+        saleStarted();
+        producte_afegit_a_la_venta_actual(1111111, 2);
+        cashPayment(20, "efectiu");
+        tryTancarTorn(15);
+        this.posController.tancarTorn();
     }
 
     @Donat("^en \"([^\"]*)\" ha tancat el seu torn amb un quadrament invàlid de (\\d+)€$")
     public void afegirTornAmbQuadramentInvalid(String assistant, int dif) throws Throwable{
-        this.posController.afegirQuadramentInvalid(assistant, dif);
+        login(assistant, 0);
+        saleStarted();
+        producte_afegit_a_la_venta_actual(1111111,2);
+        cashPayment(20,"efectiu");
+        tryTancarTorn(30);
+        this.posController.tancarTorn();
     }
 
     @Donat("que la venta ha sigut pagada i guardada al historial.")
