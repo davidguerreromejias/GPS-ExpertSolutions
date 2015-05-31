@@ -11,7 +11,7 @@ class SaleLine{
     private Discount discount;
     private int effectiveN;
     private boolean esRegal;
-    private String prodRegal;
+    private boolean teDiscConjAplicat;
 
     public SaleLine(Product product, int amount) {
         this.productId = product.getId();
@@ -20,6 +20,7 @@ class SaleLine{
         this.amount = amount;
         this.discount = new Discount("None",100);
         this.esRegal = false;
+        this.teDiscConjAplicat = false;
     }
 
     public long getProductId() {
@@ -38,7 +39,13 @@ class SaleLine{
         return amount;
     }
 
-    public void incrAmount(){amount++;}
+    public boolean getTeDiscConjAplicat(){
+        return teDiscConjAplicat;
+    }
+
+    public void setTeDiscConjAplicat(boolean b){
+        teDiscConjAplicat = b;
+    }
 
     public int getTotalPriceRaw() {
         if (esRegal) return 0;
@@ -54,7 +61,6 @@ class SaleLine{
             return (int) totalPrice;
         }
         else if(discount.getTypeOfDiscount().equals("m x n")){
-            System.out.println(effectiveN+"**************************");
             return unitPrice * effectiveN;
         }
         else if (esRegal) return 0;
@@ -65,6 +71,8 @@ class SaleLine{
         discount = d;
         effectiveN = d.getN();
     }
+
+    public int getEffectiveN() {return effectiveN;}
 
     public void setEffectiveN(int effectiveN){this.effectiveN = effectiveN;}
 
@@ -80,9 +88,10 @@ class SaleLine{
         return esRegal;
     }
 
-    public void setProdRegal(String prodName){
-        prodRegal = prodName;
-    }
+
+    public void incrAmount(){amount++;}
+
+    public void decrAmount(){amount--;}
 }
 
 public class Sale {
@@ -174,7 +183,7 @@ public class Sale {
     }
 
     public void deleteLine(String nomProd) {
-        for (SaleLine l : lines) if (nomProd == l.getProductName()) lines.remove(l);
+        for (SaleLine l : lines) if (nomProd == l.getProductName() && !l.esRegal()) lines.remove(l);
     }
 
     public void assignaDescompte(Discount d, String nomP, int effectiveN) {
@@ -196,18 +205,41 @@ public class Sale {
         int unitPrice = lastLine.getUnitPrice();
         int m = d.getM();
         int n = d.getN();
+        int effectiveQ;
         if (candidatsADescompteMxN.size() == 0) {
-            if (m == amountProduct) {
-                applyDiscountAtLastLine(d, n);
+            if (m <= amountProduct) {
+                effectiveQ = n * amountProduct/m + amountProduct%m;
+                applyDiscountAtLastLine(d,effectiveQ);
             }
-        } else {
+        }
+        else {
             for (SaleLine l : candidatsADescompteMxN) {
                 int sum = amountProduct + l.getAmount();
-                if (sum >= m) {
+                if (m <= sum ) {
+                    int unitatsAPagar = n * sum/m + sum%m;
+                    effectiveQ = sum - unitatsAPagar;
                     if (unitPrice >= l.getUnitPrice()) {
-                        assignaDescompte(d, l.getProductName(), m - l.getAmount());
-                    } else {
-                        applyDiscountAtLastLine(d, m - amountProduct);
+                        if(effectiveQ < 0){
+                            assignaDescompte(d, l.getProductName(), 0);
+                            applyDiscountAtLastLine(d, unitatsAPagar);
+                            lines.getLast().setTeDiscConjAplicat(true);
+                        }
+                        else{
+                            assignaDescompte(d, l.getProductName(),effectiveQ);
+                        }
+                        l.setTeDiscConjAplicat(true);
+                    }
+                    else {
+                        if(effectiveQ < 0) {
+                            applyDiscountAtLastLine(d,0);
+                            assignaDescompte(d, l.getProductName(), unitatsAPagar);
+                            l.setTeDiscConjAplicat(true);
+                            System.out.println("**********************************");
+                        }
+                        else{
+                            applyDiscountAtLastLine(d,effectiveQ);
+                        }
+                        lines.getLast().setTeDiscConjAplicat(true);
                     }
                 }
             }
@@ -273,9 +305,16 @@ public class Sale {
         boolean assignat = false;
         for (SaleLine l : lines) {
             if (nomRegal.equals(l.getProductName()) && !l.esRegal() && !assignat){
-                l.setEsRegal(true);
-                assignat = true;
+                if (l.getAmount() == 1) deleteLine(l.getProductName());
+                else l.decrAmount();
+                for (SaleLine l2 : lines){
+                    if (nomRegal.equals(l2.getProductName()) && l2.esRegal()){
+                        l2.incrAmount();
+                        assignat = true;
+                    }
+                }
             }
         }
     }
+
 }
