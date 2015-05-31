@@ -226,9 +226,11 @@ public class Sale {
                             assignaDescompte(d, l.getProductName(), 0);
                             applyDiscountAtLastLine(d, unitatsAPagar);
                             lines.getLast().setTeDiscConjAplicat(true);
+                            System.out.println("if1");
                         }
                         else{
                             assignaDescompte(d, l.getProductName(),effectiveQ);
+                            System.out.println("else1");
                         }
                         l.setTeDiscConjAplicat(true);
                     }
@@ -241,6 +243,7 @@ public class Sale {
                         }
                         else{
                             applyDiscountAtLastLine(d,effectiveQ);
+                            System.out.println("else2");
                         }
                         lines.getLast().setTeDiscConjAplicat(true);
                     }
