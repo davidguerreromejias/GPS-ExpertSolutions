@@ -79,6 +79,12 @@ public class StepDefinitions {
         assertEquals(saleAssistant, s.getSaleAssistantName());
     }
 
+    @Aleshores("^el sistema imprimeix$")
+    public void checkTiquet(String t) throws Throwable {
+        assertEquals(t, this.posController.getCurrentTiquet());
+    }
+
+
     @Quan("^inicio el torn al tpv com a \"([^\"]*)\" i hi ha (\\d+)€ a la caixa$")
      public void login(String saleAssistantName, int d) throws Throwable {
         tryCatch(() -> this.posController.login(saleAssistantName));
@@ -500,6 +506,12 @@ public class StepDefinitions {
         this.posController.tancarTorn();
     }
 
+    @Donat("^que el client ha pagat (\\d+)€ en \"([^\"]*)\"")
+    public void pagarVenta(int payed, String form) throws Throwable{
+        if(form.equals("efectiu")) this.posController.cashPayment(payed, form);
+        else if(form.equals("targeta")) this.posController.cardPayment(form);
+    }
+
     @Donat("que la venta ha sigut pagada i guardada al historial.")
         public void saleOfX() throws Throwable{
             this.posController.finishSale();
@@ -514,6 +526,11 @@ public class StepDefinitions {
     @Quan("el gestor \"([^\"]*)\" introdueix la data \"([^\"]*)\"")
     public void visualitzaXData (String gestor, String data) throws Throwable{
         this.posController.visualitzaVentesPerData(data);
+    }
+
+    @Quan("vull imprimir el tiquet")
+    public void createTiquet () throws Throwable{
+        tryCatch(() -> this.posController.createTiquet());
     }
 
     @Quan("el gestor \"([^\"]*)\" introdueix el venedor \"([^\"]*)\"")
