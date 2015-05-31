@@ -536,18 +536,29 @@ public class PosController {
         int size = CollectionRegal.size();
         StringBuilder sb = new StringBuilder();
         sb.append("Productes que tenen regals:");
-
         for (int i = 0; i < size; ++i) {
+            ArrayList<String> repes = new ArrayList<>();
             sb.append("\nPer la compra de ");
             sb.append(CollectionRegal.get(i).get(0));
             sb.append(" s'obté de regal");
-            for (int j = 1; j < CollectionRegal.get(i).size(); ++j) {
-                if (j > 1){
-                    if (j == CollectionRegal.get(i).size() - 1) sb.append(" i");
-                    else sb.append(",");}
-                sb.append(" ").append(CollectionRegal.get(i).get(j));
+
+            int tam = CollectionRegal.get(i).size();
+            for (int j = 1; j < tam; ++j) {
+                int freq = Collections.frequency(CollectionRegal.get(i), CollectionRegal.get(i).get(j));
+                if (freq > 1) {
+                    if (!repes.contains(CollectionRegal.get(i).get(j))) {
+                        repes.add(CollectionRegal.get(i).get(j));
+                        if (j > 1) sb.append(",");
+                        sb.append(" ").append(CollectionRegal.get(i).get(j)).append(" (" + freq + ")");
+                    }
+                }
+                else {
+                    if (j > 1) sb.append(",");
+                    sb.append(" ").append(CollectionRegal.get(i).get(j));
+                }
             }
         }
+
         return sb.toString();
     }
 
@@ -572,30 +583,31 @@ public class PosController {
     public void getAllListLogins() {
         llista = UsersCollection.getAllListLogins();
     }
-
     public void afegirRegalCollection(String nomProd, String nomRegal) {
         ArrayList<String> regals = new ArrayList<>();
-        String[] out = nomRegal.split(", ");
-        int number = 0;
-        /*for (int i = 0; i < out.length; ++i){
-            if (out[i].contains("(")){
-                System.out.print("ENTRAAAAA");
-                for(int j = 0; j < out[i].length(); ++j)
-                    if ("(".equals(out[i].charAt(j))){
-                        number = (int)out[i].charAt(j+1);
-                    }
-            }
-            out[i] = out[i].substring(0, out[i].length()-4);
-            while(number > 1){
-                regals.add(out[i]);
-                --number;
-            }
-        }*/
-
         regals.add(nomProd);
-        for (int i = 0; i < out.length; ++i)
+        String[] out = nomRegal.split(", ");
+        int number;
+        for (int i = 0; i < out.length; ++i){
+            if (out[i].contains("(")) {
+                for (int j = 0; j < out[i].length(); ++j) {
+                    char c = '(';
+                    if (c == out[i].charAt(j)) {
+                        number = Character.getNumericValue(out[i].charAt(j + 1));
+                        out[i] = out[i].substring(0, out[i].length() - 4);
+                        while (number > 1) {
+                            regals.add(out[i]);
+                            --number;
+                        }
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < out.length; ++i){
             regals.add(out[i]);
+        }
         CollectionRegal.add(regals);
+
     }
 
 
@@ -618,7 +630,6 @@ public class PosController {
         }
 
         if ((!esRegal && !teRegals) || amount > 0){
-
             currentSale.addNProducts(p, amount);
             applyDiscount(p);}
 
@@ -651,7 +662,7 @@ public class PosController {
                 for (int j = 1; j < CollectionRegal.get(i).size(); ++j) {
                     regalsP.add(CollectionRegal.get(i).get(j));
                 }
-            }
+        }
         regalsP.retainAll(currentSale.getNoRegals());
         for (int i = 0; i < regalsP.size(); ++i)
             currentSale.setToRegal(regalsP.get(i));
