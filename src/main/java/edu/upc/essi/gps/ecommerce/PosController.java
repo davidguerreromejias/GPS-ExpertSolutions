@@ -32,12 +32,15 @@ public class PosController {
         return currentDate;
     }
 
+    public String currentSaleTiquet;
+
     public void setCurrentDate(String currentDate) {
         this.currentDate = currentDate;
     }
 
+    private int canvi;
     private String currentDate;
-
+    private Sale lastSale;
     private LinkedList<Integer> inputQuadraments = new LinkedList<>();
     private int difUltimQuadrament;
     private boolean tornTancat;
@@ -152,6 +155,7 @@ public class PosController {
         this.ventesRealitzades = new LinkedList();
         this.initialCash = 0;
         this.tornTancat = false;
+        this.lastSale = null;
     }
 
     public void buscarProductes(String s){
@@ -312,11 +316,13 @@ public class PosController {
         else if (getCurrentSale().isEmpty())
             throw new IllegalStateException("No es pot cobrar una venta sense cap producte");
         else {
-            int canvi = delivered - getCurrentSale().getTotal();
+            canvi = delivered - getCurrentSale().getTotal();
             if (canvi < 0) throw new RuntimeException("La quantitat rebuda és inferior a l'import de la venda.");
             ventesRealitzades.add(currentSale);
             change = "El canvi és: " + canvi + endMessage;
         }
+        salePayed();
+        this.lastSale = getCurrentSale();
         finishSale();
     }
 
@@ -354,13 +360,11 @@ public class PosController {
         this.currentSaleAssistantName = null;
     }
 
-    public int getDiffUltimQuadramentInvalid(){
-        return this.quadramentsInvalids.getLast().getDiferencia();
+    public String getCurrentTiquet(){
+        if(this.currentSaleTiquet == null) return "shit";
+        return this.currentSaleTiquet;
     }
 
-    public boolean getTancamentUltimTorn(){
-        return this.tornTancat;
-    }
 
     public String getQuadramentsInvalids(){
         if(quadramentsInvalids.isEmpty()) throw new RuntimeException("No hi ha quadraments invàlids registrats al sistema");
@@ -374,6 +378,48 @@ public class PosController {
         return sb.toString();
     }
 
+    public void createTiquet(){
+        Sale s = this.lastSale;
+        if(s == null) throw new RuntimeException("La venta no s'ha cobrat");
+        if(!s.isEstaPagada()) throw new RuntimeException("La venta no s'ha cobrat");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Joguets i Joguines\n");
+        sb.append("DATA\n");
+        sb.append("L'atén ").append(getCurrentSaleAssistantName()).append(" a la botiga ").append(this.shop).append("\n");
+        sb.append("Caixa num ").append(this.posNumber).append("\n");
+        sb.append("-----   Producte   -----|-- €/u --|-- IVA --|-- # --|-- Total --\n");
+        for(SaleLine sl : s.getLines()){
+            sb.append(sl.getProductName());
+            Product p = productsService.findByName(sl.getProductName());
+            for(int i = sl.getProductName().length(); i < 24; ++i){sb.append(" ");}
+            sb.append(" ");
+            int n = sb.toString().length();
+            sb.append(sl.getUnitPrice());
+            int m = sb.toString().length();
+            for(int i = m-n; i < 9; ++i){sb.append(" ");}
+            sb.append(" ");
+            n = sb.toString().length();
+            sb.append(p.getVatPct()).append("%");
+            m = sb.toString().length();
+            for(int i = m-n; i < 9; ++i){sb.append(" ");}
+            sb.append(" ");
+            n = sb.toString().length();
+            sb.append(sl.getAmount());
+            m = sb.toString().length();
+            for(int i = m-n; i < 7; ++i){sb.append(" ");}
+            sb.append(" ");
+            sb.append(sl.getTotalPrice()).append("\n");
+        }
+        for(int i = 0; i < 64; ++i) sb.append("-");
+        sb.append("\n");
+        for(int i = 0; i < 53; ++i) sb.append(" ");
+        sb.append(s.getTotal()).append("\n");
+        sb.append("Pagat:                                               ");
+        sb.append(canvi+s.getTotal()).append("\n");
+        sb.append("Canvi:                                               ");
+        sb.append(canvi);
+        this.currentSaleTiquet = sb.toString();
+    }
 
 
     public int getTotalTorn(){

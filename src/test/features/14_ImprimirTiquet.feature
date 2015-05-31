@@ -13,21 +13,24 @@ Característica: Acabar una venta i imprimir el tiquet
     Donat que hi ha una venta iniciada
     I que el producte amb codi de barres 1234567 ha estat afegit a la venta actual amb la quantitat 1
     I que el producte amb codi de barres 1231231 ha estat afegit a la venta actual amb la quantitat 2
-    Quan indico que el client ha entregat 30€ per a pagar en metàlic
-    Aleshores el tpv mostra el següent: El canvi és: 7€ i la venta ha estat finalitzada.
+    I que el client ha pagat 50€ en "efectiu"
+    Quan vull imprimir el tiquet
+    Aleshores el sistema imprimeix
+    """
+    Joguets i Joguines
+    DATA
+    L'atén Joan a la botiga Girona 1
+    Caixa num 1
+    -----   Producte   -----|-- €/u --|-- IVA --|-- # --|-- Total --
+    Optimus Prime            23        21%       1       23
+    Pilota de platja         10        21%       2       20
+    ----------------------------------------------------------------
+                                                         43
+    Pagat:                                               50
+    Canvi:                                               7
+    """
 
   Escenari: Error si intentem fer un tiquet i la venta no està finalitzada
     Donat que hi ha una venta iniciada
-    Quan indico que el client ha entregat 30€ per a pagar en metàlic
-    Aleshores obtinc un error que diu: "No es pot cobrar una venta sense cap producte"
-
-  Escenari: Error si intentem cobrar una venta no iniciada
-    Quan indico que el client ha entregat 30€ per a pagar en metàlic
-    Aleshores obtinc un error que diu: "No es pot cobrar una venta si no està iniciada"
-
-  Escenari: Error si intentem cobrar una venta amb menys diners de l'import total de la venda
-    Donat que hi ha una venta iniciada
-    I que he afegit el producte de codi de barres 1234567 a la venta
-    Quan indico que el client ha entregat 20€ per a pagar en metàlic
-    Aleshores obtinc un error que diu: "La quantitat rebuda és inferior a l'import de la venda."
-
+    Quan vull imprimir el tiquet
+    Aleshores obtinc un error que diu: "La venta no s'ha cobrat"
