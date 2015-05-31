@@ -67,7 +67,7 @@ public class StepDefinitions {
 
     @Aleshores("^el sistema confirma el quadrament i tanca el torn$")
     public void checkQuadramentValid() throws Throwable {
-        assertEquals(0,this.posController.getDifTancarTorn());
+        assertEquals(0, this.posController.getDifTancarTorn());
     }
 
     @Aleshores("^el tpv està en ús per en \"([^\"]*)\"$")
@@ -545,10 +545,6 @@ public class StepDefinitions {
         this.posController.afegirRegalCollection(regal);
     }
 
-    @Quan("apreto aplicar descompte de tipus regal que inclou (.*) pel producte (.*)$")
-    public void afegirRegal(String regal, String nomP){
-        this.posController.afegirRegal(regal, nomP);
-    }
 
     @Aleshores("els descomptes per productes son$")
     public void checkDiscPercProduct(String msg){
@@ -558,5 +554,16 @@ public class StepDefinitions {
     @Aleshores("els productes que tenen regals son$")
     public void checkRegals(String msg){
         assertEquals(msg, this.posController.visualitzaRegals());
+    }
+
+
+    @Donat("que hi ha un descompte de tipus regal que per la compra de (.*) et regalen (.*)$")
+    public void afegirRegals(String nomProd, String nomRegals){
+        this.posController.afegirRegalCollection(nomProd, nomRegals);
+    }
+
+    @Quan("afegeixo un descompte de tipus regal que per la compra de (.*) et regalen (.*)$")
+    public void afegirRegalsQuan(String nomProd, String nomRegals){
+        this.posController.afegirRegalCollection(nomProd, nomRegals);
     }
 }

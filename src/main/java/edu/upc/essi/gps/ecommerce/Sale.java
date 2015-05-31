@@ -9,6 +9,7 @@ class SaleLine{
     private int amount;
     private Discount discount;
     private int effectiveN;
+    private boolean esRegal;
 
     public SaleLine(Product product, int amount) {
         this.productId = product.getId();
@@ -16,6 +17,7 @@ class SaleLine{
         this.unitPrice = product.getPrice();
         this.amount = amount;
         this.discount = new Discount("None",100);
+        this.esRegal = false;
     }
 
     public long getProductId() {
@@ -35,6 +37,7 @@ class SaleLine{
     }
 
     public int getTotalPriceRaw() {
+        if (esRegal) return 0;
         return unitPrice * amount;
     }
 
@@ -50,6 +53,7 @@ class SaleLine{
             System.out.println(effectiveN+"**************************");
             return unitPrice * effectiveN;
         }
+        else if (esRegal) return 0;
         else return unitPrice * amount;
     }
 
@@ -62,6 +66,14 @@ class SaleLine{
 
     public Discount getDiscount(){
         return discount;
+    }
+
+    public void setEsRegal(boolean b){
+        esRegal = b;
+    }
+
+    public boolean esRegal(){
+        return esRegal;
     }
 }
 
@@ -191,6 +203,26 @@ public class Sale {
                 }
             }
         }
+    }
+
+    public boolean potAfegir(String nomRegal, String nomP){
+
+        if (getNumberOfAppearances(nomP) > getNumberOfAppearances(nomRegal)) return true;
+        else return false;
+    }
+
+    public int getNumberOfAppearances(String nomP){
+        int count = 0;
+        for(SaleLine l : lines){
+            if (l.getProductName() == nomP) ++count;
+        }
+        return count;
+    }
+
+    public void addRegal(Product p) {
+        SaleLine sl = new SaleLine(p, 1);
+        sl.setEsRegal(true);
+        lines.add(sl);
     }
 
 }
