@@ -205,9 +205,9 @@ public class Sale {
         int unitPrice = lastLine.getUnitPrice();
         int m = d.getM();
         int n = d.getN();
-        int effectiveQ;
         if (candidatsADescompteMxN.size() == 0) {
             if (m <= amountProduct) {
+                int effectiveQ;
                 effectiveQ = n * amountProduct/m + amountProduct%m;
                 applyDiscountAtLastLine(d,effectiveQ);
             }
@@ -216,31 +216,37 @@ public class Sale {
             for (SaleLine l : candidatsADescompteMxN) {
                 int sum = amountProduct + l.getAmount();
                 if (m <= sum ) {
-                    int unitatsAPagar = n * sum/m + sum%m;
-                    effectiveQ = sum - unitatsAPagar;
+                    int unitatsAPagar = n * (sum/m) + sum%m;
+                    int qGratis = sum - unitatsAPagar;
                     if (unitPrice >= l.getUnitPrice()) {
-                        if(effectiveQ < 0){
+                        if(qGratis > l.getAmount()){
                             assignaDescompte(d, l.getProductName(), 0);
-                            applyDiscountAtLastLine(d, unitatsAPagar);
+                            applyDiscountAtLastLine(d, unitatsAPagar - l.getAmount());
                             lines.getLast().setTeDiscConjAplicat(true);
                             System.out.println("if1");
                         }
-                        else{
-                            assignaDescompte(d, l.getProductName(),effectiveQ);
+                        else if(qGratis < l.getAmount()){
+                            assignaDescompte(d, l.getProductName(),l.getAmount() - qGratis);
                             System.out.println("else1");
+                        }
+                        else {
+                            assignaDescompte(d, l.getProductName(), 0);
                         }
                         l.setTeDiscConjAplicat(true);
                     }
                     else {
-                        if(effectiveQ < 0) {
+                        if(qGratis > amountProduct) {
                             applyDiscountAtLastLine(d,0);
-                            assignaDescompte(d, l.getProductName(), unitatsAPagar);
+                            assignaDescompte(d, l.getProductName(), l.getAmount() - amountProduct);
                             l.setTeDiscConjAplicat(true);
                             System.out.println("**********************************");
                         }
-                        else{
-                            applyDiscountAtLastLine(d,effectiveQ);
+                        else if(qGratis < amountProduct){
+                            applyDiscountAtLastLine(d,amountProduct - qGratis);
                             System.out.println("else2");
+                        }
+                        else{
+                            applyDiscountAtLastLine(d,0);
                         }
                         lines.getLast().setTeDiscConjAplicat(true);
                     }
