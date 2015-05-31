@@ -22,7 +22,7 @@ Característica: Aplicar descomptes m x n a conjunts de productes
     I la pantalla del client del tpv mostra
     """
     Optimus Prime - 20€/u x 3u = 60€
-    3x2 -20€
+    3x2 en figura d'acció -20€
     ---
     Total: 40€
     """
@@ -35,7 +35,7 @@ Característica: Aplicar descomptes m x n a conjunts de productes
     I la pantalla del client del tpv mostra
     """
     Optimus Prime - 20€/u x 4u = 80€
-    3x2 -20€
+    3x2 en figura d'acció -20€
     ---
     Total: 60€
     """
@@ -48,7 +48,7 @@ Característica: Aplicar descomptes m x n a conjunts de productes
     I la pantalla del client del tpv mostra
     """
     Optimus Prime - 20€/u x 6u = 120€
-    3x2 x2 -40€
+    3x2 en figura d'acció x2 -40€
     ---
     Total: 80€
     """
@@ -64,7 +64,7 @@ Característica: Aplicar descomptes m x n a conjunts de productes
     """
     Gollum - 25€/u x 1u = 25€
     Optimus Prime - 20€/u x 2u = 40€
-    3x2 -20€
+    3x2 en figura d'acció -20€
     ---
     Total: 45€
     """
@@ -79,7 +79,7 @@ Característica: Aplicar descomptes m x n a conjunts de productes
     I la pantalla del client del tpv mostra
     """
     Optimus Prime - 20€/u x 2u = 40€
-    3x2 -20€
+    3x2 en figura d'acció -20€
     Gollum - 25€/u x 1u = 25€
     ---
     Total: 45€
@@ -95,9 +95,9 @@ Característica: Aplicar descomptes m x n a conjunts de productes
     I la pantalla del client del tpv mostra
     """
     Raqueta - 20€/u x 6u = 120€
-    5x3 -20€
+    5x3 en esports -20€
     Pilota verda - 10€/u x 1u = 10€
-    5x3 -10€
+    5x3 en esports -10€
     ---
     Total: 100€
     """

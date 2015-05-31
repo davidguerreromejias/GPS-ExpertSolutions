@@ -286,8 +286,8 @@ public class PosController {
             sb.append("\n");
             if(sl.getDiscount().getTypeOfDiscount().equals("percentatge")) {
                 int amountDisc = sl.getDiscount().getAmountDiscount();
-                sb.append("-").append(amountDisc).append("% ");
-                sb.append("-").append(sl.getTotalPriceRaw() - sl.getTotalPrice()).append("€\n");
+                sb.append("-").append(amountDisc).append("% ").append("en ").append(sl.getDiscount().getSubType());
+                sb.append(" -").append(sl.getTotalPriceRaw() - sl.getTotalPrice()).append("€\n");
             }
 
 
@@ -295,7 +295,7 @@ public class PosController {
                 int n = sl.getDiscount().getN();
                 int m = sl.getDiscount().getM();
                 int difference = (m - n) * sl.getUnitPrice();
-                sb.append(sl.getDiscount().getM()).append("x").append(n);
+                sb.append(sl.getDiscount().getM()).append("x").append(n).append(" en ").append(sl.getDiscount().getSubType());
                 if(!sl.getTeDiscConjAplicat()){
                     int countDisc = sl.getAmount()/m;
                     if(countDisc > 1)sb.append(" x").append(countDisc);

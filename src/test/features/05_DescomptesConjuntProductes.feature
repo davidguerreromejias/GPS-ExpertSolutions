@@ -23,7 +23,7 @@ Característica: Aplicar descomptes de tipus % a conjunts de productes
     I la pantalla del client del tpv mostra
     """
     Optimus Prime - 20€/u x 1u = 20€
-    -50% -10€
+    -50% en transformer -10€
     ---
     Total: 10€
     """
@@ -37,9 +37,9 @@ Característica: Aplicar descomptes de tipus % a conjunts de productes
     I la pantalla del client del tpv mostra
     """
     Pilota verda - 10€/u x 1u = 10€
-    -20% -2€
+    -20% en esports -2€
     Pilota blava - 15€/u x 1u = 15€
-    -20% -3€
+    -20% en esports -3€
     ---
     Total: 20€
     """
@@ -55,9 +55,9 @@ Característica: Aplicar descomptes de tipus % a conjunts de productes
     I la pantalla del client del tpv mostra
     """
     Optimus Prime - 20€/u x 1u = 20€
-    -50% -10€
+    -50% en transformer -10€
     Bumblebee - 30€/u x 1u = 30€
-    -50% -15€
+    -50% en transformer -15€
     Gimli - 40€/u x 1u = 40€
     ---
     Total: 65€
