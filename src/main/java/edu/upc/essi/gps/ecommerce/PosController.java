@@ -298,7 +298,6 @@ public class PosController {
                     sb.append(" -").append(difference*countDisc).append("€\n");
                 }
                 else {
-                    System.out.println("difference = "+difference);
                     sb.append(" -").append(difference).append("€\n");
                 }
             }

@@ -208,9 +208,10 @@ public class Sale {
         int unitPrice = lastLine.getUnitPrice();
         int m = d.getM();
         int n = d.getN();
+        int effectiveQ;
         if (candidatsADescompteMxN.size() == 0) {
             if (m <= amountProduct) {
-                int effectiveQ = n * amountProduct/m + amountProduct%m;
+                effectiveQ = n * amountProduct/m + amountProduct%m;
                 applyDiscountAtLastLine(d,effectiveQ);
             }
         }
@@ -218,11 +219,29 @@ public class Sale {
             for (SaleLine l : candidatsADescompteMxN) {
                 int sum = amountProduct + l.getAmount();
                 if (m <= sum ) {
+                    int unitatsAPagar = n * sum/m + sum%m;
+                    effectiveQ = sum - unitatsAPagar;
                     if (unitPrice >= l.getUnitPrice()) {
-                        assignaDescompte(d, l.getProductName(), m - l.getAmount());
+                        if(effectiveQ < 0){
+                            assignaDescompte(d, l.getProductName(), 0);
+                            applyDiscountAtLastLine(d, unitatsAPagar);
+                            lines.getLast().setTeDiscConjAplicat(true);
+                        }
+                        else{
+                            assignaDescompte(d, l.getProductName(),effectiveQ);
+                        }
                         l.setTeDiscConjAplicat(true);
-                    } else {
-                        applyDiscountAtLastLine(d, m - amountProduct);
+                    }
+                    else {
+                        if(effectiveQ < 0) {
+                            applyDiscountAtLastLine(d,0);
+                            assignaDescompte(d, l.getProductName(), unitatsAPagar);
+                            l.setTeDiscConjAplicat(true);
+                            System.out.println("**********************************");
+                        }
+                        else{
+                            applyDiscountAtLastLine(d,effectiveQ);
+                        }
                         lines.getLast().setTeDiscConjAplicat(true);
                     }
                 }
