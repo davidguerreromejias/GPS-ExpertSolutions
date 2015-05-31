@@ -62,7 +62,7 @@ public class StepDefinitions {
 
     @Aleshores("^el sistema confirma el quadrament i tanca el torn$")
     public void checkQuadramentValid() throws Throwable {
-        assertEquals(0,this.posController.getDifTancarTorn());
+        assertEquals(0, this.posController.getDifTancarTorn());
     }
 
     @Aleshores("^el tpv està en ús per en \"([^\"]*)\"$")
@@ -336,11 +336,21 @@ public class StepDefinitions {
 
     @Quan("^afegeixo un descompte del tipus (.*) del (\\d+)% als productes de (.*)$")
     public void addSetDiscount(String tipoDescompte, int discount, String setProducts) throws Throwable {
+        tryCatch(() -> this.posController.addTypeDiscount(tipoDescompte, discount, setProducts));
+    }
+
+    @Donat("^que existeix un descompte del tipus (.*) del (\\d+)% als productes de (.*)$")
+    public void addSetDiscount2(String tipoDescompte, int discount, String setProducts) throws Throwable {
         this.posController.addTypeDiscount(tipoDescompte, discount, setProducts);
     }
 
     @Quan("^afegeixo un descompte del tipus (.*) pels productes de tipus (.*) tal que quan en compres (\\d+) en pagues (\\d+)$")
     public void addSetDiscountMXN(String tipoDescompte, String setProducts, int m, int n) throws Throwable {
+        this.posController.addTypeDiscountMXN(setProducts, m, n, tipoDescompte);
+    }
+
+    @Donat("^que existeix un descompte del tipus (.*) pels productes de tipus (.*) tal que quan en compres (\\d+) en pagues (\\d+)$")
+    public void addSetDiscountMXN2(String tipoDescompte, String setProducts, int m, int n) throws Throwable {
         this.posController.addTypeDiscountMXN(setProducts, m, n, tipoDescompte);
     }
 
@@ -354,11 +364,25 @@ public class StepDefinitions {
         assertEquals(true, this.posController.getDiscountBySetProduct(setProduct, tipusDescompte));
     }
 
-    @Quan("que en (.*) ha iniciat sessió com a gestor$")
-    public void gestorLogin(String gestorName) throws Throwable {
-        tryCatch(() -> this.posController.gestorLogin(gestorName));
+    @Quan("és vol crear un nou login al sistema del tipus (.*) pel treballador anomenat (.*) amb el password (.*)$")
+    public void login(String tipusLogin, String name, String password) throws Throwable {
+        tryCatch(() -> this.posController.createLogin(tipusLogin, name, password));
     }
 
+    @Quan("que existeix un login de tipus (.*) pel treballador anomenat (.*) amb el password (.*)$")
+    public void login2(String tipusLogin, String name, String password) throws Throwable {
+        tryCatch(() -> this.posController.createLogin(tipusLogin, name, password));
+    }
+
+    @Aleshores("existeix un login del tipus (.*) pel treballador anomenat (.*)$")
+    public void checkLoginCreated(String tipusLogin, String name) throws Throwable {
+        assertEquals(true, this.posController.existsLogin(tipusLogin, name));
+    }
+
+    @Quan("en (.*) ha sortit de la sessió de gestor$")
+    public void gestorLogOut(String gestorName) throws Throwable {
+        tryCatch(() -> this.posController.gestorLogOut(gestorName));
+    }
 
     @Donat("que hi ha un descompte definit de tipus (.*) d'un (\\d+)%$")
     public void set_discPerc(String tipus, int amount){
@@ -389,6 +413,16 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.getSetDiscountList(type));
     }
 
+    @Quan ("vull obtenir un llistat dels noms dels (.*)")
+    public void obtenirLListatLogins(String tipoLogin) throws Throwable{
+        tryCatch(() -> this.posController.getListLogins(tipoLogin));
+    }
+
+    @Quan ("vull obtenir un llistat dels usuaris del sistema")
+    public void obtenirAllLListatLogins() throws Throwable{
+        tryCatch(() -> this.posController.getAllListLogins());
+    }
+
     @Quan ("vull obtenir un llistat dels descomptes per tipus de productes que hi ha actius al sistema$")
     public void obtenirTotLListatDescomptesPerTipus() throws Throwable{
         tryCatch(() -> this.posController.getAllSetDiscountList());
@@ -396,13 +430,28 @@ public class StepDefinitions {
 
     @Aleshores("el sistema em mostra un llistat descomptes per tipus de productes que hi ha actius al sistema$")
     public void checkLListatDescomptesPerTipus(String msg){
-        assertEquals(msg, this.posController.getAllSetDiscountList());
+        assertEquals(msg, this.posController.getLlista());
 
     }
 
-    @Aleshores("el sistema em mostra un llistat descomptes per tipus de productes i de tipus de descompte (.*) que hi ha actius al sistema$")
-    public void checkLListatDescomptesPerTipus(String type, String msg){
-        assertEquals(msg, this.posController.getSetDiscountList(type));
+    @Aleshores("el sistema em mostra el llistat de descomptes$")
+    public void checkLListatDescomptesPerTipus2(String msg){
+        assertEquals(msg, this.posController.getLlista());
+    }
+
+    @Aleshores("el sistema em mostra el llistat de (.*) amb els seus respectius noms$")
+    public void checkLListatLogins(String nom, String msg){
+        assertEquals(msg, this.posController.getLlista());
+    }
+
+    @Quan("que en (.*) ha iniciat sessió com a gestor$")
+    public void gestorLogin(String gestorName) throws Throwable {
+        tryCatch(() -> this.posController.gestorLogin(gestorName));
+    }
+
+    @Aleshores("el sistema em mostra el llistat usuaris del sistema$")
+    public void checkLListatLogins2(String msg){
+        assertEquals(msg, this.posController.getLlista());
     }
 
     @Aleshores("el sistema em mostra un llistat de quadraments invàlids que és$")
@@ -502,10 +551,6 @@ public class StepDefinitions {
         this.posController.afegirRegalCollection(regal);
     }
 
-    @Quan("apreto aplicar descompte de tipus regal que inclou (.*) pel producte (.*)$")
-    public void afegirRegal(String regal, String nomP){
-        this.posController.afegirRegal(regal, nomP);
-    }
 
     @Aleshores("els descomptes per productes son$")
     public void checkDiscPercProduct(String msg){
@@ -515,5 +560,16 @@ public class StepDefinitions {
     @Aleshores("els productes que tenen regals son$")
     public void checkRegals(String msg){
         assertEquals(msg, this.posController.visualitzaRegals());
+    }
+
+
+    @Donat("que hi ha un descompte de tipus regal que per la compra de (.*) et regalen (.*)$")
+    public void afegirRegals(String nomProd, String nomRegals){
+        this.posController.afegirRegalCollection(nomProd, nomRegals);
+    }
+
+    @Quan("afegeixo un descompte de tipus regal que per la compra de (.*) et regalen (.*)$")
+    public void afegirRegalsQuan(String nomProd, String nomRegals){
+        this.posController.afegirRegalCollection(nomProd, nomRegals);
     }
 }

@@ -1,5 +1,6 @@
 package edu.upc.essi.gps.ecommerce;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 class SaleLine{
@@ -9,6 +10,8 @@ class SaleLine{
     private int amount;
     private Discount discount;
     private int effectiveN;
+    private boolean esRegal;
+    private String prodRegal;
 
     public SaleLine(Product product, int amount) {
         this.productId = product.getId();
@@ -16,6 +19,7 @@ class SaleLine{
         this.unitPrice = product.getPrice();
         this.amount = amount;
         this.discount = new Discount("None",100);
+        this.esRegal = false;
     }
 
     public long getProductId() {
@@ -34,7 +38,10 @@ class SaleLine{
         return amount;
     }
 
+    public void incrAmount(){amount++;}
+
     public int getTotalPriceRaw() {
+        if (esRegal) return 0;
         return unitPrice * amount;
     }
 
@@ -50,6 +57,7 @@ class SaleLine{
             System.out.println(effectiveN+"**************************");
             return unitPrice * effectiveN;
         }
+        else if (esRegal) return 0;
         else return unitPrice * amount;
     }
 
@@ -62,6 +70,18 @@ class SaleLine{
 
     public Discount getDiscount(){
         return discount;
+    }
+
+    public void setEsRegal(boolean b){
+        esRegal = b;
+    }
+
+    public boolean esRegal(){
+        return esRegal;
+    }
+
+    public void setProdRegal(String prodName){
+        prodRegal = prodName;
     }
 }
 
@@ -76,7 +96,7 @@ public class Sale {
     private final Date data;
     private LinkedList<SaleLine> candidatsADescompteMxN = new LinkedList<>();
 
-    public void addCandidat(){
+    public void addCandidat() {
         candidatsADescompteMxN.add(lines.getLast());
     }
 
@@ -90,21 +110,25 @@ public class Sale {
 
     private boolean estaPagada;
 
-    public String getPaymentForm(){
+    public String getPaymentForm() {
         return paymentForm;
     }
 
-    public void setPaymentForm(String paymentForm){this.paymentForm = paymentForm;};
+    public void setPaymentForm(String paymentForm) {
+        this.paymentForm = paymentForm;
+    }
+
+    ;
 
     public void addProduct(Product p) {
-        lines.add(new SaleLine(p,1));
+        lines.add(new SaleLine(p, 1));
     }
 
     public void addNProducts(Product p, int amount) {
         lines.add(new SaleLine(p, amount));
     }
 
-    public void setTotalPrice(int x){
+    public void setTotalPrice(int x) {
         this.totalPrice = x;
         this.esProva = true;
     }
@@ -136,61 +160,122 @@ public class Sale {
     }
 
     public int getTotal() {
-        if(!esProva) {
+        if (!esProva) {
             int res = 0;
             for (SaleLine l : lines) {
                 res += l.getTotalPrice();
             }
             return res;
-        }
-        else return totalPrice;
+        } else return totalPrice;
     }
 
     public boolean isEmpty() {
         return lines.isEmpty();
     }
 
-    public void deleteLine(String nomProd){
-        for(SaleLine l : lines) if (nomProd == l.getProductName()) lines.remove(l);
+    public void deleteLine(String nomProd) {
+        for (SaleLine l : lines) if (nomProd == l.getProductName()) lines.remove(l);
     }
 
-    public void assignaDescompte(Discount d, String nomP, int effectiveN){
-        for(SaleLine l : lines)
-            if (nomP == l.getProductName()){
+    public void assignaDescompte(Discount d, String nomP, int effectiveN) {
+        for (SaleLine l : lines)
+            if (nomP == l.getProductName()) {
                 l.setDiscount(d);
                 l.setEffectiveN(effectiveN);
             }
-        }
+    }
 
-    public void applyDiscountAtLastLine(Discount d,int effectiveN){
+    public void applyDiscountAtLastLine(Discount d, int effectiveN) {
         lines.getLast().setDiscount(d);
         lines.getLast().setEffectiveN(effectiveN);
     }
 
-    public void tryApplyDiscMxN(Discount d){
+    public void tryApplyDiscMxN(Discount d) {
         SaleLine lastLine = lines.getLast();
         int amountProduct = lastLine.getAmount();
         int unitPrice = lastLine.getUnitPrice();
         int m = d.getM();
         int n = d.getN();
-        if(candidatsADescompteMxN.size() == 0){
+        if (candidatsADescompteMxN.size() == 0) {
             if (m == amountProduct) {
                 applyDiscountAtLastLine(d, n);
             }
-        }
-        else {
-            for(SaleLine l : candidatsADescompteMxN){
+        } else {
+            for (SaleLine l : candidatsADescompteMxN) {
                 int sum = amountProduct + l.getAmount();
-                if( sum >= m){
-                    if(unitPrice >= l.getUnitPrice()){
+                if (sum >= m) {
+                    if (unitPrice >= l.getUnitPrice()) {
                         assignaDescompte(d, l.getProductName(), m - l.getAmount());
-                    }
-                    else {
-                        applyDiscountAtLastLine(d,m - amountProduct);
+                    } else {
+                        applyDiscountAtLastLine(d, m - amountProduct);
                     }
                 }
             }
         }
     }
 
+    public boolean potAfegir(ArrayList<String> prods, String nomRegal) {
+        int count = 0;
+        for (int i = 0; i < prods.size(); ++i) {
+            count += getNumberOfAppearances(prods.get(i));
+        }
+        if (count > getNumberOfRegals(nomRegal)) return true;
+        else return false;
+    }
+
+    public int getNumberOfAppearances(String nomP) {
+        int count = 0;
+        for (SaleLine l : lines) {
+            if (l.getProductName() == nomP && !l.esRegal()) ++count;
+        }
+        return count;
+    }
+
+    public int getNumberOfRegals(String nomP) {
+        int count = 0;
+        for (SaleLine l : lines) {
+            if (l.getProductName() == nomP && l.esRegal()) count += l.getAmount();
+        }
+        return count;
+    }
+
+    public void addRegal(Product p) {
+        String nomP = p.getName();
+        boolean afegit = false;
+        for (SaleLine l : lines) {
+            if (nomP.equals(l.getProductName()) && l.esRegal()){
+                l.incrAmount();
+                afegit = true;
+            }
+        }
+        if(!afegit){
+            SaleLine sl = new SaleLine(p, 1);
+            sl.setEsRegal(true);
+            lines.add(sl);
+        }
+    }
+
+    public ArrayList<String> getNoRegals() {
+        ArrayList<String> noRegals = new ArrayList<>();
+        for (SaleLine l : lines) {
+            if (!l.esRegal()) {
+                int i = 0;
+                while (i < l.getAmount()) {
+                    noRegals.add(l.getProductName());
+                    ++i;
+                }
+            }
+        }
+        return noRegals;
+    }
+
+    public void setToRegal(String nomRegal){
+        boolean assignat = false;
+        for (SaleLine l : lines) {
+            if (nomRegal.equals(l.getProductName()) && !l.esRegal() && !assignat){
+                l.setEsRegal(true);
+                assignat = true;
+            }
+        }
+    }
 }
