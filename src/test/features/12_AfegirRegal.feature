@@ -72,8 +72,7 @@ Per la compra de Optimus Prime s'obté de regal Optimus Prime 2
     """
     Optimus Prime 2 - 2€/u x 1u = 2€
     Optimus Prime 4 - 2€/u x 2u = 4€
-    Optimus Prime 3 - 2€/u x 1u = 0€ (REGAL)
-    Optimus Prime 3 - 2€/u x 1u = 0€ (REGAL)
+    Optimus Prime 3 - 2€/u x 2u = 0€ (REGAL)
     ---
     Total: 6€
     """
@@ -87,13 +86,11 @@ Per la compra de Optimus Prime s'obté de regal Optimus Prime 2
     """
     Optimus Prime 2 - 2€/u x 1u = 2€
     Optimus Prime 5 - 2€/u x 1u = 2€
-    Optimus Prime - 20€/u x 1u = 0€ (REGAL)
-    Optimus Prime - 20€/u x 1u = 0€ (REGAL)
-    Optimus Prime - 20€/u x 1u = 0€ (REGAL)
+    Optimus Prime - 20€/u x 3u = 0€ (REGAL)
     ---
     Total: 4€
     """
-    
+
 
   Escenari: Afegir producte amb regals al final
     Quan afegeixo el producte de codi de barres 1234567 a la venta amb quantitat 2

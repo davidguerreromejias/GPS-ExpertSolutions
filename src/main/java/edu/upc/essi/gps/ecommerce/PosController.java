@@ -291,7 +291,16 @@ public class PosController {
                 int n = sl.getDiscount().getN();
                 int m = sl.getDiscount().getM();
                 int difference = (m - n) * sl.getUnitPrice();
-                sb.append(sl.getDiscount().getM()).append("x").append(n).append(" -").append(difference).append("€\n");
+                sb.append(sl.getDiscount().getM()).append("x").append(n);
+                if(!sl.getTeDiscConjAplicat()){
+                    int countDisc = sl.getAmount()/m;
+                    if(countDisc > 1)sb.append(" x").append(countDisc);
+                    sb.append(" -").append(difference*countDisc).append("€\n");
+                }
+                else {
+                    System.out.println("difference = "+difference);
+                    sb.append(" -").append(difference).append("€\n");
+                }
             }
         }
         sb.append("---\n").append("Total: ").append(currentSale.getTotal()).append("€");
@@ -309,6 +318,7 @@ public class PosController {
             ventesRealitzades.add(currentSale);
             change = "El canvi és: " + canvi + endMessage;
         }
+        finishSale();
     }
 
     public void cardPayment(String paymentForm) {
@@ -358,7 +368,7 @@ public class PosController {
         StringBuilder sb = new StringBuilder();
         sb.append("--Botiga--  --Caixa--  --Venedor--  --Quantitat--\n");
         String espai = " , ";
-        for(QuadramentInvalid q : quadramentsInvalids){
+        for(QuadramentInvalid q : quadramentsInvalids) {
             sb.append(q.getShop()).append(espai).append(q.getPosNum()).append(espai).append(q.getSaleAssistantName()).append(espai).append(q.getDiferencia()).append("€\n");
         }
         sb.append("---\n").append(quadramentsInvalids.size()).append(" quadraments invàlids registrats");
@@ -373,14 +383,6 @@ public class PosController {
             if(l.getPaymentForm().equals("efectiu")) total += l.getTotal();
         }
         return total+initialCash;
-    }
-
-    public void afegirQuadramentInvalid(int diff){
-        quadramentsInvalids.add(new QuadramentInvalid(this.shop, this.posNumber, this.currentSaleAssistantName, diff));
-    }
-
-    public void afegirQuadramentInvalid(String name, int diff){
-        quadramentsInvalids.add(new QuadramentInvalid(this.shop, this.posNumber, name, diff));
     }
 
     public void createPercDiscount(String type, int amount) {
@@ -573,8 +575,24 @@ public class PosController {
     }
 
     public void afegirRegalCollection(String nomProd, String nomRegal) {
-        String[] out = nomRegal.split(", ");
         ArrayList<String> regals = new ArrayList<>();
+        String[] out = nomRegal.split(", ");
+        int number = 0;
+        /*for (int i = 0; i < out.length; ++i){
+            if (out[i].contains("(")){
+                System.out.print("ENTRAAAAA");
+                for(int j = 0; j < out[i].length(); ++j)
+                    if ("(".equals(out[i].charAt(j))){
+                        number = (int)out[i].charAt(j+1);
+                    }
+            }
+            out[i] = out[i].substring(0, out[i].length()-4);
+            while(number > 1){
+                regals.add(out[i]);
+                --number;
+            }
+        }*/
+
         regals.add(nomProd);
         for (int i = 0; i < out.length; ++i)
             regals.add(out[i]);

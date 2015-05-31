@@ -45,13 +45,13 @@ Característica: Tancar el torn al tpv
   Escenari: Un gestor vol consultar el llistat de quadraments invàlids
     Donat que en "Joan" ha iniciat sessio
     I en "Martí" ha tancat el seu torn amb un quadrament invàlid de 5€ negatius
-    I en "Josep" ha tancat el seu torn amb un quadrament invàlid de 12€
+    I en "Josep" ha tancat el seu torn amb un quadrament invàlid de 10€
     Quan vull obtenir un llistat dels quadraments invàlids
     Aleshores el sistema em mostra un llistat de quadraments invàlids que és
     """
     --Botiga--  --Caixa--  --Venedor--  --Quantitat--
     Girona 1 , 1 , Martí , -5€
-    Girona 1 , 1 , Josep , 12€
+    Girona 1 , 1 , Josep , 10€
     ---
     2 quadraments invàlids registrats
     """

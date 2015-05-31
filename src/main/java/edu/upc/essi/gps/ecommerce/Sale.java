@@ -12,6 +12,7 @@ class SaleLine{
     private int effectiveN;
     private boolean esRegal;
     private String prodRegal;
+    private boolean teDiscConjAplicat;
 
     public SaleLine(Product product, int amount) {
         this.productId = product.getId();
@@ -20,6 +21,7 @@ class SaleLine{
         this.amount = amount;
         this.discount = new Discount("None",100);
         this.esRegal = false;
+        this.teDiscConjAplicat = false;
     }
 
     public long getProductId() {
@@ -52,7 +54,6 @@ class SaleLine{
             return (int) totalPrice;
         }
         else if(discount.getTypeOfDiscount().equals("m x n")){
-            System.out.println(effectiveN+"**************************");
             return unitPrice * effectiveN;
         }
         else if (esRegal) return 0;
@@ -63,6 +64,8 @@ class SaleLine{
         discount = d;
         effectiveN = d.getN();
     }
+
+    public int getEffectiveN() {return effectiveN;}
 
     public void setEffectiveN(int effectiveN){this.effectiveN = effectiveN;}
 
@@ -195,17 +198,21 @@ public class Sale {
         int m = d.getM();
         int n = d.getN();
         if (candidatsADescompteMxN.size() == 0) {
-            if (m == amountProduct) {
-                applyDiscountAtLastLine(d, n);
+            if (m <= amountProduct) {
+                int effectiveQ = n * amountProduct/m + amountProduct%m;
+                applyDiscountAtLastLine(d,effectiveQ);
             }
-        } else {
+        }
+        else {
             for (SaleLine l : candidatsADescompteMxN) {
                 int sum = amountProduct + l.getAmount();
-                if (sum >= m) {
+                if (m <= sum ) {
                     if (unitPrice >= l.getUnitPrice()) {
                         assignaDescompte(d, l.getProductName(), m - l.getAmount());
+                        l.setTeDiscConjAplicat(true);
                     } else {
                         applyDiscountAtLastLine(d, m - amountProduct);
+                        lines.getLast().setTeDiscConjAplicat(true);
                     }
                 }
             }

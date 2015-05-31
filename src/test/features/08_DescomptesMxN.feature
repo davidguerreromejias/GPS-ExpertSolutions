@@ -11,7 +11,7 @@ Característica: Aplicar descomptes m x n a conjunts de productes
     I un producte amb nom "Gollum", preu 25€, iva 21% i codi de barres 1234568 i que pertany als tipus "figura d'acció,senyor dels anells"
     I que hi ha un descompte de tipus m x n on m és 3 i n és 2 definit en el sistema pels productes de tipus "figura d'acció"
 
-  Escenari: Aplicar un descompte 3 x 2 a un producte que pertany al conjunt de productes tranformer
+  Escenari: Aplicar un descompte 3 x 2 a un producte que pertany al conjunt de productes figura d'acció
     Quan afegeixo el producte de codi de barres 1234567 a la venta amb quantitat 3
     Aleshores la venta té 1 línia
     I línia de venta 1 és de 3 unitats de "Optimus Prime" a 20€ cada una amb un descompte de tipus "m x n" del "3x2" per pertànyer a "figura d'acció" per un total de 40€
@@ -22,6 +22,32 @@ Característica: Aplicar descomptes m x n a conjunts de productes
     3x2 -20€
     ---
     Total: 40€
+    """
+
+  Escenari: Aplicar un descompte 3 x 2 a un producte amb quantitat superior al descompte i que pertany al conjunt de productes figura d'acció
+    Quan afegeixo el producte de codi de barres 1234567 a la venta amb quantitat 4
+    Aleshores la venta té 1 línia
+    I línia de venta 1 és de 4 unitats de "Optimus Prime" a 20€ cada una amb un descompte de tipus "m x n" del "3x2" per pertànyer a "figura d'acció" per un total de 60€
+    I el total de la venta actual és de 60€
+    I la pantalla del client del tpv mostra
+    """
+    Optimus Prime - 20€/u x 4u = 80€
+    3x2 -20€
+    ---
+    Total: 60€
+    """
+
+  Escenari: Aplicar un descompte 3 x 2 a un producte amb quantitat superior al descompte i que pertany al conjunt de productes figura d'acció
+    Quan afegeixo el producte de codi de barres 1234567 a la venta amb quantitat 6
+    Aleshores la venta té 1 línia
+    I línia de venta 1 és de 6 unitats de "Optimus Prime" a 20€ cada una amb un descompte de tipus "m x n" del "3x2" per pertànyer a "figura d'acció" per un total de 80€
+    I el total de la venta actual és de 80€
+    I la pantalla del client del tpv mostra
+    """
+    Optimus Prime - 20€/u x 6u = 120€
+    3x2 x2 -40€
+    ---
+    Total: 80€
     """
 
   Escenari: Aplicar un descompte 3 x 2 a productes d'un mateix conjunt, el producte actual és el més barat
