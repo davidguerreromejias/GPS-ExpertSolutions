@@ -466,14 +466,6 @@ public class PosController {
         discCollection.add(discPerc);
     }
 
-    public void afegirRegal(String regal, String nomP){
-        Discount d = new Discount();
-        int size = regalCollection.size();
-        for(int i = 0; i<size; ++i)
-            if (regalCollection.get(i).getRegal().getName() == regal) d = regalCollection.get(i);
-        Product p = productsService.findByName(nomP);
-        addProductDiscountRegal(p, d);
-	}
 
 
     public void finishSale(){
@@ -574,8 +566,24 @@ public class PosController {
     }
 
     public void afegirRegalCollection(String nomProd, String nomRegal) {
-        String[] out = nomRegal.split(", ");
         ArrayList<String> regals = new ArrayList<>();
+        String[] out = nomRegal.split(", ");
+        int number = 0;
+        /*for (int i = 0; i < out.length; ++i){
+            if (out[i].contains("(")){
+                System.out.print("ENTRAAAAA");
+                for(int j = 0; j < out[i].length(); ++j)
+                    if ("(".equals(out[i].charAt(j))){
+                        number = (int)out[i].charAt(j+1);
+                    }
+            }
+            out[i] = out[i].substring(0, out[i].length()-4);
+            while(number > 1){
+                regals.add(out[i]);
+                --number;
+            }
+        }*/
+
         regals.add(nomProd);
         for (int i = 0; i < out.length; ++i)
             regals.add(out[i]);
