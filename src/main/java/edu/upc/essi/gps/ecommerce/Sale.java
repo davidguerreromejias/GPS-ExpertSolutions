@@ -42,6 +42,15 @@ class SaleLine{
 
     public void incrAmount(){amount++;}
 
+
+    public boolean getTeDiscConjAplicat(){
+        return teDiscConjAplicat;
+    }
+
+    public void setTeDiscConjAplicat(boolean b){
+        teDiscConjAplicat = b;
+    }
+
     public int getTotalPriceRaw() {
         if (esRegal) return 0;
         return unitPrice * amount;
