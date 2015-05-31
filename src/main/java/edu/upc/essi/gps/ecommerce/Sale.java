@@ -11,6 +11,7 @@ class SaleLine{
     private Discount discount;
     private int effectiveN;
     private boolean esRegal;
+    private String prodRegal;
 
     public SaleLine(Product product, int amount) {
         this.productId = product.getId();
@@ -75,6 +76,10 @@ class SaleLine{
 
     public boolean esRegal(){
         return esRegal;
+    }
+
+    public void setProdRegal(String prodName){
+        prodRegal = prodName;
     }
 }
 

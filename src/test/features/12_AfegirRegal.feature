@@ -53,7 +53,7 @@ Per la compra de Optimus Prime s'obté de regal Optimus Prime 2
     """
 
   Escenari: Afegir producte 1 regal i 1 no regal a la venta
-    I afegeixo el producte de codi de barres 2334567 a la venta amb quantitat 2
+    Quan afegeixo el producte de codi de barres 2334567 a la venta amb quantitat 2
     Aleshores la pantalla del client del tpv mostra
 
     """
@@ -65,7 +65,7 @@ Per la compra de Optimus Prime s'obté de regal Optimus Prime 2
     """
 
   Escenari: Afegir 2 productes amb 2 regals
-    I afegeixo el producte de codi de barres 2334577 a la venta amb quantitat 2
+    Quan afegeixo el producte de codi de barres 2334577 a la venta amb quantitat 2
     I afegeixo el producte de codi de barres 2334567 a la venta amb quantitat 2
     Aleshores la pantalla del client del tpv mostra
 
@@ -80,7 +80,7 @@ Per la compra de Optimus Prime s'obté de regal Optimus Prime 2
 
 
   Escenari: Afegir 2 regals del mateix producte
-    I afegeixo el producte de codi de barres 1234777 a la venta amb quantitat 1
+    Quan afegeixo el producte de codi de barres 1234777 a la venta amb quantitat 1
     I afegeixo el producte de codi de barres 1234567 a la venta amb quantitat 3
     Aleshores la pantalla del client del tpv mostra
 
@@ -90,6 +90,21 @@ Per la compra de Optimus Prime s'obté de regal Optimus Prime 2
     Optimus Prime - 20€/u x 1u = 0€ (REGAL)
     Optimus Prime - 20€/u x 1u = 0€ (REGAL)
     Optimus Prime - 20€/u x 1u = 0€ (REGAL)
+    ---
+    Total: 4€
+    """
+    
+
+  Escenari: Afegir producte amb regals al final
+    Quan afegeixo el producte de codi de barres 1234567 a la venta amb quantitat 2
+    I afegeixo el producte de codi de barres 1234777 a la venta amb quantitat 1
+    Aleshores la pantalla del client del tpv mostra
+
+    """
+    Optimus Prime 2 - 2€/u x 1u = 2€
+    Optimus Prime - 20€/u x 1u = 0€ (REGAL)
+    Optimus Prime - 20€/u x 1u = 0€ (REGAL)
+    Optimus Prime 5 - 2€/u x 1u = 2€
     ---
     Total: 4€
     """
