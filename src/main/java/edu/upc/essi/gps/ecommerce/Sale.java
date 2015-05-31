@@ -11,7 +11,6 @@ class SaleLine{
     private Discount discount;
     private int effectiveN;
     private boolean esRegal;
-    private String prodRegal;
     private boolean teDiscConjAplicat;
 
     public SaleLine(Product product, int amount) {
@@ -39,9 +38,6 @@ class SaleLine{
     public int getAmount() {
         return amount;
     }
-
-    public void incrAmount(){amount++;}
-
 
     public boolean getTeDiscConjAplicat(){
         return teDiscConjAplicat;
@@ -92,9 +88,10 @@ class SaleLine{
         return esRegal;
     }
 
-    public void setProdRegal(String prodName){
-        prodRegal = prodName;
-    }
+
+    public void incrAmount(){amount++;}
+
+    public void decrAmount(){amount--;}
 }
 
 public class Sale {
@@ -186,7 +183,7 @@ public class Sale {
     }
 
     public void deleteLine(String nomProd) {
-        for (SaleLine l : lines) if (nomProd == l.getProductName()) lines.remove(l);
+        for (SaleLine l : lines) if (nomProd == l.getProductName() && !l.esRegal()) lines.remove(l);
     }
 
     public void assignaDescompte(Discount d, String nomP, int effectiveN) {
@@ -308,9 +305,16 @@ public class Sale {
         boolean assignat = false;
         for (SaleLine l : lines) {
             if (nomRegal.equals(l.getProductName()) && !l.esRegal() && !assignat){
-                l.setEsRegal(true);
-                assignat = true;
+                if (l.getAmount() == 1) deleteLine(l.getProductName());
+                else l.decrAmount();
+                for (SaleLine l2 : lines){
+                    if (nomRegal.equals(l2.getProductName()) && l2.esRegal()){
+                        l2.incrAmount();
+                        assignat = true;
+                    }
+                }
             }
         }
     }
+
 }
