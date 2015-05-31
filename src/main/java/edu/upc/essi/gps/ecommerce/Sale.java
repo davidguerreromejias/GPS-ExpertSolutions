@@ -40,6 +40,8 @@ class SaleLine{
         return amount;
     }
 
+    public void incrAmount(){amount++;}
+
     public int getTotalPriceRaw() {
         if (esRegal) return 0;
         return unitPrice * amount;
@@ -239,15 +241,25 @@ public class Sale {
     public int getNumberOfRegals(String nomP) {
         int count = 0;
         for (SaleLine l : lines) {
-            if (l.getProductName() == nomP) ++count;
+            if (l.getProductName() == nomP && l.esRegal()) count += l.getAmount();
         }
         return count;
     }
 
     public void addRegal(Product p) {
-        SaleLine sl = new SaleLine(p, 1);
-        sl.setEsRegal(true);
-        lines.add(sl);
+        String nomP = p.getName();
+        boolean afegit = false;
+        for (SaleLine l : lines) {
+            if (nomP.equals(l.getProductName()) && l.esRegal()){
+                l.incrAmount();
+                afegit = true;
+            }
+        }
+        if(!afegit){
+            SaleLine sl = new SaleLine(p, 1);
+            sl.setEsRegal(true);
+            lines.add(sl);
+        }
     }
 
     public ArrayList<String> getNoRegals() {
