@@ -90,13 +90,14 @@ Característica: Aplicar descomptes m x n a conjunts de productes
     Quan afegeixo el producte de codi de barres 2234567 a la venta amb quantitat 1
     Aleshores la venta té 2 línies
     I línia de venta 1 és de 6 unitats de "Raqueta" a 20€ cada una amb un descompte de tipus "m x n" del "5x3" per pertànyer a "esports" per un total de 100€
-    I línia de venta 1 és de 1 unitats de "Pilota verda" a 10€ cada una amb un descompte de tipus "m x n" del "5x3" per pertànyer a "esports" per un total de 0€
+    I línia de venta 2 és de 1 unitats de "Pilota verda" a 10€ cada una amb un descompte de tipus "m x n" del "5x3" per pertànyer a "esports" per un total de 0€
     I el total de la venta actual és de 100€
     I la pantalla del client del tpv mostra
     """
-    Optimus Prime - 20€/u x 2u = 40€
-    3x2 -20€
-    Gollum - 25€/u x 1u = 25€
+    Raqueta - 20€/u x 6u = 120€
+    5x3 -20€
+    Pilota verda - 10€/u x 1u = 10€
+    5x3 -10€
     ---
-    Total: 45€
+    Total: 100€
     """

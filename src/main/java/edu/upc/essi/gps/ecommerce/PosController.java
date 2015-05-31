@@ -302,6 +302,7 @@ public class PosController {
                     sb.append(" -").append(difference*countDisc).append("€\n");
                 }
                 else {
+                    difference = (sl.getAmount() - sl.getEffectiveN()) * sl.getUnitPrice();
                     sb.append(" -").append(difference).append("€\n");
                 }
             }

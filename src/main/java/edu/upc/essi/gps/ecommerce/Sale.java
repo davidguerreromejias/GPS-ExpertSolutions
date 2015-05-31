@@ -57,7 +57,6 @@ class SaleLine{
             double discdouble = discount.getAmountDiscount();
             discdouble = discdouble / 100;
             double totalPrice = (unitPrice * amount) - (unitPrice * amount * discdouble);
-            System.out.println(totalPrice);
             return (int) totalPrice;
         }
         else if(discount.getTypeOfDiscount().equals("m x n")){
@@ -223,11 +222,9 @@ public class Sale {
                             assignaDescompte(d, l.getProductName(), 0);
                             applyDiscountAtLastLine(d, unitatsAPagar - l.getAmount());
                             lines.getLast().setTeDiscConjAplicat(true);
-                            System.out.println("if1");
                         }
                         else if(qGratis < l.getAmount()){
                             assignaDescompte(d, l.getProductName(),l.getAmount() - qGratis);
-                            System.out.println("else1");
                         }
                         else {
                             assignaDescompte(d, l.getProductName(), 0);
@@ -236,14 +233,12 @@ public class Sale {
                     }
                     else {
                         if(qGratis > amountProduct) {
-                            applyDiscountAtLastLine(d,0);
+                            applyDiscountAtLastLine(d, 0);
                             assignaDescompte(d, l.getProductName(), l.getAmount() - amountProduct);
                             l.setTeDiscConjAplicat(true);
-                            System.out.println("**********************************");
                         }
                         else if(qGratis < amountProduct){
                             applyDiscountAtLastLine(d,amountProduct - qGratis);
-                            System.out.println("else2");
                         }
                         else{
                             applyDiscountAtLastLine(d,0);
