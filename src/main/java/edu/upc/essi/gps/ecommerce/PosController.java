@@ -115,6 +115,10 @@ public class PosController {
         this.setDiscountCollection = new setDiscountCollection();
         this.currentSaleAssistantName = null;
         this.historicSales = new historicSales();
+
+        this.setDiscountCollection = new setDiscountCollection();
+        this.currentSaleAssistantName = null;
+        this.UsersCollection = new UsersCollection();
     }
 
     public PosController(String shop) {
@@ -767,6 +771,8 @@ public class PosController {
     }
 
     public void loginSistema(String nom, String password) {
+        System.out.println("AQUIIIIIII--->"+UsersCollection.getRol(nom,password));
+
         if (!UsersCollection.usuariCorrecte(nom,password))
             throw new IllegalStateException("El nom o la contrasenya és incorrecte");
         UsersCollection.addUserActive(nom, password);
