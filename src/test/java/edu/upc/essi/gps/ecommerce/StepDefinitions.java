@@ -459,6 +459,12 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.loginSistema(nom, password));
     }
 
+    @Quan ("un usuari intenta accedir al sistema amb el nom d'usuari (.*) amb el password (.*)$")
+    public void loginSistema4(String nom, String password) {
+        tryCatch(() -> this.posController.loginSistema(nom, password));
+    }
+
+
     @Donat ("que ha iniciat sessió al sistema l'usuari (.*) amb el password (.*)")
     public void loginSistema2(String nom, String password) {
         tryCatch(() -> this.posController.loginSistema(nom, password));

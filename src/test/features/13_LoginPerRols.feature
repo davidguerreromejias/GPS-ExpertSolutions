@@ -89,6 +89,8 @@ Característica: Afegir un regal a un producte
     Quan un usuari accedeix al sistema posa el nom d'usuari Joan amb el password 123456789
     Aleshores el venedor amb el nom Joan ha iniciat sessió amb el password 123456789
 
+  Escenari: Error al accedir al sistema per culpa de posar malament el nom d'usuari
+
   Escenari: Hi ha varis usuaris que han iniciat sessió al sistema
     Donat que existeix un login de tipus gestor pel treballador anomenat Joan amb el password 123456789
     I que existeix un login de tipus gestor pel treballador anomenat Pere amb el password 173529363
@@ -129,8 +131,14 @@ Característica: Afegir un regal a un producte
 
   Escenari: Un venedor intenta accedir al sistema amb el nom i la contrasenya
     Donat que existeix un login de tipus venedor pel treballador anomenat Joan amb el password 123456789
+    I que un usuari a accedit al sistema amb el nom d'usuari Joan amb el password 123456789
     Quan en Joan tanca sessió
     Aleshores el venedor amb el nom Joan ha tancat sessió
+
+  Escenari: Error al intentar accedir a un usuari
+    Donat que existeix un login de tipus venedor pel treballador anomenat Joan amb el password 123456789
+    Quan  un usuari intenta accedir al sistema amb el nom d'usuari Pere amb el password 123456789
+    Aleshores obtinc un error que diu: "El nom o la contrasenya és incorrecte"
 
   Escenari: Varis usuaris inicien i tanquen sessió
     Donat que existeix un login de tipus gestor pel treballador anomenat Joan amb el password 123456789

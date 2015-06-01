@@ -733,7 +733,7 @@ public class PosController {
     }
 
     public void loginSistema(String nom, String password) {
-        if (UsersCollection.usuariCorrecte(nom,password))
+        if (!UsersCollection.usuariCorrecte(nom,password))
             throw new IllegalStateException("El nom o la contrasenya és incorrecte");
         UsersCollection.addUserActive(nom, password);
     }

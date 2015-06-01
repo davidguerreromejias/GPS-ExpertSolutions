@@ -74,7 +74,7 @@ public class UsersCollection {
 
     public boolean usuariCorrecte(String nom, String password) {
         for (User u: usersList) {
-            if (u.getName().equals(nom) && u.getName().equals(password)) return true;
+            if (u.getName().equals(nom) && u.getPassword().equals(password)) return true;
         }
         return false;
     }
