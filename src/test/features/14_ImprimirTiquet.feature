@@ -7,6 +7,7 @@ Característica: Acabar una venta i imprimir el tiquet
     Donat un producte amb nom "Optimus Prime", preu 25€, iva 21% i codi de barres 1234567 i que pertany als tipus "figura d'acció,transformer"
     I un producte amb nom "Pilota de platja", preu 10€, iva 21% i codi de barres 1231231 i que pertany als tipus "esports,platja"
     I un producte amb nom "Reproductor de música", preu 30€, iva 21% i codi de barres 7777777 i que pertany als tipus "electrònica,música"
+    I un producte amb nom "CD de música", preu 5€, iva 21% i codi de barres 2222222 i que pertany als tipus "música"
     I que estem al tpv número 1 de la botiga "Girona 1"
     I que existeix un login de tipus venedor pel treballador anomenat Joan amb el password 173529363
     I que un usuari a accedit al sistema amb el nom d'usuari Joan amb el password 173529363
