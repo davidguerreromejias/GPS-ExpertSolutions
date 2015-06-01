@@ -1,6 +1,7 @@
 package edu.upc.essi.gps.ecommerce;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by GerardDuch on 30/05/15.
@@ -118,5 +119,25 @@ public class UsersCollection {
         }
 
         return sb.toString();
+    }
+
+    public void logout(String nom) {
+        Iterator<User> it = activeUsers.iterator();
+        User aux;
+        Boolean trobat = false;
+        while( it.hasNext() && !trobat){
+            aux = it.next();
+            if ( aux.getName().equals(nom) && !trobat) {
+                trobat=true;
+                it.remove();
+            }
+        }
+    }
+
+    public boolean checkUserNotActive(String tipusLogin, String name) {
+        for (User u: activeUsers) {
+            if (u.getRol().equals(tipusLogin) && u.getName().equals(name)) return false;
+        }
+        return true;
     }
 }

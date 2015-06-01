@@ -746,5 +746,13 @@ public class PosController {
     public void getActiveUsers() {
         llista = UsersCollection.getActiveUsers();
     }
+
+    public void logoutSistema(String nom) {
+        UsersCollection.logout(nom);
+    }
+
+    public boolean userNotActive(String tipusLogin, String name) {
+        return UsersCollection.checkUserNotActive(tipusLogin,name);
+    }
 }
 

@@ -444,6 +444,16 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.loginSistema(nom, password));
     }
 
+    @Quan ("en (.*) tanca sessió$")
+    public void logoutSistema(String nom) {
+        tryCatch(() -> this.posController.logoutSistema(nom));
+    }
+
+    @Donat ("que un usuari a accedit al sistema amb el nom d'usuari (.*) amb el password (.*)$")
+    public void loginSistema3(String nom, String password) {
+        tryCatch(() -> this.posController.loginSistema(nom, password));
+    }
+
     @Donat ("que ha iniciat sessió al sistema l'usuari (.*) amb el password (.*)")
     public void loginSistema2(String nom, String password) {
         tryCatch(() -> this.posController.loginSistema(nom, password));
@@ -453,6 +463,12 @@ public class StepDefinitions {
     public void checkUserActive(String tipusLogin, String name, String password) throws Throwable {
         assertEquals(true, this.posController.userActive(tipusLogin, name, password));
     }
+
+    @Aleshores("el (.*) amb el nom (.*) ha tancat sessió$")
+    public void checkUserNotActive(String tipusLogin, String name) throws Throwable {
+        assertEquals(true, this.posController.userNotActive(tipusLogin, name));
+    }
+
 
 
     @Quan ("vull obtenir un llistat dels descomptes per tipus de productes que hi ha actius al sistema$")

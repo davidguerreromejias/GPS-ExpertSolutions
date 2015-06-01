@@ -120,3 +120,14 @@ Característica: Afegir un regal a un producte
     venedor , Lidia , 111111111
 
     """
+
+  Escenari: Un gestor intenta sortir del sistema amb el nom
+    Donat que existeix un login de tipus gestor pel treballador anomenat Joan amb el password 123456789
+    I que un usuari a accedit al sistema amb el nom d'usuari Joan amb el password 123456789
+    Quan en Joan tanca sessió
+    Aleshores el gestor amb el nom Joan ha tancat sessió
+
+  Escenari: Un venedor intenta accedir al sistema amb el nom i la contrasenya
+    Donat que existeix un login de tipus venedor pel treballador anomenat Joan amb el password 123456789
+    Quan en Joan tanca sessió
+    Aleshores el venedor amb el nom Joan ha tancat sessió
