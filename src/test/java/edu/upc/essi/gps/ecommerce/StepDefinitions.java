@@ -429,6 +429,11 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.getAllListLogins());
     }
 
+    @Quan ("un usuari accedeix al sistema posa el nom d'usuari (.*) amb el password (.*)$")
+    public void loginSistema(String nom, String password) {
+        tryCatch(() -> this.posController.loginSistema(nom,password));
+    }
+
     @Quan ("vull obtenir un llistat dels descomptes per tipus de productes que hi ha actius al sistema$")
     public void obtenirTotLListatDescomptesPerTipus() throws Throwable{
         tryCatch(() -> this.posController.getAllSetDiscountList());

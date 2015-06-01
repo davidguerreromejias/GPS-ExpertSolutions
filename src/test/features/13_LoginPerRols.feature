@@ -4,7 +4,7 @@
 Característica: Afegir un regal a un producte
 
   #PREGUNTES QUE FER:
-    #s'ha de crear dos logins, un pel gestor i per treballador? O un gestor tambe es treballador a la vegada (gestor=treballador+gestor?)
+    #un gestor també és venedor, no es posa dos usuaris iguals!
 
   Rerefons:
     Donat que estem a la botiga "Girona 1"
@@ -78,3 +78,8 @@ Característica: Afegir un regal a un producte
     venedor , Jordi , 987654321
 
     """
+
+  Escenari: Un gestor intenta accedir al sistema amb el nom i la contrasenya
+    Donat que existeix un login de tipus gestor pel treballador anomenat Joan amb el password 123456789
+    Quan un usuari accedeix al sistema posa el nom d'usuari Joan amb el password 123456789
+    Aleshores en gestor amb el nom Joan ha iniciat sessió

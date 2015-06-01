@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class UsersCollection {
     private ArrayList<User> usersList;
+    private ArrayList<User> activeUsers;
 
     public UsersCollection () {
         usersList = new ArrayList<User>();
@@ -67,5 +68,25 @@ public class UsersCollection {
         }
 
         return sb.toString();
+    }
+
+    public boolean usuariCorrecte(String nom, String password) {
+        for (User u: usersList) {
+            if (u.getName().equals(nom) && u.getName().equals(password)) return true;
+        }
+        return false;
+    }
+
+    public String getRol(String nom, String password) {
+        String rol="";
+        for (User u: usersList) {
+            if (u.getName().equals(nom) && u.getName().equals(password)) rol=u.getRol();
+        }
+        return rol;
+    }
+
+    public void addUserActive(String nom, String password) {
+        User u = new User(getRol(nom,password), nom, password);
+        activeUsers.add(u);
     }
 }
