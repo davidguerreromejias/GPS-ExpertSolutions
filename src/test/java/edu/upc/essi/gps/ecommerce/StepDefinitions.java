@@ -583,8 +583,8 @@ public class StepDefinitions {
         assertEquals(msg, this.posController.getMessage());
     }
 
-    @Quan("el gestor \"([^\"]*)\" visualitza tot l'historial")
-    public void visualitzaXTot (String gestor) throws Throwable{
+    @Quan("demana visualitzar tot l'historial")
+    public void visualitzaXTot () throws Throwable{
         this.posController.visualitzaTotHistorial();
     }
 

@@ -34,7 +34,7 @@ Característica: Historial de ventes
     I que en "Pere" ha iniciat sessió com a gestor
 
   Escenari: Visualitzar tot l'historial
-    Quan el gestor "Pere" visualitza tot l'historial
+    Quan demana visualitzar tot l'historial
     Aleshores el resultat de tot l'historial és
     """
     Historial de ventes
