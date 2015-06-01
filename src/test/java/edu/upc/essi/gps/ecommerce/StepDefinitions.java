@@ -449,6 +449,11 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.logoutSistema(nom));
     }
 
+    @Donat ("que en (.*) tanca sessió$")
+    public void logoutSistema2(String nom) {
+        tryCatch(() -> this.posController.logoutSistema(nom));
+    }
+
     @Donat ("que un usuari a accedit al sistema amb el nom d'usuari (.*) amb el password (.*)$")
     public void loginSistema3(String nom, String password) {
         tryCatch(() -> this.posController.loginSistema(nom, password));

@@ -131,3 +131,37 @@ Característica: Afegir un regal a un producte
     Donat que existeix un login de tipus venedor pel treballador anomenat Joan amb el password 123456789
     Quan en Joan tanca sessió
     Aleshores el venedor amb el nom Joan ha tancat sessió
+
+  Escenari: Varis usuaris inicien i tanquen sessió
+    Donat que existeix un login de tipus gestor pel treballador anomenat Joan amb el password 123456789
+    I que existeix un login de tipus gestor pel treballador anomenat Pere amb el password 173529363
+    I que existeix un login de tipus gestor pel treballador anomenat Claudia amb el password pde925384
+    I que existeix un login de tipus gestor pel treballador anomenat Daniel amb el password 111111111
+    I que existeix un login de tipus gestor pel treballador anomenat Maria amb el password 987654321
+    I que existeix un login de tipus venedor pel treballador anomenat Miquel amb el password 173529363
+    I que existeix un login de tipus venedor pel treballador anomenat Joana amb el password pde925384
+    I que existeix un login de tipus venedor pel treballador anomenat Lidia amb el password 111111111
+    I que existeix un login de tipus venedor pel treballador anomenat Jordi amb el password 987654321
+    I que ha iniciat sessió al sistema l'usuari Joan amb el password 123456789
+    I que ha iniciat sessió al sistema l'usuari Pere amb el password 173529363
+    I que ha iniciat sessió al sistema l'usuari Claudia amb el password pde925384
+    I que ha iniciat sessió al sistema l'usuari Daniel amb el password 111111111
+    I que ha iniciat sessió al sistema l'usuari Miquel amb el password 173529363
+    I que ha iniciat sessió al sistema l'usuari Joana amb el password pde925384
+    I que ha iniciat sessió al sistema l'usuari Lidia amb el password 111111111
+    I que en Joan tanca sessió
+    I que en Lidia tanca sessió
+    I que en Miquel tanca sessió
+    I que ha iniciat sessió al sistema l'usuari Miquel amb el password 173529363
+    I que en Daniel tanca sessió
+    Quan vull obtenir un llistat dels usuaris actius al sistema
+    Aleshores el sistema em mostra el llistat usuaris que han iniciat sessio al sistema
+        """
+    ------ USUARIS ACTIUS AL SISTEMA -----
+    --Tipus Login--  --Nom--  --Password--
+    gestor , Pere , 173529363
+    gestor , Claudia , pde925384
+    venedor , Joana , pde925384
+    venedor , Miquel , 173529363
+
+    """
