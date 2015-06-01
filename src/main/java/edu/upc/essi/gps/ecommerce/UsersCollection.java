@@ -11,6 +11,7 @@ public class UsersCollection {
 
     public UsersCollection () {
         usersList = new ArrayList<User>();
+        activeUsers = new ArrayList<User>();
     }
 
     public void addLogin(String tipusLogin, String name, String password) {
@@ -80,7 +81,7 @@ public class UsersCollection {
     public String getRol(String nom, String password) {
         String rol="";
         for (User u: usersList) {
-            if (u.getName().equals(nom) && u.getName().equals(password)) rol=u.getRol();
+            if (u.getName().equals(nom) && u.getPassword().equals(password)) rol=u.getRol();
         }
         return rol;
     }
@@ -88,5 +89,34 @@ public class UsersCollection {
     public void addUserActive(String nom, String password) {
         User u = new User(getRol(nom,password), nom, password);
         activeUsers.add(u);
+    }
+
+    public boolean checkUserActive(String tipusLogin, String name, String password) {
+        for (User u: activeUsers) {
+            if (u.getRol().equals(tipusLogin) && u.getName().equals(name) && u.getPassword().equals(password)) return true;
+        }
+        return false;
+    }
+
+    public String getActiveUsers() {
+        if (activeUsers.isEmpty())
+            throw new IllegalArgumentException("Actualment no existeix cap usuari que hagi iniciat sessio");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("------ USUARIS ACTIUS AL SISTEMA -----\n");
+        sb.append("--Tipus Login--  --Nom--  --Password--\n");
+        String espai = " , ";
+
+        for (User u : activeUsers) {
+            if (u.getRol().equals("gestor"))
+                sb.append(u.getRol()).append(espai).append(u.getName()).append(espai).append(u.getPassword()).append("\n");
+        }
+
+        for (User u : activeUsers) {
+            if (u.getRol().equals("venedor"))
+                sb.append(u.getRol()).append(espai).append(u.getName()).append(espai).append(u.getPassword()).append("\n");
+        }
+
+        return sb.toString();
     }
 }

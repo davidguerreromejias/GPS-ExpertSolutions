@@ -720,5 +720,14 @@ public class PosController {
             throw new IllegalStateException("El nom o la contrasenya és incorrecte");
         UsersCollection.addUserActive(nom, password);
     }
+
+    public boolean userActive(String tipusLogin, String name, String password) {
+        return UsersCollection.checkUserActive(tipusLogin, name, password);
+    }
+
+
+    public void getActiveUsers() {
+        llista = UsersCollection.getActiveUsers();
+    }
 }
 

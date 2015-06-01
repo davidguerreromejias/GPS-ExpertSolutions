@@ -1,7 +1,9 @@
 package edu.upc.essi.gps.ecommerce;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.ca.Aleshores;
 import cucumber.api.java.ca.Donat;
+import cucumber.api.java.ca.I;
 import cucumber.api.java.ca.Quan;
 
 import java.util.Date;
@@ -429,10 +431,26 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.getAllListLogins());
     }
 
+    @Quan ("vull obtenir un llistat dels usuaris actius al sistema")
+    public void obtenirActiveUsers() throws Throwable{
+        tryCatch(() -> this.posController.getActiveUsers());
+    }
+
     @Quan ("un usuari accedeix al sistema posa el nom d'usuari (.*) amb el password (.*)$")
     public void loginSistema(String nom, String password) {
-        tryCatch(() -> this.posController.loginSistema(nom,password));
+        tryCatch(() -> this.posController.loginSistema(nom, password));
     }
+
+    @Donat ("que ha iniciat sessió al sistema l'usuari (.*) amb el password (.*)")
+    public void loginSistema2(String nom, String password) {
+        tryCatch(() -> this.posController.loginSistema(nom, password));
+    }
+
+    @Aleshores("el (.*) amb el nom (.*) ha iniciat sessió amb el password (.*)$")
+    public void checkUserActive(String tipusLogin, String name, String password) throws Throwable {
+        assertEquals(true, this.posController.userActive(tipusLogin, name, password));
+    }
+
 
     @Quan ("vull obtenir un llistat dels descomptes per tipus de productes que hi ha actius al sistema$")
     public void obtenirTotLListatDescomptesPerTipus() throws Throwable{
@@ -462,6 +480,11 @@ public class StepDefinitions {
 
     @Aleshores("el sistema em mostra el llistat usuaris del sistema$")
     public void checkLListatLogins2(String msg){
+        assertEquals(msg, this.posController.getLlista());
+    }
+
+    @Aleshores("el sistema em mostra el llistat usuaris que han iniciat sessio al sistema$")
+    public void checkLListatLogins3(String msg){
         assertEquals(msg, this.posController.getLlista());
     }
 
@@ -594,4 +617,5 @@ public class StepDefinitions {
     public void afegirRegalsQuan(String nomProd, String nomRegals){
         this.posController.afegirRegalCollection(nomProd, nomRegals);
     }
+
 }
