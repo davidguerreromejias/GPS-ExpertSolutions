@@ -13,7 +13,7 @@ public class Discount implements Entity{
     private String typeOfDiscount;
     private int m;
     private int n;
-    private String subType;
+    private String conjuntAAplicar;
     private Product regal;
 
     public Discount(){}
@@ -23,17 +23,17 @@ public class Discount implements Entity{
         this.typeOfDiscount = typeOfDiscount;
     }
 
-    public Discount(String typeOfDiscount, String subtype,int m, int n){
+    public Discount(String typeOfDiscount, String conjuntAAplicar,int m, int n){
         this.typeOfDiscount = typeOfDiscount;
         this.m = m;
         this.n = n;
-        this.subType = subtype;
+        this.conjuntAAplicar = conjuntAAplicar;
     }
 
-    public Discount(String typeOfDiscount, String subType, int amountDiscount){
+    public Discount(String typeOfDiscount, String conjuntAAplicar, int amountDiscount){
         this.amountDiscount = amountDiscount;
         this.typeOfDiscount = typeOfDiscount;
-        this.subType = subType;
+        this.conjuntAAplicar = conjuntAAplicar;
     }
 
     public Discount(String type){
@@ -56,8 +56,8 @@ public class Discount implements Entity{
         amountDiscount = disc;
     }
 
-    public String getSubType(){
-        return subType;
+    public String getConjuntAAplicar(){
+        return conjuntAAplicar;
     }
 
     @Override
