@@ -562,7 +562,7 @@ public class StepDefinitions {
     @Donat("que la venta ha sigut pagada amb un import de (\\d+)€ i guardada al historial.")
         public void saleOfX(int preuTotal) throws Throwable{
             Random rn = new Random();
-            int randomNum = (int)(Math.random());
+            int randomNum = (int)(Math.random() * 1000);
             this.productsService.newProduct(this.posController.getSaltString(), preuTotal, 21 , randomNum , "platja");
             this.posController.addProductByBarCode(randomNum);
             this.posController.finishSale();
@@ -574,8 +574,8 @@ public class StepDefinitions {
     }
 
 
-    @Quan("el gestor \"([^\"]*)\" introdueix la data \"([^\"]*)\"")
-    public void visualitzaXData (String gestor, String data) throws Throwable{
+    @Quan("demana les ventes per data \"([^\"]*)\"")
+    public void visualitzaXData (String data) throws Throwable{
         this.posController.visualitzaVentesPerData(data);
     }
 
@@ -584,8 +584,8 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.createTiquet());
     }
 
-    @Quan("el gestor \"([^\"]*)\" introdueix el venedor \"([^\"]*)\"")
-    public void visualitzaXVenedor (String gestor, String venedor) throws Throwable{
+    @Quan("demana les ventes del venedor \"([^\"]*)\"")
+    public void visualitzaXVenedor (String venedor) throws Throwable{
         this.posController.visualitzaVentesPerVenedor(venedor);
     }
 
@@ -599,8 +599,8 @@ public class StepDefinitions {
         assertEquals(msg, this.posController.getMessage());
     }
 
-    @Quan("el gestor \"([^\"]*)\" visualitza tot l'historial")
-    public void visualitzaXTot (String gestor) throws Throwable{
+    @Quan("demana visualitzar tot l'historial")
+    public void visualitzaXTot () throws Throwable{
         this.posController.visualitzaTotHistorial();
     }
 
