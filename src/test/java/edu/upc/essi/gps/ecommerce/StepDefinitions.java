@@ -270,23 +270,8 @@ public class StepDefinitions {
             aux = Integer.toString(sl.getDiscount().getM())+"x"+Integer.toString(sl.getDiscount().getN());
         }
         assertEquals(amountDesc,aux);
-        assertEquals(cjt, sl.getDiscount().getSubType());
+        assertEquals(cjt, sl.getDiscount().getConjuntAAplicar());
     }
-
-   /* @Aleshores("^línia de venta (\\d+) és de (\\d+) unitats de \"([^\"]*)\" a (\\d+)€ cada una amb un descompte de tipus " +
-            "\"([^\"]*)\" del (.*) per pertànyer a \"([^\"]*)\" per un total de (\\d+)€$")
-    public void línia_de_venta_és_de_unitats_de_a_€_cada_una_per_un_total_de_€_amb_descompte_mxn(int lineNumber, int units, String productName,
-                                                                                             int unitPrice, String typeDesc, String amountDesc,
-                                                                                             String cjt,int totalPrice) throws Throwable {
-        SaleLine sl = this.posController.getCurrentSale().getLines().get(lineNumber - 1);
-        assertEquals(units,sl.getAmount());
-        assertEquals(unitPrice,sl.getUnitPrice());
-        assertEquals(totalPrice, sl.getTotalPrice());
-        assertEquals(productName,sl.getProductName());
-        assertEquals(typeDesc,sl.getDiscount().getTypeOfDiscount());
-        assertEquals(amountDesc, sl.getDiscount().getAmountDiscount());
-        assertEquals(cjt, sl.getDiscount().getSubType());
-    }*/
 
     @Donat("^la botiga \"([^\"]*)\"")
     public void createHistorial(String shop) throws Throwable{
@@ -577,8 +562,8 @@ public class StepDefinitions {
     }
 
     @Donat("^que hi ha un descompte de tipus (.*) definit en el sistema pels productes de tipus (.*) d'un (\\d+)%$")
-    public void createCjtDiscount(String type, String subType, int amountDisc) throws Throwable {
-        this.posController.createCjtDiscount(type, subType, amountDisc);
+    public void createCjtDiscount(String type, String conjuntAAplicar, int amountDisc) throws Throwable {
+        this.posController.createCjtDiscount(type, conjuntAAplicar, amountDisc);
     }
 
 

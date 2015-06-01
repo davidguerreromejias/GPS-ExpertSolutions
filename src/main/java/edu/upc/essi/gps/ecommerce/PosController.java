@@ -252,9 +252,9 @@ public class PosController {
         Discount disc = new Discount("");
         while (it.hasNext() && !found){
             disc = it.next();
-            String SubTypeOfDisc = disc.getSubType();
+            String conjuntAAplicar = disc.getConjuntAAplicar();
             for(int i = 0; i < types.size() && !found; ++i) {
-                if (SubTypeOfDisc.equals(types.get(i))){
+                if (conjuntAAplicar.equals(types.get(i))){
                     found = true;
                 }
             }
@@ -307,7 +307,7 @@ public class PosController {
             sb.append("\n");
             if(sl.getDiscount().getTypeOfDiscount().equals("percentatge")) {
                 int amountDisc = sl.getDiscount().getAmountDiscount();
-                sb.append("-").append(amountDisc).append("% ").append("en ").append(sl.getDiscount().getSubType());
+                sb.append("-").append(amountDisc).append("% ").append("en ").append(sl.getDiscount().getConjuntAAplicar());
                 sb.append(" -").append(sl.getTotalPriceRaw() - sl.getTotalPrice()).append("€\n");
             }
 
@@ -316,7 +316,7 @@ public class PosController {
                 int n = sl.getDiscount().getN();
                 int m = sl.getDiscount().getM();
                 int difference = (m - n) * sl.getUnitPrice();
-                sb.append(sl.getDiscount().getM()).append("x").append(n).append(" en ").append(sl.getDiscount().getSubType());
+                sb.append(sl.getDiscount().getM()).append("x").append(n).append(" en ").append(sl.getDiscount().getConjuntAAplicar());
                 if(!sl.getTeDiscConjAplicat()){
                     int countDisc = sl.getAmount()/m;
                     if(countDisc > 1)sb.append(" x").append(countDisc);
@@ -491,8 +491,8 @@ public class PosController {
         discCollection.add(discPerc);
     }
 
-    public void createMxNDisc(String type,String subtype, int m, int n) {
-        Discount discMxN = new Discount(type,subtype, m, n);
+    public void createMxNDisc(String type,String conjuntAAplicar, int m, int n) {
+        Discount discMxN = new Discount(type,conjuntAAplicar, m, n);
         discCollection.add(discMxN);
     }
 
@@ -571,8 +571,8 @@ public class PosController {
         message = sb.toString();
     }
 
-    public void createCjtDiscount(String type, String subType, int amount) {
-        Discount discPerc = new Discount(type, subType, amount);
+    public void createCjtDiscount(String type, String conjuntAAplicar, int amount) {
+        Discount discPerc = new Discount(type, conjuntAAplicar, amount);
         discCollection.add(discPerc);
     }
 
