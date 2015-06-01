@@ -10,7 +10,8 @@ Característica: Aplicar descomptes de tipus % a conjunts de productes
     I un producte amb nom "Pilota verda", preu 10€, iva 21% i codi de barres 2234568 i que pertany als tipus "esports"
     I un producte amb nom "Pilota blava", preu 15€, iva 21% i codi de barres 2234569 i que pertany als tipus "esports"
     I que estem al tpv número 1 de la botiga "Girona 1"
-    I que en "Joan" ha iniciat el torn al tpv
+    I que existeix un login de tipus venedor pel treballador anomenat Joan amb el password 173529363
+    I que un usuari a accedit al sistema amb el nom d'usuari Joan amb el password 173529363
     I que hi ha una venta iniciada
     I que hi ha un descompte de tipus percentatge definit en el sistema pels productes de tipus transformer d'un 50%
     I que hi ha un descompte de tipus percentatge definit en el sistema pels productes de tipus esports d'un 20%

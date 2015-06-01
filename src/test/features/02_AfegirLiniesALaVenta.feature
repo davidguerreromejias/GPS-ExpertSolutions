@@ -8,7 +8,8 @@ Característica: Afegir línies a la venta
     I un producte amb nom "Pilota vermella", preu 10€, iva 21% i codi de barres 1111111 i que pertany als tipus "esports"
     I un producte amb nom "Pilota groga", preu 12€, iva 21% i codi de barres 2222222 i que pertany als tipus "esports"
     I que estem al tpv número 1 de la botiga "Girona 1"
-    I que en "Joan" ha iniciat el torn al tpv
+    I que existeix un login de tipus venedor pel treballador anomenat Joan amb el password 173529363
+    I que un usuari a accedit al sistema amb el nom d'usuari Joan amb el password 173529363
     I que hi ha una venta iniciada
 
   Escenari: Afegir un producte per codi de barres i/o nom a la venta

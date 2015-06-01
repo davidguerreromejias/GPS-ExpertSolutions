@@ -5,7 +5,8 @@ Característica: Afegir un regal a un producte
 
   Rerefons:
     Donat que estem al tpv número 1 de la botiga "Girona 1"
-    I que en "Joan" ha iniciat el torn al tpv
+    I que existeix un login de tipus venedor pel treballador anomenat Joan amb el password 173529363
+    I que un usuari a accedit al sistema amb el nom d'usuari Joan amb el password 173529363
     I que hi ha una venta iniciada
     I un producte amb nom "Optimus Prime", preu 20€, iva 21% i codi de barres 1234567 i que pertany als tipus "figura d'acció,transformer"
     I un producte amb nom "Optimus Prime 2", preu 2€, iva 21% i codi de barres 2234567 i que pertany als tipus "figura d'acció,transformer"
