@@ -48,5 +48,7 @@ public class Product implements Entity, HasName {
         return barCode;
     }
 
+    public int getBaseImposable(){ return price*(100-vatPct)/100;}
+
     public ArrayList<String> getTypesList() {return typesList;}
 }

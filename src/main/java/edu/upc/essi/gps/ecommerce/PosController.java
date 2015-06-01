@@ -409,7 +409,7 @@ public class PosController {
             }
             sb.append(" ");
             int n = sb.toString().length();
-            sb.append(sl.getUnitPrice());
+            sb.append(p.getBaseImposable());
             int m = sb.toString().length();
             for (int i = m - n; i < 9; ++i) {
                 sb.append(" ");
