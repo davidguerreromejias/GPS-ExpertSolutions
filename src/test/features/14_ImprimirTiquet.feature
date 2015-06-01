@@ -7,11 +7,12 @@ Característica: Acabar una venta i imprimir el tiquet
     Donat un producte amb nom "Optimus Prime", preu 25€, iva 21% i codi de barres 1234567 i que pertany als tipus "figura d'acció,transformer"
     I un producte amb nom "Pilota de platja", preu 10€, iva 21% i codi de barres 1231231 i que pertany als tipus "esports,platja"
     I un producte amb nom "Reproductor de música", preu 30€, iva 21% i codi de barres 7777777 i que pertany als tipus "electrònica,música"
+    I que estem al tpv número 1 de la botiga "Girona 1"
+    I que en "Joan" ha iniciat el torn al tpv
     I que hi ha un descompte de tipus percentatge definit en el sistema pels productes de tipus transformer d'un 20%
     I que hi ha un descompte de tipus m x n on m és 2 i n és 1 definit en el sistema pels productes de tipus "platja"
     I que hi ha un descompte de tipus regal que per la compra de Reproductor de música et regalen CD de música
-    I que estem al tpv número 1 de la botiga "Girona 1"
-    I que en "Joan" ha iniciat el torn al tpv
+
 
   Escenari: Cobrar una venta en metàlic
     Donat que hi ha una venta iniciada
