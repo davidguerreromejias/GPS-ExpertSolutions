@@ -164,7 +164,7 @@ Característica: Login per rols
     I que en Daniel tanca sessió
     Quan vull obtenir un llistat dels usuaris actius al sistema
     Aleshores el sistema em mostra el llistat usuaris que han iniciat sessio al sistema
-        """
+    """
     ------ USUARIS ACTIUS AL SISTEMA -----
     --Tipus Login--  --Nom--  --Password--
     gestor , Pere , 173529363

@@ -5,7 +5,8 @@ Característica: Iniciar una venta
 
   Rerefons:
     Donat que estem al tpv número 1 de la botiga "Girona 1"
-    I que en "Joan" ha iniciat el torn al tpv
+    I que existeix un login de tipus venedor pel treballador anomenat Joan amb el password 173529363
+    I que un usuari a accedit al sistema amb el nom d'usuari Joan amb el password 173529363
 
   Escenari: Iniciar una venta
     Quan inicio una nova venta
