@@ -390,10 +390,6 @@ public class StepDefinitions {
         assertEquals(true, this.posController.existsLogin(tipusLogin, name));
     }
 
-    @Quan("en (.*) ha sortit de la sessió de gestor$")
-    public void gestorLogOut(String gestorName) throws Throwable {
-        tryCatch(() -> this.posController.gestorLogOut(gestorName));
-    }
 
     @Donat("que hi ha un descompte definit de tipus (.*) d'un (\\d+)%$")
     public void set_discPerc(String tipus, int amount){
@@ -447,6 +443,7 @@ public class StepDefinitions {
     @Quan ("en (.*) tanca sessió$")
     public void logoutSistema(String nom) {
         tryCatch(() -> this.posController.logoutSistema(nom));
+        tryCatch(() -> this.posController.gestorLogOut(nom));
     }
 
     @Donat ("que en (.*) tanca sessió$")

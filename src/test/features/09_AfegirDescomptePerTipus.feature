@@ -5,7 +5,8 @@ Característica: Afegir un nou descompte al sistema
 
   Rerefons:
     Donat que estem a la botiga "Girona 1"
-    I que en "Joan" ha iniciat sessió com a gestor
+    I que existeix un login de tipus gestor pel treballador anomenat Joan amb el password 123456789
+    I un usuari accedeix al sistema posa el nom d'usuari Joan amb el password 123456789
     I que s'ha afegit un descompte del tipus percentatge del 40% als productes de piscina
     I afegeixo un descompte del tipus m x n pels productes de tipus piscina tal que quan en compres 3 en pagues 2
 
@@ -88,6 +89,6 @@ Característica: Afegir un nou descompte al sistema
     """
 
   Escenari: Error perque no hi ha cap gestor que hagi iniciat sessió
-    Quan en "Joan" ha sortit de la sessió de gestor
+    Quan en Joan tanca sessió
     I afegeixo un descompte del tipus percentatge del 10% als productes de platja
     Aleshores obtinc un error que diu: "No hi ha cap sessio de gestor iniciada"
