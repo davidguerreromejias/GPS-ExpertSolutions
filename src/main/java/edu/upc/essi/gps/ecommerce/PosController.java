@@ -429,27 +429,27 @@ public class PosController {
                 sb.append(" ");
             }
             sb.append(" ");
-            if(sl.getTeDiscConjAplicat()) sb.append("(");
+            if(sl.getDiscount().getTypeOfDiscount().equals("m x n") || sl.getDiscount().getTypeOfDiscount().equals("percentatge")) sb.append("(");
             sb.append(sl.getTotalPriceRaw());
-            if(sl.getTeDiscConjAplicat()) sb.append(")");
+            if(sl.getDiscount().getTypeOfDiscount().equals("m x n") || sl.getDiscount().getTypeOfDiscount().equals("percentatge")) sb.append(")");
             sb.append("\n");
             if(sl.getDiscount().getTypeOfDiscount().equals("percentatge")){
                 int j = sb.toString().length();
                 sb.append("Descompte de ").append(sl.getDiscount().getAmountDiscount()).append("%");
                 int k = sb.toString().length();
                 for(int q = k-j; q < 53; ++q){sb.append(" ");}
-                sb.append(sl.getTotalPrice());
+                sb.append(sl.getTotalPrice()).append("\n");
             }
             else if(sl.getDiscount().getTypeOfDiscount().equals("m x n")){
                 int j = sb.toString().length();
                 sb.append("Descompte de ").append(sl.getDiscount().getM()).append("x").append(sl.getDiscount().getN());
                 int k = sb.toString().length();
                 for(int q = k-j; q < 53; ++q){sb.append(" ");}
-                sb.append(sl.getTotalPrice());
+                sb.append(sl.getTotalPrice()).append("\n");
             }
         }
         else{
-            sb.append("De regal: ").append(sl.getProductName()).append("\n");
+            sb.append("De regal: ").append(sl.getAmount()).append("unitats de ").append(sl.getProductName()).append("\n");
         }
     }
 

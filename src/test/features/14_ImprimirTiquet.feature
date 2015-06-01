@@ -34,7 +34,7 @@ Característica: Acabar una venta i imprimir el tiquet
     Pilota de platja         10        21%       2       (20)
     Descompte de 2x1                                     10
     Reproductor de música    30        21%       1       30
-    De regal: CD de música
+    De regal: 1 unitats de CD de música
     ----------------------------------------------------------------
                                                          60
     Pagat:                                               70
