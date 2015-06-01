@@ -21,6 +21,7 @@ Característica: Acabar una venta i imprimir el tiquet
     I que el producte amb codi de barres 1234567 ha estat afegit a la venta actual amb la quantitat 1
     I que el producte amb codi de barres 1231231 ha estat afegit a la venta actual amb la quantitat 2
     I que el producte amb codi de barres 7777777 ha estat afegit a la venta actual amb la quantitat 1
+    I que el producte amb codi de barres 2222222 ha estat afegit a la venta actual amb la quantitat 1
     I que el client ha pagat 70€ en "efectiu"
     Quan vull imprimir el tiquet
     Aleshores el sistema imprimeix

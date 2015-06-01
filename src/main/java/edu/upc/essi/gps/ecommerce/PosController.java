@@ -449,7 +449,7 @@ public class PosController {
             }
         }
         else{
-            sb.append("De regal: ").append(sl.getAmount()).append("unitats de ").append(sl.getProductName()).append("\n");
+            sb.append("De regal: ").append(sl.getAmount()).append(" unitats de ").append(sl.getProductName()).append("\n");
         }
     }
 
