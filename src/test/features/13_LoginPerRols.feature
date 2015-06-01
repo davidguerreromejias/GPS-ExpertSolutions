@@ -1,7 +1,7 @@
 # language: ca
 
 #noinspection SpellCheckingInspection
-Característica: Afegir un regal a un producte
+Característica: Login per rols
 
   #PREGUNTES QUE FER:
     #un gestor també és venedor, no es posa dos usuaris iguals!

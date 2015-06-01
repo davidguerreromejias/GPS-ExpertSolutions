@@ -396,6 +396,59 @@ public class PosController {
         return sb.toString();
     }
 
+    private void afegirLiniaATiquet(StringBuilder sb, SaleLine sl){
+        if(!sl.esRegal()) {
+            sb.append(sl.getProductName());
+            Product p = productsService.findByName(sl.getProductName());
+            for (int i = sl.getProductName().length(); i < 24; ++i) {
+                sb.append(" ");
+            }
+            sb.append(" ");
+            int n = sb.toString().length();
+            sb.append(sl.getUnitPrice());
+            int m = sb.toString().length();
+            for (int i = m - n; i < 9; ++i) {
+                sb.append(" ");
+            }
+            sb.append(" ");
+            n = sb.toString().length();
+            sb.append(p.getVatPct()).append("%");
+            m = sb.toString().length();
+            for (int i = m - n; i < 9; ++i) {
+                sb.append(" ");
+            }
+            sb.append(" ");
+            n = sb.toString().length();
+            sb.append(sl.getAmount());
+            m = sb.toString().length();
+            for (int i = m - n; i < 7; ++i) {
+                sb.append(" ");
+            }
+            sb.append(" ");
+            if(sl.getTeDiscConjAplicat()) sb.append("(");
+            sb.append(sl.getTotalPriceRaw());
+            if(sl.getTeDiscConjAplicat()) sb.append(")");
+            sb.append("\n");
+            if(sl.getDiscount().getTypeOfDiscount().equals("percentatge")){
+                int j = sb.toString().length();
+                sb.append("Descompte de ").append(sl.getDiscount().getAmountDiscount()).append("%");
+                int k = sb.toString().length();
+                for(int q = k-j; q < 53; ++q){sb.append(" ");}
+                sb.append(sl.getTotalPrice());
+            }
+            else if(sl.getDiscount().getTypeOfDiscount().equals("m x n")){
+                int j = sb.toString().length();
+                sb.append("Descompte de ").append(sl.getDiscount().getM()).append("x").append(sl.getDiscount().getN());
+                int k = sb.toString().length();
+                for(int q = k-j; q < 53; ++q){sb.append(" ");}
+                sb.append(sl.getTotalPrice());
+            }
+        }
+        else{
+            sb.append("De regal: ").append(sl.getProductName()).append("\n");
+        }
+    }
+
     public void createTiquet(){
         Sale s = this.lastSale;
         if(s == null) throw new RuntimeException("La venta no s'ha cobrat");
@@ -407,26 +460,7 @@ public class PosController {
         sb.append("Caixa num ").append(this.posNumber).append("\n");
         sb.append("-----   Producte   -----|-- €/u --|-- IVA --|-- # --|-- Total --\n");
         for(SaleLine sl : s.getLines()){
-            sb.append(sl.getProductName());
-            Product p = productsService.findByName(sl.getProductName());
-            for(int i = sl.getProductName().length(); i < 24; ++i){sb.append(" ");}
-            sb.append(" ");
-            int n = sb.toString().length();
-            sb.append(sl.getUnitPrice());
-            int m = sb.toString().length();
-            for(int i = m-n; i < 9; ++i){sb.append(" ");}
-            sb.append(" ");
-            n = sb.toString().length();
-            sb.append(p.getVatPct()).append("%");
-            m = sb.toString().length();
-            for(int i = m-n; i < 9; ++i){sb.append(" ");}
-            sb.append(" ");
-            n = sb.toString().length();
-            sb.append(sl.getAmount());
-            m = sb.toString().length();
-            for(int i = m-n; i < 7; ++i){sb.append(" ");}
-            sb.append(" ");
-            sb.append(sl.getTotalPrice()).append("\n");
+            afegirLiniaATiquet(sb,sl);
         }
         for(int i = 0; i < 64; ++i) sb.append("-");
         sb.append("\n");
