@@ -8,7 +8,7 @@ Característica: Afegir un nou descompte al sistema
     I que existeix un login de tipus gestor pel treballador anomenat Joan amb el password 123456789
     I un usuari accedeix al sistema posa el nom d'usuari Joan amb el password 123456789
     I que s'ha afegit un descompte del tipus percentatge del 40% als productes de piscina
-    I afegeixo un descompte del tipus m x n pels productes de tipus piscina tal que quan en compres 3 en pagues 2
+    I que s'ha afegit un descompte del tipus m x n pels productes de tipus piscina tal que quan en compres 3 en pagues 2
 
   Escenari: Afegir un descompte del tipus percentatge als objectes de tipus platja
     Quan afegeixo un descompte del tipus percentatge del 10% als productes de platja

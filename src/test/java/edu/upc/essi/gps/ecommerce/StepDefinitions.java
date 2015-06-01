@@ -345,6 +345,11 @@ public class StepDefinitions {
         this.posController.addTypeDiscountMXN(setProducts, m, n, tipoDescompte);
     }
 
+    @Donat("^que s'ha afegit un descompte del tipus (.*) pels productes de tipus (.*) tal que quan en compres (\\d+) en pagues (\\d+)$")
+    public void addSetDiscountMXN3(String tipoDescompte, String setProducts, int m, int n) throws Throwable {
+        this.posController.addTypeDiscountMXN(setProducts, m, n, tipoDescompte);
+    }
+
     @Donat("^que existeix un descompte del tipus (.*) pels productes de tipus (.*) tal que quan en compres (\\d+) en pagues (\\d+)$")
     public void addSetDiscountMXN2(String tipoDescompte, String setProducts, int m, int n) throws Throwable {
         this.posController.addTypeDiscountMXN(setProducts, m, n, tipoDescompte);
