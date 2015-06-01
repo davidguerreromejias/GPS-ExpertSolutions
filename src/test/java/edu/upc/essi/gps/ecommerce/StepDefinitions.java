@@ -6,10 +6,7 @@ import cucumber.api.java.ca.Donat;
 import cucumber.api.java.ca.I;
 import cucumber.api.java.ca.Quan;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.lang.Math;
 
 import static org.junit.Assert.*;
@@ -137,6 +134,12 @@ public class StepDefinitions {
 
     @Donat("^que hi ha una venta iniciada$")
     public void saleStarted() throws Throwable {
+        this.posController.startSale();
+    }
+
+    @Donat("^que hi ha una venta iniciada en data \"([^\"]*)\"$")
+    public void saleStartedOnDate(String data) throws Throwable {
+        this.posController.setCurrentDate(data);
         this.posController.startSale();
     }
 
@@ -540,8 +543,12 @@ public class StepDefinitions {
         else if(form.equals("targeta")) this.posController.cardPayment(form);
     }
 
-    @Donat("que la venta ha sigut pagada i guardada al historial.")
-        public void saleOfX() throws Throwable{
+    @Donat("que la venta ha sigut pagada amb un import de (\\d+)€ i guardada al historial.")
+        public void saleOfX(int preuTotal) throws Throwable{
+            Random rn = new Random();
+            int randomNum = (int)(Math.random());
+            this.productsService.newProduct(this.posController.getSaltString(), preuTotal, 21 , randomNum , "platja");
+            this.posController.addProductByBarCode(randomNum);
             this.posController.finishSale();
     }
 

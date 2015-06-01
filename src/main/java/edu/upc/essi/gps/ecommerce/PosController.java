@@ -191,6 +191,11 @@ public class PosController {
         this.currentSale = new Sale(shop, posNumber, currentSaleAssistantName);
     }
 
+    public void startSaleDate(String data) {
+        if (this.currentSale != null) throw new IllegalStateException("Aquest tpv ja té una venta iniciada");
+        this.currentSale = new Sale(shop, posNumber, currentSaleAssistantName);
+    }
+
     public void newSale(){
         Sale s = new Sale(shop, posNumber, currentSaleAssistantName);
     }
@@ -221,6 +226,19 @@ public class PosController {
 
     public Sale getCurrentSale() {
         return currentSale;
+    }
+
+    public String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 18) {
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
     }
 
     public void applyDiscount(Product p){
@@ -254,7 +272,6 @@ public class PosController {
         currentSale.addProduct(p);
         applyDiscount(p);
     }
-
 
 
     public void addProductById(long id, int amount){
