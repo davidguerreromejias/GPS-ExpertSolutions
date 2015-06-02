@@ -557,8 +557,10 @@ public class StepDefinitions {
         else if(form.equals("targeta")) this.posController.cardPayment(form);
     }
 
-    @Donat("que la venta ha sigut pagada amb un import de (\\d+)€ i guardada al historial.")
-        public void saleOfX(int preuTotal) throws Throwable{
+    @Donat("que hi ha una venta pagada per un import de (\\d+)€ en data \"([^\"]*)\"")
+        public void saleOfX(int preuTotal, String data) throws Throwable{
+            this.posController.setCurrentDate(data);
+            this.posController.startSale();
             Random rn = new Random();
             int randomNum = (int)(Math.random() * 1000);
             this.productsService.newProduct(this.posController.getSaltString(), preuTotal, 21 , randomNum , "platja");
