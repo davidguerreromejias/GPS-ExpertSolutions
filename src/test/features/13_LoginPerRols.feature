@@ -102,7 +102,7 @@ Característica: Login per rols
 
     """
 
-  Escenari: Saber l'usuari que ha iniciat sessió
+  Escenari: Error al intentar accedir al sistema quan ja hi ha un usuari actiu
     Donat que existeix un login de tipus gestor pel treballador anomenat Joan amb el password 123456789
     I que existeix un login de tipus venedor pel treballador anomenat Pere amb el password 173529363
     I que ha iniciat sessió al sistema l'usuari Joan amb el password 123456789
