@@ -486,7 +486,7 @@ public class StepDefinitions {
         assertEquals(msg, this.posController.getLlista());
     }
 
-    @Quan("que en (.*) ha iniciat sessió com a gestor$")
+    @Donat("que en (.*) ha iniciat sessió com a gestor$")
     public void gestorLogin(String gestorName) throws Throwable {
         tryCatch(() -> this.posController.gestorLogin(gestorName));
     }
@@ -539,7 +539,7 @@ public class StepDefinitions {
         login(assistant, 0);
         saleStarted();
         producte_afegit_a_la_venta_actual(1111111,2);
-        cashPayment(20,"efectiu");
+        cashPayment(20, "efectiu");
         tryTancarTorn(30);
         this.posController.tancarTorn();
     }
@@ -594,7 +594,7 @@ public class StepDefinitions {
 
     @Quan("demana visualitzar tot l'historial")
     public void visualitzaXTot () throws Throwable{
-        this.posController.visualitzaTotHistorial();
+        tryCatch(() -> this.posController.visualitzaTotHistorial());
     }
 
     @Aleshores("el resultat de tot l'historial és$")
