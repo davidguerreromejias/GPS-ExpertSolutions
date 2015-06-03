@@ -26,7 +26,6 @@ public class PosController {
         return message;
     }
 
-
     private String message;
 
     public String getCurrentDate() {
