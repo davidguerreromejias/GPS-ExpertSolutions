@@ -6,6 +6,7 @@ import static edu.upc.essi.gps.utils.Validations.*;
 
 import java.lang.reflect.Array;
 import java.util.*;
+import java.lang.Math;
 
 public class PosController {
 
@@ -24,7 +25,6 @@ public class PosController {
     public String getMessage() {
         return message;
     }
-
 
     private String message;
 
@@ -68,10 +68,6 @@ public class PosController {
 
     String changeCard;
 
-    public void setInputTancarTorn(int x){
-       inputQuadraments.add(x);
-    }
-
     public int getVentesRealitzadesId(int posNumber) {
         boolean trobat = false;
         int i = 0;
@@ -84,8 +80,11 @@ public class PosController {
         return aux;
     }
 
-    public int getDifTancarTorn(){
-        return difUltimQuadrament;
+    public String getDifTancarTorn(){
+        int n = Math.abs(difUltimQuadrament);
+        if(n==0) return "El torn s'ha tancat correctament";
+        else if(n<=10) return "Hi ha 10 o menys euros de diferència en el quadrament";
+        else return "Hi ha més de 10 euros de diferència en el quadrament";
     }
 
     public  Sale getVentesRealitzadesSale(int posNumber) {
@@ -537,6 +536,7 @@ public class PosController {
     }
 
     public void visualitzaTotHistorial(){
+        if (this.currentSaleAssistantName != null) throw new IllegalStateException("Un venedor no pot visualitzar l'historial.");
         ArrayList<HistorialLine> aux = new ArrayList();
         aux = historicSales.visualitzarTotHistorial();
         StringBuilder sb = new StringBuilder();
@@ -721,18 +721,20 @@ public class PosController {
     }
 
     public void loginSistema(String nom, String password) {
-        System.out.println("AQUIIIIIII--->"+UsersCollection.getRol(nom,password));
-
         if (!UsersCollection.usuariCorrecte(nom,password))
             throw new IllegalStateException("El nom o la contrasenya és incorrecte");
-        UsersCollection.addUserActive(nom, password);
+
+        if (!UsersCollection.checkUserCanLogin())
+            throw new IllegalStateException("Ja hi ha un usuari actiu al sistema");
+
+        UsersCollection.addUserActive(nom, UsersCollection.getRol(nom,password));
         if (UsersCollection.getRol(nom,password).equals("gestor")) gestorLogin(nom);
         else login(nom);
 
     }
 
-    public boolean userActive(String tipusLogin, String name, String password) {
-        return UsersCollection.checkUserActive(tipusLogin, name, password);
+    public boolean userActive(String tipusLogin, String name) {
+        return UsersCollection.checkUserActive(tipusLogin, name);
     }
 
 
