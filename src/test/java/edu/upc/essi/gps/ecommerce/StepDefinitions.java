@@ -514,12 +514,9 @@ public class StepDefinitions {
         }
     }
 
-    @Aleshores("el sistema m'informa que el quadrament de la caixa és invàlid i la diferència és de (\\d+)€$")
-    public void checkQuadramentInvalid(int dif) throws Throwable{
-        int x = this.posController.getDifTancarTorn();
-        if(x < 0) x = -x;
-        assertEquals(dif, x);
-        this.posController.tancarTorn();
+    @Aleshores("el sistema mostra el missatge$")
+    public void checkQuadramentInvalid(String msg) throws Throwable{
+        assertEquals(msg,this.posController.getDifTancarTorn());
     }
 
     @Donat("que el producte amb codi de barres (.*) ha estat afegit a la venta actual amb la quantitat (\\d+)")
