@@ -416,7 +416,7 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.getAllListLogins());
     }
 
-    @Quan ("vull obtenir un llistat dels usuaris actius al sistema")
+    @Quan ("vull obtenir las dades de qui està amb la sessió iniciada")
     public void obtenirActiveUsers() throws Throwable{
         tryCatch(() -> this.posController.getActiveUsers());
     }
@@ -453,9 +453,14 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.loginSistema(nom, password));
     }
 
-    @Aleshores("el (.*) amb el nom (.*) ha iniciat sessió amb el password (.*)$")
-    public void checkUserActive(String tipusLogin, String name, String password) throws Throwable {
-        assertEquals(true, this.posController.userActive(tipusLogin, name, password));
+    @Quan ("l'usuari (.*) intenta accedir al sistema amb el password (.*)")
+    public void loginSistema5(String nom, String password) {
+        tryCatch(() -> this.posController.loginSistema(nom, password));
+    }
+
+    @Aleshores("el (.*) amb el nom (.*) ha iniciat sessió$")
+    public void checkUserActive(String tipusLogin, String name) throws Throwable {
+        assertEquals(true, this.posController.userActive(tipusLogin, name));
     }
 
     @Aleshores("el (.*) amb el nom (.*) ha tancat sessió$")
@@ -466,7 +471,7 @@ public class StepDefinitions {
 
 
     @Quan ("vull obtenir un llistat dels descomptes per tipus de productes que hi ha actius al sistema$")
-    public void obtenirTotLListatDescomptesPerTipus() throws Throwable{
+    public void obtenirTotLListatDescomptesPerTipus() throws Throwable {
         tryCatch(() -> this.posController.getAllSetDiscountList());
     }
 
@@ -496,13 +501,13 @@ public class StepDefinitions {
         assertEquals(msg, this.posController.getLlista());
     }
 
-    @Aleshores("el sistema em mostra el llistat usuaris que han iniciat sessio al sistema$")
+    @Aleshores("el sistema em mostra l'usuari que està amb la sessió iniciada$")
     public void checkLListatLogins3(String msg){
         assertEquals(msg, this.posController.getLlista());
     }
 
     @Aleshores("el sistema em mostra un llistat de quadraments invàlids que és$")
-    public void checkQuadraments(String msg){
+    public void checkQuadraments(String msg) {
         assertEquals(msg, this.posController.getQuadramentsInvalids());
     }
 
@@ -523,8 +528,8 @@ public class StepDefinitions {
     }
 
     @Donat("que el producte amb codi de barres (.*) ha estat afegit a la venta actual amb la quantitat (\\d+)")
-        public void producte_afegit_a_la_venta_actual(int barCode,int amount) throws Throwable{
-            this.posController.addProductByBarCode(barCode, amount);
+        public void producte_afegit_a_la_venta_actual(int barCode,int amount) throws Throwable {
+        this.posController.addProductByBarCode(barCode, amount);
         }
 
     @Donat("^en \"([^\"]*)\" ha tancat el seu torn amb un quadrament invàlid de (\\d+)€ negatius$")
@@ -576,7 +581,7 @@ public class StepDefinitions {
     }
 
     @Quan("vull imprimir el tiquet")
-    public void createTiquet () throws Throwable{
+    public void createTiquet() throws Throwable{
         tryCatch(() -> this.posController.createTiquet());
     }
 
