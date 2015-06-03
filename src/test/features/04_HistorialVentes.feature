@@ -11,26 +11,20 @@ Característica: Historial de ventes
     I que existeix un login de tipus venedor pel treballador anomenat Carles amb el password sag967384
     I que existeix un login de tipus venedor pel treballador anomenat Victor amb el password fug543334
     I que en "Joan" ha iniciat el torn al tpv
-    I que hi ha una venta iniciada en data "2015,05,18"
-    I que la venta ha sigut pagada amb un import de 23€ i guardada al historial.
-    I que hi ha una venta iniciada en data "2015,05,18"
-    I que la venta ha sigut pagada amb un import de 50€ i guardada al historial.
+    I que hi ha una venta pagada per un import de 23€ en data "2015,05,18"
+    I que hi ha una venta pagada per un import de 50€ en data "2015,05,18"
     I que en "Joan" ha tancat el torn al tpv
     I que existeix un login de tipus venedor pel treballador anomenat Jordi amb el password pde652384
     I que en "Jordi" ha iniciat un altre torn al tpv
-    I que hi ha una venta iniciada en data "2015,05,18"
-    I que la venta ha sigut pagada amb un import de 10€ i guardada al historial.
+    I que hi ha una venta pagada per un import de 10€ en data "2015,05,18"
     I que en "Jordi" ha tancat el torn al tpv
     I que en "Carles" ha iniciat el torn al tpv
-    I que hi ha una venta iniciada en data "2015,05,20"
-    I que la venta ha sigut pagada amb un import de 40€ i guardada al historial.
-    I que hi ha una venta iniciada en data "2015,05,20"
-    I que la venta ha sigut pagada amb un import de 27€ i guardada al historial.
+    I que hi ha una venta pagada per un import de 40€ en data "2015,05,20"
+    I que hi ha una venta pagada per un import de 27€ en data "2015,05,20"
     I que en "Carles" ha tancat el torn al tpv
     I que existeix un login de tipus venedor pel treballador anomenat Jordi amb el password pde652384
     I que en "Victor" ha iniciat un altre torn al tpv
-    I que hi ha una venta iniciada en data "2015,05,20"
-    I que la venta ha sigut pagada amb un import de 15€ i guardada al historial.
+    I que hi ha una venta pagada per un import de 15€ en data "2015,05,20"
     I que en "Pere" ha iniciat sessió com a gestor
 
   Escenari: Visualitzar tot l'historial

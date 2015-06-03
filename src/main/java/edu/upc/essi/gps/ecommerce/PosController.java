@@ -47,26 +47,18 @@ public class PosController {
     private LinkedList<Sale> ventesRealitzades;
     private final LinkedList<QuadramentInvalid> quadramentsInvalids = new LinkedList<>();
     private int initialCash;
-    private historicSales historic;
     private setDiscountCollection setDiscountCollection;
-    private Discount discPerc;
     private LinkedList<Product> buscaProductes = new LinkedList<>();
     //coses pel gestor
     private String currentGestorName;
     private Date dateLoginGestor;
-    //private LinkedList<Discount> discMxNCollection = new LinkedList<>();
     private LinkedList<Discount> discCollection = new LinkedList<>();
     private LinkedList<Discount> regalCollection = new LinkedList<>();
 
     private String llista; //servirà per no haver de repetir la lectura dels descomptes
 
-
-    //public LinkedList<Discount> getDiscPercCollection(){return discPercCollection;}
-
     private historicSales historicSales;
     String change;
-
-    private ArrayList<ProductDiscount> CollectionPerc = new ArrayList<>();
 
     private ArrayList<ArrayList<String>> CollectionRegal = new ArrayList<>();
 
@@ -115,8 +107,6 @@ public class PosController {
         this.setDiscountCollection = new setDiscountCollection();
         this.currentSaleAssistantName = null;
         this.historicSales = new historicSales();
-
-        this.setDiscountCollection = new setDiscountCollection();
         this.currentSaleAssistantName = null;
         this.UsersCollection = new UsersCollection();
     }
@@ -499,16 +489,16 @@ public class PosController {
 
     public void addTypeDiscount(String tipoDiscount, int discount, String tipoProd) {
         if (currentGestorName == null) throw new IllegalStateException("No hi ha cap sessio de gestor iniciada");
-        setDiscount sd = new setDiscount(tipoProd, discount, this.shop, tipoDiscount);
-        this.setDiscountCollection.addSetDiscount(sd);
+        Discount disc = new Discount(tipoProd, discount, this.shop, tipoDiscount);
+        this.setDiscountCollection.addSetDiscount(disc);
         Boolean aux = setDiscountCollection.existSetDiscount(tipoProd, tipoDiscount);
         if (!aux) throw new IllegalStateException("No s'ha afegit el descompte");
     }
 
     public void addTypeDiscountMXN( String setProducts, int m, int n, String tipoDescompte) {
         if (currentGestorName == null) throw new IllegalStateException("No hi ha cap sessio de gestor iniciada");
-        setDiscount sd = new setDiscount(setProducts, m, n, this.shop,  tipoDescompte);
-        this.setDiscountCollection.addSetDiscount(sd);
+        Discount disc = new Discount(setProducts, m, n, this.shop,  tipoDescompte);
+        this.setDiscountCollection.addSetDiscount(disc);
         Boolean aux = setDiscountCollection.existSetDiscount(setProducts, tipoDescompte);
         if (!aux) throw new IllegalStateException("No s'ha afegit el descompte");
     }
@@ -520,12 +510,6 @@ public class PosController {
     public void deleteLine(String nomProd) {
         currentSale.deleteLine(nomProd);
     }
-
-    public void assignaDescompte(String nomP){
-        currentSale.assignaDescompte(getDiscPerc(), nomP, 0);
-    }
-
-    private Discount getDiscPerc(){return discPerc;}
 
     public void setDiscPerc(String tipus, int amount){
         Discount d = new Discount(tipus, amount);
@@ -591,26 +575,10 @@ public class PosController {
         return llista;
     }
 
-    public void addProductDiscountPerc(Product p, Discount d){
-        ProductDiscount pd = new ProductDiscount(d, p);
-        int size = CollectionPerc.size();
-        for (int i = 0; i<size; ++i){
-            if (CollectionPerc.get(i).getProduct() == p){
-                    CollectionPerc.remove(i);
-            }
-        }
-        CollectionPerc.add(pd);
-    }
 
 
-    public void aplicarDescomptePerc(int amount, String nomP){
-        int size = discCollection.size();
-        Discount d = new Discount();
-        for (int i = 0; i < size; ++i)
-            if (discCollection.get(i).getAmountDiscount() == amount) d = discCollection.get(i);
-        Product p = productsService.findByName(nomP);
-        addProductDiscountPerc(p, d);
-    }
+
+
 
     public void afegirRegalCollection(String regal){
         Discount d = new Discount();
@@ -620,19 +588,7 @@ public class PosController {
         regalCollection.add(d);
     }
 
-    public String visualitzaDescompteProducte(){
-        int size = CollectionPerc.size();
-        StringBuilder sb = new StringBuilder();
-        sb.append("Descomptes actuals per productes:");
 
-        for (int i = 0; i < size; ++i) {
-            sb.append("\n");
-            sb.append(CollectionPerc.get(i).getProduct().getName());
-            sb.append(": ").append(CollectionPerc.get(i).getDiscount().getAmountDiscount());
-            sb.append("%");
-        }
-        return sb.toString();
-    }
 
     public String visualitzaRegals() {
         int size = CollectionRegal.size();

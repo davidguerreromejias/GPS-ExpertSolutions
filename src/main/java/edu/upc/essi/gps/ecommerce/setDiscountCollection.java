@@ -7,48 +7,48 @@ import java.util.Iterator;
  * Created by GerardDuch on 14/05/15.
  */
 public class setDiscountCollection {
-    private ArrayList<setDiscount> setDiscountController;
+    private ArrayList<Discount> DiscountController;
 
     public setDiscountCollection() {
-        this.setDiscountController = new ArrayList<setDiscount>();
+        this.DiscountController = new ArrayList<Discount>();
     }
 
-    private setDiscount getSetDiscountFromSet (String set, String shop, String type) {
-        setDiscount result = new setDiscount();
-        for (setDiscount sd : setDiscountController) {
-            if (sd.getSetObj().equals(set) && sd.getShop().equals(shop) && sd.getTipus().equals(type)) result = sd;
+    private Discount getDiscountFromSet (String set, String shop, String type) {
+        Discount result = new Discount();
+        for (Discount sd : DiscountController) {
+            if (sd.getConjuntAAplicar().equals(set) && sd.getShop().equals(shop) && sd.getTypeOfDiscount().equals(type)) result = sd;
         }
         return result;
     }
 
-    public void addSetDiscount(setDiscount sd) throws RuntimeException {
-        if (sd.getTipus().equals("percentatge") &&  sd.getDiscount() <= 0 || sd.getDiscount() > 100)
+    public void addSetDiscount(Discount disc) throws RuntimeException {
+        if (disc.getTypeOfDiscount().equals("percentatge") &&  disc.getAmountDiscount() <= 0 || disc.getAmountDiscount() > 100)
             throw new IllegalArgumentException("El descompte ha de ser més gran que 0 i més petit o igual que 100");
-        eliminaSetDiscount(sd); //si ja existia un descompte d'aquest tipo, l'elimina
-        setDiscountController.add(sd);
+        eliminaSetDiscount(disc); //si ja existia un descompte d'aquest tipo, l'elimina
+        DiscountController.add(disc);
     }
 
-    private void eliminaSetDiscount(setDiscount sd) {
-        Iterator<setDiscount> it = setDiscountController.iterator();
-        setDiscount aux;
+    private void eliminaSetDiscount(Discount disc) {
+        Iterator<Discount> it = DiscountController.iterator();
+        Discount aux;
         Boolean trobat=false;
         while( it.hasNext() && !trobat){
             aux = it.next();
-            if ( aux.getSetObj().equals(sd.getSetObj()) && aux.getShop().equals(sd.getShop())
-                    && aux.getTipus().equals(sd.getTipus()) && !trobat) {
+            if ( aux.getConjuntAAplicar().equals(disc.getConjuntAAplicar()) && aux.getShop().equals(disc.getShop())
+                    && aux.getTypeOfDiscount().equals(disc.getTypeOfDiscount()) && !trobat) {
                 trobat=true;
                 it.remove();
             }
         }
     }
 
-    public void deleteSetDiscount(String set, String type) {
-        Iterator<setDiscount> it = setDiscountController.iterator();
-        setDiscount aux;
+    public void deleteDiscount(String set, String type) {
+        Iterator<Discount> it = DiscountController.iterator();
+        Discount aux;
         Boolean trobat=false;
         while( it.hasNext() && !trobat){
             aux = it.next();
-            if ( aux.getSetObj().equals(set) && aux.getTipus().equals(type) && !trobat ) {
+            if ( aux.getConjuntAAplicar().equals(set) && aux.getTypeOfDiscount().equals(type) && !trobat ) {
                 trobat=true;
                 it.remove();
             }
@@ -62,14 +62,14 @@ public class setDiscountCollection {
     }
 
     public boolean existSetDiscount(String set, String type) {
-        for (setDiscount sd : setDiscountController) {
-            if (sd.getSetObj().equals(set) && sd.getTipus().equals(type)) return true;
+        for (Discount sd : DiscountController) {
+            if (sd.getConjuntAAplicar().equals(set) && sd.getTypeOfDiscount().equals(type)) return true;
         }
         return false;
     }
 
     public String SetDiscountList(String type) {
-        if (setDiscountController.isEmpty())
+        if (DiscountController.isEmpty())
             throw new IllegalArgumentException("Actualment no existeix cap descompte del tipus " + type + " i per tipus de producte");
 
         StringBuilder sb = new StringBuilder();
@@ -77,40 +77,40 @@ public class setDiscountCollection {
         if (type.equals("percentatge")) {
             sb.append("--Tipus Descompte--  --Descompte--  --Tipus Producte--\n");
             String espai = " , ";
-            for (setDiscount s : setDiscountController) {
-                if (s.getTipus().equals(type))
-                    sb.append(s.getTipus()).append(espai).append(s.getDiscount()).append("%").append(espai).append(s.getSetObj()).append("\n");
+            for (Discount s : DiscountController) {
+                if (s.getTypeOfDiscount().equals(type))
+                    sb.append(s.getTypeOfDiscount()).append(espai).append(s.getAmountDiscount()).append("%").append(espai).append(s.getConjuntAAplicar()).append("\n");
             }
         }
 
         if (type.equals("m x n")) {
             sb.append("--Tipus Descompte--  --Compres--  --En pagues--  --Tipus Producte--\n");
             String espai = " , ";
-            for (setDiscount s : setDiscountController) {
-                if (s.getTipus().equals(type))
-                    sb.append(s.getTipus()).append(espai).append(s.getCompres()).append("x").append(s.getPagues()).append(espai).append(s.getSetObj()).append("\n");
+            for (Discount s : DiscountController) {
+                if (s.getTypeOfDiscount().equals(type))
+                    sb.append(s.getTypeOfDiscount()).append(espai).append(s.getM()).append("x").append(s.getN()).append(espai).append(s.getConjuntAAplicar()).append("\n");
             }
         }
         return sb.toString();
     }
 
     public String allSetDiscountList() {
-        if (setDiscountController.isEmpty())
+        if (DiscountController.isEmpty())
             throw new IllegalArgumentException("Actualment no existeix cap descompte del tipus percentatge i per tipus de producte");
 
         StringBuilder sb = new StringBuilder();
 
         sb.append("--Tipus Descompte--  --Descompte--  --Tipus Producte--\n");
         String espai = " , ";
-        for (setDiscount s : setDiscountController) {
-            if (s.getTipus().equals("percentatge"))
-                sb.append(s.getTipus()).append(espai).append(s.getDiscount()).append("%").append(espai).append(s.getSetObj()).append("\n");
+        for (Discount s : DiscountController) {
+            if (s.getTypeOfDiscount().equals("percentatge"))
+                sb.append(s.getTypeOfDiscount()).append(espai).append(s.getAmountDiscount()).append("%").append(espai).append(s.getConjuntAAplicar()).append("\n");
         }
         sb.append("\n");
         sb.append("--Tipus Descompte--  --Compres--  --En pagues--  --Tipus Producte--\n");
-        for (setDiscount s : setDiscountController) {
-            if (s.getTipus().equals("m x n"))
-                sb.append(s.getTipus()).append(espai).append(s.getCompres()).append("x").append(s.getPagues()).append(espai).append(s.getSetObj()).append("\n");
+        for (Discount s : DiscountController) {
+            if (s.getTypeOfDiscount().equals("m x n"))
+                sb.append(s.getTypeOfDiscount()).append(espai).append(s.getM()).append("x").append(s.getN()).append(espai).append(s.getConjuntAAplicar()).append("\n");
         }
 
         return sb.toString();
