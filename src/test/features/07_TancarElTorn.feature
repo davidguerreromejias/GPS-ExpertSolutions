@@ -14,14 +14,29 @@ Característica: Tancar el torn al tpv
     Quan vull tancar el torn i a la caixa hi ha 25€
     Aleshores obtinc un error que diu: "No hi ha cap torn iniciat"
 
-  Escenari: Un venedor vol tancar el torn i es produeix un quadrament invàlid
+  Escenari: Un venedor vol tancar el torn i es produeix un quadrament invàlid de menys de 10 euros
     Donat que en "Martí" ha iniciat el torn al tpv
     I al iniciar el torn hi havia 5€ a la caixa
     I que hi ha una venta iniciada
     I que el producte amb codi de barres 1234567 ha estat afegit a la venta actual amb la quantitat 1
     I indico que el client ha entregat 23€ per a pagar en metàlic
     Quan vull tancar el torn i a la caixa hi ha 25€
-    Aleshores el sistema m'informa que el quadrament de la caixa és invàlid i la diferència és de 3€
+    Aleshores el sistema mostra el missatge
+    """
+    Hi ha 10 o menys euros de diferència en el quadrament
+    """
+
+  Escenari: Un venedor vol tancar el torn i es produeix un quadrament invàlid de més de 10 euros
+    Donat que en "Martí" ha iniciat el torn al tpv
+    I al iniciar el torn hi havia 5€ a la caixa
+    I que hi ha una venta iniciada
+    I que el producte amb codi de barres 1234567 ha estat afegit a la venta actual amb la quantitat 1
+    I indico que el client ha entregat 23€ per a pagar en metàlic
+    Quan vull tancar el torn i a la caixa hi ha 7€
+    Aleshores el sistema mostra el missatge
+    """
+    Hi ha més de 10 euros de diferència en el quadrament
+    """
 
   Escenari: Un venedor vol tancar el torn i es produeix un quadrament invàlid que es soluciona repetint el quadrament
     Donat que en "Martí" ha iniciat el torn al tpv
@@ -31,7 +46,10 @@ Característica: Tancar el torn al tpv
     I indico que el client ha entregat 23€ per a pagar en metàlic
     Quan vull tancar el torn i a la caixa hi ha 15€
     I indico que vull repetir el quadrament i a la caixa hi ha 28€
-    Aleshores el sistema confirma el quadrament i tanca el torn
+    Aleshores el sistema mostra el missatge
+    """
+    El torn s'ha tancat correctament
+    """
 
   Escenari: Un venedor vol tancar el torn i no es produeix cap problema
     Donat que en "Martí" ha iniciat el torn al tpv
@@ -40,7 +58,10 @@ Característica: Tancar el torn al tpv
     I que el producte amb codi de barres 1234567 ha estat afegit a la venta actual amb la quantitat 1
     I indico que el client ha entregat 23€ per a pagar en metàlic
     Quan vull tancar el torn i a la caixa hi ha 33€
-    Aleshores el sistema confirma el quadrament i tanca el torn
+    Aleshores el sistema mostra el missatge
+    """
+    El torn s'ha tancat correctament
+    """
 
   Escenari: Un gestor vol consultar el llistat de quadraments invàlids
     Donat que en "Joan" ha iniciat sessio
