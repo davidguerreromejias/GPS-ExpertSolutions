@@ -13,10 +13,10 @@ public class setDiscountCollection {
         this.DiscountController = new ArrayList<Discount>();
     }
 
-    private Discount getDiscountFromSet (String set, String shop, String type) {
-        Discount result = new Discount();
+    public Discount getDiscountFromSet (String set) {
+        Discount result = null;
         for (Discount sd : DiscountController) {
-            if (sd.getConjuntAAplicar().equals(set) && sd.getShop().equals(shop) && sd.getTypeOfDiscount().equals(type)) result = sd;
+            if (sd.getConjuntAAplicar().equals(set)) result = sd;
         }
         return result;
     }

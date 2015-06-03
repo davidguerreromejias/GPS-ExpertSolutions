@@ -301,7 +301,11 @@ public class StepDefinitions {
 
     @Donat("^que hi ha un descompte de tipus (.*) on m és (\\d+) i n és (\\d+) definit en el sistema pels productes de tipus \"([^\"]*)\"$")
     public void createMxNDiscount(String type,int mvalue, int nvalue,String conjunt) throws Throwable {
-        this.posController.createMxNDisc(type, conjunt, mvalue, nvalue);
+        tryCatch(() -> this.posController.createLogin("gestor", "Pere", "password0"));
+        tryCatch(() -> this.posController.loginSistema("Pere", "password0"));
+        this.posController.logoutSistema("Pere");
+        this.posController.addTypeDiscountMXN(conjunt,mvalue,nvalue,type);
+        //this.posController.createMxNDisc(type, conjunt, mvalue, nvalue);
     }
 
 
@@ -566,7 +570,11 @@ public class StepDefinitions {
 
     @Donat("^que hi ha un descompte de tipus (.*) definit en el sistema pels productes de tipus (.*) d'un (\\d+)%$")
     public void createCjtDiscount(String type, String conjuntAAplicar, int amountDisc) throws Throwable {
-        this.posController.createCjtDiscount(type, conjuntAAplicar, amountDisc);
+        tryCatch(() -> this.posController.createLogin("gestor","Pere", "password0"));
+        tryCatch(() -> this.posController.loginSistema("Pere", "password0"));
+        this.posController.logoutSistema("Pere");
+        this.posController.addTypeDiscount(type, amountDisc, conjuntAAplicar);
+        //this.posController.createCjtDiscount(type, conjuntAAplicar, amountDisc);
     }
 
 

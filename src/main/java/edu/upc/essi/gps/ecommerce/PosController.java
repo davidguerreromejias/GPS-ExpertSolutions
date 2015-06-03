@@ -237,21 +237,15 @@ public class PosController {
 
     public void applyDiscount(Product p){
         ArrayList<String> types = p.getTypesList();
-        Iterator<Discount> it = discCollection.iterator();
-        boolean found = false;
-        Discount disc = new Discount("");
-        while (it.hasNext() && !found){
-            disc = it.next();
-            String conjuntAAplicar = disc.getConjuntAAplicar();
-            for(int i = 0; i < types.size() && !found; ++i) {
-                if (conjuntAAplicar.equals(types.get(i))){
-                    found = true;
-                }
-            }
+        Discount disc = null;
+        for(int i = 0; i < types.size() && disc == null; ++i) {
+            String cjt = types.get(i);
+            disc = setDiscountCollection.getDiscountFromSet(cjt);
         }
-        if (found){
+        if(disc != null){
             if(disc.getTypeOfDiscount().equals("percentatge")) {
-                currentSale.applyDiscountAtLastLine(disc,0);
+                System.out.println(disc.getTypeOfDiscount()+" "+disc.getConjuntAAplicar());
+                currentSale.applyDiscountAtLastLine(disc, 0);
             }
             else if(disc.getTypeOfDiscount().equals("m x n")){
                 currentSale.tryApplyDiscMxN(disc);
