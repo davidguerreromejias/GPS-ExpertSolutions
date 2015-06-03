@@ -27,11 +27,11 @@ Característica: Afegir un nou descompte al sistema
     Aleshores el sistema em mostra el llistat de descomptes
     """
     --Tipus Descompte--  --Descompte--  --Tipus Producte--
-    percentatge , 40.0% , piscina
-    percentatge , 10.0% , platja
-    percentatge , 15.0% , esports
-    percentatge , 20.0% , jocsTaula
-    percentatge , 30.0% , electronica
+    percentatge , 40% , piscina
+    percentatge , 10% , platja
+    percentatge , 15% , esports
+    percentatge , 20% , jocsTaula
+    percentatge , 30% , electronica
 
     """
 
@@ -73,11 +73,11 @@ Característica: Afegir un nou descompte al sistema
     Aleshores el sistema em mostra el llistat de descomptes
     """
     --Tipus Descompte--  --Descompte--  --Tipus Producte--
-    percentatge , 40.0% , piscina
-    percentatge , 10.0% , platja
-    percentatge , 15.0% , esports
-    percentatge , 20.0% , jocsTaula
-    percentatge , 30.0% , electronica
+    percentatge , 40% , piscina
+    percentatge , 10% , platja
+    percentatge , 15% , esports
+    percentatge , 20% , jocsTaula
+    percentatge , 30% , electronica
 
     --Tipus Descompte--  --Compres--  --En pagues--  --Tipus Producte--
     m x n , 3x2 , piscina
