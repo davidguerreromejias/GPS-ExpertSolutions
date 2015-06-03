@@ -42,13 +42,6 @@ public class StepDefinitions {
         this.posController = new PosController(shop,posNumber, productsService);
     }
 
-    @Donat("^s'ha fet una venta en efectiu per valor de (\\d+)€$")
-    public void ferVenta(int v) throws Throwable {
-        this.posController.startSale();
-        this.posController.getCurrentSale().setTotalPrice(v);
-        this.posController.afegirVenta();
-    }
-
     @Donat("^al iniciar el torn hi havia (\\d+)€ a la caixa$")
     public void setInitCash(int x){
         this.posController.setInitialCash(x);
@@ -245,11 +238,6 @@ public class StepDefinitions {
         assertEquals(expectedChange, this.posController.getChangeCard());
     }
 
-    @Donat("^que hi ha un descompte definit en el sistema de tipus (.*) d'un (\\d+)%$")
-    public void createPercDiscount(String type, int amountDisc) throws Throwable {
-        this.posController.createPercDiscount(type, amountDisc);
-    }
-
     @Aleshores("^línia de venta (\\d+) és de (\\d+) unitats de \"([^\"]*)\" a (\\d+)€ cada una amb un descompte de tipus " +
             "\"([^\"]*)\" del \"([^\"]*)\" per pertànyer a \"([^\"]*)\" per un total de (\\d+)€$")
     public void línia_de_venta_és_de_unitats_de_a_€_cada_una_per_un_total_de_€_amb_descompte(int lineNumber, int units, String productName,
@@ -302,9 +290,9 @@ public class StepDefinitions {
     @Donat("^que hi ha un descompte de tipus (.*) on m és (\\d+) i n és (\\d+) definit en el sistema pels productes de tipus \"([^\"]*)\"$")
     public void createMxNDiscount(String type,int mvalue, int nvalue,String conjunt) throws Throwable {
         tryCatch(() -> this.posController.createLogin("gestor", "Pere", "password0"));
-        tryCatch(() -> this.posController.loginSistema("Pere", "password0"));
+        tryCatch(() -> this.posController.gestorLogin("Pere"));
+        this.posController.addTypeDiscountMXN(conjunt, mvalue, nvalue, type);
         this.posController.logoutSistema("Pere");
-        this.posController.addTypeDiscountMXN(conjunt,mvalue,nvalue,type);
         //this.posController.createMxNDisc(type, conjunt, mvalue, nvalue);
     }
 
@@ -318,8 +306,8 @@ public class StepDefinitions {
         assertEquals(units,sl.getAmount());
         assertEquals(unitPrice, sl.getUnitPrice());
         assertEquals(totalPrice,sl.getTotalPrice());
-        assertEquals(productName,sl.getProductName());
-        assertEquals(typeDesc,sl.getDiscount().getTypeOfDiscount());
+        assertEquals(productName, sl.getProductName());
+        assertEquals(typeDesc, sl.getDiscount().getTypeOfDiscount());
         assertEquals(m, sl.getDiscount().getM());
         assertEquals(n, sl.getDiscount().getN());
     }
@@ -382,12 +370,6 @@ public class StepDefinitions {
     @Aleshores("existeix un login del tipus (.*) pel treballador anomenat (.*)$")
     public void checkLoginCreated(String tipusLogin, String name) throws Throwable {
         assertEquals(true, this.posController.existsLogin(tipusLogin, name));
-    }
-
-
-    @Donat("que hi ha un descompte definit de tipus (.*) d'un (\\d+)%$")
-    public void set_discPerc(String tipus, int amount){
-        this.posController.setDiscPerc(tipus, amount);
     }
 
     @Quan("elimino el producte (.*) de la venta$")
@@ -525,7 +507,7 @@ public class StepDefinitions {
 
     @Aleshores("el sistema mostra el missatge$")
     public void checkQuadramentInvalid(String msg) throws Throwable{
-        assertEquals(msg,this.posController.getDifTancarTorn());
+        assertEquals(msg, this.posController.getDifTancarTorn());
     }
 
     @Donat("que el producte amb codi de barres (.*) ha estat afegit a la venta actual amb la quantitat (\\d+)")
@@ -572,11 +554,10 @@ public class StepDefinitions {
 
     @Donat("^que hi ha un descompte de tipus (.*) definit en el sistema pels productes de tipus (.*) d'un (\\d+)%$")
     public void createCjtDiscount(String type, String conjuntAAplicar, int amountDisc) throws Throwable {
-        tryCatch(() -> this.posController.createLogin("gestor","Pere", "password0"));
-        tryCatch(() -> this.posController.loginSistema("Pere", "password0"));
-        this.posController.logoutSistema("Pere");
+        tryCatch(() -> this.posController.createLogin("gestor", "Pere", "password0"));
+        tryCatch(() -> this.posController.gestorLogin("Pere"));
         this.posController.addTypeDiscount(type, amountDisc, conjuntAAplicar);
-        //this.posController.createCjtDiscount(type, conjuntAAplicar, amountDisc);
+        this.posController.logoutSistema("Pere");
     }
 
 
@@ -606,7 +587,7 @@ public class StepDefinitions {
     }
 
     @Quan("demana visualitzar tot l'historial")
-    public void visualitzaXTot () throws Throwable{
+    public void visualitzaXTot() throws Throwable{
         tryCatch(() -> this.posController.visualitzaTotHistorial());
     }
 

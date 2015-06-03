@@ -52,7 +52,6 @@ public class PosController {
     //coses pel gestor
     private String currentGestorName;
     private Date dateLoginGestor;
-    private LinkedList<Discount> discCollection = new LinkedList<>();
     private LinkedList<Discount> regalCollection = new LinkedList<>();
 
     private String llista; //servirà per no haver de repetir la lectura dels descomptes
@@ -469,16 +468,6 @@ public class PosController {
         return total+initialCash;
     }
 
-    public void createPercDiscount(String type, int amount) {
-        Discount discPerc = new Discount(type, amount);
-        discCollection.add(discPerc);
-    }
-
-    public void createMxNDisc(String type,String conjuntAAplicar, int m, int n) {
-        Discount discMxN = new Discount(type,conjuntAAplicar, m, n);
-        discCollection.add(discMxN);
-    }
-
 
     public void addTypeDiscount(String tipoDiscount, int discount, String tipoProd) {
         if (currentGestorName == null) throw new IllegalStateException("No hi ha cap sessio de gestor iniciada");
@@ -504,10 +493,6 @@ public class PosController {
         currentSale.deleteLine(nomProd);
     }
 
-    public void setDiscPerc(String tipus, int amount){
-        Discount d = new Discount(tipus, amount);
-        discCollection.add(d);
-    }
 
     public String getChange(){ return change;}
 
@@ -548,13 +533,6 @@ public class PosController {
         }
         message = sb.toString();
     }
-
-    public void createCjtDiscount(String type, String conjuntAAplicar, int amount) {
-        Discount discPerc = new Discount(type, conjuntAAplicar, amount);
-        discCollection.add(discPerc);
-    }
-
-
 
     public void finishSale(){
         this.historicSales.addSale(this.currentSale, this.currentSaleAssistantName, this.currentDate);
