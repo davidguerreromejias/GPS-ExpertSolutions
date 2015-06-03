@@ -469,24 +469,24 @@ public class PosController {
     }
 
 
-    public void addTypeDiscount(String tipoDiscount, int discount, String tipoProd) {
+    public void addTypeDiscount(String typeOfDiscount, int amountDiscount, String conjuntAAplicar) {
         if (currentGestorName == null) throw new IllegalStateException("No hi ha cap sessio de gestor iniciada");
-        Discount disc = new Discount(tipoProd, discount, this.shop, tipoDiscount);
+        Discount disc = new Discount(typeOfDiscount,conjuntAAplicar,amountDiscount);
         this.setDiscountCollection.addSetDiscount(disc);
-        Boolean aux = setDiscountCollection.existSetDiscount(tipoProd, tipoDiscount);
+        Boolean aux = setDiscountCollection.existSetDiscount(conjuntAAplicar, typeOfDiscount);
         if (!aux) throw new IllegalStateException("No s'ha afegit el descompte");
     }
 
-    public void addTypeDiscountMXN( String setProducts, int m, int n, String tipoDescompte) {
+    public void addTypeDiscountMXN(String typeOfDiscount, String conjuntAAplicar,int m, int n) {
         if (currentGestorName == null) throw new IllegalStateException("No hi ha cap sessio de gestor iniciada");
-        Discount disc = new Discount(setProducts, m, n, this.shop,  tipoDescompte);
+        Discount disc = new Discount(typeOfDiscount,conjuntAAplicar,m,n);
         this.setDiscountCollection.addSetDiscount(disc);
-        Boolean aux = setDiscountCollection.existSetDiscount(setProducts, tipoDescompte);
+        Boolean aux = setDiscountCollection.existSetDiscount(conjuntAAplicar, typeOfDiscount);
         if (!aux) throw new IllegalStateException("No s'ha afegit el descompte");
     }
 
     public boolean getDiscountBySetProduct(String setProduct, String type) {
-        return setDiscountCollection.getSetDiscount(setProduct, this.shop, type);
+        return setDiscountCollection.getSetDiscount(setProduct,type);
     }
 
     public void deleteLine(String nomProd) {
@@ -606,8 +606,8 @@ public class PosController {
         return true;
     }
 
-    public void getListLogins(String tipoLogin) {
-        llista = UsersCollection.getListLogins(tipoLogin);
+    public void getListLogins(String tipusLogin) {
+        llista = UsersCollection.getListLogins(tipusLogin);
     }
 
     public void getAllListLogins() {

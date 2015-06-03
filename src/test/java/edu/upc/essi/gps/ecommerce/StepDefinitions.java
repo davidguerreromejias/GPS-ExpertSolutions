@@ -291,9 +291,8 @@ public class StepDefinitions {
     public void createMxNDiscount(String type,int mvalue, int nvalue,String conjunt) throws Throwable {
         tryCatch(() -> this.posController.createLogin("gestor", "Pere", "password0"));
         tryCatch(() -> this.posController.gestorLogin("Pere"));
-        this.posController.addTypeDiscountMXN(conjunt, mvalue, nvalue, type);
+        this.posController.addTypeDiscountMXN(type,conjunt,mvalue,nvalue);
         this.posController.logoutSistema("Pere");
-        //this.posController.createMxNDisc(type, conjunt, mvalue, nvalue);
     }
 
 
@@ -333,18 +332,18 @@ public class StepDefinitions {
     }
 
     @Quan("^afegeixo un descompte del tipus (.*) pels productes de tipus (.*) tal que quan en compres (\\d+) en pagues (\\d+)$")
-    public void addSetDiscountMXN(String tipoDescompte, String setProducts, int m, int n) throws Throwable {
-        this.posController.addTypeDiscountMXN(setProducts, m, n, tipoDescompte);
+    public void addSetDiscountMXN(String tipusDescompte, String setProducts, int m, int n) throws Throwable {
+        this.posController.addTypeDiscountMXN(tipusDescompte,setProducts, m, n);
     }
 
     @Donat("^que s'ha afegit un descompte del tipus (.*) pels productes de tipus (.*) tal que quan en compres (\\d+) en pagues (\\d+)$")
-    public void addSetDiscountMXN3(String tipoDescompte, String setProducts, int m, int n) throws Throwable {
-        this.posController.addTypeDiscountMXN(setProducts, m, n, tipoDescompte);
+    public void addSetDiscountMXN3(String tipusDescompte, String setProducts, int m, int n) throws Throwable {
+        this.posController.addTypeDiscountMXN(tipusDescompte,setProducts, m, n);
     }
 
     @Donat("^que existeix un descompte del tipus (.*) pels productes de tipus (.*) tal que quan en compres (\\d+) en pagues (\\d+)$")
-    public void addSetDiscountMXN2(String tipoDescompte, String setProducts, int m, int n) throws Throwable {
-        this.posController.addTypeDiscountMXN(setProducts, m, n, tipoDescompte);
+    public void addSetDiscountMXN2(String tipusDescompte, String setProducts, int m, int n) throws Throwable {
+        this.posController.addTypeDiscountMXN(tipusDescompte,setProducts, m, n);
     }
 
     @Aleshores("existeix un descompte del tipus (.*) pels productes de tipus (.*) tal que quan en compres (\\d+) en pagues (\\d+)$")

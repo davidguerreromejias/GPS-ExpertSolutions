@@ -15,7 +15,6 @@ public class Discount implements Entity{
     private int n;
     private String conjuntAAplicar;
     private Product regal;
-    private String shop;
 
     public Discount(){}
 
@@ -37,26 +36,6 @@ public class Discount implements Entity{
         this.conjuntAAplicar = conjuntAAplicar;
     }
 
-    public Discount(String type){
-        this.typeOfDiscount = type;
-    }
-
-    //Creadora per Discount de tipus percentatge
-    public Discount(String setObj, int amountDiscount, String shop, String discountTipo) {
-        this.conjuntAAplicar = setObj;
-        this.amountDiscount = amountDiscount;
-        this.shop = shop;
-        this.typeOfDiscount = discountTipo;
-    }
-
-    //Creadora per Discount de tipus mxn
-    public Discount(String setObj, int m, int n, String shop, String discountTipo) {
-        this.conjuntAAplicar = setObj;
-        this.m = m;
-        this.n = n;
-        this.shop = shop;
-        this.typeOfDiscount = discountTipo;
-    }
 
     public String getTypeOfDiscount(){
         return typeOfDiscount;
@@ -68,10 +47,6 @@ public class Discount implements Entity{
 
     public int getAmountDiscount(){
         return amountDiscount;
-    }
-
-    public void setAmountDiscount(int disc){
-        amountDiscount = disc;
     }
 
     public String getConjuntAAplicar(){
@@ -95,5 +70,4 @@ public class Discount implements Entity{
 
     public Product getRegal(){ return regal;}
 
-    public String getShop(){return shop;}
 }
