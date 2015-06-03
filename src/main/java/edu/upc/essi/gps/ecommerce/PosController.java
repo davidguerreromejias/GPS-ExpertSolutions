@@ -543,6 +543,7 @@ public class PosController {
     }
 
     public void visualitzaTotHistorial(){
+        if (this.currentSaleAssistantName != null) throw new IllegalStateException("Un venedor no pot visualitzar l'historial.");
         ArrayList<HistorialLine> aux = new ArrayList();
         aux = historicSales.visualitzarTotHistorial();
         StringBuilder sb = new StringBuilder();

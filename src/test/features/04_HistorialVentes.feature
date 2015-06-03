@@ -25,9 +25,11 @@ Característica: Historial de ventes
     I que existeix un login de tipus venedor pel treballador anomenat Jordi amb el password pde652384
     I que en "Victor" ha iniciat un altre torn al tpv
     I que hi ha una venta pagada per un import de 15€ en data "2015,05,20"
+    I que en "Victor" ha tancat el torn al tpv
     I que en "Pere" ha iniciat sessió com a gestor
 
   Escenari: Visualitzar tot l'historial
+    Donat que en "Pere" ha iniciat sessió com a gestor
     Quan demana visualitzar tot l'historial
     Aleshores el resultat de tot l'historial és
     """
@@ -47,6 +49,7 @@ Característica: Historial de ventes
     """
 
   Escenari: Visualitzar l'historial per data
+    Donat que en "Pere" ha iniciat sessió com a gestor
     Quan demana les ventes per data "2015,05,18"
     Aleshores el resultat de la cerca per data és
     """
@@ -60,6 +63,7 @@ Característica: Historial de ventes
     """
 
   Escenari: Visualitzar l'historial per data
+    Donat que en "Pere" ha iniciat sessió com a gestor
     Quan demana les ventes per data "2015,05,20"
     Aleshores el resultat de la cerca per data és
     """
@@ -73,6 +77,7 @@ Característica: Historial de ventes
     """
 
   Escenari: Visualitzar l'historial per venedor
+    Donat que en "Pere" ha iniciat sessió com a gestor
     Quan demana les ventes del venedor "Joan"
     Aleshores el resultat de la cerca per venedor és
     """
@@ -84,6 +89,7 @@ Característica: Historial de ventes
     """
 
   Escenari: Visualitzar l'historial per venedor
+    Donat que en "Pere" ha iniciat sessió com a gestor
     Quan demana les ventes del venedor "Victor"
     Aleshores el resultat de la cerca per venedor és
     """
@@ -91,3 +97,8 @@ Característica: Historial de ventes
     1 : 15€ - Data 2015,05,20.
     ---
     """
+
+  Escenari: Error si un venedor intenta visualitzar l'historial
+    Donat que en "Joan" ha iniciat el torn al tpv
+    Quan demana visualitzar tot l'historial
+    Aleshores obtinc un error que diu: "Un venedor no pot visualitzar l'historial."
