@@ -31,12 +31,13 @@ Característica: Acabar una venta i imprimir el tiquet
     L'atén Joan a la botiga Girona 1
     Caixa num 1
     -----   Producte   -----|-- €/u --|-- IVA --|-- # --|-- Total --
-    Optimus Prime            19        21%       1       (25)
-    Descompte de 20%                                     20
-    Pilota de platja         7         21%       2       (20)
-    Descompte de 2x1                                     10
-    Reproductor de música    23        21%       1       30
-    De regal: 1 unitats de CD de música
+    Optimus Prime            25        21%       1       25
+    Descompte de 20%                                     -5
+    Pilota de platja         10        21%       2       20
+    Descompte de 2x1                                     -10
+    Reproductor de música    30        21%       1       30
+    CD de música             5         21%       1       5
+    De regal: 1 unitats de CD de música                  -5
     ----------------------------------------------------------------
                                                          60
     Pagat:                                               70

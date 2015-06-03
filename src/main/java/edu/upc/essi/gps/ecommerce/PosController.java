@@ -6,6 +6,7 @@ import static edu.upc.essi.gps.utils.Validations.*;
 
 import java.lang.reflect.Array;
 import java.util.*;
+import java.lang.Math;
 
 public class PosController {
 
@@ -68,10 +69,6 @@ public class PosController {
 
     String changeCard;
 
-    public void setInputTancarTorn(int x){
-       inputQuadraments.add(x);
-    }
-
     public int getVentesRealitzadesId(int posNumber) {
         boolean trobat = false;
         int i = 0;
@@ -84,8 +81,11 @@ public class PosController {
         return aux;
     }
 
-    public int getDifTancarTorn(){
-        return difUltimQuadrament;
+    public String getDifTancarTorn(){
+        int n = Math.abs(difUltimQuadrament);
+        if(n==0) return "El torn s'ha tancat correctament";
+        else if(n<=10) return "Hi ha 10 o menys euros de diferència en el quadrament";
+        else return "Hi ha més de 10 euros de diferència en el quadrament";
     }
 
     public  Sale getVentesRealitzadesSale(int posNumber) {
@@ -543,6 +543,7 @@ public class PosController {
     }
 
     public void visualitzaTotHistorial(){
+        if (this.currentSaleAssistantName != null) throw new IllegalStateException("Un venedor no pot visualitzar l'historial.");
         ArrayList<HistorialLine> aux = new ArrayList();
         aux = historicSales.visualitzarTotHistorial();
         StringBuilder sb = new StringBuilder();
