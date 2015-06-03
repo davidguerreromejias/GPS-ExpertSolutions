@@ -395,10 +395,6 @@ public class StepDefinitions {
         int size = this.posController.getCurrentSale().getLines().size();
         assertEquals(numProd, size);
     }
-    @Quan("apreto sobre el descompte 50% existent pel producte (.*) de la venta$")
-    public void assignarDescompte(String nomP) throws Throwable{
-        tryCatch(() -> this.posController.assignaDescompte(nomP));
-    }
 
     @Quan("vull obtenir un llistat dels quadraments invàlids$")
     public void obtenirLlistatQuadraments() throws Throwable {
@@ -609,21 +605,12 @@ public class StepDefinitions {
         assertEquals(msg, this.posController.getMessage());
     }
 
-    @Quan("apreto aplicar descompte de tipus percentatge del (\\d+)% pel producte (.*)$")
-    public void aplicarDescomptePerc(int amount, String nomP){
-        this.posController.aplicarDescomptePerc(amount, nomP);
-    }
 
     @Donat("que hi ha un descompte definit de tipus regal que inclou (.*)$")
     public void afegirRegalCollection(String regal){
         this.posController.afegirRegalCollection(regal);
     }
 
-
-    @Aleshores("els descomptes per productes son$")
-    public void checkDiscPercProduct(String msg){
-        assertEquals(msg, this.posController.visualitzaDescompteProducte());
-    }
 
     @Aleshores("els productes que tenen regals son$")
     public void checkRegals(String msg){

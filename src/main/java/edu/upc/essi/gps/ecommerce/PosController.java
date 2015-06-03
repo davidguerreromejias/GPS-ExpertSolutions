@@ -66,7 +66,7 @@ public class PosController {
     private historicSales historicSales;
     String change;
 
-    private ArrayList<ProductDiscount> CollectionPerc = new ArrayList<>();
+
 
     private ArrayList<ArrayList<String>> CollectionRegal = new ArrayList<>();
 
@@ -591,26 +591,10 @@ public class PosController {
         return llista;
     }
 
-    public void addProductDiscountPerc(Product p, Discount d){
-        ProductDiscount pd = new ProductDiscount(d, p);
-        int size = CollectionPerc.size();
-        for (int i = 0; i<size; ++i){
-            if (CollectionPerc.get(i).getProduct() == p){
-                    CollectionPerc.remove(i);
-            }
-        }
-        CollectionPerc.add(pd);
-    }
 
 
-    public void aplicarDescomptePerc(int amount, String nomP){
-        int size = discCollection.size();
-        Discount d = new Discount();
-        for (int i = 0; i < size; ++i)
-            if (discCollection.get(i).getAmountDiscount() == amount) d = discCollection.get(i);
-        Product p = productsService.findByName(nomP);
-        addProductDiscountPerc(p, d);
-    }
+
+
 
     public void afegirRegalCollection(String regal){
         Discount d = new Discount();
@@ -620,19 +604,7 @@ public class PosController {
         regalCollection.add(d);
     }
 
-    public String visualitzaDescompteProducte(){
-        int size = CollectionPerc.size();
-        StringBuilder sb = new StringBuilder();
-        sb.append("Descomptes actuals per productes:");
 
-        for (int i = 0; i < size; ++i) {
-            sb.append("\n");
-            sb.append(CollectionPerc.get(i).getProduct().getName());
-            sb.append(": ").append(CollectionPerc.get(i).getDiscount().getAmountDiscount());
-            sb.append("%");
-        }
-        return sb.toString();
-    }
 
     public String visualitzaRegals() {
         int size = CollectionRegal.size();
