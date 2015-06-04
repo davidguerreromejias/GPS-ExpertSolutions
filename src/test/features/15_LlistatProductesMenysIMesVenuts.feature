@@ -1,7 +1,7 @@
 # language: ca
 
 #noinspection SpellCheckingInspection
-Característica: Llistat de Productes
+Característica: Llistat de Productes més/menys venuts
 
   Rerefons:
     Donat que estem al tpv número 1 de la botiga "Girona 1"
@@ -28,7 +28,6 @@ Característica: Llistat de Productes
     I que s'ha venut el producte 2222222 per un import de 12€
     I que s'ha venut el producte 2222222 per un import de 12€
     I que en "Joan" ha tancat el torn al tpv
-    I que en "Pere" ha iniciat sessió com a gestor
 
   Escenari: Visualitzar producte més popular
     Donat que en "Pere" ha iniciat sessió com a gestor
