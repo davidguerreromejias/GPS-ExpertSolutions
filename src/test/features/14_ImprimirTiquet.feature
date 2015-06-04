@@ -9,8 +9,8 @@ Característica: Acabar una venta i imprimir el tiquet
     I un producte amb nom "Reproductor de música", preu 30€, iva 21% i codi de barres 7777777 i que pertany als tipus "electrònica,música"
     I un producte amb nom "CD de música", preu 5€, iva 21% i codi de barres 2222222 i que pertany als tipus "música"
     I que estem al tpv número 1 de la botiga "Girona 1"
-    I que existeix un login de tipus venedor pel treballador anomenat Joan amb el password 173529363
-    I que un usuari a accedit al sistema amb el nom d'usuari Joan amb el password 173529363
+    I un administrador del sistema ha creat un nou login al sistema del tipus venedor pel treballador anomenat Joan amb el password 123098463
+    I que l'usuari Joan accedeix al sistema amb el password 123098463
     I que hi ha un descompte de tipus percentatge definit en el sistema pels productes de tipus transformer d'un 20%
     I que hi ha un descompte de tipus m x n on m és 2 i n és 1 definit en el sistema pels productes de tipus "platja"
     I que hi ha un descompte de tipus regal que per la compra de Reproductor de música et regalen CD de música

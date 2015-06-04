@@ -5,8 +5,8 @@ Característica: Afegir un nou descompte al sistema
 
   Rerefons:
     Donat que estem a la botiga "Girona 1"
-    I que existeix un login de tipus gestor pel treballador anomenat Joan amb el password 123456789
-    I un usuari accedeix al sistema posa el nom d'usuari Joan amb el password 123456789
+    I un administrador del sistema ha creat un nou login al sistema del tipus gestor pel treballador anomenat Joan amb el password 123098463
+    I que l'usuari Joan accedeix al sistema amb el password 123098463
     I que s'ha afegit un descompte del tipus percentatge del 40% als productes de piscina
     I que s'ha afegit un descompte del tipus m x n pels productes de tipus piscina tal que quan en compres 3 en pagues 2
 
