@@ -578,17 +578,23 @@ public class PosController {
     public void visualitzaProductPopular(){
         if (this.currentSaleAssistantName != null) throw new IllegalStateException("Un venedor no pot visualitzar el producte més venut.");
         List<Product> aux;
+        List<Product> res = null;
         aux = productsService.listProducts();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Els productes més venuts:");
         float max = 0;
-        Product res = new Product();
         for(int i = 0; i < aux.size(); ++i){
             if(aux.get(i).getPopularity() >= max){
                 max = aux.get(i).getPopularity();
-                res = aux.get(i);
             }
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append("El producte més venut és la ").append(res.getName()).append(" i s'ha venut ").append(res.getPopularityInt()).append(" cops.");
+        for(int j = 0; j < aux.size(); ++j){
+            if(aux.get(j).getPopularity() == max){
+                sb.append("\n").append(aux.get(j).getName()).append(" i s'ha venut ").append(aux.get(j).getPopularityInt()).append(" cops.");
+                sb.append("---");
+            }
+
+        }
         message = sb.toString();
     }
 

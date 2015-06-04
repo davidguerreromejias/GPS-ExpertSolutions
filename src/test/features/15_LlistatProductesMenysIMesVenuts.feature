@@ -21,6 +21,7 @@ Característica: Llistat de Productes més/menys venuts
     I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1234567 per un import de 23€
     I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1111111 per un import de 10€
     I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1234567 per un import de 23€
+    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1234567 per un import de 23€
     I que s'ha efectuat una venta on s'han venut 1 unitats del producte 2222222 per un import de 12€
     I que s'ha efectuat una venta on s'han venut 1 unitats del producte 2222222 per un import de 12€
     I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1111111 per un import de 10€
@@ -34,7 +35,10 @@ Característica: Llistat de Productes més/menys venuts
     Quan demana visualitzar el producte més popular
     Aleshores la llista dels productes més venuts és
     """
-    El producte més venut és la Pilota groga i s'ha venut 7 cops.
+    El productes més venuts:
+    Pilota groga i s'ha venut 7 cops.
+    Optimus Prime i s'ha venut 7 cops.
+    ---
     """
 
   Escenari: Visualitzar producte menys popular
