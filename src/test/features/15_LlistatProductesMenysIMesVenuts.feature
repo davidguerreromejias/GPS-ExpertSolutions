@@ -16,20 +16,16 @@ Característica: Llistat de Productes més/menys venuts
     I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1234567 per un import de 23€
     I que s'ha efectuat una venta on s'han venut 1 unitats del producte 2222222 per un import de 12€
     I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1234567 per un import de 23€
-    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1111111 per un import de 10€
+    I que s'ha efectuat una venta on s'han venut 2 unitats del producte 1111111 per un import de 20€
     I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1234567 per un import de 23€
     I que s'ha efectuat una venta on s'han venut 1 unitats del producte 2222222 per un import de 12€
     I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1234567 per un import de 23€
     I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1111111 per un import de 10€
+    I que s'ha efectuat una venta on s'han venut 2 unitats del producte 1234567 per un import de 46€
     I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1234567 per un import de 23€
-    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1234567 per un import de 23€
-    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1234567 per un import de 23€
-    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 2222222 per un import de 12€
-    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 2222222 per un import de 12€
+    I que s'ha efectuat una venta on s'han venut 2 unitats del producte 2222222 per un import de 12€
     I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1111111 per un import de 10€
-    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 2222222 per un import de 12€
-    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 2222222 per un import de 12€
-    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 2222222 per un import de 12€
+    I que s'ha efectuat una venta on s'han venut 3 unitats del producte 2222222 per un import de 36€
     I que en "Joan" ha tancat el torn al tpv
 
   Escenari: Visualitzar producte més popular
