@@ -345,7 +345,9 @@ public class PosController {
             throw new IllegalStateException("No es pot cobrar una venta sense cap producte");
         else {
             salePayedWithCard();
+            this.lastSale = getCurrentSale();
             ventesRealitzades.add(currentSale);
+            finishSale();
             changeCard = "Targeta acceptada " + endMessage;
         }
     }
@@ -390,7 +392,7 @@ public class PosController {
         return sb.toString();
     }
 
-    private void afegirLiniaATiquet(StringBuilder sb, SaleLine sl){
+    private void afegirLiniaATiquet(StringBuilder sb, SaleLine sl, int iva21, int iva10, int iva2){
         if(!sl.esRegal()) {
             sb.append(sl.getProductName());
             Product p = productsService.findByName(sl.getProductName());
@@ -399,14 +401,19 @@ public class PosController {
             }
             sb.append(" ");
             int n = sb.toString().length();
-            sb.append(p.getBaseImposable());
+            int preu = p.getPrice();
+            sb.append(preu);
             int m = sb.toString().length();
             for (int i = m - n; i < 9; ++i) {
                 sb.append(" ");
             }
             sb.append(" ");
             n = sb.toString().length();
-            sb.append(p.getVatPct()).append("%");
+            int iva = p.getVatPct();
+            if(iva == 21) iva21+=preu;
+            else if(iva == 10) iva10+=preu;
+            else if(iva == 2) iva2+=preu;
+            sb.append(iva).append("%");
             m = sb.toString().length();
             for (int i = m - n; i < 9; ++i) {
                 sb.append(" ");
@@ -428,14 +435,14 @@ public class PosController {
                 sb.append("Descompte de ").append(sl.getDiscount().getAmountDiscount()).append("%");
                 int k = sb.toString().length();
                 for(int q = k-j; q < 53; ++q){sb.append(" ");}
-                sb.append(sl.getTotalPrice()).append("\n");
+                sb.append(sl.getTotalPrice()-sl.getTotalPriceRaw()).append("\n");
             }
             else if(sl.getDiscount().getTypeOfDiscount().equals("m x n")){
                 int j = sb.toString().length();
                 sb.append("Descompte de ").append(sl.getDiscount().getM()).append("x").append(sl.getDiscount().getN());
                 int k = sb.toString().length();
                 for(int q = k-j; q < 53; ++q){sb.append(" ");}
-                sb.append(sl.getTotalPrice()).append("\n");
+                sb.append(sl.getTotalPrice()-sl.getTotalPriceRaw()).append("\n");
             }
         }
         else{
@@ -449,12 +456,15 @@ public class PosController {
         if(!s.isEstaPagada()) throw new RuntimeException("La venta no s'ha cobrat");
         StringBuilder sb = new StringBuilder();
         sb.append("Joguets i Joguines\n");
-        sb.append("DATA\n");
+        sb.append(getCurrentDate()).append("\n");
         sb.append("L'atén ").append(getCurrentSaleAssistantName()).append(" a la botiga ").append(this.shop).append("\n");
         sb.append("Caixa num ").append(this.posNumber).append("\n");
         sb.append("-----   Producte   -----|-- €/u --|-- IVA --|-- # --|-- Total --\n");
+        int iva21 = 0;
+        int iva10 = 0;
+        int iva2 = 0;
         for(SaleLine sl : s.getLines()){
-            afegirLiniaATiquet(sb,sl);
+            afegirLiniaATiquet(sb,sl,iva21,iva10,iva2);
         }
         for(int i = 0; i < 64; ++i) sb.append("-");
         sb.append("\n");
