@@ -17,6 +17,7 @@ public class PosController {
 
     public void setCurrentSaleAssistantName(String currentSaleAssistantName) {
         this.currentSaleAssistantName = currentSaleAssistantName;
+        usersCollection.addUserActive(currentSaleAssistantName, "venedor");
     }
 
     private String currentSaleAssistantName;
@@ -125,6 +126,7 @@ public class PosController {
         if (this.currentGestorName != null) {
             throw new IllegalStateException("hi ha una sessió iniciada pel gestor " + this.currentGestorName);
         }
+        usersCollection.addUserActive(gestorName, "gestor");
         this.currentGestorName = gestorName;
         this.setCurrentDate(data1);
         this.dateLoginGestor = data;
@@ -134,6 +136,7 @@ public class PosController {
 
     public void gestorLogOut(String gestorName) {
         this.currentGestorName = null;
+        usersCollection.addUserActive(null, null);
     }
 
     public void login(String saleAssistantName) {
@@ -143,6 +146,7 @@ public class PosController {
         if (this.currentSaleAssistantName != null)
             throw new IllegalStateException("Aquest tpv està en ús per " + this.currentSaleAssistantName);
         this.currentSaleAssistantName = saleAssistantName;
+        usersCollection.addUserActive(saleAssistantName, "venedor");
         this.currentDate = data1;
         this.ventesRealitzades = new LinkedList();
         this.initialCash = 0;
@@ -362,6 +366,7 @@ public class PosController {
         }
         tornTancat = true;
         this.currentSaleAssistantName = null;
+        usersCollection.addUserActive(null, null);
     }
 
     public String getCurrentTiquet(){
