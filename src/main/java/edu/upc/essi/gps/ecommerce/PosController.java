@@ -262,7 +262,7 @@ public class PosController {
         if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
         Product p = productsService.findByBarCode(barCode);
         currentSale.addProduct(p);
-        p.incrementPopularity();
+        p.incrementPopularity(1);
         applyDiscount(p);
     }
 
@@ -271,6 +271,7 @@ public class PosController {
         if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
         Product p = productsService.findById(id);
         currentSale.addNProducts(p, amount);
+        p.incrementPopularity(amount);
         applyDiscount(p);
     }
 
@@ -278,6 +279,7 @@ public class PosController {
         if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
         Product p = productsService.findByName(nom);
         currentSale.addNProducts(p, amount);
+        p.incrementPopularity(amount);
         applyDiscount(p);
     }
 
@@ -734,6 +736,7 @@ public class PosController {
 
         if ((!esRegal && !teRegals) || amount > 0){
             currentSale.addNProducts(p, amount);
+            p.incrementPopularity(amount);
             applyDiscount(p);}
 
     }

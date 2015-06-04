@@ -12,21 +12,21 @@ Característica: Llistat de Productes més/menys venuts
     I que existeix un login de tipus gestor pel treballador anomenat Pere amb el password 173529363
     I que existeix un login de tipus venedor pel treballador anomenat Joan amb el password pde925384
     I que en "Joan" ha iniciat el torn al tpv
-    I que s'ha venut el producte 1234567 per un import de 23€
-    I que s'ha venut el producte 2222222 per un import de 12€
-    I que s'ha venut el producte 1234567 per un import de 23€
-    I que s'ha venut el producte 1111111 per un import de 10€
-    I que s'ha venut el producte 1234567 per un import de 23€
-    I que s'ha venut el producte 2222222 per un import de 12€
-    I que s'ha venut el producte 1234567 per un import de 23€
-    I que s'ha venut el producte 1111111 per un import de 10€
-    I que s'ha venut el producte 1234567 per un import de 23€
-    I que s'ha venut el producte 2222222 per un import de 12€
-    I que s'ha venut el producte 2222222 per un import de 12€
-    I que s'ha venut el producte 1111111 per un import de 10€
-    I que s'ha venut el producte 2222222 per un import de 12€
-    I que s'ha venut el producte 2222222 per un import de 12€
-    I que s'ha venut el producte 2222222 per un import de 12€
+    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1234567 per un import de 23€
+    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 2222222 per un import de 12€
+    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1234567 per un import de 23€
+    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1111111 per un import de 10€
+    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1234567 per un import de 23€
+    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 2222222 per un import de 12€
+    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1234567 per un import de 23€
+    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1111111 per un import de 10€
+    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1234567 per un import de 23€
+    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 2222222 per un import de 12€
+    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 2222222 per un import de 12€
+    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 1111111 per un import de 10€
+    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 2222222 per un import de 12€
+    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 2222222 per un import de 12€
+    I que s'ha efectuat una venta on s'han venut 1 unitats del producte 2222222 per un import de 12€
     I que en "Joan" ha tancat el torn al tpv
 
   Escenari: Visualitzar producte més popular

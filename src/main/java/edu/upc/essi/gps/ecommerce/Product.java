@@ -35,8 +35,8 @@ public class Product implements Entity, HasName {
         return id;
     }
 
-    public void incrementPopularity(){
-        ++this.popularity;
+    public void incrementPopularity(int unitatsVenudes){
+        this.popularity += unitatsVenudes;
     }
 
     public String getName() {

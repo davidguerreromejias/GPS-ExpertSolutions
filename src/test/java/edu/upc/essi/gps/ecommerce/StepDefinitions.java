@@ -343,7 +343,7 @@ public class StepDefinitions {
 
     @Donat("^que existeix un descompte del tipus (.*) pels productes de tipus (.*) tal que quan en compres (\\d+) en pagues (\\d+)$")
     public void addSetDiscountMXN2(String tipusDescompte, String setProducts, int m, int n) throws Throwable {
-        this.posController.addTypeDiscountMXN(tipusDescompte,setProducts, m, n);
+        this.posController.addTypeDiscountMXN(tipusDescompte, setProducts, m, n);
     }
 
     @Aleshores("existeix un descompte del tipus (.*) pels productes de tipus (.*) tal que quan en compres (\\d+) en pagues (\\d+)$")
@@ -560,10 +560,10 @@ public class StepDefinitions {
             this.posController.finishSale();
     }
 
-    @Donat("que s'ha venut el producte (\\d+) per un import de (\\d+)€")
-    public void saleOfProduct(int codiB, int preuTotal) throws Throwable{
+    @Donat("que s'ha efectuat una venta on s'han venut (\\d+) unitats del producte (\\d+) per un import de (\\d+)€")
+    public void saleOfProduct(int amount,int codiB, int preuTotal) throws Throwable{
         this.posController.startSale();
-        this.posController.addProductByBarCode(codiB);
+        this.posController.addProductByBarCode(codiB,amount);
         this.posController.finishSale();
     }
 
@@ -592,12 +592,12 @@ public class StepDefinitions {
     }
 
     @Aleshores("el resultat de la cerca per venedor és$")
-    public void checkSalesXVenedor(String msg){
+    public void checkSalesXVenedor(String msg) {
         assertEquals(msg, this.posController.getMessage());
     }
 
     @Aleshores("el resultat de la cerca per data és$")
-    public void checkSalesXData(String msg){
+    public void checkSalesXData(String msg) {
         assertEquals(msg, this.posController.getMessage());
     }
 
@@ -607,12 +607,12 @@ public class StepDefinitions {
     }
 
     @Quan("demana visualitzar el producte més popular")
-    public void visualitzaProductPopular() throws Throwable{
+    public void visualitzaProductPopular() throws Throwable {
         tryCatch(() -> this.posController.visualitzaProductPopular());
     }
 
     @Quan("demana visualitzar el producte menys popular")
-    public void visualitzaProductMenysPopular() throws Throwable{
+    public void visualitzaProductMenysPopular() throws Throwable {
         tryCatch(() -> this.posController.visualitzaProductMenysPopular());
     }
 
@@ -622,7 +622,7 @@ public class StepDefinitions {
     }
 
     @Aleshores("el producte més venut és$")
-    public void checkProductPopular(String msg){
+    public void checkProductPopular(String msg) {
         assertEquals(msg, this.posController.getMessage());
     }
 
