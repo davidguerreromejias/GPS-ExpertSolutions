@@ -9,6 +9,7 @@ Característica: Llistat de Productes més/menys venuts
     I un producte amb nom "Pilota vermella", preu 10€, iva 21% i codi de barres 1111111 i que pertany als tipus "esports"
     I un producte amb nom "Pilota groga", preu 12€, iva 21% i codi de barres 2222222 i que pertany als tipus "esports"
     I un producte amb nom "Pilota verda", preu 11€, iva 21% i codi de barres 3333333 i que pertany als tipus "esports"
+    I un producte amb nom "Pilota lila", preu 11€, iva 21% i codi de barres 4444444 i que pertany als tipus "esports"
     I que existeix un login de tipus gestor pel treballador anomenat Pere amb el password 173529363
     I que existeix un login de tipus venedor pel treballador anomenat Joan amb el password pde925384
     I que en "Joan" ha iniciat el torn al tpv
@@ -46,7 +47,9 @@ Característica: Llistat de Productes més/menys venuts
     Quan demana visualitzar el producte menys popular
     Aleshores la llista dels productes menys venuts és
     """
-    El producte menys venut és la Pilota verda i s'ha venut 0 cops.
+    Els productes menys venuts:
+    Pilota verda i s'ha venut 0 cops.
+    Pilota lila i s'ha venut 0 cops.
     """
 
   Escenari: Error si un venedor intenta visualitzar el producte més venut
