@@ -699,7 +699,7 @@ public class PosController {
     }
 
     public void loginSistema(String nom, String password) {
-        if (!usersCollection.usuariCorrecte(nom,password))
+        if (!usersCollection.usuariCorrecte(nom, password))
             throw new IllegalStateException("El nom o la contrasenya és incorrecte");
 
         if (!usersCollection.checkUserCanLogin())
@@ -708,7 +708,6 @@ public class PosController {
         usersCollection.addUserActive(nom, usersCollection.getRol(nom, password));
         if (usersCollection.getRol(nom,password).equals("gestor")) gestorLogin(nom);
         else login(nom);
-
     }
 
     public boolean userActive(String tipusLogin, String name) {
@@ -729,7 +728,7 @@ public class PosController {
     }
 
     public void adminCreateLogin(String tipusLogin, String name, String password) {
-        usersCollection.adminAddLogin(tipusLogin,name,password);
+        usersCollection.adminAddLogin(tipusLogin, name, password);
     }
 }
 

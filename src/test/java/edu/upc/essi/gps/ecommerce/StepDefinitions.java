@@ -361,7 +361,7 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.createLogin(tipusLogin, name, password));
     }
 
-    @Donat("un administrador del sistema ha creat un nou login al sistema del tipus (.*) pel treballador anomenat (.*)amb el password (.*)$")
+    @Donat("un administrador del sistema ha creat un nou login al sistema del tipus (.*) pel treballador anomenat (.*) amb el password (.*)$")
     public void adminCreateLogin(String tipusLogin, String name, String password) throws Throwable {
         tryCatch(() -> this.posController.adminCreateLogin(tipusLogin, name, password));
     }

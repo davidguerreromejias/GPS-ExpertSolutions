@@ -20,7 +20,7 @@ public class UsersCollection {
     public void addLogin(String tipusLogin, String name, String password) {
         if (activeUser_name == null && activeUser_type == null)
             throw new IllegalArgumentException("Actualment no existeix cap usuari que hagi iniciat sessio");
-        if (activeUser_type != "gestor")
+        if (!activeUser_type.equals("gestor"))
             throw new IllegalArgumentException("Nomes un gestor pot crear un usuari nou al sistema");
 
         User u = new User(tipusLogin, name, password);
@@ -87,11 +87,10 @@ public class UsersCollection {
     }
 
     public String getRol(String nom, String password) {
-        String rol="";
         for (User u: usersList) {
-            if (u.getName().equals(nom) && u.getPassword().equals(password)) rol=u.getRol();
+            if (u.getName().equals(nom) && u.getPassword().equals(password)) return u.getRol();
         }
-        return rol;
+        return "";
     }
 
     public void addUserActive(String nom, String rol) {
