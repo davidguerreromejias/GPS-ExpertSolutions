@@ -621,12 +621,12 @@ public class StepDefinitions {
         assertEquals(msg, this.posController.getMessage());
     }
 
-    @Aleshores("el producte més venut és$")
+    @Aleshores("la llista dels productes més venuts és$")
     public void checkProductPopular(String msg) {
         assertEquals(msg, this.posController.getMessage());
     }
 
-    @Aleshores("el producte menys venut és$")
+    @Aleshores("la llista dels productes menys venuts és$")
     public void checkProductMenysPopular(String msg){
         assertEquals(msg, this.posController.getMessage());
     }

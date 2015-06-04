@@ -32,7 +32,7 @@ Característica: Llistat de Productes més/menys venuts
   Escenari: Visualitzar producte més popular
     Donat que en "Pere" ha iniciat sessió com a gestor
     Quan demana visualitzar el producte més popular
-    Aleshores el producte més venut és
+    Aleshores la llista dels productes més venuts és
     """
     El producte més venut és la Pilota groga i s'ha venut 7 cops.
     """
@@ -40,7 +40,7 @@ Característica: Llistat de Productes més/menys venuts
   Escenari: Visualitzar producte menys popular
     Donat que en "Pere" ha iniciat sessió com a gestor
     Quan demana visualitzar el producte menys popular
-    Aleshores el producte menys venut és
+    Aleshores la llista dels productes menys venuts és
     """
     El producte menys venut és la Pilota verda i s'ha venut 0 cops.
     """
