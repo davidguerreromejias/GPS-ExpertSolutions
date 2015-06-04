@@ -591,7 +591,6 @@ public class PosController {
         for(int j = 0; j < aux.size(); ++j){
             if(aux.get(j).getPopularity() == max){
                 sb.append("\n").append(aux.get(j).getName()).append(" i s'ha venut ").append(aux.get(j).getPopularityInt()).append(" cops.");
-                sb.append("---");
             }
 
         }
