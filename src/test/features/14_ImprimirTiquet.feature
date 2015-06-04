@@ -24,7 +24,7 @@ Característica: Acabar una venta i imprimir el tiquet
     I que el producte amb codi de barres 7777777 ha estat afegit a la venta actual amb la quantitat 1
     I que el producte amb codi de barres 2222222 ha estat afegit a la venta actual amb la quantitat 1
     I que el producte amb codi de barres 3333333 ha estat afegit a la venta actual amb la quantitat 1
-    I que el client ha pagat 70€ en "efectiu"
+    I que el client ha pagat 120€ en "efectiu"
     Quan vull imprimir el tiquet
     Aleshores el sistema imprimeix
     """
@@ -41,15 +41,15 @@ Característica: Acabar una venta i imprimir el tiquet
     De regal: 1 unitats de CD de música
     Monopoly                 50        2%        1       50
     ----------------------------------------------------------------
-    Total Base Imposable 21%                             35
-    Impost IVA 21%                                       10
+    Total Base Imposable 21%                             24
+    Impost IVA 21%                                       6
     Total Base Imposable 10%                             27
     Impost IVA 10%                                       3
     Total Base Imposable 2%                              49
     Impost IVA 2%                                        1
-    Total                                                60
+    Total                                                110
     ----------------------------------------------------------------
-    Pagat:                                               70
+    Pagat:                                               120
     Canvi:                                               10
     """
 
