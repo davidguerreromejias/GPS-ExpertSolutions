@@ -56,4 +56,5 @@ public class ProductsService {
     public Product findByBarCode(int barCode) {
         return productsRepository.findByBarCode(barCode);
     }
+
 }

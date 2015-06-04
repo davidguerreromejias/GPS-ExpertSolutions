@@ -262,6 +262,7 @@ public class PosController {
         if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
         Product p = productsService.findByBarCode(barCode);
         currentSale.addProduct(p);
+        p.incrementPopularity();
         applyDiscount(p);
     }
 
@@ -569,6 +570,24 @@ public class PosController {
             ).append(aux.get(i).getData()).append(".\n");
             sb.append("---");
         }
+        message = sb.toString();
+    }
+
+    public void visualitzaProductPopular(){
+        if (this.currentSaleAssistantName != null) throw new IllegalStateException("Un venedor no pot visualitzar l'historial.");
+        List<Product> aux;
+        aux = productsService.listProducts();
+        float max = 0;
+        Product res = new Product();
+        for(int i = 0; i < aux.size(); ++i){
+            if(aux.get(i).getPopularity() >= max){
+                max = aux.get(i).getPopularity();
+                res = aux.get(i);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("El producte més venut és la ").append(res.getName()).append(" i s'ha venut ").append(res.getPopularity()).append(" cops.");
+        sb.append("---");
         message = sb.toString();
     }
 

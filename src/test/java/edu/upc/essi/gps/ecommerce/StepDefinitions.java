@@ -291,7 +291,7 @@ public class StepDefinitions {
     public void createMxNDiscount(String type,int mvalue, int nvalue,String conjunt) throws Throwable {
         tryCatch(() -> this.posController.createLogin("gestor", "Pere", "password0"));
         tryCatch(() -> this.posController.gestorLogin("Pere"));
-        this.posController.addTypeDiscountMXN(type,conjunt,mvalue,nvalue);
+        this.posController.addTypeDiscountMXN(type, conjunt, mvalue, nvalue);
         this.posController.logoutSistema("Pere");
     }
 
@@ -338,7 +338,7 @@ public class StepDefinitions {
 
     @Donat("^que s'ha afegit un descompte del tipus (.*) pels productes de tipus (.*) tal que quan en compres (\\d+) en pagues (\\d+)$")
     public void addSetDiscountMXN3(String tipusDescompte, String setProducts, int m, int n) throws Throwable {
-        this.posController.addTypeDiscountMXN(tipusDescompte,setProducts, m, n);
+        this.posController.addTypeDiscountMXN(tipusDescompte, setProducts, m, n);
     }
 
     @Donat("^que existeix un descompte del tipus (.*) pels productes de tipus (.*) tal que quan en compres (\\d+) en pagues (\\d+)$")
@@ -554,11 +554,17 @@ public class StepDefinitions {
         public void saleOfX(int preuTotal, String data) throws Throwable{
             this.posController.setCurrentDate(data);
             this.posController.startSale();
-            Random rn = new Random();
             int randomNum = (int)(Math.random() * 1000);
             this.productsService.newProduct(this.posController.getSaltString(), preuTotal, 21 , randomNum , "platja");
             this.posController.addProductByBarCode(randomNum);
             this.posController.finishSale();
+    }
+
+    @Donat("que s'ha venut el producte (\\d+) per un import de (\\d+)€")
+    public void saleOfProduct(int preuTotal, int codiB) throws Throwable{
+        this.posController.startSale();
+        this.posController.addProductByBarCode(codiB);
+        this.posController.finishSale();
     }
 
     @Donat("^que hi ha un descompte de tipus (.*) definit en el sistema pels productes de tipus (.*) d'un (\\d+)%$")
@@ -598,6 +604,11 @@ public class StepDefinitions {
     @Quan("demana visualitzar tot l'historial")
     public void visualitzaXTot() throws Throwable{
         tryCatch(() -> this.posController.visualitzaTotHistorial());
+    }
+
+    @Quan("demana visualitzar el producte més popular")
+    public void visualitzaProductPopular() throws Throwable{
+        tryCatch(() -> this.posController.visualitzaProductPopular());
     }
 
     @Aleshores("el resultat de tot l'historial és$")

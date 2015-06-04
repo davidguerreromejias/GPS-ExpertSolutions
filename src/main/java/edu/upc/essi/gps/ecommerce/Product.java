@@ -22,10 +22,21 @@ public class Product implements Entity, HasName {
         this.vatPct = vatPct;
         this.barCode = barCode;
         this.typesList = typesList;
+        this.popularity = 0;
+    }
+
+    public Product(){
+        this.price = 0;
+        this.vatPct = 0;
+        this.barCode = 0;
     }
 
     public long getId() {
         return id;
+    }
+
+    public void incrementPopularity(){
+        ++this.popularity;
     }
 
     public String getName() {
