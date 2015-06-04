@@ -333,7 +333,7 @@ public class StepDefinitions {
 
     @Quan("^afegeixo un descompte del tipus (.*) pels productes de tipus (.*) tal que quan en compres (\\d+) en pagues (\\d+)$")
     public void addSetDiscountMXN(String tipusDescompte, String setProducts, int m, int n) throws Throwable {
-        this.posController.addTypeDiscountMXN(tipusDescompte,setProducts, m, n);
+        this.posController.addTypeDiscountMXN(tipusDescompte, setProducts, m, n);
     }
 
     @Donat("^que s'ha afegit un descompte del tipus (.*) pels productes de tipus (.*) tal que quan en compres (\\d+) en pagues (\\d+)$")
@@ -359,6 +359,11 @@ public class StepDefinitions {
     @Quan("és vol crear un nou login al sistema del tipus (.*) pel treballador anomenat (.*) amb el password (.*)$")
     public void login(String tipusLogin, String name, String password) throws Throwable {
         tryCatch(() -> this.posController.createLogin(tipusLogin, name, password));
+    }
+
+    @Donat("un administrador del sistema ha creat un nou login al sistema del tipus (.*) pel treballador anomenat (.*)amb el password (.*)$")
+    public void adminCreateLogin(String tipusLogin, String name, String password) throws Throwable {
+        tryCatch(() -> this.posController.adminCreateLogin(tipusLogin, name, password));
     }
 
     @Quan("que existeix un login de tipus (.*) pel treballador anomenat (.*) amb el password (.*)$")
@@ -408,6 +413,11 @@ public class StepDefinitions {
 
     @Quan ("un usuari accedeix al sistema posa el nom d'usuari (.*) amb el password (.*)$")
     public void loginSistema(String nom, String password) {
+        tryCatch(() -> this.posController.loginSistema(nom, password));
+    }
+
+    @Donat ("que l'usuari (.*) accedeix al sistema amb el password (.*)")
+    public void loginSistema6(String nom, String password) {
         tryCatch(() -> this.posController.loginSistema(nom, password));
     }
 

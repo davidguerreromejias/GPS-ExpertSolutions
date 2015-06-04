@@ -13,7 +13,7 @@ public class PosController {
     private final ProductsService productsService;
     private final String shop;
     private final int posNumber;
-    private UsersCollection UsersCollection;
+    private UsersCollection usersCollection;
 
     public void setCurrentSaleAssistantName(String currentSaleAssistantName) {
         this.currentSaleAssistantName = currentSaleAssistantName;
@@ -106,7 +106,7 @@ public class PosController {
         this.currentSaleAssistantName = null;
         this.historicSales = new historicSales();
         this.currentSaleAssistantName = null;
-        this.UsersCollection = new UsersCollection();
+        this.usersCollection = new UsersCollection();
     }
 
     public PosController(String shop) {
@@ -115,7 +115,7 @@ public class PosController {
         this.posNumber = -1; //es un gestor el que està dins, els canvis seràn per tots els tpv
         this.productsService = null; //nomes serà per fer gestions, no per vendre res, per tant tampoc necessitem el productService
         this.currentSaleAssistantName = null;
-        this.UsersCollection = new UsersCollection();
+        this.usersCollection = new UsersCollection();
     }
 
     public void gestorLogin(String gestorName) {
@@ -597,21 +597,21 @@ public class PosController {
     }
 
     public void createLogin(String tipusLogin, String name, String password) {
-        UsersCollection.addLogin(tipusLogin, name, password);
+        usersCollection.addLogin(tipusLogin, name, password);
     }
 
     public boolean existsLogin(String tipusLogin, String name) {
-        if  (!UsersCollection.checkLogin(tipusLogin, name))
+        if  (!usersCollection.checkLogin(tipusLogin, name))
             throw new IllegalStateException("No existeix un " + tipusLogin + " amb el nom " + name);;
         return true;
     }
 
     public void getListLogins(String tipusLogin) {
-        llista = UsersCollection.getListLogins(tipusLogin);
+        llista = usersCollection.getListLogins(tipusLogin);
     }
 
     public void getAllListLogins() {
-        llista = UsersCollection.getAllListLogins();
+        llista = usersCollection.getAllListLogins();
     }
     public void afegirRegalCollection(String nomProd, String nomRegal) {
         ArrayList<String> regals = new ArrayList<>();
@@ -699,33 +699,37 @@ public class PosController {
     }
 
     public void loginSistema(String nom, String password) {
-        if (!UsersCollection.usuariCorrecte(nom,password))
+        if (!usersCollection.usuariCorrecte(nom,password))
             throw new IllegalStateException("El nom o la contrasenya és incorrecte");
 
-        if (!UsersCollection.checkUserCanLogin())
+        if (!usersCollection.checkUserCanLogin())
             throw new IllegalStateException("Ja hi ha un usuari actiu al sistema");
 
-        UsersCollection.addUserActive(nom, UsersCollection.getRol(nom,password));
-        if (UsersCollection.getRol(nom,password).equals("gestor")) gestorLogin(nom);
+        usersCollection.addUserActive(nom, usersCollection.getRol(nom, password));
+        if (usersCollection.getRol(nom,password).equals("gestor")) gestorLogin(nom);
         else login(nom);
 
     }
 
     public boolean userActive(String tipusLogin, String name) {
-        return UsersCollection.checkUserActive(tipusLogin, name);
+        return usersCollection.checkUserActive(tipusLogin, name);
     }
 
 
     public void getActiveUsers() {
-        llista = UsersCollection.getActiveUsers();
+        llista = usersCollection.getActiveUsers();
     }
 
     public void logoutSistema(String nom) {
-        UsersCollection.logout(nom);
+        usersCollection.logout(nom);
     }
 
     public boolean userNotActive(String tipusLogin, String name) {
-        return UsersCollection.checkUserNotActive(tipusLogin,name);
+        return usersCollection.checkUserNotActive(tipusLogin,name);
+    }
+
+    public void adminCreateLogin(String tipusLogin, String name, String password) {
+        usersCollection.adminAddLogin(tipusLogin,name,password);
     }
 }
 

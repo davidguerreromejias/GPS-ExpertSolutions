@@ -18,6 +18,11 @@ public class UsersCollection {
     }
 
     public void addLogin(String tipusLogin, String name, String password) {
+        if (activeUser_name == null && activeUser_type == null)
+            throw new IllegalArgumentException("Actualment no existeix cap usuari que hagi iniciat sessio");
+        if (activeUser_type != "gestor")
+            throw new IllegalArgumentException("Nomes un gestor pot crear un usuari nou al sistema");
+
         User u = new User(tipusLogin, name, password);
         usersList.add(u);
     }
@@ -139,5 +144,10 @@ public class UsersCollection {
     public boolean checkUserCanLogin() {
         if (activeUser_name == null && activeUser_type == null) return true;
         else return false;
+    }
+
+    public void adminAddLogin(String tipusLogin, String name, String password) {
+        User u = new User(tipusLogin, name, password);
+        usersList.add(u);
     }
 }
