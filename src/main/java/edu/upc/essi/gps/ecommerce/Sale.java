@@ -99,8 +99,6 @@ public class Sale {
     private final String saleAssistantName;
     private final LinkedList<SaleLine> lines = new LinkedList<>();
     private String paymentForm;
-    private int totalPrice; //variable per a realitzar proves, no �s coherent amb el m�tode getTotal()
-    private boolean esProva;
     private final Date data;
     private LinkedList<SaleLine> candidatsADescompteMxN = new LinkedList<>();
 
@@ -136,17 +134,12 @@ public class Sale {
         lines.add(new SaleLine(p, amount));
     }
 
-    public void setTotalPrice(int x) {
-        this.totalPrice = x;
-        this.esProva = true;
-    }
 
     public Sale(String shop, int posNumber, String saleAssistantName) {
         this.shop = shop;
         this.posNumber = posNumber;
         this.saleAssistantName = saleAssistantName;
         this.paymentForm = "efectiu";
-        this.esProva = false;
         this.estaPagada = false;
         data = new Date();
     }
@@ -168,13 +161,11 @@ public class Sale {
     }
 
     public int getTotal() {
-        if (!esProva) {
-            int res = 0;
-            for (SaleLine l : lines) {
-                res += l.getTotalPrice();
-            }
-            return res;
-        } else return totalPrice;
+        int res = 0;
+        for (SaleLine l : lines) {
+            res += l.getTotalPrice();
+        }
+        return res;
     }
 
     public boolean isEmpty() {

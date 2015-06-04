@@ -13,10 +13,10 @@ public class setDiscountCollection {
         this.DiscountController = new ArrayList<Discount>();
     }
 
-    private Discount getDiscountFromSet (String set, String shop, String type) {
-        Discount result = new Discount();
+    public Discount getDiscountFromSet (String set) {
+        Discount result = null;
         for (Discount sd : DiscountController) {
-            if (sd.getConjuntAAplicar().equals(set) && sd.getShop().equals(shop) && sd.getTypeOfDiscount().equals(type)) result = sd;
+            if (sd.getConjuntAAplicar().equals(set)) result = sd;
         }
         return result;
     }
@@ -24,7 +24,7 @@ public class setDiscountCollection {
     public void addSetDiscount(Discount disc) throws RuntimeException {
         if (disc.getTypeOfDiscount().equals("percentatge") &&  disc.getAmountDiscount() <= 0 || disc.getAmountDiscount() > 100)
             throw new IllegalArgumentException("El descompte ha de ser més gran que 0 i més petit o igual que 100");
-        eliminaSetDiscount(disc); //si ja existia un descompte d'aquest tipo, l'elimina
+        eliminaSetDiscount(disc); //si ja existia un descompte d'aquest tipus, l'elimina
         DiscountController.add(disc);
     }
 
@@ -34,7 +34,7 @@ public class setDiscountCollection {
         Boolean trobat=false;
         while( it.hasNext() && !trobat){
             aux = it.next();
-            if ( aux.getConjuntAAplicar().equals(disc.getConjuntAAplicar()) && aux.getShop().equals(disc.getShop())
+            if ( aux.getConjuntAAplicar().equals(disc.getConjuntAAplicar())
                     && aux.getTypeOfDiscount().equals(disc.getTypeOfDiscount()) && !trobat) {
                 trobat=true;
                 it.remove();
@@ -55,7 +55,7 @@ public class setDiscountCollection {
         }
     }
 
-    public boolean getSetDiscount (String set, String shop, String type) {
+    public boolean getSetDiscount (String set, String type) {
         if (!existSetDiscount(set, type))
             throw new IllegalArgumentException("No existeix cap descompte del tipus " + type + " pels productes de tipus " + set);
         return true;

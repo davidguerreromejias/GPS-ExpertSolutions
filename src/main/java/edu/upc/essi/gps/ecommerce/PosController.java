@@ -13,7 +13,7 @@ public class PosController {
     private final ProductsService productsService;
     private final String shop;
     private final int posNumber;
-    private UsersCollection UsersCollection;
+    private UsersCollection usersCollection;
 
     public void setCurrentSaleAssistantName(String currentSaleAssistantName) {
         this.currentSaleAssistantName = currentSaleAssistantName;
@@ -25,7 +25,6 @@ public class PosController {
     public String getMessage() {
         return message;
     }
-
 
     private String message;
 
@@ -53,7 +52,6 @@ public class PosController {
     //coses pel gestor
     private String currentGestorName;
     private Date dateLoginGestor;
-    private LinkedList<Discount> discCollection = new LinkedList<>();
     private LinkedList<Discount> regalCollection = new LinkedList<>();
 
     private String llista; //servirà per no haver de repetir la lectura dels descomptes
@@ -108,7 +106,7 @@ public class PosController {
         this.currentSaleAssistantName = null;
         this.historicSales = new historicSales();
         this.currentSaleAssistantName = null;
-        this.UsersCollection = new UsersCollection();
+        this.usersCollection = new UsersCollection();
     }
 
     public PosController(String shop) {
@@ -117,7 +115,7 @@ public class PosController {
         this.posNumber = -1; //es un gestor el que està dins, els canvis seràn per tots els tpv
         this.productsService = null; //nomes serà per fer gestions, no per vendre res, per tant tampoc necessitem el productService
         this.currentSaleAssistantName = null;
-        this.UsersCollection = new UsersCollection();
+        this.usersCollection = new UsersCollection();
     }
 
     public void gestorLogin(String gestorName) {
@@ -237,21 +235,15 @@ public class PosController {
 
     public void applyDiscount(Product p){
         ArrayList<String> types = p.getTypesList();
-        Iterator<Discount> it = discCollection.iterator();
-        boolean found = false;
-        Discount disc = new Discount("");
-        while (it.hasNext() && !found){
-            disc = it.next();
-            String conjuntAAplicar = disc.getConjuntAAplicar();
-            for(int i = 0; i < types.size() && !found; ++i) {
-                if (conjuntAAplicar.equals(types.get(i))){
-                    found = true;
-                }
-            }
+        Discount disc = null;
+        for(int i = 0; i < types.size() && disc == null; ++i) {
+            String cjt = types.get(i);
+            disc = setDiscountCollection.getDiscountFromSet(cjt);
         }
-        if (found){
+        if(disc != null){
             if(disc.getTypeOfDiscount().equals("percentatge")) {
-                currentSale.applyDiscountAtLastLine(disc,0);
+                System.out.println(disc.getTypeOfDiscount()+" "+disc.getConjuntAAplicar());
+                currentSale.applyDiscountAtLastLine(disc, 0);
             }
             else if(disc.getTypeOfDiscount().equals("m x n")){
                 currentSale.tryApplyDiscMxN(disc);
@@ -486,45 +478,31 @@ public class PosController {
         return total+initialCash;
     }
 
-    public void createPercDiscount(String type, int amount) {
-        Discount discPerc = new Discount(type, amount);
-        discCollection.add(discPerc);
-    }
 
-    public void createMxNDisc(String type,String conjuntAAplicar, int m, int n) {
-        Discount discMxN = new Discount(type,conjuntAAplicar, m, n);
-        discCollection.add(discMxN);
-    }
-
-
-    public void addTypeDiscount(String tipoDiscount, int discount, String tipoProd) {
+    public void addTypeDiscount(String typeOfDiscount, int amountDiscount, String conjuntAAplicar) {
         if (currentGestorName == null) throw new IllegalStateException("No hi ha cap sessio de gestor iniciada");
-        Discount disc = new Discount(tipoProd, discount, this.shop, tipoDiscount);
+        Discount disc = new Discount(typeOfDiscount,conjuntAAplicar,amountDiscount);
         this.setDiscountCollection.addSetDiscount(disc);
-        Boolean aux = setDiscountCollection.existSetDiscount(tipoProd, tipoDiscount);
+        Boolean aux = setDiscountCollection.existSetDiscount(conjuntAAplicar, typeOfDiscount);
         if (!aux) throw new IllegalStateException("No s'ha afegit el descompte");
     }
 
-    public void addTypeDiscountMXN( String setProducts, int m, int n, String tipoDescompte) {
+    public void addTypeDiscountMXN(String typeOfDiscount, String conjuntAAplicar,int m, int n) {
         if (currentGestorName == null) throw new IllegalStateException("No hi ha cap sessio de gestor iniciada");
-        Discount disc = new Discount(setProducts, m, n, this.shop,  tipoDescompte);
+        Discount disc = new Discount(typeOfDiscount,conjuntAAplicar,m,n);
         this.setDiscountCollection.addSetDiscount(disc);
-        Boolean aux = setDiscountCollection.existSetDiscount(setProducts, tipoDescompte);
+        Boolean aux = setDiscountCollection.existSetDiscount(conjuntAAplicar, typeOfDiscount);
         if (!aux) throw new IllegalStateException("No s'ha afegit el descompte");
     }
 
     public boolean getDiscountBySetProduct(String setProduct, String type) {
-        return setDiscountCollection.getSetDiscount(setProduct, this.shop, type);
+        return setDiscountCollection.getSetDiscount(setProduct,type);
     }
 
     public void deleteLine(String nomProd) {
         currentSale.deleteLine(nomProd);
     }
 
-    public void setDiscPerc(String tipus, int amount){
-        Discount d = new Discount(tipus, amount);
-        discCollection.add(d);
-    }
 
     public String getChange(){ return change;}
 
@@ -565,13 +543,6 @@ public class PosController {
         }
         message = sb.toString();
     }
-
-    public void createCjtDiscount(String type, String conjuntAAplicar, int amount) {
-        Discount discPerc = new Discount(type, conjuntAAplicar, amount);
-        discCollection.add(discPerc);
-    }
-
-
 
     public void finishSale(){
         this.historicSales.addSale(this.currentSale, this.currentSaleAssistantName, this.currentDate);
@@ -636,21 +607,21 @@ public class PosController {
     }
 
     public void createLogin(String tipusLogin, String name, String password) {
-        UsersCollection.addLogin(tipusLogin, name, password);
+        usersCollection.addLogin(tipusLogin, name, password);
     }
 
     public boolean existsLogin(String tipusLogin, String name) {
-        if  (!UsersCollection.checkLogin(tipusLogin, name))
+        if  (!usersCollection.checkLogin(tipusLogin, name))
             throw new IllegalStateException("No existeix un " + tipusLogin + " amb el nom " + name);;
         return true;
     }
 
-    public void getListLogins(String tipoLogin) {
-        llista = UsersCollection.getListLogins(tipoLogin);
+    public void getListLogins(String tipusLogin) {
+        llista = usersCollection.getListLogins(tipusLogin);
     }
 
     public void getAllListLogins() {
-        llista = UsersCollection.getAllListLogins();
+        llista = usersCollection.getAllListLogins();
     }
     public void afegirRegalCollection(String nomProd, String nomRegal) {
         ArrayList<String> regals = new ArrayList<>();
@@ -738,31 +709,36 @@ public class PosController {
     }
 
     public void loginSistema(String nom, String password) {
-        System.out.println("AQUIIIIIII--->"+UsersCollection.getRol(nom,password));
-
-        if (!UsersCollection.usuariCorrecte(nom,password))
+        if (!usersCollection.usuariCorrecte(nom, password))
             throw new IllegalStateException("El nom o la contrasenya és incorrecte");
-        UsersCollection.addUserActive(nom, password);
-        if (UsersCollection.getRol(nom,password).equals("gestor")) gestorLogin(nom);
-        else login(nom);
 
+        if (!usersCollection.checkUserCanLogin())
+            throw new IllegalStateException("Ja hi ha un usuari actiu al sistema");
+
+        usersCollection.addUserActive(nom, usersCollection.getRol(nom, password));
+        if (usersCollection.getRol(nom,password).equals("gestor")) gestorLogin(nom);
+        else login(nom);
     }
 
-    public boolean userActive(String tipusLogin, String name, String password) {
-        return UsersCollection.checkUserActive(tipusLogin, name, password);
+    public boolean userActive(String tipusLogin, String name) {
+        return usersCollection.checkUserActive(tipusLogin, name);
     }
 
 
     public void getActiveUsers() {
-        llista = UsersCollection.getActiveUsers();
+        llista = usersCollection.getActiveUsers();
     }
 
     public void logoutSistema(String nom) {
-        UsersCollection.logout(nom);
+        usersCollection.logout(nom);
     }
 
     public boolean userNotActive(String tipusLogin, String name) {
-        return UsersCollection.checkUserNotActive(tipusLogin,name);
+        return usersCollection.checkUserNotActive(tipusLogin,name);
+    }
+
+    public void adminCreateLogin(String tipusLogin, String name, String password) {
+        usersCollection.adminAddLogin(tipusLogin, name, password);
     }
 }
 

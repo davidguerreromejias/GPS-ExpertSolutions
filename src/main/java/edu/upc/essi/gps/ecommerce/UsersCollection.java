@@ -8,14 +8,21 @@ import java.util.Iterator;
  */
 public class UsersCollection {
     private ArrayList<User> usersList;
-    private ArrayList<User> activeUsers;
+    private String activeUser_name;
+    private String activeUser_type;
 
     public UsersCollection () {
         usersList = new ArrayList<User>();
-        activeUsers = new ArrayList<User>();
+        activeUser_name=null;
+        activeUser_type=null;
     }
 
     public void addLogin(String tipusLogin, String name, String password) {
+        if (activeUser_name == null && activeUser_type == null)
+            throw new IllegalArgumentException("Actualment no existeix cap usuari que hagi iniciat sessio");
+        if (!activeUser_type.equals("gestor"))
+            throw new IllegalArgumentException("Nomes un gestor pot crear un usuari nou al sistema");
+
         User u = new User(tipusLogin, name, password);
         usersList.add(u);
     }
@@ -30,6 +37,8 @@ public class UsersCollection {
     public String getListLogins(String tipoLogin) {
         if (usersList.isEmpty())
             throw new IllegalArgumentException("Actualment no existeix cap login del tipus " + tipoLogin);
+        if (!activeUser_type.equals("gestor"))
+            throw new IllegalArgumentException("Nomes un gestor pot llistar els usuaris del sistema");
 
         StringBuilder sb = new StringBuilder();
         sb.append("--Tipus Login--  --Nom--  --Password--\n");
@@ -54,6 +63,8 @@ public class UsersCollection {
     public String getAllListLogins() {
         if (usersList.isEmpty())
             throw new IllegalArgumentException("Actualment no existeix cap login");
+        if (!activeUser_type.equals("gestor"))
+            throw new IllegalArgumentException("Nomes un gestor pot llistar els usuaris del sistema");
 
         StringBuilder sb = new StringBuilder();
         sb.append("--Tipus Login--  --Nom--  --Password--\n");
@@ -80,27 +91,26 @@ public class UsersCollection {
     }
 
     public String getRol(String nom, String password) {
-        String rol="";
         for (User u: usersList) {
-            if (u.getName().equals(nom) && u.getPassword().equals(password)) rol=u.getRol();
+            if (u.getName().equals(nom) && u.getPassword().equals(password)) return u.getRol();
         }
-        return rol;
+        return "";
     }
 
-    public void addUserActive(String nom, String password) {
-        User u = new User(getRol(nom,password), nom, password);
-        activeUsers.add(u);
+    public void addUserActive(String nom, String rol) {
+        activeUser_name = nom;
+        activeUser_type = rol;
     }
 
-    public boolean checkUserActive(String tipusLogin, String name, String password) {
-        for (User u: activeUsers) {
-            if (u.getRol().equals(tipusLogin) && u.getName().equals(name) && u.getPassword().equals(password)) return true;
-        }
+
+
+    public boolean checkUserActive(String tipusLogin, String name) {
+        if ( activeUser_name.equals(name) && activeUser_type.equals(tipusLogin) ) return true;
         return false;
     }
 
     public String getActiveUsers() {
-        if (activeUsers.isEmpty())
+        if (activeUser_name == null && activeUser_type == null)
             throw new IllegalArgumentException("Actualment no existeix cap usuari que hagi iniciat sessio");
 
         StringBuilder sb = new StringBuilder();
@@ -108,36 +118,39 @@ public class UsersCollection {
         sb.append("--Tipus Login--  --Nom--  --Password--\n");
         String espai = " , ";
 
-        for (User u : activeUsers) {
-            if (u.getRol().equals("gestor"))
-                sb.append(u.getRol()).append(espai).append(u.getName()).append(espai).append(u.getPassword()).append("\n");
-        }
-
-        for (User u : activeUsers) {
-            if (u.getRol().equals("venedor"))
-                sb.append(u.getRol()).append(espai).append(u.getName()).append(espai).append(u.getPassword()).append("\n");
-        }
+        sb.append(activeUser_type).append(espai).append(activeUser_name).append(espai).append(getPassword()).append("\n");
 
         return sb.toString();
     }
 
     public void logout(String nom) {
-        Iterator<User> it = activeUsers.iterator();
-        User aux;
-        Boolean trobat = false;
-        while( it.hasNext() && !trobat){
-            aux = it.next();
-            if ( aux.getName().equals(nom) && !trobat) {
-                trobat=true;
-                it.remove();
+        activeUser_name = null;
+        activeUser_type = null;
+    }
+
+    public String getPassword() {
+        String aux = "";
+        for (User u: usersList) {
+            if (u.getName().equals(activeUser_name) && u.getRol().equals(activeUser_type)) {
+                aux = u.getPassword();
+                return aux;
             }
         }
+        return aux;
     }
 
     public boolean checkUserNotActive(String tipusLogin, String name) {
-        for (User u: activeUsers) {
-            if (u.getRol().equals(tipusLogin) && u.getName().equals(name)) return false;
-        }
+        if (activeUser_name != null && activeUser_type != null) return false;
         return true;
+    }
+
+    public boolean checkUserCanLogin() {
+        if (activeUser_name == null && activeUser_type == null) return true;
+        else return false;
+    }
+
+    public void adminAddLogin(String tipusLogin, String name, String password) {
+        User u = new User(tipusLogin, name, password);
+        usersList.add(u);
     }
 }

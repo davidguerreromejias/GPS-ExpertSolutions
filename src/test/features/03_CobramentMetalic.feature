@@ -6,8 +6,8 @@ Característica: Cobrar una venta en metàlic
   Rerefons:
     Donat un producte amb nom "Optimus Prime", preu 23€, iva 21% i codi de barres 1234567 i que pertany als tipus "figura d'acció,transformer"
     I que estem al tpv número 1 de la botiga "Girona 1"
-    I que existeix un login de tipus venedor pel treballador anomenat Joan amb el password 173529363
-    I que un usuari a accedit al sistema amb el nom d'usuari Joan amb el password 173529363
+    I un administrador del sistema ha creat un nou login al sistema del tipus venedor pel treballador anomenat Joan amb el password 123098463
+    I que l'usuari Joan accedeix al sistema amb el password 123098463
 
   Escenari: Cobrar una venta en metàlic
     Donat que hi ha una venta iniciada
