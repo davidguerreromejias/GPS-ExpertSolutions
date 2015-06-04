@@ -37,6 +37,8 @@ public class UsersCollection {
     public String getListLogins(String tipoLogin) {
         if (usersList.isEmpty())
             throw new IllegalArgumentException("Actualment no existeix cap login del tipus " + tipoLogin);
+        if (!activeUser_type.equals("gestor"))
+            throw new IllegalArgumentException("Nomes un gestor pot llistar els usuaris del sistema");
 
         StringBuilder sb = new StringBuilder();
         sb.append("--Tipus Login--  --Nom--  --Password--\n");
@@ -61,6 +63,8 @@ public class UsersCollection {
     public String getAllListLogins() {
         if (usersList.isEmpty())
             throw new IllegalArgumentException("Actualment no existeix cap login");
+        if (!activeUser_type.equals("gestor"))
+            throw new IllegalArgumentException("Nomes un gestor pot llistar els usuaris del sistema");
 
         StringBuilder sb = new StringBuilder();
         sb.append("--Tipus Login--  --Nom--  --Password--\n");

@@ -19,6 +19,13 @@ Característica: Login per rols
     Quan és vol crear un nou login al sistema del tipus venedor pel treballador anomenat Pere amb el password 987654321
     Aleshores existeix un login del tipus venedor pel treballador anomenat Pere
 
+  Escenari: Error un venedor intenta afegir un login
+    Donat és vol crear un nou login al sistema del tipus venedor pel treballador anomenat Pere amb el password 987654321
+    I en Gerard tanca sessió
+    I que l'usuari Pere accedeix al sistema amb el password 987654321
+    Quan és vol crear un nou login al sistema del tipus gestor pel treballador anomenat Joan amb el password 123456789
+    Aleshores obtinc un error que diu: "Nomes un gestor pot crear un usuari nou al sistema"
+
   Escenari: Consultar llista de gestors
     Donat que existeix un login de tipus gestor pel treballador anomenat Joan amb el password 123456789
     I que existeix un login de tipus gestor pel treballador anomenat Pere amb el password 173529363
@@ -82,6 +89,20 @@ Característica: Login per rols
     venedor , Jordi , 987654321
 
     """
+
+  Escenari: error un venedor intenta llistar els usuaris
+    Donat que existeix un login de tipus venedor pel treballador anomenat Joan amb el password 123456789
+    I que existeix un login de tipus venedor pel treballador anomenat Joana amb el password pde925384
+    I que existeix un login de tipus venedor pel treballador anomenat Lidia amb el password 111111111
+    I que existeix un login de tipus venedor pel treballador anomenat Jordi amb el password 987654321
+    I que existeix un login de tipus gestor pel treballador anomenat Pere amb el password 173529363
+    I que existeix un login de tipus gestor pel treballador anomenat Claudia amb el password pde925384
+    I que existeix un login de tipus gestor pel treballador anomenat Daniel amb el password 111111111
+    I que existeix un login de tipus gestor pel treballador anomenat Maria amb el password 987654321
+    I en Gerard tanca sessió
+    I un usuari accedeix al sistema posa el nom d'usuari Joan amb el password 123456789
+    Quan vull obtenir un llistat dels noms dels gestor
+    Aleshores obtinc un error que diu: "Nomes un gestor pot llistar els usuaris del sistema"
 
   Escenari: Un gestor intenta accedir al sistema amb el nom i la contrasenya
     Donat que existeix un login de tipus gestor pel treballador anomenat Joan amb el password 123456789
