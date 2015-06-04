@@ -6,8 +6,9 @@ Característica: Acabar una venta i imprimir el tiquet
   Rerefons:
     Donat un producte amb nom "Optimus Prime", preu 25€, iva 21% i codi de barres 1234567 i que pertany als tipus "figura d'acció,transformer"
     I un producte amb nom "Pilota de platja", preu 10€, iva 21% i codi de barres 1231231 i que pertany als tipus "esports,platja"
-    I un producte amb nom "Reproductor de música", preu 30€, iva 21% i codi de barres 7777777 i que pertany als tipus "electrònica,música"
+    I un producte amb nom "Reproductor de música", preu 30€, iva 10% i codi de barres 7777777 i que pertany als tipus "electrònica,música"
     I un producte amb nom "CD de música", preu 5€, iva 21% i codi de barres 2222222 i que pertany als tipus "música"
+    I un producte amb nom "Monopoly", preu 50€, iva 2% i codi de barres 3333333 i que pertany als tipus "joc de taula"
     I que estem al tpv número 1 de la botiga "Girona 1"
     I un administrador del sistema ha creat un nou login al sistema del tipus venedor pel treballador anomenat Joan amb el password 123098463
     I que l'usuari Joan accedeix al sistema amb el password 123098463
@@ -17,17 +18,18 @@ Característica: Acabar una venta i imprimir el tiquet
 
 
   Escenari: Cobrar una venta en metàlic
-    Donat que hi ha una venta iniciada
+    Donat que hi ha una venta iniciada en data "2015-06-05"
     I que el producte amb codi de barres 1234567 ha estat afegit a la venta actual amb la quantitat 1
     I que el producte amb codi de barres 1231231 ha estat afegit a la venta actual amb la quantitat 2
     I que el producte amb codi de barres 7777777 ha estat afegit a la venta actual amb la quantitat 1
     I que el producte amb codi de barres 2222222 ha estat afegit a la venta actual amb la quantitat 1
-    I que el client ha pagat 70€ en "efectiu"
+    I que el producte amb codi de barres 3333333 ha estat afegit a la venta actual amb la quantitat 1
+    I que el client ha pagat 120€ en "efectiu"
     Quan vull imprimir el tiquet
     Aleshores el sistema imprimeix
     """
     Joguets i Joguines
-    DATA
+    2015-06-05
     L'atén Joan a la botiga Girona 1
     Caixa num 1
     -----   Producte   -----|-- €/u --|-- IVA --|-- # --|-- Total --
@@ -35,12 +37,19 @@ Característica: Acabar una venta i imprimir el tiquet
     Descompte de 20%                                     -5
     Pilota de platja         10        21%       2       20
     Descompte de 2x1                                     -10
-    Reproductor de música    30        21%       1       30
-    CD de música             5         21%       1       5
-    De regal: 1 unitats de CD de música                  -5
+    Reproductor de música    30        10%       1       30
+    De regal: 1 unitats de CD de música
+    Monopoly                 50        2%        1       50
     ----------------------------------------------------------------
-                                                         60
-    Pagat:                                               70
+    Total Base Imposable 21%                             24
+    Impost IVA 21%                                       6
+    Total Base Imposable 10%                             27
+    Impost IVA 10%                                       3
+    Total Base Imposable 2%                              49
+    Impost IVA 2%                                        1
+    Total                                                110
+    ----------------------------------------------------------------
+    Pagat:                                               120
     Canvi:                                               10
     """
 

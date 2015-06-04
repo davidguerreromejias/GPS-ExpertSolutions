@@ -38,7 +38,9 @@ public class PosController {
     public void setCurrentDate(String currentDate) {
         this.currentDate = currentDate;
     }
-
+    private int iva21;
+    private int iva10;
+    private int iva2;
     private int canvi;
     private String currentDate;
     private Sale lastSale;
@@ -341,7 +343,9 @@ public class PosController {
             throw new IllegalStateException("No es pot cobrar una venta sense cap producte");
         else {
             salePayedWithCard();
+            this.lastSale = getCurrentSale();
             ventesRealitzades.add(currentSale);
+            finishSale();
             changeCard = "Targeta acceptada " + endMessage;
         }
     }
@@ -362,7 +366,7 @@ public class PosController {
 
     public void tancarTorn(){
         if(difUltimQuadrament != 0) {
-            quadramentsInvalids.add(new QuadramentInvalid(this.shop,this.posNumber,this.currentSaleAssistantName,difUltimQuadrament));
+            quadramentsInvalids.add(new QuadramentInvalid(this.shop, this.posNumber, this.currentSaleAssistantName, difUltimQuadrament));
         }
         tornTancat = true;
         this.currentSaleAssistantName = null;
@@ -396,14 +400,19 @@ public class PosController {
             }
             sb.append(" ");
             int n = sb.toString().length();
-            sb.append(p.getBaseImposable());
+            int preu = p.getPrice();
+            sb.append(preu);
             int m = sb.toString().length();
             for (int i = m - n; i < 9; ++i) {
                 sb.append(" ");
             }
             sb.append(" ");
             n = sb.toString().length();
-            sb.append(p.getVatPct()).append("%");
+            int iva = p.getVatPct();
+            if(iva == 21) iva21+=preu;
+            else if(iva == 10) iva10+=preu;
+            else if(iva == 2) iva2+=preu;
+            sb.append(iva).append("%");
             m = sb.toString().length();
             for (int i = m - n; i < 9; ++i) {
                 sb.append(" ");
@@ -416,23 +425,25 @@ public class PosController {
                 sb.append(" ");
             }
             sb.append(" ");
-            if(sl.getDiscount().getTypeOfDiscount().equals("m x n") || sl.getDiscount().getTypeOfDiscount().equals("percentatge")) sb.append("(");
             sb.append(sl.getTotalPriceRaw());
-            if(sl.getDiscount().getTypeOfDiscount().equals("m x n") || sl.getDiscount().getTypeOfDiscount().equals("percentatge")) sb.append(")");
             sb.append("\n");
             if(sl.getDiscount().getTypeOfDiscount().equals("percentatge")){
                 int j = sb.toString().length();
-                sb.append("Descompte de ").append(sl.getDiscount().getAmountDiscount()).append("%");
+                int disc = sl.getDiscount().getAmountDiscount();
+                sb.append("Descompte de ").append(disc).append("%");
                 int k = sb.toString().length();
                 for(int q = k-j; q < 53; ++q){sb.append(" ");}
-                sb.append(sl.getTotalPrice()).append("\n");
+                sb.append(sl.getTotalPrice()-sl.getTotalPriceRaw()).append("\n");
+                if(iva == 21) iva21-= (int) (preu*disc/100);
+                else if(iva == 10) iva10-= (int) (preu*disc/100);
+                else if(iva == 2) iva2-= (int) (preu*disc/100);
             }
             else if(sl.getDiscount().getTypeOfDiscount().equals("m x n")){
                 int j = sb.toString().length();
                 sb.append("Descompte de ").append(sl.getDiscount().getM()).append("x").append(sl.getDiscount().getN());
                 int k = sb.toString().length();
                 for(int q = k-j; q < 53; ++q){sb.append(" ");}
-                sb.append(sl.getTotalPrice()).append("\n");
+                sb.append(sl.getTotalPrice()-sl.getTotalPriceRaw()).append("\n");
             }
         }
         else{
@@ -441,22 +452,44 @@ public class PosController {
     }
 
     public void createTiquet(){
+        iva21 = 0;
+        iva10 = 0;
+        iva2 = 0;
         Sale s = this.lastSale;
         if(s == null) throw new RuntimeException("La venta no s'ha cobrat");
         if(!s.isEstaPagada()) throw new RuntimeException("La venta no s'ha cobrat");
         StringBuilder sb = new StringBuilder();
         sb.append("Joguets i Joguines\n");
-        sb.append("DATA\n");
+        sb.append(getCurrentDate()).append("\n");
         sb.append("L'atén ").append(getCurrentSaleAssistantName()).append(" a la botiga ").append(this.shop).append("\n");
         sb.append("Caixa num ").append(this.posNumber).append("\n");
         sb.append("-----   Producte   -----|-- €/u --|-- IVA --|-- # --|-- Total --\n");
         for(SaleLine sl : s.getLines()){
             afegirLiniaATiquet(sb,sl);
         }
+        int bi21 = (int) Math.round(iva21*0.79);
+        int i21 = (int) Math.round(iva21*0.21);
+        int bi10 = (int) Math.round(iva10*0.9);
+        int i10 = (int)  Math.round(iva10*0.1);
+        int bi2 = (int) Math.round(iva2*0.98);
+        int i2 = (int) Math.round(iva2*0.02);
         for(int i = 0; i < 64; ++i) sb.append("-");
         sb.append("\n");
-        for(int i = 0; i < 53; ++i) sb.append(" ");
-        sb.append(s.getTotal()).append("\n");
+        sb.append("Total Base Imposable 21%                             ");
+        sb.append(bi21).append("\n");
+        sb.append("Impost IVA 21%                                       ");
+        sb.append(i21).append("\n");
+        sb.append("Total Base Imposable 10%                             ");
+        sb.append(bi10).append("\n");
+        sb.append("Impost IVA 10%                                       ");
+        sb.append(i10).append("\n");
+        sb.append("Total Base Imposable 2%                              ");
+        sb.append(bi2).append("\n");
+        sb.append("Impost IVA 2%                                        ");
+        sb.append(i2).append("\n");
+        sb.append("Total                                                ").append(s.getTotal()).append("\n");
+        for(int i = 0; i < 64; ++i) sb.append("-");
+        sb.append("\n");
         sb.append("Pagat:                                               ");
         sb.append(canvi+s.getTotal()).append("\n");
         sb.append("Canvi:                                               ");
