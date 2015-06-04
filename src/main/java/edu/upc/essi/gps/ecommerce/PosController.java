@@ -574,7 +574,7 @@ public class PosController {
     }
 
     public void visualitzaProductPopular(){
-        if (this.currentSaleAssistantName != null) throw new IllegalStateException("Un venedor no pot visualitzar l'historial.");
+        if (this.currentSaleAssistantName != null) throw new IllegalStateException("Un venedor no pot visualitzar el producte més venut.");
         List<Product> aux;
         aux = productsService.listProducts();
         float max = 0;
@@ -586,8 +586,24 @@ public class PosController {
             }
         }
         StringBuilder sb = new StringBuilder();
-        sb.append("El producte més venut és la ").append(res.getName()).append(" i s'ha venut ").append(res.getPopularity()).append(" cops.");
-        sb.append("---");
+        sb.append("El producte més venut és la ").append(res.getName()).append(" i s'ha venut ").append(res.getPopularityInt()).append(" cops.");
+        message = sb.toString();
+    }
+
+    public void visualitzaProductMenysPopular(){
+        if (this.currentSaleAssistantName != null) throw new IllegalStateException("Un venedor no pot visualitzar el producte menys venut.");
+        List<Product> aux;
+        aux = productsService.listProducts();
+        float min = aux.get(0).getPopularity();
+        Product res = new Product();
+        for(int i = 0; i < aux.size(); ++i){
+            if(aux.get(i).getPopularity() <= min){
+                min = aux.get(i).getPopularity();
+                res = aux.get(i);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("El producte menys venut és la ").append(res.getName()).append(" i s'ha venut ").append(res.getPopularityInt()).append(" cops.");
         message = sb.toString();
     }
 

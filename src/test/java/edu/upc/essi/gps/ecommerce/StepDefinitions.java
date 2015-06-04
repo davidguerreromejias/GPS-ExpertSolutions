@@ -561,7 +561,7 @@ public class StepDefinitions {
     }
 
     @Donat("que s'ha venut el producte (\\d+) per un import de (\\d+)€")
-    public void saleOfProduct(int preuTotal, int codiB) throws Throwable{
+    public void saleOfProduct(int codiB, int preuTotal) throws Throwable{
         this.posController.startSale();
         this.posController.addProductByBarCode(codiB);
         this.posController.finishSale();
@@ -611,8 +611,23 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.visualitzaProductPopular());
     }
 
+    @Quan("demana visualitzar el producte menys popular")
+    public void visualitzaProductMenysPopular() throws Throwable{
+        tryCatch(() -> this.posController.visualitzaProductMenysPopular());
+    }
+
     @Aleshores("el resultat de tot l'historial és$")
     public void checkSalesHistorial(String msg){
+        assertEquals(msg, this.posController.getMessage());
+    }
+
+    @Aleshores("el producte més venut és$")
+    public void checkProductPopular(String msg){
+        assertEquals(msg, this.posController.getMessage());
+    }
+
+    @Aleshores("el producte menys venut és$")
+    public void checkProductMenysPopular(String msg){
         assertEquals(msg, this.posController.getMessage());
     }
 

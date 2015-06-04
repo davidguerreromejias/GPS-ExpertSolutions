@@ -47,6 +47,10 @@ public class Product implements Entity, HasName {
         return popularity;
     }
 
+    public int getPopularityInt() {
+        return (int)popularity;
+    }
+
     public int getPrice() {
         return price;
     }

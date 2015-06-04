@@ -22,8 +22,6 @@ Característica: Llistat de Productes
     I que s'ha venut el producte 1111111 per un import de 10€
     I que s'ha venut el producte 1234567 per un import de 23€
     I que s'ha venut el producte 2222222 per un import de 12€
-    I que s'ha venut el producte 1234567 per un import de 23€
-    I que s'ha venut el producte 1234567 per un import de 23€
     I que s'ha venut el producte 2222222 per un import de 12€
     I que s'ha venut el producte 1111111 per un import de 10€
     I que s'ha venut el producte 2222222 per un import de 12€
@@ -35,8 +33,25 @@ Característica: Llistat de Productes
   Escenari: Visualitzar producte més popular
     Donat que en "Pere" ha iniciat sessió com a gestor
     Quan demana visualitzar el producte més popular
-    Aleshores el resultat de tot l'historial és
+    Aleshores el producte més venut és
     """
     El producte més venut és la Pilota groga i s'ha venut 7 cops.
-    ---
     """
+
+  Escenari: Visualitzar producte menys popular
+    Donat que en "Pere" ha iniciat sessió com a gestor
+    Quan demana visualitzar el producte menys popular
+    Aleshores el producte menys venut és
+    """
+    El producte menys venut és la Pilota verda i s'ha venut 0 cops.
+    """
+
+  Escenari: Error si un venedor intenta visualitzar el producte més venut
+    Donat que en "Joan" ha iniciat el torn al tpv
+    Quan demana visualitzar el producte més popular
+    Aleshores obtinc un error que diu: "Un venedor no pot visualitzar el producte més venut."
+
+  Escenari: Error si un venedor intenta visualitzar el producte menys venut
+    Donat que en "Joan" ha iniciat el torn al tpv
+    Quan demana visualitzar el producte menys popular
+    Aleshores obtinc un error que diu: "Un venedor no pot visualitzar el producte menys venut."
