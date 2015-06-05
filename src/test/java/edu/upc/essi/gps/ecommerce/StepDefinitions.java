@@ -432,6 +432,12 @@ public class StepDefinitions {
         tryCatch(() -> this.posController.logoutSistema(nom));
     }
 
+    @Donat ("que en (.*) tanca sessió com a gestor$")
+    public void logoutSistemaGestor(String nom) {
+        tryCatch(() -> this.posController.logoutSistema(nom));
+        tryCatch(() -> this.posController.gestorLogOut(nom));
+    }
+
     @Donat ("que un usuari a accedit al sistema amb el nom d'usuari (.*) amb el password (.*)$")
     public void loginSistema3(String nom, String password) {
         tryCatch(() -> this.posController.loginSistema(nom, password));
@@ -524,7 +530,7 @@ public class StepDefinitions {
         this.posController.addProductByBarCode(barCode, amount);
         }
 
-    @Donat("^en \"([^\"]*)\" ha tancat el seu torn amb un quadrament invàlid de (\\d+)€ negatius$")
+    @Donat("^que en \"([^\"]*)\" ha tancat el seu torn amb un quadrament invàlid de (\\d+)€ negatius$")
     public void afegirTornAmbQuadramentInvalidNeg(String assistant, int dif) throws Throwable{
         login(assistant, 0);
         saleStarted();
@@ -534,7 +540,7 @@ public class StepDefinitions {
         this.posController.tancarTorn();
     }
 
-    @Donat("^en \"([^\"]*)\" ha tancat el seu torn amb un quadrament invàlid de (\\d+)€$")
+    @Donat("^que en \"([^\"]*)\" ha tancat el seu torn amb un quadrament invàlid de (\\d+)€$")
     public void afegirTornAmbQuadramentInvalid(String assistant, int dif) throws Throwable{
         login(assistant, 0);
         saleStarted();
@@ -563,7 +569,7 @@ public class StepDefinitions {
     @Donat("que s'ha efectuat una venta on s'han venut (\\d+) unitats del producte (\\d+) per un import de (\\d+)€")
     public void saleOfProduct(int amount,int codiB, int preuTotal) throws Throwable{
         this.posController.startSale();
-        this.posController.addProductByBarCode(codiB,amount);
+        this.posController.addProductByBarCode(codiB, amount);
         this.posController.finishSale();
     }
 

@@ -12,7 +12,7 @@ Característica: Tancar el torn al tpv
     I que l'usuari Josep accedeix al sistema amb el password 123098463
     I que existeix un login de tipus venedor pel treballador anomenat Joan amb el password 123098463
     I que existeix un login de tipus venedor pel treballador anomenat Marti amb el password 123098463
-    I que en Josep tanca sessió
+    I que en Josep tanca sessió com a gestor
 
   Escenari: No es pot tancar un torn si no n'hi ha cap d'iniciat
     Donat que no hi ha un torn iniciat
@@ -69,9 +69,9 @@ Característica: Tancar el torn al tpv
     """
 
   Escenari: Un gestor vol consultar el llistat de quadraments invàlids
-    Donat que en "Josep" ha iniciat sessio
-    I en "Martí" ha tancat el seu torn amb un quadrament invàlid de 5€ negatius
-    I en "Joan" ha tancat el seu torn amb un quadrament invàlid de 10€
+    Donat que en "Martí" ha tancat el seu torn amb un quadrament invàlid de 5€ negatius
+    I que en "Joan" ha tancat el seu torn amb un quadrament invàlid de 10€
+    I que en "Josep" ha iniciat sessio
     Quan vull obtenir un llistat dels quadraments invàlids
     Aleshores el sistema em mostra un llistat de quadraments invàlids que és
     """
@@ -81,5 +81,11 @@ Característica: Tancar el torn al tpv
     ---
     2 quadraments invàlids registrats
     """
+    
+  Escenari: Un venedor vol consultar el llistat de quadraments invàlids i surt error
+    Donat que en "Martí" ha tancat el seu torn amb un quadrament invàlid de 5€ negatius
+    I que un usuari a accedit al sistema amb el nom d'usuari Joan amb el password 173529363
+    Quan vull obtenir un llistat dels quadraments invàlids
+    Aleshores obtinc un error que diu: "Només un gestor pot consultar els quadraments invàlids"
 
 

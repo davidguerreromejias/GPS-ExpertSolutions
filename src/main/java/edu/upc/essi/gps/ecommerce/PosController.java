@@ -399,6 +399,7 @@ public class PosController {
 
 
     public String getQuadramentsInvalids(){
+        if(currentGestorName == null) throw new RuntimeException("Només un gestor pot consultar els quadraments invàlids");
         if(quadramentsInvalids.isEmpty()) throw new RuntimeException("No hi ha quadraments invàlids registrats al sistema");
         StringBuilder sb = new StringBuilder();
         sb.append("--Botiga--  --Caixa--  --Venedor--  --Quantitat--\n");
