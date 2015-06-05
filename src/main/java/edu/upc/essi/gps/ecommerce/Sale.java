@@ -10,7 +10,7 @@ class SaleLine{
     private int amount;
     private Discount discount;
     private int effectiveN;
-    private boolean esRegal;
+    private String ProductRegal;
     private boolean teDiscConjAplicat;
 
     public SaleLine(Product product, int amount) {
@@ -19,7 +19,7 @@ class SaleLine{
         this.unitPrice = product.getPrice();
         this.amount = amount;
         this.discount = new Discount("None",100);
-        this.esRegal = false;
+        this.ProductRegal = null;
         this.teDiscConjAplicat = false;
     }
 
@@ -48,7 +48,7 @@ class SaleLine{
     }
 
     public int getTotalPriceRaw() {
-        if (esRegal) return 0;
+        if (ProductRegal != null) return 0;
         return unitPrice * amount;
     }
 
@@ -62,7 +62,7 @@ class SaleLine{
         else if(discount.getTypeOfDiscount().equals("m x n")){
             return unitPrice * effectiveN;
         }
-        else if (esRegal) return 0;
+        else if (ProductRegal != null) return 0;
         else return unitPrice * amount;
     }
 
@@ -79,13 +79,11 @@ class SaleLine{
         return discount;
     }
 
-    public void setEsRegal(boolean b){
-        esRegal = b;
+    public void setProductRegal(String s){
+        ProductRegal = s;
     }
 
-    public boolean esRegal(){
-        return esRegal;
-    }
+    public String getProductRegal(){return ProductRegal;}
 
 
     public void incrAmount(){amount++;}
@@ -173,7 +171,7 @@ public class Sale {
     }
 
     public void deleteLine(String nomProd) {
-        for (SaleLine l : lines) if (nomProd == l.getProductName() && !l.esRegal()) lines.remove(l);
+        for (SaleLine l : lines) if (nomProd == l.getProductName()) lines.remove(l);
     }
 
     public void assignaDescompte(Discount d, String nomP, int effectiveN) {
@@ -241,75 +239,69 @@ public class Sale {
         }
     }
 
-    public boolean potAfegir(ArrayList<String> prods, String nomRegal) {
-        int count = 0;
-        for (int i = 0; i < prods.size(); ++i) {
-            count += getNumberOfAppearances(prods.get(i));
-        }
-        if (count > getNumberOfRegals(nomRegal)) return true;
-        else return false;
-    }
 
-    public int getNumberOfAppearances(String nomP) {
-        int count = 0;
-        for (SaleLine l : lines) {
-            if (l.getProductName() == nomP && !l.esRegal()) ++count;
+    public boolean potAfegir(String nomP, int amount) {
+        if (getNumberOfRegals(nomP)<amount) {
+            return true;
         }
-        return count;
+        else return false;
     }
 
     public int getNumberOfRegals(String nomP) {
         int count = 0;
         for (SaleLine l : lines) {
-            if (l.getProductName() == nomP && l.esRegal()) count += l.getAmount();
+            if (l.getProductRegal() == nomP) count += l.getAmount();
         }
         return count;
     }
 
-    public void addRegal(Product p) {
-        String nomP = p.getName();
+    public void addRegal(Product p, String nomP){
+        String nomRegal = p.getName();
         boolean afegit = false;
         for (SaleLine l : lines) {
-            if (nomP.equals(l.getProductName()) && l.esRegal()){
+            if (nomRegal.equals(l.getProductName()) && l.getProductRegal().equals(nomP)){
                 l.incrAmount();
                 afegit = true;
             }
         }
         if(!afegit){
             SaleLine sl = new SaleLine(p, 1);
-            sl.setEsRegal(true);
+            sl.setProductRegal(nomP);
             lines.add(sl);
         }
     }
 
-    public ArrayList<String> getNoRegals() {
-        ArrayList<String> noRegals = new ArrayList<>();
-        for (SaleLine l : lines) {
-            if (!l.esRegal()) {
-                int i = 0;
-                while (i < l.getAmount()) {
-                    noRegals.add(l.getProductName());
-                    ++i;
-                }
-            }
-        }
-        return noRegals;
-    }
 
-    public void setToRegal(String nomRegal){
-        boolean assignat = false;
+    public void setToRegal(String nomRegal, int amount, String nomP) {
         for (SaleLine l : lines) {
-            if (nomRegal.equals(l.getProductName()) && !l.esRegal() && !assignat){
-                if (l.getAmount() == 1) deleteLine(l.getProductName());
-                else l.decrAmount();
-                for (SaleLine l2 : lines){
-                    if (nomRegal.equals(l2.getProductName()) && l2.esRegal()){
-                        l2.incrAmount();
-                        assignat = true;
+            boolean esborrat = false;
+            while (!esborrat && amount > 0) {
+                if (nomRegal.equals(l.getProductName())) {
+                    if (l.getProductRegal().equals(null)) {
+                        if (l.getAmount() == 1) {
+                            esborrat = true;
+                            lines.remove(l);
+                        } else l.decrAmount();
+                        amount--;
+
+                        boolean incrementat = false;
+                        for (SaleLine l2 : lines) {
+                            if (!incrementat) {
+                                if (nomRegal.equals(l2.getProductName())) {
+                                    if (l2.getProductName().equals(nomP)) {
+                                        l2.incrAmount();
+                                        incrementat = true;
+                                    }
+                                }
+
+                            }
+
+                        }
                     }
                 }
             }
         }
+
     }
 
 }

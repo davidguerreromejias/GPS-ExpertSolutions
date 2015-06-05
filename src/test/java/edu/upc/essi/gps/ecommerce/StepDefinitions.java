@@ -654,4 +654,27 @@ public class StepDefinitions {
         this.posController.afegirRegalCollection(nomProd, nomRegals);
     }
 
+
+    @Aleshores("obtinc un error que em diu$")
+    public void checkErrorGestor(String msg){
+        assertEquals(msg, this.posController.getMessage());
+    }
+
+
+    @Donat("que hi ha un descompte definit de tipus regal que per la compra de (.*) et regalen (\\d+) uds de productes de tipus (.*)$")
+    public void afegirRegalByTypeAdmin(String nomP, int amount, String type){
+        this.posController.afegirRegalByTypeAdmin(nomP, amount, type);
+    }
+
+
+
+    @Quan("vol afegir un descompte de tipus regal que per la compra de (.*) et regalen (\\d+) uds de productes de tipus (.*)$")
+    public void afegirRegalByType(String nomP, int amount, String type){
+        this.posController.afegirRegalByType(nomP, amount, type);}
+
+    @Aleshores("els productes que tenen regals per tipus son$")
+    public void checkRegalsType(String msg){
+        assertEquals(msg, this.posController.visualitzaRegalsTipus());}
+
+
 }

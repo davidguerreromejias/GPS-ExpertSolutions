@@ -62,6 +62,17 @@ public class PosController {
     private historicSales historicSales;
     String change;
 
+
+    private String regal;
+
+    private class DescompteRegal {
+        String nomP;
+        int amount;
+        String type;
+    }
+
+    public ArrayList<DescompteRegal> regalsByType = new ArrayList<>();
+
     private ArrayList<ArrayList<String>> CollectionRegal = new ArrayList<>();
 
     public String getChangeCard() {
@@ -294,7 +305,7 @@ public class PosController {
             sb.append(sl.getProductName()).append(" - ")
                     .append(sl.getUnitPrice()).append("€/u x ").append(sl.getAmount()).append("u = ")
                     .append(sl.getTotalPriceRaw()).append("€");
-            if (sl.esRegal()) sb.append(" (REGAL)");
+            if (sl.getProductRegal() != null) sb.append(" (REGAL)");
             sb.append("\n");
             if(sl.getDiscount().getTypeOfDiscount().equals("percentatge")) {
                 int amountDisc = sl.getDiscount().getAmountDiscount();
@@ -395,7 +406,7 @@ public class PosController {
     }
 
     private void afegirLiniaATiquet(StringBuilder sb, SaleLine sl){
-        if(!sl.esRegal()) {
+        if(sl.getProductRegal() == null) {
             sb.append(sl.getProductName());
             Product p = productsService.findByName(sl.getProductName());
             for (int i = sl.getProductName().length(); i < 24; ++i) {
@@ -728,14 +739,14 @@ public class PosController {
         if (currentSale == null) throw new IllegalStateException("No hi ha cap venta iniciada");
         Product p = productsService.findByBarCode(barCode);
         String nomP = p.getName();
-        boolean esRegal = esRegal(nomP);
-        boolean teRegals = teRegals(nomP);
+        boolean esRegal = esRegalType(nomP);
+        boolean teRegals = teRegalType(nomP);
         if (esRegal){
             boolean acabat = false;
             while(amount > 0 && !acabat){
-                currentSale.addRegal(p);
+                currentSale.addRegal(p, regal);
                 --amount;
-                if (!esRegal(nomP)) acabat = true;
+                if (!esRegalType(nomP)) acabat = true;
             }
         }
         else if (teRegals){
@@ -750,36 +761,27 @@ public class PosController {
     }
 
 
-    public boolean esRegal(String nomP) {
-        ArrayList<String> prods = new ArrayList<>();
-        for (int i = 0; i < CollectionRegal.size(); ++i) {
-            for (int j = 1; j < CollectionRegal.get(i).size(); ++j) {
-                if (nomP.equals(CollectionRegal.get(i).get(j))) {
-                    prods.add(CollectionRegal.get(i).get(0));
+    public void updateRegals(String nomP){
+        for (int i = 0; i < regalsByType.size(); ++i)
+            if (nomP.equals(regalsByType.get(i).nomP)){
+                updateRegalSale(regalsByType.get(i).type, regalsByType.get(i).nomP, regalsByType.get(i).amount);
+            }
+    }
+
+
+    public void updateRegalSale(String type, String nomP, int amount){
+        int count = amount - currentSale.getNumberOfRegals(nomP);
+        if (count > 0) {
+            for (SaleLine l : currentSale.getLines()) {
+                if (l.getProductRegal() == null){
+                    String nomRegal = l.getProductName();
+                    if (productsService.findByName(nomRegal).getTypesList().contains(type)){
+                        currentSale.setToRegal(nomRegal, count, nomP);
+                    }
                 }
+
             }
         }
-        if (currentSale.potAfegir(prods, nomP)) return true;
-        else return false;
-    }
-
-    public boolean teRegals(String nomP){
-        for (int i = 0; i < CollectionRegal.size(); ++i)
-            if (nomP.equals(CollectionRegal.get(i).get(0))) return true;
-        return false;
-    }
-
-    public void updateRegals(String nomP){
-        ArrayList<String> regalsP = new ArrayList<>();
-        for (int i = 0; i < CollectionRegal.size(); ++i) {
-            if (nomP.equals(CollectionRegal.get(i).get(0)))
-                for (int j = 1; j < CollectionRegal.get(i).size(); ++j) {
-                    regalsP.add(CollectionRegal.get(i).get(j));
-                }
-        }
-        regalsP.retainAll(currentSale.getNoRegals());
-        for (int i = 0; i < regalsP.size(); ++i)
-            currentSale.setToRegal(regalsP.get(i));
     }
 
     public void loginSistema(String nom, String password) {
@@ -813,6 +815,77 @@ public class PosController {
 
     public void adminCreateLogin(String tipusLogin, String name, String password) {
         usersCollection.adminAddLogin(tipusLogin, name, password);
+    }
+
+
+    public void afegirDescompteRegal(String nomProd, String nomRegals) {
+        String s = usersCollection.getTypeUsuariActiu();
+        if (s.equals("gestor")){
+            afegirRegalCollection(nomProd, nomRegals);
+        }
+        else showErrorGestor();
+    }
+
+    public void showErrorGestor(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Aquesta operació només la pot realitzar un gestor");
+        message = sb.toString();
+    }
+
+    public void afegirRegalByTypeAdmin(String nomP, int amount, String type){
+        DescompteRegal d = new DescompteRegal();
+        d.nomP = nomP;
+        d.amount = amount;
+        d.type = type;
+
+        regalsByType.add(d);
+    }
+
+    public void afegirRegalByType(String nomP, int amount, String type){
+        String s = usersCollection.getTypeUsuariActiu();
+        if (s.equals("gestor")){
+            afegirRegalByTypeAdmin(nomP, amount, type);
+        }
+        else showErrorGestor();
+    }
+
+    public String visualitzaRegalsTipus(){
+        int size = regalsByType.size();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Productes que tenen regals per tipus son:");
+        for (int i = 0; i < size; ++i) {
+            sb.append("\nPer la compra de ");
+            sb.append(regalsByType.get(i).nomP);
+            sb.append(" s'obté ");
+            sb.append(regalsByType.get(i).amount + " uds de productes de tipus ");
+            sb.append(regalsByType.get(i).type);
+
+        }
+        return sb.toString();
+    }
+
+    public boolean esRegalType(String nomP){
+        Product p = productsService.findByName(nomP);
+        int size = regalsByType.size();
+        for (int i = 0; i<size; ++i){
+            if (p.getTypesList().contains(regalsByType.get(i).type)){
+                if (currentSale.potAfegir(regalsByType.get(i).nomP, regalsByType.get(i).amount)){
+                    if (!nomP.equals(regalsByType.get(i).nomP)) {
+                        regal = regalsByType.get(i).nomP;
+                        return true;
+                    }
+
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public boolean teRegalType(String nomP){
+        for (int i = 0; i < regalsByType.size(); ++i)
+            if (nomP.equals(regalsByType.get(i).nomP)) return true;
+        return false;
     }
 }
 

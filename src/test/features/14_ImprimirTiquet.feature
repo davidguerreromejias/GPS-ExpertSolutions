@@ -14,8 +14,7 @@ Característica: Acabar una venta i imprimir el tiquet
     I que l'usuari Joan accedeix al sistema amb el password 123098463
     I que hi ha un descompte de tipus percentatge definit en el sistema pels productes de tipus transformer d'un 20%
     I que hi ha un descompte de tipus m x n on m és 2 i n és 1 definit en el sistema pels productes de tipus "platja"
-    I que hi ha un descompte de tipus regal que per la compra de Reproductor de música et regalen CD de música
-
+    I que hi ha un descompte definit de tipus regal que per la compra de Reproductor de música et regalen 1 uds de productes de tipus música
 
   Escenari: Cobrar una venta en metàlic
     Donat que hi ha una venta iniciada en data "2015-06-05"

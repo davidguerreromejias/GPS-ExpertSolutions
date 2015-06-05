@@ -153,4 +153,7 @@ public class UsersCollection {
         User u = new User(tipusLogin, name, password);
         usersList.add(u);
     }
+
+
+    public String getTypeUsuariActiu(){return activeUser_type;}
 }
