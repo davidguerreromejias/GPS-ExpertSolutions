@@ -92,3 +92,10 @@ Característica: Afegir un nou descompte al sistema
     Quan en Joan tanca sessió
     I afegeixo un descompte del tipus percentatge del 10% als productes de platja
     Aleshores obtinc un error que diu: "No hi ha cap sessio de gestor iniciada"
+
+  Escenari: Error perque no hi ha cap gestor que hagi iniciat sessió, sinoó que es un venedor
+    Donat que existeix un login de tipus venedor pel treballador anomenat Maria amb el password 987654321
+    Quan en Joan tanca sessió
+    I un usuari accedeix al sistema posa el nom d'usuari Maria amb el password 987654321
+    I afegeixo un descompte del tipus percentatge del 10% als productes de platja
+    Aleshores obtinc un error que diu: "No hi ha cap sessio de gestor iniciada"
