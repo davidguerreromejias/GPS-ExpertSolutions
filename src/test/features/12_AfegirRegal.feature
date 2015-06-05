@@ -107,5 +107,5 @@ Per la compra de Optimus Prime s'obté 1 uds de productes de tipus platja
     Aleshores la pantalla del client del tpv mostra
 
     """
- Encara hi pots afegir regals!
+ Falten 2 regals per afegir
     """

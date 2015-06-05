@@ -301,7 +301,8 @@ public class PosController {
             return welcomeMessage + "\nL'atén " + currentSale.getSaleAssistantName();
         }
         StringBuilder sb = new StringBuilder();
-        if (saleNotCompleted()) return "Encara hi pots afegir regals!";
+        int x = saleNotCompleted();
+        if (x > 0) return "Falten "+x+" regals per afegir";
         for (SaleLine sl : currentSale.getLines()) {
             sb.append(sl.getProductName()).append(" - ")
                     .append(sl.getUnitPrice()).append("€/u x ").append(sl.getAmount()).append("u = ")
@@ -894,7 +895,7 @@ public class PosController {
         return false;
     }
 
-    public boolean saleNotCompleted(){
+    public int saleNotCompleted(){
             int countRegals = 0;
             int countProds = 0;
             for (SaleLine l : currentSale.getLines()) {
@@ -905,8 +906,7 @@ public class PosController {
                     }
                 }
             }
-            if (countProds > countRegals) return true;
-            else return false;
+            return countProds-countRegals;
     }
 
 }
