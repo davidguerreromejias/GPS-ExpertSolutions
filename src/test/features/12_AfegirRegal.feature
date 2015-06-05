@@ -45,7 +45,8 @@ Per la compra de Optimus Prime s'obté 1 uds de productes de tipus platja
 
     """
     Optimus Prime 2 - 2€/u x 1u = 2€
-    Optimus Prime - 20€/u x 3u = 0€ (REGAL)
+    Optimus Prime - 20€/u x 3u = 60€
+    OFERTA REGAL: -60€
     ---
     Total: 2€
     """
@@ -57,7 +58,8 @@ Per la compra de Optimus Prime s'obté 1 uds de productes de tipus platja
 
     """
     Optimus Prime 2 - 2€/u x 1u = 2€
-    Optimus Prime - 20€/u x 3u = 0€ (REGAL)
+    Optimus Prime - 20€/u x 3u = 60€
+    OFERTA REGAL: -60€
     Optimus Prime - 20€/u x 2u = 40€
     ---
     Total: 42€
@@ -71,8 +73,10 @@ Per la compra de Optimus Prime s'obté 1 uds de productes de tipus platja
 
     """
     Optimus Prime 2 - 2€/u x 1u = 2€
-    Optimus Prime - 20€/u x 1u = 0€ (REGAL)
-    Optimus Prime 3 - 2€/u x 2u = 0€ (REGAL)
+    Optimus Prime - 20€/u x 1u = 20€
+    OFERTA REGAL: -20€
+    Optimus Prime 3 - 2€/u x 2u = 4€
+    OFERTA REGAL: -4€
     ---
     Total: 2€
     """
@@ -87,8 +91,10 @@ Per la compra de Optimus Prime s'obté 1 uds de productes de tipus platja
 
     """
     Optimus Prime 2 - 2€/u x 1u = 2€
-    Pelota de fútbol - 2€/u x 2u = 0€ (REGAL)
-    Optimus Prime 4 - 2€/u x 3u = 0€ (REGAL)
+    Pelota de fútbol - 2€/u x 2u = 4€
+    OFERTA REGAL: -4€
+    Optimus Prime 4 - 2€/u x 3u = 6€
+    OFERTA REGAL: -6€
     Optimus Prime 5 - 2€/u x 1u = 2€
     ---
     Total: 4€

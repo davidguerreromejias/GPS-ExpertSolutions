@@ -48,7 +48,6 @@ class SaleLine{
     }
 
     public int getTotalPriceRaw() {
-        if (ProductRegal != null) return 0;
         return unitPrice * amount;
     }
 

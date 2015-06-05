@@ -305,8 +305,12 @@ public class PosController {
             sb.append(sl.getProductName()).append(" - ")
                     .append(sl.getUnitPrice()).append("€/u x ").append(sl.getAmount()).append("u = ")
                     .append(sl.getTotalPriceRaw()).append("€");
-            if (sl.getProductRegal() != null) sb.append(" (REGAL)");
             sb.append("\n");
+
+            if (sl.getProductRegal() != null) {
+                sb.append("OFERTA REGAL: -");
+                sb.append(sl.getTotalPriceRaw() + "€\n");}
+
             if(sl.getDiscount().getTypeOfDiscount().equals("percentatge")) {
                 int amountDisc = sl.getDiscount().getAmountDiscount();
                 sb.append("-").append(amountDisc).append("% ").append("en ").append(sl.getDiscount().getConjuntAAplicar());
