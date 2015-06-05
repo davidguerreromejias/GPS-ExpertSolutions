@@ -99,3 +99,13 @@ Per la compra de Optimus Prime s'obté 1 uds de productes de tipus platja
     ---
     Total: 4€
     """
+
+  Escenari: Falten productes regals
+    Donat que un usuari a accedit al sistema amb el nom d'usuari Joan amb el password 173529363
+    Quan afegeixo el producte de codi de barres 2334577 a la venta amb quantitat 3
+    I afegeixo el producte de codi de barres 1234777 a la venta amb quantitat 1
+    Aleshores la pantalla del client del tpv mostra
+
+    """
+ Encara hi pots afegir regals!
+    """
