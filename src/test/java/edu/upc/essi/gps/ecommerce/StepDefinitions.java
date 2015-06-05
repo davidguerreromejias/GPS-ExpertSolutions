@@ -264,19 +264,16 @@ public class StepDefinitions {
     @Donat("^la botiga \"([^\"]*)\"")
     public void createHistorial(String shop) throws Throwable{
         this.posController = new PosController(shop);
-        //this.posController.createHistorial(shop);
     }
 
     @Quan("^a la botiga \"([^\"]*)\" la venta (\\d+) amb data \"([^\"]*)\" ha estat pagada i finalitzada")
     public void saveSale(int postNumber, String shop, String data){
         Sale x = new Sale(shop, postNumber, data);
-        //this.posController.setSaleHistorial(x, data);
-        assertEquals(postNumber, (int) this.posController.getVentesRealitzadesId(postNumber));
+        assertEquals(postNumber,this.posController.getVentesRealitzadesId(postNumber));
     }
 
     @Aleshores("^la venta (\\d+) es guarda al historial amb data \"([^\"]*)\"")
     public void saveInHistorial(int postNumber, String data){
-        //this.posController.setSaleHistorial(this.posController.getVentesRealitzadesSale(postNumber), data);
         assertEquals(postNumber, this.posController.getCurrentSale().getPosNumber());
         assertEquals(data, this.posController.getCurrentDate());
     }
